@@ -7,10 +7,10 @@
       <url>/2017/06/04/hexo-github/</url>
       <content type="html"><![CDATA[<p>之前一直就想搭建自己的个人博客了，但一直拖着没动手，昨天终于花了一天的时间完成了，从安装到域名注册到配置美化，但还没有完成，之后还会一直继续修改。</p>
 <p>关于搭建的教程网上各种教程，但是要学会分辨，有些是错的，这里我也不多说了，只说一下搭建过程中遇到的问题及解决方法。</p>
-<p>#1、port：4000端口打不开#<br>可能被占用了，改为5000。但并不是修改配置文件中的port参数，而是hexo\node_modules\hexo-server中的index.js，修改其中的port参数。</p>
-<p>#2、可以在本地预览但是不能同步到GitHub#<br>是deploy的空格问题，配置文件中所有的冒号后面都要加一个空格！ type: git， （不是GitHub）repository:git@github.com:qisenshi/qisenshi.github.io.git（也不是https那个url）</p>
-<p>#3、注册域名#<br>到阿里云去注册了一个域名，然后绑定你的github.io域名，然后解析域名，但坑爹的是.win域名后缀不能备案，除此之外很多国际域名都不可以备案，谨慎购买！</p>
-<p>#4、美化主题，修改配置文件#<br>浏览了一圈发现简介大方的next主题很不错，就clone了这个主题，而且这个主题有官方网站，之后的各种配置完全可以参考.<br>写文章问题。搭建完博客怎么写文章呢，新建的文章new出来都是md格式的，所以要下载一个md编辑器，这里推荐MarkdownPad，这里也有一些hexo的使用方法及markdown的写作方法，不难。</p>
+<p>#1、port：4000端口打不开<br>可能被占用了，改为5000。但并不是修改配置文件中的port参数，而是hexo\node_modules\hexo-server中的index.js，修改其中的port参数。</p>
+<p>#2、可以在本地预览但是不能同步到GitHub<br>是deploy的空格问题，配置文件中所有的冒号后面都要加一个空格！ type: git， （不是GitHub）repository:git@github.com:qisenshi/qisenshi.github.io.git（也不是https那个url）</p>
+<p>#3、注册域名<br>到阿里云去注册了一个域名，然后绑定你的github.io域名，然后解析域名，但坑爹的是.win域名后缀不能备案，除此之外很多国际域名都不可以备案，谨慎购买！</p>
+<p>#4、美化主题，修改配置文件<br>浏览了一圈发现简介大方的next主题很不错，就clone了这个主题，而且这个主题有官方网站，之后的各种配置完全可以参考.<br>写文章问题。搭建完博客怎么写文章呢，新建的文章new出来都是md格式的，所以要下载一个md编辑器，这里推荐MarkdownPad，这里也有一些hexo的使用方法及markdown的写作方法，不难。</p>
 <p>最后，附2个关于主题优化及hexo进阶的链接：点击打开链接，点击打开链接</p>
 <p>附上两个搭建过程写的还算清晰的博客：</p>
 <p><a href="http://blog.csdn.net/wkzd2016/article/details/70170786" target="_blank" rel="external">http://blog.csdn.net/wkzd2016/article/details/70170786</a></p>
@@ -23,14 +23,6 @@
             <tag> -hexo </tag>
             
         </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[my new artical]]></title>
-      <url>/2017/06/03/my-new-artical/</url>
-      <content type="html"></content>
-      
         
     </entry>
     
