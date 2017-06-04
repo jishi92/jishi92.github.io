@@ -1,45 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-    
-    <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>/2017/06/03/mytest/</url>
-      <content type="html"><![CDATA[<h3 id="This-is-just-a-test"><a href="#This-is-just-a-test" class="headerlink" title="This is just a test!"></a>This is just a test!</h3><p>我只能随便写点什么啦<br>问君能有几多愁<br>恰似一江春水向东流<br>人生得意须尽欢<br>莫使金樽空对月  </p>
- <a id="more"></a>
-<p>古来圣贤皆寂寞<br>惟有饮者留其名<br>长风破浪会有时<br>直挂云帆济苍海<br>我真是个出口成章的<br>诗人<br>啊<br>啊<br>哈哈哈哈哈哈哈哈</p>
-]]></content>
-      
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[使用hexo+github搭建个人博客遇到的问题及解决方法]]></title>
-      <url>/2016/06/04/hexo-github/</url>
-      <content type="html"><![CDATA[<p>之前一直就想搭建自己的个人博客了，但一直拖着没动手，昨天终于花了一天的时间完成了，从安装到域名注册到配置美化，但还没有完成，之后还会一直继续修改。</p>
-<p>关于搭建的教程网上各种教程，但是要学会分辨，有些是错的，这里我也不多说了，只说一下搭建过程中遇到的问题及解决方法。</p>
-<h1 id="1、port：4000端口打不开"><a href="#1、port：4000端口打不开" class="headerlink" title="1、port：4000端口打不开"></a><strong>1、port：4000端口打不开</strong></h1><p>1、可能被占用了，改为5000。但并不是修改配置文件中的port参数，而是hexo\node_modules\hexo-server中的index.js，修改其中的port参数。<br>2、可能是修改主题配置文件时产生错误无法显示，重新下载主题配置文件覆盖后得到解决。</p>
-<a id="more"></a>
-<h1 id="2、可以在本地预览但是不能同步到GitHub"><a href="#2、可以在本地预览但是不能同步到GitHub" class="headerlink" title="2、可以在本地预览但是不能同步到GitHub"></a><strong>2、可以在本地预览但是不能同步到GitHub</strong></h1><p>是deploy的空格问题，配置文件中所有的冒号后面都要加一个空格！ type: git， （不是GitHub）repository:git@github.com:qisenshi/qisenshi.github.io.git（也不是https那个url）</p>
-<h1 id="3、在本地预览正常但在Chrome上显示很错乱"><a href="#3、在本地预览正常但在Chrome上显示很错乱" class="headerlink" title="3、在本地预览正常但在Chrome上显示很错乱"></a><strong>3、在本地预览正常但在Chrome上显示很错乱</strong></h1><p>可能是main.css重写出现错误，删除public中的main.css后重新hexo g<br>,hexo d，问题解决</p>
-<h1 id="4、注册域名"><a href="#4、注册域名" class="headerlink" title="4、注册域名"></a><strong>4、注册域名</strong></h1><p>到阿里云去注册了一个域名，然后绑定你的github.io域名，然后解析域名，但坑爹的是.win域名后缀不能备案，除此之外很多国际域名都不可以备案，谨慎购买！</p>
-<h1 id="5、美化主题，修改配置文件"><a href="#5、美化主题，修改配置文件" class="headerlink" title="5、美化主题，修改配置文件"></a><strong>5、美化主题，修改配置文件</strong></h1><p>浏览了一圈发现简介大方的next主题很不错，就clone了这个主题，而且这个主题有<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">官方网站</a>，之后的各种配置完全可以参考.</p>
-<h1 id="6、写文章问题"><a href="#6、写文章问题" class="headerlink" title="6、写文章问题"></a><strong>6、写文章问题</strong></h1><p>搭建完博客怎么写文章呢，新建的文章new出来都是md格式的，所以要下载一个md编辑器，这里推荐MarkdownPad可以直接打开本地编辑，<a href="http://xianbai.me/learn-md/index.html" target="_blank" rel="external">Learning-Markdown (Markdown 入门参考)</a>也有一些markdown的写作方法，不难。</p>
-<p>最后，附个关于主题优化及hexo进阶的链接：<a href="http://www.wuxubj.cn/2016/08/Hexo-nexT-build-personal-blog/" target="_blank" rel="external">Hexo+nexT主题搭建个人博客</a></p>
-<p>再附上两个搭建过程写的还算清晰的博客：</p>
-<p><a href="http://blog.csdn.net/wkzd2016/article/details/70170786" target="_blank" rel="external">http://blog.csdn.net/wkzd2016/article/details/70170786</a></p>
-<p><a href="http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="external">http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html</a></p>
-]]></content>
-      
-        
-        <tags>
-            
-            <tag> -hexo </tag>
-            
-        </tags>
-        
-    </entry>
-    
-  
-  
+<search>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F06%2F03%2Fmytest%2F</url>
+    <content type="text"><![CDATA[This is just a test!我只能随便写点什么啦问君能有几多愁恰似一江春水向东流人生得意须尽欢莫使金樽空对月 古来圣贤皆寂寞惟有饮者留其名长风破浪会有时直挂云帆济苍海我真是个出口成章的诗人啊啊哈哈哈哈哈哈哈哈]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[使用hexo+github搭建个人博客遇到的问题及解决方法]]></title>
+    <url>%2F2016%2F06%2F04%2Fhexo-github%2F</url>
+    <content type="text"><![CDATA[之前一直就想搭建自己的个人博客了，但一直拖着没动手，昨天终于花了一天的时间完成了，从安装到域名注册到配置美化，但还没有完成，之后还会一直继续修改。 关于搭建的教程网上各种教程，但是要学会分辨，有些是错的，这里我也不多说了，只说一下搭建过程中遇到的问题及解决方法。 1、port：4000端口打不开1、可能被占用了，改为5000。但并不是修改配置文件中的port参数，而是hexo\node_modules\hexo-server中的index.js，修改其中的port参数。2、可能是修改主题配置文件时产生错误无法显示，重新下载主题配置文件覆盖后得到解决。 2、可以在本地预览但是不能同步到GitHub是deploy的空格问题，配置文件中所有的冒号后面都要加一个空格！ type: git， （不是GitHub）repository:git@github.com:qisenshi/qisenshi.github.io.git（也不是https那个url） 3、在本地预览正常但在Chrome上显示很错乱可能是main.css重写出现错误，删除public中的main.css后重新hexo g,hexo d，问题解决 4、注册域名到阿里云去注册了一个域名，然后绑定你的github.io域名，然后解析域名，但坑爹的是.win域名后缀不能备案，除此之外很多国际域名都不可以备案，谨慎购买！ 5、美化主题，修改配置文件浏览了一圈发现简介大方的next主题很不错，就clone了这个主题，而且这个主题有官方网站，之后的各种配置完全可以参考. 6、写文章问题搭建完博客怎么写文章呢，新建的文章new出来都是md格式的，所以要下载一个md编辑器，这里推荐MarkdownPad可以直接打开本地编辑，Learning-Markdown (Markdown 入门参考)也有一些markdown的写作方法，不难。 最后，附个关于主题优化及hexo进阶的链接：Hexo+nexT主题搭建个人博客 再附上两个搭建过程写的还算清晰的博客： http://blog.csdn.net/wkzd2016/article/details/70170786 http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html]]></content>
+      <tags>
+        <tag>-hexo</tag>
+      </tags>
+  </entry>
 </search>
