@@ -92,9 +92,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用hexo+github搭建个人博客遇到的问题及解决方法">
 <meta property="og:url" content="http://qisens.win/2017/06/04/hexo-github/index.html">
-<meta property="og:site_name" content="其实你的征程是星辰大海">
+<meta property="og:site_name" content="你的征程是星辰大海">
 <meta property="og:description" content="之前一直就想搭建自己的个人博客了，但一直拖着没动手，昨天终于花了一天的时间完成了，从安装到域名注册到配置美化，但还没有完成，之后还会一直继续修改。 关于搭建的教程网上各种教程，但是要学会分辨，有些是错的，这里我也不多说了，只说一下搭建过程中遇到的问题及解决方法。 1、port：4000端口打不开1、可能被占用了，改为5000。但并不是修改配置文件中的port参数，而是hexo\node_modul">
-<meta property="og:updated_time" content="2017-06-04T09:59:36.510Z">
+<meta property="og:updated_time" content="2017-06-04T13:12:53.069Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用hexo+github搭建个人博客遇到的问题及解决方法">
 <meta name="twitter:description" content="之前一直就想搭建自己的个人博客了，但一直拖着没动手，昨天终于花了一天的时间完成了，从安装到域名注册到配置美化，但还没有完成，之后还会一直继续修改。 关于搭建的教程网上各种教程，但是要学会分辨，有些是错的，这里我也不多说了，只说一下搭建过程中遇到的问题及解决方法。 1、port：4000端口打不开1、可能被占用了，改为5000。但并不是修改配置文件中的port参数，而是hexo\node_modul">
@@ -106,7 +106,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -131,7 +131,7 @@
 
 
 
-  <title> 使用hexo+github搭建个人博客遇到的问题及解决方法 | 其实你的征程是星辰大海 </title>
+  <title> 使用hexo+github搭建个人博客遇到的问题及解决方法 | 你的征程是星辰大海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -156,7 +156,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -167,7 +167,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">其实你的征程是星辰大海</span>
+        <span class="site-title">你的征程是星辰大海</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -279,7 +279,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="其实你的征程是星辰大海">
+      <meta itemprop="name" content="你的征程是星辰大海">
     </span>
 
     
@@ -349,9 +349,11 @@
 <h1 id="2、可以在本地预览但是不能同步到GitHub"><a href="#2、可以在本地预览但是不能同步到GitHub" class="headerlink" title="2、可以在本地预览但是不能同步到GitHub"></a><strong>2、可以在本地预览但是不能同步到GitHub</strong></h1><p>是deploy的空格问题，配置文件中所有的冒号后面都要加一个空格！ type: git， （不是GitHub）repository:git@github.com:qisenshi/qisenshi.github.io.git（也不是https那个url）</p>
 <h1 id="3、在本地预览正常但在Chrome上显示很错乱"><a href="#3、在本地预览正常但在Chrome上显示很错乱" class="headerlink" title="3、在本地预览正常但在Chrome上显示很错乱"></a><strong>3、在本地预览正常但在Chrome上显示很错乱</strong></h1><p>可能是main.css重写出现错误，删除public中的main.css后重新hexo g<br>,hexo d，问题解决</p>
 <h1 id="4、注册域名"><a href="#4、注册域名" class="headerlink" title="4、注册域名"></a><strong>4、注册域名</strong></h1><p>到阿里云去注册了一个域名，然后绑定你的github.io域名，然后解析域名，但坑爹的是.win域名后缀不能备案，除此之外很多国际域名都不可以备案，谨慎购买！</p>
-<h1 id="5、美化主题，修改配置文件"><a href="#5、美化主题，修改配置文件" class="headerlink" title="5、美化主题，修改配置文件"></a><strong>5、美化主题，修改配置文件</strong></h1><p>浏览了一圈发现简介大方的next主题很不错，就clone了这个主题，而且这个主题有官方网站，之后的各种配置完全可以参考.<br>写文章问题。搭建完博客怎么写文章呢，新建的文章new出来都是md格式的，所以要下载一个md编辑器，这里推荐MarkdownPad，这里也有一些hexo的使用方法及markdown的写作方法，不难。</p>
-<p>最后，附2个关于主题优化及hexo进阶的链接：点击打开链接，点击打开链接</p>
-<p>附上两个搭建过程写的还算清晰的博客：</p>
+<h1 id="5、美化主题，修改配置文件"><a href="#5、美化主题，修改配置文件" class="headerlink" title="5、美化主题，修改配置文件"></a><strong>5、美化主题，修改配置文件</strong></h1><p>浏览了一圈发现简介大方的next主题很不错，就clone了这个主题，而且这个主题有<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">官方网站</a>，之后的各种配置完全可以参考.</p>
+<h1 id="6、写文章问题"><a href="#6、写文章问题" class="headerlink" title="6、写文章问题"></a><strong>6、写文章问题</strong></h1><p>搭建完博客怎么写文章呢，新建的文章new出来都是md格式的，所以要下载一个md编辑器，这里推荐MarkdownPad可以直接打开本地编辑，<a href="http://xianbai.me/learn-md/index.html" target="_blank" rel="external">Learning-Markdown (Markdown 入门参考)</a>也有一些markdown的写作方法，不难。</p>
+<h1 id="7、搜索引擎验证网站"><a href="#7、搜索引擎验证网站" class="headerlink" title="7、搜索引擎验证网站"></a><strong>7、搜索引擎验证网站</strong></h1><p>下载HTML文件验证的时候明明可以打开却一直提示验证失败，原来是上传GitHub的过程中会自动添加一些东西，直接去GitHub上修改，只保留HTML中的内容，然后验证成功完成添加。</p>
+<p>最后，附个关于主题优化及hexo进阶的链接：<a href="http://www.wuxubj.cn/2016/08/Hexo-nexT-build-personal-blog/" target="_blank" rel="external">Hexo+nexT主题搭建个人博客</a></p>
+<p>再附上两个搭建过程写的还算清晰的博客：</p>
 <p><a href="http://blog.csdn.net/wkzd2016/article/details/70170786" target="_blank" rel="external">http://blog.csdn.net/wkzd2016/article/details/70170786</a></p>
 <p><a href="http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="external">http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html</a></p>
 
@@ -405,6 +407,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/07/machine-learning/" rel="prev" title="十大机器学习算法介绍（一）">
+                十大机器学习算法介绍（一） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -476,7 +482,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -489,7 +495,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -544,7 +550,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、port：4000端口打不开"><span class="nav-number">1.</span> <span class="nav-text">1、port：4000端口打不开</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、可以在本地预览但是不能同步到GitHub"><span class="nav-number">2.</span> <span class="nav-text">2、可以在本地预览但是不能同步到GitHub</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、在本地预览正常但在Chrome上显示很错乱"><span class="nav-number">3.</span> <span class="nav-text">3、在本地预览正常但在Chrome上显示很错乱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、注册域名"><span class="nav-number">4.</span> <span class="nav-text">4、注册域名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5、美化主题，修改配置文件"><span class="nav-number">5.</span> <span class="nav-text">5、美化主题，修改配置文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、port：4000端口打不开"><span class="nav-number">1.</span> <span class="nav-text">1、port：4000端口打不开</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、可以在本地预览但是不能同步到GitHub"><span class="nav-number">2.</span> <span class="nav-text">2、可以在本地预览但是不能同步到GitHub</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、在本地预览正常但在Chrome上显示很错乱"><span class="nav-number">3.</span> <span class="nav-text">3、在本地预览正常但在Chrome上显示很错乱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、注册域名"><span class="nav-number">4.</span> <span class="nav-text">4、注册域名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5、美化主题，修改配置文件"><span class="nav-number">5.</span> <span class="nav-text">5、美化主题，修改配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6、写文章问题"><span class="nav-number">6.</span> <span class="nav-text">6、写文章问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7、搜索引擎验证网站"><span class="nav-number">7.</span> <span class="nav-text">7、搜索引擎验证网站</span></a></li></ol></div>
             
 
           </div>
