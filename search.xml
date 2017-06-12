@@ -1,24 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title><![CDATA[十大机器学习算法介绍（一）]]></title>
-    <url>%2F2017%2F06%2F07%2Fmachine-learning%2F</url>
-    <content type="text"><![CDATA[机器学习算法分为三类：有监督学习、无监督学习、增强学习。有监督学习需要标识数据（用于训练，即有正例又有负例），无监督学习不需要标识数据，增强学习介于两者之间（有部分标识数据）。下面将向大家具体介绍机器学习中10大算法（主要介绍有监督、无监督两类）。 #监督学习 ##1、 决策树决策树是一种树形结构，为人们提供决策依据，决策树可以用来回答yes和no问题，它通过树形结构将各种情况组合都表示出来，每个分支表示一次选择（选择yes还是no），直到所有选择都进行完毕，最终给出正确答案。定义：决策树（decision tree）是一个树结构（可以是二叉树或非二叉树）。其每个非叶节点表示一个特征属性上的测试，每个分支代表这个特征属性在某个值域上的输出，而每个叶节点存放一个类别。使用决策树进行决策的过程就是从根节点开始，测试待分类项中相应的特征属性，并按照其值选择输出分支，直到到达叶子节点，将叶子节点存放的类别作为决策结果。构造决策树的关键步骤是分裂属性。所谓分裂属性就是在某个节点处按照某一特征属性的不同划分构造不同的分支，其目标是让各个分裂子集尽可能地“纯”。尽可能“纯”就是尽量让一个分裂子集中待分类项属于同一类别。分裂属性分为三种不同的情况： 1、属性是离散值且不要求生成二叉决策树。此时用属性的每一个划分作为一个分支。 2、属性是离散值且要求生成二叉决策树。此时使用属性划分的一个子集进行测试，按照“属于此子集”和“不属于此子集”分成两个分支。 3、属性是连续值。此时确定一个值作为分裂点split_point，按照&gt;split_point和&lt;=split_point生成两个分支。 ###ID3信息增益（information gain）表示得知特征X的信息而使得类Y的信息的不确定性减少的程度。定义：特征A对训练数据集D的信息增益g（D,A），定义集合D的经验熵H（D）与特征A给定条件下D的经验条件熵H（D|A）之差。一般地，熵与条件熵之差成为互信息（mutual information），决策树学习中的信息增益等价于训练数据集中类与特征的互信息。ID3算法的核心是在决策树各个子结点上应用信息增益准则选择特征，递归的构建决策树。具体方法是:从根结点开始，对结点计算所有可能的特征的信息增益，选择信息增益最大的特征作为结点的特征，由该特征的不同取值建立子结点；再对子结点递归调用以上方法，构建决策树。直到所有特征的信息增益均很小或没有特征可以选择为止。 ###C4.5ID3算法存在一个问题，就是偏向于多值属性，例如，如果存在唯一标识属性ID，则ID3会选择它作为分裂属性，这样虽然使得划分充分纯净，但这种划分对分类几乎毫无用处。ID3的后继算法C4.5使用增益率（gain ratio）的信息增益扩充，试图克服这个偏倚。C4.5算法首先定义了“分裂信息”，其定义可以表示成： 其中各符号意义和ID3算法相同，然后增益率定义为： C4.5选择具有最大增益率的属性作为分裂属性，其具体应用于ID3类似。 2、 朴素贝叶斯分类器]]></content>
-      <tags>
-        <tag>-machine learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[使用hexo+github搭建个人博客遇到的问题及解决方法]]></title>
-    <url>%2F2017%2F06%2F04%2Fhexo-github%2F</url>
-    <content type="text"><![CDATA[之前一直就想搭建自己的个人博客了，但一直拖着没动手，昨天终于花了一天的时间完成了，从安装到域名注册到配置美化，但还没有完成，之后还会一直继续修改。 关于搭建的教程网上各种教程，但是要学会分辨，有些是错的，这里我也不多说了，只说一下搭建过程中遇到的问题及解决方法。 1、port：4000端口打不开1、可能被占用了，改为5000。但并不是修改配置文件中的port参数，而是hexo\node_modules\hexo-server中的index.js，修改其中的port参数。2、可能是修改主题配置文件时产生错误无法显示，重新下载主题配置文件覆盖后得到解决。 2、可以在本地预览但是不能同步到GitHub是deploy的空格问题，配置文件中所有的冒号后面都要加一个空格！ type: git， （不是GitHub）repository:git@github.com:qisenshi/qisenshi.github.io.git（也不是https那个url） 3、在本地预览正常但在Chrome上显示很错乱可能是main.css重写出现错误，删除public中的main.css后重新hexo g,hexo d，问题解决 4、注册域名到阿里云去注册了一个域名，然后绑定你的github.io域名，然后解析域名，但坑爹的是.win域名后缀不能备案，除此之外很多国际域名都不可以备案，谨慎购买！ 5、美化主题，修改配置文件浏览了一圈发现简介大方的next主题很不错，就clone了这个主题，而且这个主题有官方网站，之后的各种配置完全可以参考. 6、写文章问题搭建完博客怎么写文章呢，新建的文章new出来都是md格式的，所以要下载一个md编辑器，这里推荐MarkdownPad可以直接打开本地编辑，Learning-Markdown (Markdown 入门参考)也有一些markdown的写作方法，不难。 7、搜索引擎验证网站下载HTML文件验证的时候明明可以打开却一直提示验证失败，原来是上传GitHub的过程中会自动添加一些东西，直接去GitHub上修改，只保留HTML中的内容，然后验证成功完成添加。 最后，附个关于主题优化及hexo进阶的链接：Hexo+nexT主题搭建个人博客 再附上两个搭建过程写的还算清晰的博客： http://blog.csdn.net/wkzd2016/article/details/70170786 http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html]]></content>
-      <tags>
-        <tag>-hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2017%2F06%2F03%2Fmytest%2F</url>
-    <content type="text"><![CDATA[This is just a test!我只能随便写点什么啦问君能有几多愁恰似一江春水向东流人生得意须尽欢莫使金樽空对月 古来圣贤皆寂寞惟有饮者留其名长风破浪会有时直挂云帆济苍海我真是个出口成章的诗人啊啊哈哈哈哈哈哈哈哈]]></content>
-  </entry>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[十大机器学习算法介绍（一）]]></title>
+      <url>/title.html</url>
+      <content type="html"><![CDATA[<p><em>机器学习算法分为三类：有监督学习、无监督学习、增强学习。有监督学习需要标识数据（用于训练，即有正例又有负例），无监督学习不需要标识数据，增强学习介于两者之间（有部分标识数据）。下面将向大家具体介绍机器学习中10大算法（主要介绍有监督、无监督两类）。</em></p>
+<h1 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h1><h2 id="1、-决策树"><a href="#1、-决策树" class="headerlink" title="1、 决策树"></a>1、 决策树</h2><p>决策树是一种树形结构，为人们提供决策依据，决策树可以用来回答yes和no问题，它通过树形结构将各种情况组合都表示出来，每个分支表示一次选择（选择yes还是no），直到所有选择都进行完毕，最终给出正确答案。<br><a id="more"></a><br>定义：决策树（decision tree）是一个树结构（可以是二叉树或非二叉树）。其每个非叶节点表示一个特征属性上的测试，每个分支代表这个特征属性在某个值域上的输出，而每个叶节点存放一个类别。使用决策树进行决策的过程就是从根节点开始，测试待分类项中相应的特征属性，并按照其值选择输出分支，直到到达叶子节点，将叶子节点存放的类别作为决策结果。<br><img src="http://mmbiz.qpic.cn/mmbiz_png/ymzg67DoLHIibiaggodZ5xoXoNhiaoREkRr7hmd5EFRckgogP5d13XsSeee4LHU5Rz7hfc1pKZia8LYzBZVVGjnIibA/0?tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="Alt text"><br>构造决策树的关键步骤是分裂属性。所谓分裂属性就是在某个节点处按照某一特征属性的不同划分构造不同的分支，其目标是让各个分裂子集尽可能地“纯”。尽可能“纯”就是尽量让一个分裂子集中待分类项属于同一类别。分裂属性分为三种不同的情况：</p>
+<p>   1、属性是离散值且不要求生成二叉决策树。此时用属性的每一个划分作为一个分支。</p>
+<p>   2、属性是离散值且要求生成二叉决策树。此时使用属性划分的一个子集进行测试，按照“属于此子集”和“不属于此子集”分成两个分支。</p>
+<p>   3、属性是连续值。此时确定一个值作为分裂点split_point，按照&gt;split_point和&lt;=split_point生成两个分支。</p>
+<h3 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h3><p>信息增益（information gain）表示得知特征X的信息而使得类Y的信息的不确定性减少的程度。<br>定义：特征A对训练数据集D的信息增益g（D,A），定义集合D的经验熵H（D）与特征A给定条件下D的经验条件熵H（D|A）之差。一般地，熵与条件熵之差成为互信息（mutual information），决策树学习中的信息增益等价于训练数据集中类与特征的互信息。<br>ID3算法的核心是在决策树各个子结点上应用信息增益准则选择特征，递归的构建决策树。<br>具体方法是:从根结点开始，对结点计算所有可能的特征的信息增益，选择信息增益最大的特征作为结点的特征，由该特征的不同取值建立子结点；再对子结点递归调用以上方法，构建决策树。直到所有特征的信息增益均很小或没有特征可以选择为止。  </p>
+<h3 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h3><p>ID3算法存在一个问题，就是偏向于多值属性，例如，如果存在唯一标识属性ID，则ID3会选择它作为分裂属性，这样虽然使得划分充分纯净，但这种划分对分类几乎毫无用处。ID3的后继算法C4.5使用增益率（gain ratio）的信息增益扩充，试图克服这个偏倚。<br>C4.5算法首先定义了“分裂信息”，其定义可以表示成：</p>
+<p><center><img src="http://img.blog.csdn.net/20160225163257252?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="Alt text"></center><br>其中各符号意义和ID3算法相同，然后增益率定义为：  </p>
+<p><center><img src="http://img.blog.csdn.net/20160225163349611?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="Alt text"></center><br>C4.5选择具有最大增益率的属性作为分裂属性，其具体应用于ID3类似。</p>
+<h2 id="2、-朴素贝叶斯分类器"><a href="#2、-朴素贝叶斯分类器" class="headerlink" title="2、 朴素贝叶斯分类器"></a>2、 朴素贝叶斯分类器</h2>]]></content>
+      
+        
+        <tags>
+            
+            <tag> -machine learning </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[使用hexo+github搭建个人博客遇到的问题及解决方法]]></title>
+      <url>/title.html</url>
+      <content type="html"><![CDATA[<p>之前一直就想搭建自己的个人博客了，但一直拖着没动手，昨天终于花了一天的时间完成了，从安装到域名注册到配置美化，但还没有完成，之后还会一直继续修改。</p>
+<p>关于搭建的教程网上各种教程，但是要学会分辨，有些是错的，这里我也不多说了，只说一下搭建过程中遇到的问题及解决方法。</p>
+<h1 id="1、port：4000端口打不开"><a href="#1、port：4000端口打不开" class="headerlink" title="1、port：4000端口打不开"></a><strong>1、port：4000端口打不开</strong></h1><p>1、可能被占用了，改为5000。但并不是修改配置文件中的port参数，而是hexo\node_modules\hexo-server中的index.js，修改其中的port参数。<br>2、可能是修改主题配置文件时产生错误无法显示，重新下载主题配置文件覆盖后得到解决。</p>
+<a id="more"></a>
+<h1 id="2、可以在本地预览但是不能同步到GitHub"><a href="#2、可以在本地预览但是不能同步到GitHub" class="headerlink" title="2、可以在本地预览但是不能同步到GitHub"></a><strong>2、可以在本地预览但是不能同步到GitHub</strong></h1><p>是deploy的空格问题，配置文件中所有的冒号后面都要加一个空格！ type: git， （不是GitHub）repository:git@github.com:qisenshi/qisenshi.github.io.git（也不是https那个url）</p>
+<h1 id="3、在本地预览正常但在Chrome上显示很错乱"><a href="#3、在本地预览正常但在Chrome上显示很错乱" class="headerlink" title="3、在本地预览正常但在Chrome上显示很错乱"></a><strong>3、在本地预览正常但在Chrome上显示很错乱</strong></h1><p>可能是main.css重写出现错误，删除public中的main.css后重新hexo g<br>,hexo d，问题解决</p>
+<h1 id="4、注册域名"><a href="#4、注册域名" class="headerlink" title="4、注册域名"></a><strong>4、注册域名</strong></h1><p>到阿里云去注册了一个域名，然后绑定你的github.io域名，然后解析域名，但坑爹的是.win域名后缀不能备案，除此之外很多国际域名都不可以备案，谨慎购买！</p>
+<h1 id="5、美化主题，修改配置文件"><a href="#5、美化主题，修改配置文件" class="headerlink" title="5、美化主题，修改配置文件"></a><strong>5、美化主题，修改配置文件</strong></h1><p>浏览了一圈发现简介大方的next主题很不错，就clone了这个主题，而且这个主题有<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">官方网站</a>，之后的各种配置完全可以参考.</p>
+<h1 id="6、写文章问题"><a href="#6、写文章问题" class="headerlink" title="6、写文章问题"></a><strong>6、写文章问题</strong></h1><p>搭建完博客怎么写文章呢，新建的文章new出来都是md格式的，所以要下载一个md编辑器，这里推荐MarkdownPad可以直接打开本地编辑，<a href="http://xianbai.me/learn-md/index.html" target="_blank" rel="external">Learning-Markdown (Markdown 入门参考)</a>也有一些markdown的写作方法，不难。</p>
+<h1 id="7、搜索引擎验证网站"><a href="#7、搜索引擎验证网站" class="headerlink" title="7、搜索引擎验证网站"></a><strong>7、搜索引擎验证网站</strong></h1><p>下载HTML文件验证的时候明明可以打开却一直提示验证失败，原来是上传GitHub的过程中会自动添加一些东西，直接去GitHub上修改，只保留HTML中的内容，然后验证成功完成添加。</p>
+<p>最后，附个关于主题优化及hexo进阶的链接：<a href="http://www.wuxubj.cn/2016/08/Hexo-nexT-build-personal-blog/" target="_blank" rel="external">Hexo+nexT主题搭建个人博客</a></p>
+<p>再附上两个搭建过程写的还算清晰的博客：</p>
+<p><a href="http://blog.csdn.net/wkzd2016/article/details/70170786" target="_blank" rel="external">http://blog.csdn.net/wkzd2016/article/details/70170786</a></p>
+<p><a href="http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="external">http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html</a></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> -hexo </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
 </search>
