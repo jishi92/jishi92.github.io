@@ -2,23 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://qisens.win/2017/machine-learning.html</loc>
+    
+    <lastmod>2017-06-16T14:28:57.035Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://qisens.win/about/index.html</loc>
     
     <lastmod>2017-06-16T14:22:42.832Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://qisens.win/2017/machine-learning.html</loc>
-    
-    <lastmod>2017-06-15T14:58:33.425Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://qisens.win/2017/inline-function.html</loc>
-    
-    <lastmod>2017-06-15T14:52:45.841Z</lastmod>
     
   </url>
   

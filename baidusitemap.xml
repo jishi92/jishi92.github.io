@@ -3,10 +3,9 @@
 
 
     
-    
   <url>
     <loc>http://qisens.win/2017/machine-learning.html</loc>
-    <lastmod>2017-06-15T14:58:33.425Z</lastmod>
+    <lastmod>2017-06-16T14:28:57.035Z</lastmod>
     <data>
         <display>
         <title></title>
@@ -19,22 +18,6 @@
     </url>
 
     
-  <url>
-    <loc>http://qisens.win/2017/inline-function.html</loc>
-    <lastmod>2017-06-15T14:52:45.841Z</lastmod>
-    <data>
-        <display>
-        <title>C++之inline内联函数浅析</title>
-        <pubTime>2017-06-15T14:29:54.000Z</pubTime>
-        
-        <tag>-C++ -inline</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>http://qisens.win/2017/hexo-github.html</loc>
