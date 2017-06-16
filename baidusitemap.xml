@@ -3,9 +3,25 @@
 
 
     
+    
   <url>
-    <loc>http://qisens.win/title.html</loc>
-    <lastmod>2017-06-15T14:49:38.748Z</lastmod>
+    <loc>http://qisens.win/2017/machine-learning.html</loc>
+    <lastmod>2017-06-15T14:58:33.425Z</lastmod>
+    <data>
+        <display>
+        <title></title>
+        <pubTime>2017-06-07T12:34:15.114Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/inline-function.html</loc>
+    <lastmod>2017-06-15T14:52:45.841Z</lastmod>
     <data>
         <display>
         <title>C++之inline内联函数浅析</title>
@@ -21,24 +37,7 @@
 
     
   <url>
-    <loc>http://qisens.win/title.html</loc>
-    <lastmod>2017-06-12T06:11:46.930Z</lastmod>
-    <data>
-        <display>
-        <title>十大机器学习算法介绍（一）</title>
-        <pubTime>2017-06-07T12:34:15.000Z</pubTime>
-        
-        <tag>-machine learning</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://qisens.win/title.html</loc>
+    <loc>http://qisens.win/2017/hexo-github.html</loc>
     <lastmod>2017-06-04T13:12:53.069Z</lastmod>
     <data>
         <display>
