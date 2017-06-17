@@ -4,13 +4,49 @@
 
     
   <url>
-    <loc>http://qisens.win/2017/machine-learning.html</loc>
-    <lastmod>2017-06-16T14:28:57.035Z</lastmod>
+    <loc>http://qisens.win/2017/struct-class.html</loc>
+    <lastmod>2017-06-17T07:34:54.508Z</lastmod>
     <data>
         <display>
-        <title></title>
-        <pubTime>2017-06-07T12:34:15.114Z</pubTime>
+        <title>C++中struct和class的区别</title>
+        <pubTime>2017-06-17T06:56:17.000Z</pubTime>
         
+        <tag>-C++</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/machine-learning.html</loc>
+    <lastmod>2017-06-16T14:36:58.104Z</lastmod>
+    <data>
+        <display>
+        <title>十大机器学习算法介绍（一）</title>
+        <pubTime>2017-06-07T14:29:54.000Z</pubTime>
+        
+        <tag>-machine learning</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/inline-function.html</loc>
+    <lastmod>2017-06-16T14:35:05.203Z</lastmod>
+    <data>
+        <display>
+        <title>C++之inline内联函数浅析</title>
+        <pubTime>2017-06-15T14:29:54.000Z</pubTime>
+        
+        <tag>-C++</tag>
+         
          
            
         </display>
