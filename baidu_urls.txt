@@ -1,4 +1,6 @@
-http://qisens.win/2017/struct-class.html
-http://qisens.win/2017/inline-function.html
-http://qisens.win/2017/machine-learning.html
-http://qisens.win/2017/hexo-github.html
+http://qisens.win/2017/iterator.html
+http://qisens.win/2017/structclass.html
+http://qisens.win/2017/ML.html
+http://qisens.win/2017/hexo.html
+http://qisens.win/2017/BST.html
+http://qisens.win/2017/inline.html

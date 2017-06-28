@@ -1,0 +1,798 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="-C++," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="泛型编程 STL是一种泛型编程。面向对象编程关注的是编程的数据方面，而泛型编程关注的是算法。它们之间的共同点是抽象和创建可重用代码，但理念决然不同。      泛型编程旨在编写独立于数据类型的代码，在C++中完成通用程序的工具是模板，模板使得算法独立于存储的数据类型，而迭代器使算法独立于使用的容器的类型。">
+<meta name="keywords" content="-C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析C++之STL迭代器">
+<meta property="og:url" content="http://qisens.win/2017/iterator.html">
+<meta property="og:site_name" content="你的征程是星辰大海">
+<meta property="og:description" content="泛型编程 STL是一种泛型编程。面向对象编程关注的是编程的数据方面，而泛型编程关注的是算法。它们之间的共同点是抽象和创建可重用代码，但理念决然不同。      泛型编程旨在编写独立于数据类型的代码，在C++中完成通用程序的工具是模板，模板使得算法独立于存储的数据类型，而迭代器使算法独立于使用的容器的类型。">
+<meta property="og:image" content="http://img.blog.csdn.net/20130728085616968?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="http://img.blog.csdn.net/20130724190040546?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="http://img.blog.csdn.net/20130724190057312?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="http://img.blog.csdn.net/20130724190108671?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="http://img.blog.csdn.net/20130724190123828?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:updated_time" content="2017-06-27T14:17:03.111Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅析C++之STL迭代器">
+<meta name="twitter:description" content="泛型编程 STL是一种泛型编程。面向对象编程关注的是编程的数据方面，而泛型编程关注的是算法。它们之间的共同点是抽象和创建可重用代码，但理念决然不同。      泛型编程旨在编写独立于数据类型的代码，在C++中完成通用程序的工具是模板，模板使得算法独立于存储的数据类型，而迭代器使算法独立于使用的容器的类型。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20130728085616968?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://qisens.win/2017/iterator.html"/>
+
+
+
+
+
+  <title> 浅析C++之STL迭代器 | 你的征程是星辰大海 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">你的征程是星辰大海</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">在路上</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/iterator.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                浅析C++之STL迭代器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-27T20:57:28+08:00">
+                2017-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="泛型编程"><a href="#泛型编程" class="headerlink" title="泛型编程"></a>泛型编程</h1><blockquote>
+<p>STL是一种泛型编程。面向对象编程关注的是编程的数据方面，而泛型编程关注的是算法。它们之间的共同点是抽象和创建可重用代码，但理念决然不同。    </p>
+</blockquote>
+<p>泛型编程旨在编写独立于数据类型的代码，在C++中完成通用程序的工具是模板，模板使得算法独立于存储的数据类型，而迭代器使算法独立于使用的容器的类型。 </p>
+<a id="more"></a>
+<h1 id="什么是迭代器"><a href="#什么是迭代器" class="headerlink" title="什么是迭代器"></a>什么是迭代器</h1><p>迭代器可以理解为一种泛型的指针，可以指向容器中的任一位置；而普通指针可以指向内存中的任一地址。<br>STL的每一个容器类模版中，都定义了一组对应的迭代器类。使用迭代器，算法函数可以访问容器中指定位置的元素，而无需关心元素的具体类型。<br>泛型编程中的函数不仅独立于容器中存储的数据类型，而且独立于容器本身的数据结构。模板提供了存储在容器中的数据类型的通用表示，因此，还需要遍历容器中的值的通用表示，迭代器正是这样的通用表示。<br>比如我们可以创建一个find()函数，不仅可以查找数组，链表，也可以查找其他的容器类型。</p>
+<h1 id="迭代器的用法"><a href="#迭代器的用法" class="headerlink" title="迭代器的用法"></a>迭代器的用法</h1><h2 id="1-每种容器类型都定义了自己的迭代器类型，如vector"><a href="#1-每种容器类型都定义了自己的迭代器类型，如vector" class="headerlink" title="(1) 每种容器类型都定义了自己的迭代器类型，如vector:"></a>(1) 每种容器类型都定义了自己的迭代器类型，如vector:</h2><p><code>vector&lt;int&gt;::iterator iter;</code><br>这条语句定义了一个名为iter的变量，它的数据类型是由vector<int>定义的iterator类型。  </int></p>
+<h2 id="2-使用迭代器读取vector中的每一个元素："><a href="#2-使用迭代器读取vector中的每一个元素：" class="headerlink" title="(2) 使用迭代器读取vector中的每一个元素："></a>(2) 使用迭代器读取vector中的每一个元素：</h2><pre><code>vector&lt;int&gt; ivec(10,1);
+for(vector&lt;int&gt;::iterator iter=ivec.begin();iter!=ivec.end();++iter)
+{
+*iter=2; //使用 * 访问迭代器所指向的元素
+}  
+
+
+const_iterator:
+只能读取容器中的元素，而不能修改。
+for(vector&lt;int&gt;::const_iterator citer=ivec.begin();citer!=ivec.end();citer++)
+{
+cout&lt;&lt;*citer;
+//*citer=3; error
+}  
+</code></pre><p><strong>vector<int>::const_iterator 和 const vector<int>::iterator的区别</int></int></strong><br>const vector<int>::iterator newiter=ivec.begin();<br>*newiter=11; //可以修改指向容器的元素<br>//newiter++; //迭代器本身不能被修改 </int></p>
+<h2 id="3-iterator的算术操作："><a href="#3-iterator的算术操作：" class="headerlink" title="(3) iterator的算术操作："></a>(3) iterator的算术操作：</h2><p>iterator除了进行++,–操作，可以将iter+n,iter-n赋给一个新的iteraor对象。还可以使用一个iterator减去另外一个iterator.<br>const vector<int>::iterator newiter=ivec.begin();<br>vector<int>::iterator newiter2=ivec.end();<br>cout&lt;&lt;”\n”&lt;&lt;newiter2-newiter;<br>一個很典型使用vector的STL程式:  </int></int></p>
+<pre><code>#include &lt;vector&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main(void)
+{
+    vector&lt;int&gt; v;
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
+
+    vector&lt;int&gt;::iterator it;
+    for (it = v.begin(); it != v.end(); ++it)
+    {
+        cout &lt;&lt; *it &lt;&lt; &apos; &apos;;
+    }
+    cout &lt;&lt; endl;
+</code></pre><p>迭代器可以很好的兼容C++的内置类型，特别是常见的C++指针被视为C++数组的迭代器。当然，在标准的C++库中所有的容器都定义了一个迭代器类型，即嵌套类型的迭代器，代表各自的指针类型。</p>
+<h1 id="迭代器的类型"><a href="#迭代器的类型" class="headerlink" title="迭代器的类型"></a>迭代器的类型</h1><p>迭代器可以分为不同的种类，这是因为他们使用不同的算法、不同的要求附加在其身上。例如，find()算法需要一个可以递增的迭代器，而reverse()算法需要一个可以递减的迭代器等。总之，在STL和C++标准库中有5种迭代器。<br><strong>（1）、输入迭代器(Input Iterator)</strong>:只能向前单步迭代元素，不允许修改由该迭代器所引用的元素；<br><strong>（2）、输出迭代器(Output Iterator)</strong>:只能向前单步迭代元素，对由该迭代器所引用的元素只有写权限；<br><strong>（3）、向前迭代器(Forward Iterator)</strong>:该迭代器可以在一个区间中进行读写操作，它拥有输入迭代器的所有特性和输出迭代器的部分特性，以及向前单步迭代元素的能力；<br><strong>（4）、双向迭代器(Bidirectional Iterator)</strong>:在向前迭代器的基础上增加了向后单步迭代元素的能力；<br><strong>（5）、随机访问迭代器(Random Access Iterator)</strong>:不仅综合以后4种迭代器的所有功能，还可以像指针那样进行算术计算；<br><strong>vector、deque提供的是随机访问迭代器，list提供的是双向迭代器，set和map提供的是向前迭代器。</strong></p>
+<h2 id="相应的操作集为："><a href="#相应的操作集为：" class="headerlink" title="相应的操作集为："></a>相应的操作集为：</h2><p><img src="http://img.blog.csdn.net/20130728085616968?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br>除了输出迭代器，其他类别的迭代器形成了一个层次结构：需要低级类别迭代器的地方，可使用任意一种更高级的迭代器。例如，对于需要输入迭代器的算法，可传递前向、双向或随机访问迭代器调用该算法。而反之则不行。注意：向算法传递无效的迭代器类别所引起的错误，无法保证会在编译时被捕获到。<br>map, set, list类型提供双向迭代器，而string, vector和deque容器上定义的迭代器都是随机访问迭代器，用作访问内置数组元素的指针也是随机访问迭代器。istream_iterator是输入迭代器，ostream_iterator是输出迭代器。<br>另外，虽然map和set类型提供双向迭代器，但关联容器只能使用这部分算法的一个子集。因为关联容器的键是const对象。因此，关联容器不能使用任何写序列元素的算法。只能使用与关联容器绑在一起的迭代器来提供用于读操作的实参。因此，在处理算法时，最好将关联容器上的迭代器视为支持自减运算的输入迭代器，而不是完整的双向迭代器。<br><strong>最后需要注意的是，stack、queue、priority_queue 都不支持任一种迭代器，它们都是容器适配器类型，stack是用vector/deque/list对象创建了一个先进后出容器，queue是用deque或list对象创建了一个先进先出容器，priority_queue是用vector/deque创建了一个排序队列</strong></p>
+<h1 id="常用的容器成员"><a href="#常用的容器成员" class="headerlink" title="常用的容器成员"></a>常用的容器成员</h1><p><img src="http://img.blog.csdn.net/20130724190040546?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20130724190057312?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br><img src="http://img.blog.csdn.net/20130724190108671?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20130724190123828?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># -C++</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/structclass.html" rel="next" title="C++中struct和class的区别">
+                <i class="fa fa-chevron-left"></i> C++中struct和class的区别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="羁士" />
+          <p class="site-author-name" itemprop="name">羁士</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/qisenshi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dianxin113" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-csdn"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型编程"><span class="nav-number">1.</span> <span class="nav-text">泛型编程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是迭代器"><span class="nav-number">2.</span> <span class="nav-text">什么是迭代器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迭代器的用法"><span class="nav-number">3.</span> <span class="nav-text">迭代器的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-每种容器类型都定义了自己的迭代器类型，如vector"><span class="nav-number">3.1.</span> <span class="nav-text">(1) 每种容器类型都定义了自己的迭代器类型，如vector:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用迭代器读取vector中的每一个元素："><span class="nav-number">3.2.</span> <span class="nav-text">(2) 使用迭代器读取vector中的每一个元素：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-iterator的算术操作："><span class="nav-number">3.3.</span> <span class="nav-text">(3) iterator的算术操作：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迭代器的类型"><span class="nav-number">4.</span> <span class="nav-text">迭代器的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#相应的操作集为："><span class="nav-number">4.1.</span> <span class="nav-text">相应的操作集为：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用的容器成员"><span class="nav-number">5.</span> <span class="nav-text">常用的容器成员</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羁士</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

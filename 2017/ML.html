@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="-C++," />
+  <meta name="keywords" content="-machine learning," />
 
 
 
@@ -87,17 +87,21 @@
 
 
 
-<meta name="description" content="C++中的struct对C中的struct进行了扩充，它已经不再只是一个包含不同数据类型的数据结构了，它已经获取了太多的功能。  struct和class都可以继承，都可以包含成员函数，都可以实现多态，都可以有构造函数和西沟函数。但主要有两点区别   1、最本质的一个区别就是默认的访问控制：默认的继承访问权限struct是public的，class是private的。">
-<meta name="keywords" content="-C++">
+<meta name="description" content="机器学习算法分为三类：有监督学习、无监督学习、增强学习。有监督学习需要标识数据（用于训练，即有正例又有负例），无监督学习不需要标识数据，增强学习介于两者之间（有部分标识数据）。下面将向大家具体介绍机器学习中10大算法（主要介绍有监督、无监督两类）。 监督学习1、 决策树决策树是一种树形结构，为人们提供决策依据，决策树可以用来回答yes和no问题，它通过树形结构将各种情况组合都表示出来，每个分支表示">
+<meta name="keywords" content="-machine learning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++中struct和class的区别">
-<meta property="og:url" content="http://qisens.win/2017/struct-class.html">
+<meta property="og:title" content="十大机器学习算法介绍（一）">
+<meta property="og:url" content="http://qisens.win/2017/ML.html">
 <meta property="og:site_name" content="你的征程是星辰大海">
-<meta property="og:description" content="C++中的struct对C中的struct进行了扩充，它已经不再只是一个包含不同数据类型的数据结构了，它已经获取了太多的功能。  struct和class都可以继承，都可以包含成员函数，都可以实现多态，都可以有构造函数和西沟函数。但主要有两点区别   1、最本质的一个区别就是默认的访问控制：默认的继承访问权限struct是public的，class是private的。">
-<meta property="og:updated_time" content="2017-06-17T07:43:38.406Z">
+<meta property="og:description" content="机器学习算法分为三类：有监督学习、无监督学习、增强学习。有监督学习需要标识数据（用于训练，即有正例又有负例），无监督学习不需要标识数据，增强学习介于两者之间（有部分标识数据）。下面将向大家具体介绍机器学习中10大算法（主要介绍有监督、无监督两类）。 监督学习1、 决策树决策树是一种树形结构，为人们提供决策依据，决策树可以用来回答yes和no问题，它通过树形结构将各种情况组合都表示出来，每个分支表示">
+<meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_png/ymzg67DoLHIibiaggodZ5xoXoNhiaoREkRr7hmd5EFRckgogP5d13XsSeee4LHU5Rz7hfc1pKZia8LYzBZVVGjnIibA/0?tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="http://img.blog.csdn.net/20160225163257252?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="http://img.blog.csdn.net/20160225163349611?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:updated_time" content="2017-06-25T06:04:23.685Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++中struct和class的区别">
-<meta name="twitter:description" content="C++中的struct对C中的struct进行了扩充，它已经不再只是一个包含不同数据类型的数据结构了，它已经获取了太多的功能。  struct和class都可以继承，都可以包含成员函数，都可以实现多态，都可以有构造函数和西沟函数。但主要有两点区别   1、最本质的一个区别就是默认的访问控制：默认的继承访问权限struct是public的，class是private的。">
+<meta name="twitter:title" content="十大机器学习算法介绍（一）">
+<meta name="twitter:description" content="机器学习算法分为三类：有监督学习、无监督学习、增强学习。有监督学习需要标识数据（用于训练，即有正例又有负例），无监督学习不需要标识数据，增强学习介于两者之间（有部分标识数据）。下面将向大家具体介绍机器学习中10大算法（主要介绍有监督、无监督两类）。 监督学习1、 决策树决策树是一种树形结构，为人们提供决策依据，决策树可以用来回答yes和no问题，它通过树形结构将各种情况组合都表示出来，每个分支表示">
+<meta name="twitter:image" content="http://mmbiz.qpic.cn/mmbiz_png/ymzg67DoLHIibiaggodZ5xoXoNhiaoREkRr7hmd5EFRckgogP5d13XsSeee4LHU5Rz7hfc1pKZia8LYzBZVVGjnIibA/0?tp=webp&wxfrom=5&wx_lazy=1">
 
 
 
@@ -125,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://qisens.win/2017/struct-class.html"/>
+  <link rel="canonical" href="http://qisens.win/2017/ML.html"/>
 
 
 
 
 
-  <title> C++中struct和class的区别 | 你的征程是星辰大海 </title>
+  <title> 十大机器学习算法介绍（一） | 你的征程是星辰大海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -270,7 +274,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/struct-class.html">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/ML.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="羁士">
@@ -291,7 +295,7 @@
             
             
               
-                C++中struct和class的区别
+                十大机器学习算法介绍（一）
               
             
           </h1>
@@ -306,8 +310,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-17T14:56:17+08:00">
-                2017-06-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T13:25:46+08:00">
+                2017-06-25
               </time>
             
 
@@ -316,6 +320,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -342,28 +368,18 @@
       
 
       
-        <p>C++中的struct对C中的struct进行了扩充，它已经不再只是一个包含不同数据类型的数据结构了，它已经获取了太多的功能。 </p>
-<p>struct和class都可以继承，都可以包含成员函数，都可以实现多态，都可以有构造函数和西沟函数。但主要有两点区别  </p>
-<h2 id="1、最本质的一个区别就是默认的访问控制："><a href="#1、最本质的一个区别就是默认的访问控制：" class="headerlink" title="1、最本质的一个区别就是默认的访问控制："></a>1、最本质的一个区别就是默认的访问控制：</h2><p>默认的继承访问权限<br><strong>struct是public的，class是private的。</strong><br><a id="more"></a><br>所以我们在平时写类继承的时候，通常会这样写：<br>class B : public A<br>就是为了指明是public继承，而不是用默认的private继承。</p>
-<p>当然，到底默认是public继承还是private继承，<strong>取决于子类而不是基类。</strong><br>如：</p>
-<pre><code>struct A{}；  
-class B : A{}; //private继承  
-struct C : B{}； //public继承
-</code></pre><p>struct作为数据结构的实现体，它默认的数据访问控制是public的，而class作为对象的实现体，它默认的成员变量访问控制是private的</p>
-<p>到底是用struct还是class，完全看个人的喜好，你可以将程序里所有的class全部替换成struct，它依旧可以很正常的运行。但我给出的最好建议，还是：当你觉得你要做的更像是一种数据结构的话，那么用struct，如果你要做的更像是一种对象的话，那么用class。   </p>
-<p>当然，我在这里还要强调一点的就是，对于访问控制，应该在程序里明确的指出，而不是依靠默认，这是一个良好的习惯，也让你的代码更具可读性。 </p>
-<h2 id="2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。"><a href="#2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。" class="headerlink" title="2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。"></a>2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。</h2><p>这一点在Stanley B.Lippman写的Inside the C++ Object Model有过说明。 </p>
-<h2 id="3、其他区别"><a href="#3、其他区别" class="headerlink" title="3、其他区别"></a>3、其他区别</h2><p>还是上面所说的，C++中的struct是对C中的struct的扩充，既然是扩充，那么它就要兼容过去C中struct应有的所有特性。例如你可以这样写：  </p>
-<pre><code>struct A//定义一个struct
-{
-       char c1;
-       int n2;
-       double db3;
-    };
-    A a={&apos;p&apos;, 7, 3.1415926}; //定义时直接赋值   
-</code></pre><p>也就是说struct可以在定义的时候用{}赋初值。但class不行，而且当struct中包含构造函数（或虚函数），struct也不能用{}赋初值了。  </p>
-<p>而加入一个普通的成员函数呢？你会发现{}依旧可用。其实你可以将普通的函数理解成对数据结构的一种算法，这并不打破它数据结构的特性。<br>那么，看到这里，我们发现即使是struct想用{}来赋初值，它也必须满足很多的约束条件，这些条件实际上就是让struct更体现出一种数据机构而不是类的特性。<br>那为什么我们在上面仅仅将struct改成class，{}就不能用了呢？<br>其实问题恰巧是我们之前所讲的——访问控制！你看看，我们忘记了什么？对，将struct改成class的时候，访问控制由public变为private了，那当然就不能用{}来赋初值了。加上一个public，你会发现，class也是能用{}的，和struct毫无区别！！！<br>做个总结，从上面的区别，我们可以看出，struct更适合看成是一个数据结构的实现体，class更适合看成是一个对象的实现体。</p>
-
+        <p><em>机器学习算法分为三类：有监督学习、无监督学习、增强学习。有监督学习需要标识数据（用于训练，即有正例又有负例），无监督学习不需要标识数据，增强学习介于两者之间（有部分标识数据）。下面将向大家具体介绍机器学习中10大算法（主要介绍有监督、无监督两类）。</em></p>
+<h1 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a><strong>监督学习</strong></h1><h2 id="1、-决策树"><a href="#1、-决策树" class="headerlink" title="1、 决策树"></a><strong>1、 决策树</strong></h2><p>决策树是一种树形结构，为人们提供决策依据，决策树可以用来回答yes和no问题，它通过树形结构将各种情况组合都表示出来，每个分支表示一次选择（选择yes还是no），直到所有选择都进行完毕，最终给出正确答案。 </p>
+<a id="more"></a>  
+<p>定义：决策树（decision tree）是一个树结构（可以是二叉树或非二叉树）。其每个非叶节点表示一个特征属性上的测试，每个分支代表这个特征属性在某个值域上的输出，而每个叶节点存放一个类别。使用决策树进行决策的过程就是从根节点开始，测试待分类项中相应的特征属性，并按照其值选择输出分支，直到到达叶子节点，将叶子节点存放的类别作为决策结果。<br><img src="http://mmbiz.qpic.cn/mmbiz_png/ymzg67DoLHIibiaggodZ5xoXoNhiaoREkRr7hmd5EFRckgogP5d13XsSeee4LHU5Rz7hfc1pKZia8LYzBZVVGjnIibA/0?tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="Alt text"><br>构造决策树的关键步骤是分裂属性。所谓分裂属性就是在某个节点处按照某一特征属性的不同划分构造不同的分支，其目标是让各个分裂子集尽可能地“纯”。尽可能“纯”就是尽量让一个分裂子集中待分类项属于同一类别。分裂属性分为三种不同的情况：</p>
+<p>   1、属性是离散值且不要求生成二叉决策树。此时用属性的每一个划分作为一个分支。</p>
+<p>   2、属性是离散值且要求生成二叉决策树。此时使用属性划分的一个子集进行测试，按照“属于此子集”和“不属于此子集”分成两个分支。</p>
+<p>   3、属性是连续值。此时确定一个值作为分裂点split_point，按照&gt;split_point和&lt;=split_point生成两个分支。</p>
+<h3 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h3><p>信息增益（information gain）表示得知特征X的信息而使得类Y的信息的不确定性减少的程度。<br>定义：特征A对训练数据集D的信息增益g（D,A），定义集合D的经验熵H（D）与特征A给定条件下D的经验条件熵H（D|A）之差。一般地，熵与条件熵之差成为互信息（mutual information），决策树学习中的信息增益等价于训练数据集中类与特征的互信息。<br>ID3算法的核心是在决策树各个子结点上应用信息增益准则选择特征，递归的构建决策树。<br>具体方法是:从根结点开始，对结点计算所有可能的特征的信息增益，选择信息增益最大的特征作为结点的特征，由该特征的不同取值建立子结点；再对子结点递归调用以上方法，构建决策树。直到所有特征的信息增益均很小或没有特征可以选择为止。  </p>
+<h3 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h3><p>ID3算法存在一个问题，就是偏向于多值属性，例如，如果存在唯一标识属性ID，则ID3会选择它作为分裂属性，这样虽然使得划分充分纯净，但这种划分对分类几乎毫无用处。ID3的后继算法C4.5使用增益率（gain ratio）的信息增益扩充，试图克服这个偏倚。<br>C4.5算法首先定义了“分裂信息”，其定义可以表示成：</p>
+<p><center><img src="http://img.blog.csdn.net/20160225163257252?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="Alt text"></center><br>其中各符号意义和ID3算法相同，然后增益率定义为：  </p>
+<p><center><img src="http://img.blog.csdn.net/20160225163349611?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="Alt text"></center><br>C4.5选择具有最大增益率的属性作为分裂属性，其具体应用于ID3类似。</p>
+<h2 id="2、-朴素贝叶斯分类器"><a href="#2、-朴素贝叶斯分类器" class="headerlink" title="2、 朴素贝叶斯分类器"></a>2、 朴素贝叶斯分类器</h2>
       
     </div>
 
@@ -392,7 +408,7 @@ struct C : B{}； //public继承
       
         <div class="post-tags">
           
-            <a href="/tags/C/" rel="tag"># -C++</a>
+            <a href="/tags/machine-learning/" rel="tag"># -machine learning</a>
           
         </div>
       
@@ -405,8 +421,8 @@ struct C : B{}； //public继承
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/inline-function.html" rel="next" title="C++之inline内联函数浅析">
-                <i class="fa fa-chevron-left"></i> C++之inline内联函数浅析
+              <a href="/2017/hexo.html" rel="next" title="使用hexo+github搭建个人博客遇到的问题及解决方法">
+                <i class="fa fa-chevron-left"></i> 使用hexo+github搭建个人博客遇到的问题及解决方法
               </a>
             
           </div>
@@ -414,6 +430,10 @@ struct C : B{}； //public继承
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/structclass.html" rel="prev" title="C++中struct和class的区别">
+                C++中struct和class的区别 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -485,12 +505,21 @@ struct C : B{}； //public继承
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
           
 
           
@@ -498,7 +527,7 @@ struct C : B{}； //public继承
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -553,7 +582,7 @@ struct C : B{}； //public继承
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、最本质的一个区别就是默认的访问控制："><span class="nav-number">1.</span> <span class="nav-text">1、最本质的一个区别就是默认的访问控制：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。"><span class="nav-number">2.</span> <span class="nav-text">2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、其他区别"><span class="nav-number">3.</span> <span class="nav-text">3、其他区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#监督学习"><span class="nav-number">1.</span> <span class="nav-text">监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、-决策树"><span class="nav-number">1.1.</span> <span class="nav-text">1、 决策树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ID3"><span class="nav-number">1.1.1.</span> <span class="nav-text">ID3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C4-5"><span class="nav-number">1.1.2.</span> <span class="nav-text">C4.5</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、-朴素贝叶斯分类器"><span class="nav-number">1.2.</span> <span class="nav-text">2、 朴素贝叶斯分类器</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -1,0 +1,816 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="-数据结构," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="B树——二叉搜索树##定义：1.所有非叶子结点至多拥有两个儿子（Left和Right）；2.所有结点存储一个关键字；3.非叶子结点的左指针指向小于其关键字的子树，右指针指向大于其关键字的子树；  B树的搜索，从根结点开始，如果查询的关键字与结点的关键字相等，那么就命中；否则，如果查询关键字比结点关键字小，就进入左儿子；如果比结点关键字大，就进入右儿子；如果左儿子或右儿子的指针为空，则报告找不到相应">
+<meta name="keywords" content="-数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析B树，B+&#x2F;-树，AVL树，红黑树">
+<meta property="og:url" content="http://qisens.win/2017/BST.html">
+<meta property="og:site_name" content="你的征程是星辰大海">
+<meta property="og:description" content="B树——二叉搜索树##定义：1.所有非叶子结点至多拥有两个儿子（Left和Right）；2.所有结点存储一个关键字；3.非叶子结点的左指针指向小于其关键字的子树，右指针指向大于其关键字的子树；  B树的搜索，从根结点开始，如果查询的关键字与结点的关键字相等，那么就命中；否则，如果查询关键字比结点关键字小，就进入左儿子；如果比结点关键字大，就进入右儿子；如果左儿子或右儿子的指针为空，则报告找不到相应">
+<meta property="og:image" content="http://p.blog.csdn.net/images/p_blog_csdn_net/manesking/4.JPG">
+<meta property="og:image" content="http://p.blog.csdn.net/images/p_blog_csdn_net/manesking/0.JPG">
+<meta property="og:image" content="http://p.blog.csdn.net/images/p_blog_csdn_net/manesking/5.JPG">
+<meta property="og:updated_time" content="2017-06-25T06:02:41.200Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅析B树，B+&#x2F;-树，AVL树，红黑树">
+<meta name="twitter:description" content="B树——二叉搜索树##定义：1.所有非叶子结点至多拥有两个儿子（Left和Right）；2.所有结点存储一个关键字；3.非叶子结点的左指针指向小于其关键字的子树，右指针指向大于其关键字的子树；  B树的搜索，从根结点开始，如果查询的关键字与结点的关键字相等，那么就命中；否则，如果查询关键字比结点关键字小，就进入左儿子；如果比结点关键字大，就进入右儿子；如果左儿子或右儿子的指针为空，则报告找不到相应">
+<meta name="twitter:image" content="http://p.blog.csdn.net/images/p_blog_csdn_net/manesking/4.JPG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://qisens.win/2017/BST.html"/>
+
+
+
+
+
+  <title> 浅析B树，B+/-树，AVL树，红黑树 | 你的征程是星辰大海 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">你的征程是星辰大海</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">在路上</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/BST.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                浅析B树，B+/-树，AVL树，红黑树
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T13:22:16+08:00">
+                2017-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="B树——二叉搜索树"><a href="#B树——二叉搜索树" class="headerlink" title="B树——二叉搜索树"></a>B树——二叉搜索树</h1><p>##定义：<br>1.所有非叶子结点至多拥有两个儿子（Left和Right）；<br>2.所有结点存储一个关键字；<br>3.非叶子结点的左指针指向小于其关键字的子树，右指针指向大于其关键字的子树； </p>
+<p>B树的搜索，从根结点开始，如果查询的关键字与结点的关键字相等，那么就命中；否则，如果查询关键字比结点关键字小，就进入左儿子；如果比结点关键字大，就进入右儿子；如果左儿子或右儿子的指针为空，则报告找不到相应的关键字。   </p>
+<a id="more"></a>
+<p>如果B树的所有非叶子结点的左右子树的结点数目均保持差不多（平衡），那么B树的搜索性能逼近二分查找；但它比连续内存空间的二分查找的优点是，改变B树结构（插入与删除结点）不需要移动大段的内存数据，甚至通常是常数开销。在实际使用中，通常是在B树的基础上添加平衡算法，编程平衡二叉树。<strong>平衡二叉树又叫AVL树，是由作者姓名命名的，平衡二叉树还有一个改进的版本，叫做红黑树。</strong>    </p>
+<p><strong>BST效率总结 :  查找最好时间复杂度O(logN)，最坏时间复杂度O(N)。<br>插入删除操作算法简单，时间复杂度与查找差不多</strong></p>
+<h1 id="B-树——一种非二叉搜索树"><a href="#B-树——一种非二叉搜索树" class="headerlink" title="B-树——一种非二叉搜索树"></a>B-树——一种非二叉搜索树</h1><p>##定义  </p>
+<ol>
+<li>定义任意非叶子结点最多具有M个儿子，M&gt;2；</li>
+<li>根节点的儿子树[2,M]；</li>
+<li>除根节点之外的非叶子结点的儿子数为[M/2,M]；</li>
+<li>每个节点存放至少M/2-1(向上取整)和至多M-1个关键字；</li>
+<li>非叶子结点的关键字个数等于指向儿子的指针个数减去1</li>
+<li>非叶子结点的关键字：K[1],K[2]…K[M-1],:且K[i]小于K[i+1]；</li>
+<li>非叶子结点的指针：P[1],P[2],,,,,P[M],其中P[M]指向关键字大于K[M-1]的子树，其他P[i]指向关键字属于(K[i-1],k[i])的子树；</li>
+<li>所有叶子节点位于同一层。 </li>
+</ol>
+<p>如M=3<br><img src="http://p.blog.csdn.net/images/p_blog_csdn_net/manesking/4.JPG" alt=""></p>
+<p><strong>B-树有着如下的特性：</strong></p>
+<ul>
+<li>关键字集合分布在整颗树中；</li>
+<li>任何一个关键字出现且只出现在一个结点中；</li>
+<li>搜索有可能在非叶子结点结束；</li>
+<li>其搜索性能等价于在关键字全集内做一次二分查找；</li>
+<li>自动层次控制； </li>
+</ul>
+<p>同时，由于限制了除根结点以外的非叶子结点，至少含有M/2个儿子，确保了结点的至少利用率，其最低搜索性能为：  </p>
+<p><img src="http://p.blog.csdn.net/images/p_blog_csdn_net/manesking/0.JPG" alt=""></p>
+<blockquote>
+<p>公式中，M为设定的非叶子节点最多子树的个数，N为关键字总数；所以B-树的性能总是等价于2分查找（与M值无关），也就没有B树平衡的问题；<br>由于M/2的限制，在插入节点的时候，如果节点已经满了，需要将节点分裂成两个各占M/2的节点；删除节点的时候，需要将两个不足M/2的节点合并</p>
+</blockquote>
+<p><strong>B-Tree效率总结： 由于考虑磁盘储存结构，B树的查找、删除、插入的代价都远远要小于任何二叉结构树(读写磁盘次数的降低)。</strong></p>
+<h1 id="B-树——多路搜索树"><a href="#B-树——多路搜索树" class="headerlink" title="B+树——多路搜索树"></a>B+树——多路搜索树</h1><h2 id="定义：其定义基本与B-树同，除了："><a href="#定义：其定义基本与B-树同，除了：" class="headerlink" title="定义：其定义基本与B-树同，除了："></a>定义：其定义基本与B-树同，除了：</h2><ul>
+<li><p>非叶子结点的子树指针与关键字个数相同；</p>
+</li>
+<li><p>非叶子结点的子树指针P[i]，指向关键字值属于[K[i], K[i+1])的子树<br>（B-树是开区间）；</p>
+</li>
+<li>为所有叶子结点增加一个链指针；</li>
+<li>所有关键字都在叶子结点出现；<br><img src="http://p.blog.csdn.net/images/p_blog_csdn_net/manesking/5.JPG" alt=""></li>
+</ul>
+<h1 id="AVL——平衡二叉搜索树"><a href="#AVL——平衡二叉搜索树" class="headerlink" title="AVL——平衡二叉搜索树"></a>AVL——平衡二叉搜索树</h1><h2 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h2><ol>
+<li>平衡二叉树或为空树,或为如下性质的二叉排序树:</li>
+<li>左右子树深度之差的绝对值不超过1;</li>
+<li>左右子树仍然为平衡二叉树.</li>
+</ol>
+<p>平衡因子BF=左子树深度－右子树深度.<br>平衡二叉树每个结点的平衡因子只能是1，0，-1。若其绝对值超过1，则该二叉排序树就是不平衡的。</p>
+<p>AVL树是最先发明的自平衡二叉查找树。在AVL树中任何节点的两个子树的高度最大差别为一，所以它也被称为高度平衡树。查找、插入和删除在平均和最坏情况下都是O（log n）。</p>
+<h1 id="红黑树——改进的AVL"><a href="#红黑树——改进的AVL" class="headerlink" title="红黑树——改进的AVL"></a>红黑树——改进的AVL</h1><h2 id="定义：-1"><a href="#定义：-1" class="headerlink" title="定义："></a>定义：</h2><ol>
+<li>每个结点要么是红的，要么是黑的。   </li>
+<li>根结点是黑的。   </li>
+<li>每个叶结点，即空结点（NIL）是黑的。   </li>
+<li>如果一个结点是红的，那么它的俩个儿子都是黑的。   </li>
+<li>对每个结点，从该结点到其子孙结点的所有路径上包含相同数目的黑结点。</li>
+</ol>
+<p>AVL是严格平衡树，因此在增加或者删除节点的时候，根据不同情况，旋转的次数比红黑树要多；红黑是弱平衡的，用非严格的平衡来换取增删节点时候旋转次数的降低,所以简单说，搜索的次数远远大于插入和删除，那么选择AVL树，如果搜索，插入删除次数几乎差不多，应该选择RB树。<br>红黑树上每个结点内含五个域，color，key，left，right，p。如果相应的指针域没有，则设为NIL。 </p>
+<h1 id="红黑树与AVL比较"><a href="#红黑树与AVL比较" class="headerlink" title="红黑树与AVL比较"></a>红黑树与AVL比较</h1><p><strong>结构对比：</strong> AVL的结构高度平衡，RBT的结构基本平衡。平衡度AVL &gt; RBT.<br><strong>查找对比：</strong> AVL 查找时间复杂度最好，最坏情况都是O(logN)。<br>    RBT 查找时间复杂度最好为O(logN)，最坏情况下比AVL略差。<br><strong>插入删除对比：</strong>  </p>
+<ol>
+<li>AVL的插入和删除结点很容易造成树结构的不平衡，而RBT的平衡度要求较低。因此在大量数据插入的情况下，RBT需要通过旋转变色操作来重新达到平衡的频度要小于AVL。  </li>
+<li>如果需要平衡处理时，RBT比AVL多一种变色操作，而且变色的时间复杂度在O(logN)数量级上。但是由于操作简单，所以在实践中这种变色仍然是非常快速的。  </li>
+<li>当插入一个结点都引起了树的不平衡，AVL和RBT都最多需要2次旋转操作。但删除一个结点引起不平衡后，AVL最多需要logN 次旋转操作，而RBT最多只需要3次。因此两者插入一个结点的代价差不多，但删除一个结点的代价RBT要低一些。  </li>
+<li>AVL和RBT的插入删除代价主要还是消耗在查找待操作的结点上。因此时间复杂度基本上都是与O(logN) 成正比的。</li>
+</ol>
+<p><strong>总体评价：</strong>大量数据实践证明，RBT的总体统计性能要好于平衡二叉树。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># -数据结构</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/inline.html" rel="next" title="C++之inline内联函数浅析">
+                <i class="fa fa-chevron-left"></i> C++之inline内联函数浅析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/hexo.html" rel="prev" title="使用hexo+github搭建个人博客遇到的问题及解决方法">
+                使用hexo+github搭建个人博客遇到的问题及解决方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="羁士" />
+          <p class="site-author-name" itemprop="name">羁士</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/qisenshi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dianxin113" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-csdn"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#B树——二叉搜索树"><span class="nav-number">1.</span> <span class="nav-text">B树——二叉搜索树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-树——一种非二叉搜索树"><span class="nav-number">2.</span> <span class="nav-text">B-树——一种非二叉搜索树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-树——多路搜索树"><span class="nav-number">3.</span> <span class="nav-text">B+树——多路搜索树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义：其定义基本与B-树同，除了："><span class="nav-number">3.1.</span> <span class="nav-text">定义：其定义基本与B-树同，除了：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AVL——平衡二叉搜索树"><span class="nav-number">4.</span> <span class="nav-text">AVL——平衡二叉搜索树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义："><span class="nav-number">4.1.</span> <span class="nav-text">定义：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#红黑树——改进的AVL"><span class="nav-number">5.</span> <span class="nav-text">红黑树——改进的AVL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义：-1"><span class="nav-number">5.1.</span> <span class="nav-text">定义：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#红黑树与AVL比较"><span class="nav-number">6.</span> <span class="nav-text">红黑树与AVL比较</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羁士</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -267,7 +267,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/struct-class.html">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/iterator.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="羁士">
@@ -289,7 +289,157 @@
             
               
                 
-                <a class="post-title-link" href="/2017/struct-class.html" itemprop="url">
+                <a class="post-title-link" href="/2017/iterator.html" itemprop="url">
+                  浅析C++之STL迭代器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-27T20:57:28+08:00">
+                2017-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="泛型编程"><a href="#泛型编程" class="headerlink" title="泛型编程"></a>泛型编程</h1><blockquote>
+<p>STL是一种泛型编程。面向对象编程关注的是编程的数据方面，而泛型编程关注的是算法。它们之间的共同点是抽象和创建可重用代码，但理念决然不同。    </p>
+</blockquote>
+<p>泛型编程旨在编写独立于数据类型的代码，在C++中完成通用程序的工具是模板，模板使得算法独立于存储的数据类型，而迭代器使算法独立于使用的容器的类型。 </p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/iterator.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/structclass.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/structclass.html" itemprop="url">
                   C++中struct和class的区别
                 </a>
               
@@ -306,8 +456,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-17T14:56:17+08:00">
-                2017-06-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T13:28:55+08:00">
+                2017-06-25
               </time>
             
 
@@ -316,6 +466,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -345,10 +517,10 @@
         
           <p>C++中的struct对C中的struct进行了扩充，它已经不再只是一个包含不同数据类型的数据结构了，它已经获取了太多的功能。 </p>
 <p>struct和class都可以继承，都可以包含成员函数，都可以实现多态，都可以有构造函数和西沟函数。但主要有两点区别  </p>
-<p>##1、最本质的一个区别就是默认的访问控制：<br>默认的继承访问权限<br><strong>struct是public的，class是private的。</strong><br>
+<h1 id="1、最本质的一个区别就是默认的访问控制："><a href="#1、最本质的一个区别就是默认的访问控制：" class="headerlink" title="1、最本质的一个区别就是默认的访问控制："></a>1、最本质的一个区别就是默认的访问控制：</h1><p>默认的继承访问权限<br><strong>struct是public的，class是private的。</strong><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/struct-class.html#more" rel="contents">
+            <a class="btn" href="/2017/structclass.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -394,7 +566,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/inline-function.html">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/ML.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="羁士">
@@ -416,132 +588,7 @@
             
               
                 
-                <a class="post-title-link" href="/2017/inline-function.html" itemprop="url">
-                  C++之inline内联函数浅析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-15T22:29:54+08:00">
-                2017-06-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>C语言中使用宏定义容易出错，而且不能调试，无法操作类的私有数据成员。所以，在C++中尽量用内联函数来代替宏代码。inline函数的另一个优点是，函数被内联后，编译器可以根据上下文自己决定优化措施。  </p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/inline-function.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/machine-learning.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="羁士">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="你的征程是星辰大海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/machine-learning.html" itemprop="url">
+                <a class="post-title-link" href="/2017/ML.html" itemprop="url">
                   十大机器学习算法介绍（一）
                 </a>
               
@@ -558,8 +605,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-07T22:29:54+08:00">
-                2017-06-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T13:25:46+08:00">
+                2017-06-25
               </time>
             
 
@@ -568,6 +615,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -599,7 +668,7 @@
 <h1 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a><strong>监督学习</strong></h1><h2 id="1、-决策树"><a href="#1、-决策树" class="headerlink" title="1、 决策树"></a><strong>1、 决策树</strong></h2><p>决策树是一种树形结构，为人们提供决策依据，决策树可以用来回答yes和no问题，它通过树形结构将各种情况组合都表示出来，每个分支表示一次选择（选择yes还是no），直到所有选择都进行完毕，最终给出正确答案。 </p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/machine-learning.html#more" rel="contents">
+            <a class="btn" href="/2017/ML.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -645,7 +714,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/hexo-github.html">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/hexo.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="羁士">
@@ -667,7 +736,7 @@
             
               
                 
-                <a class="post-title-link" href="/2017/hexo-github.html" itemprop="url">
+                <a class="post-title-link" href="/2017/hexo.html" itemprop="url">
                   使用hexo+github搭建个人博客遇到的问题及解决方法
                 </a>
               
@@ -684,8 +753,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-04T16:10:14+08:00">
-                2017-06-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T13:24:20+08:00">
+                2017-06-25
               </time>
             
 
@@ -694,6 +763,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/others/" itemprop="url" rel="index">
+                    <span itemprop="name">others</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -726,7 +817,302 @@
 <h1 id="1、port：4000端口打不开"><a href="#1、port：4000端口打不开" class="headerlink" title="1、port：4000端口打不开"></a><strong>1、port：4000端口打不开</strong></h1><p>1、可能被占用了，改为5000。但并不是修改配置文件中的port参数，而是hexo\node_modules\hexo-server中的index.js，修改其中的port参数。<br>2、可能是修改主题配置文件时产生错误无法显示，重新下载主题配置文件覆盖后得到解决。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/hexo-github.html#more" rel="contents">
+            <a class="btn" href="/2017/hexo.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/BST.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/BST.html" itemprop="url">
+                  浅析B树，B+/-树，AVL树，红黑树
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T13:22:16+08:00">
+                2017-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="B树——二叉搜索树"><a href="#B树——二叉搜索树" class="headerlink" title="B树——二叉搜索树"></a>B树——二叉搜索树</h1><p>##定义：<br>1.所有非叶子结点至多拥有两个儿子（Left和Right）；<br>2.所有结点存储一个关键字；<br>3.非叶子结点的左指针指向小于其关键字的子树，右指针指向大于其关键字的子树； </p>
+<p>B树的搜索，从根结点开始，如果查询的关键字与结点的关键字相等，那么就命中；否则，如果查询关键字比结点关键字小，就进入左儿子；如果比结点关键字大，就进入右儿子；如果左儿子或右儿子的指针为空，则报告找不到相应的关键字。   </p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/BST.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/inline.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/inline.html" itemprop="url">
+                  C++之inline内联函数浅析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T13:16:59+08:00">
+                2017-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>C语言中使用宏定义容易出错，而且不能调试，无法操作类的私有数据成员。所以，在C++中尽量用内联函数来代替宏代码。inline函数的另一个优点是，函数被内联后，编译器可以根据上下文自己决定优化措施。  </p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/inline.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -808,12 +1194,21 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
           
 
           
@@ -821,7 +1216,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -91,10 +91,10 @@
 <meta name="keywords" content="-C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++中struct和class的区别">
-<meta property="og:url" content="http://qisens.win/2017/struct-class.html">
+<meta property="og:url" content="http://qisens.win/2017/structclass.html">
 <meta property="og:site_name" content="你的征程是星辰大海">
 <meta property="og:description" content="C++中的struct对C中的struct进行了扩充，它已经不再只是一个包含不同数据类型的数据结构了，它已经获取了太多的功能。  struct和class都可以继承，都可以包含成员函数，都可以实现多态，都可以有构造函数和西沟函数。但主要有两点区别   1、最本质的一个区别就是默认的访问控制：默认的继承访问权限struct是public的，class是private的。">
-<meta property="og:updated_time" content="2017-06-17T07:43:38.406Z">
+<meta property="og:updated_time" content="2017-06-25T06:04:36.219Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++中struct和class的区别">
 <meta name="twitter:description" content="C++中的struct对C中的struct进行了扩充，它已经不再只是一个包含不同数据类型的数据结构了，它已经获取了太多的功能。  struct和class都可以继承，都可以包含成员函数，都可以实现多态，都可以有构造函数和西沟函数。但主要有两点区别   1、最本质的一个区别就是默认的访问控制：默认的继承访问权限struct是public的，class是private的。">
@@ -125,7 +125,7 @@
 
 
 
-  <link rel="canonical" href="http://qisens.win/2017/struct-class.html"/>
+  <link rel="canonical" href="http://qisens.win/2017/structclass.html"/>
 
 
 
@@ -270,7 +270,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/struct-class.html">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/structclass.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="羁士">
@@ -306,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-17T14:56:17+08:00">
-                2017-06-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T13:28:55+08:00">
+                2017-06-25
               </time>
             
 
@@ -316,6 +316,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -344,7 +366,7 @@
       
         <p>C++中的struct对C中的struct进行了扩充，它已经不再只是一个包含不同数据类型的数据结构了，它已经获取了太多的功能。 </p>
 <p>struct和class都可以继承，都可以包含成员函数，都可以实现多态，都可以有构造函数和西沟函数。但主要有两点区别  </p>
-<h2 id="1、最本质的一个区别就是默认的访问控制："><a href="#1、最本质的一个区别就是默认的访问控制：" class="headerlink" title="1、最本质的一个区别就是默认的访问控制："></a>1、最本质的一个区别就是默认的访问控制：</h2><p>默认的继承访问权限<br><strong>struct是public的，class是private的。</strong><br><a id="more"></a><br>所以我们在平时写类继承的时候，通常会这样写：<br>class B : public A<br>就是为了指明是public继承，而不是用默认的private继承。</p>
+<h1 id="1、最本质的一个区别就是默认的访问控制："><a href="#1、最本质的一个区别就是默认的访问控制：" class="headerlink" title="1、最本质的一个区别就是默认的访问控制："></a>1、最本质的一个区别就是默认的访问控制：</h1><p>默认的继承访问权限<br><strong>struct是public的，class是private的。</strong><br><a id="more"></a><br>所以我们在平时写类继承的时候，通常会这样写：<br>class B : public A<br>就是为了指明是public继承，而不是用默认的private继承。</p>
 <p>当然，到底默认是public继承还是private继承，<strong>取决于子类而不是基类。</strong><br>如：</p>
 <pre><code>struct A{}；  
 class B : A{}; //private继承  
@@ -352,8 +374,8 @@ struct C : B{}； //public继承
 </code></pre><p>struct作为数据结构的实现体，它默认的数据访问控制是public的，而class作为对象的实现体，它默认的成员变量访问控制是private的</p>
 <p>到底是用struct还是class，完全看个人的喜好，你可以将程序里所有的class全部替换成struct，它依旧可以很正常的运行。但我给出的最好建议，还是：当你觉得你要做的更像是一种数据结构的话，那么用struct，如果你要做的更像是一种对象的话，那么用class。   </p>
 <p>当然，我在这里还要强调一点的就是，对于访问控制，应该在程序里明确的指出，而不是依靠默认，这是一个良好的习惯，也让你的代码更具可读性。 </p>
-<h2 id="2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。"><a href="#2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。" class="headerlink" title="2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。"></a>2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。</h2><p>这一点在Stanley B.Lippman写的Inside the C++ Object Model有过说明。 </p>
-<h2 id="3、其他区别"><a href="#3、其他区别" class="headerlink" title="3、其他区别"></a>3、其他区别</h2><p>还是上面所说的，C++中的struct是对C中的struct的扩充，既然是扩充，那么它就要兼容过去C中struct应有的所有特性。例如你可以这样写：  </p>
+<h1 id="2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。"><a href="#2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。" class="headerlink" title="2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。"></a>2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。</h1><p>这一点在Stanley B.Lippman写的Inside the C++ Object Model有过说明。 </p>
+<h1 id="3、其他区别"><a href="#3、其他区别" class="headerlink" title="3、其他区别"></a>3、其他区别</h1><p>还是上面所说的，C++中的struct是对C中的struct的扩充，既然是扩充，那么它就要兼容过去C中struct应有的所有特性。例如你可以这样写：  </p>
 <pre><code>struct A//定义一个struct
 {
        char c1;
@@ -405,8 +427,8 @@ struct C : B{}； //public继承
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/inline-function.html" rel="next" title="C++之inline内联函数浅析">
-                <i class="fa fa-chevron-left"></i> C++之inline内联函数浅析
+              <a href="/2017/ML.html" rel="next" title="十大机器学习算法介绍（一）">
+                <i class="fa fa-chevron-left"></i> 十大机器学习算法介绍（一）
               </a>
             
           </div>
@@ -414,6 +436,10 @@ struct C : B{}； //public继承
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/iterator.html" rel="prev" title="浅析C++之STL迭代器">
+                浅析C++之STL迭代器 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -485,12 +511,21 @@ struct C : B{}； //public继承
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
           
 
           
@@ -498,7 +533,7 @@ struct C : B{}； //public继承
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -553,7 +588,7 @@ struct C : B{}； //public继承
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、最本质的一个区别就是默认的访问控制："><span class="nav-number">1.</span> <span class="nav-text">1、最本质的一个区别就是默认的访问控制：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。"><span class="nav-number">2.</span> <span class="nav-text">2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、其他区别"><span class="nav-number">3.</span> <span class="nav-text">3、其他区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、最本质的一个区别就是默认的访问控制："><span class="nav-number">1.</span> <span class="nav-text">1、最本质的一个区别就是默认的访问控制：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。"><span class="nav-number">2.</span> <span class="nav-text">2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、其他区别"><span class="nav-number">3.</span> <span class="nav-text">3、其他区别</span></a></li></ol></div>
             
 
           </div>
