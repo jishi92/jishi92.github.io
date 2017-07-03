@@ -1,3 +1,6 @@
+http://qisens.win/2017/nodelist.html
+http://qisens.win/2017/virtualization.html
+http://qisens.win/2017/object.html
 http://qisens.win/2017/iterator.html
 http://qisens.win/2017/structclass.html
 http://qisens.win/2017/ML.html
