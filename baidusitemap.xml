@@ -4,6 +4,50 @@
 
     
   <url>
+    <loc>http://qisens.win/2017/excel-win7.html</loc>
+    <lastmod>2017-07-05T05:35:12.187Z</lastmod>
+    <data>
+        <display>
+        <title>win7滑轮滚动excel就停止工作的解决方法</title>
+        <pubTime>2017-07-05T05:33:57.000Z</pubTime>
+        
+        <tag>win7</tag>
+         
+        <tag>excel</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://qisens.win/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/KMP-alg.html</loc>
+    <lastmod>2017-07-04T07:53:07.629Z</lastmod>
+    <data>
+        <display>
+        <title>字符串匹配——KMP算法的C++实现</title>
+        <pubTime>2017-07-03T14:42:01.000Z</pubTime>
+        
+        <tag>C++</tag>
+         
+        <tag>KMP</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法" url="http://qisens.win/categories/%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://qisens.win/2017/nodelist.html</loc>
     <lastmod>2017-07-03T13:59:14.013Z</lastmod>
     <data>
@@ -11,9 +55,9 @@
         <title>链表的常见操作</title>
         <pubTime>2017-07-02T12:03:49.000Z</pubTime>
         
-        <tag>数据结构</tag>
-         
         <tag>C++</tag>
+         
+        <tag>数据结构</tag>
          
          
            
