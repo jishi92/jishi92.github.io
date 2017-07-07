@@ -510,90 +510,15 @@
 
       
         
-          
-            <p>字符串匹配是计算机的基本任务之一。<br>举例来说，有一个字符串”BBC ABCDAB ABCDABCDABDE”，我想知道，里面是否包含另一个字符串”ABCDABD”？   </p>
-<h1 id="暴力匹配算法"><a href="#暴力匹配算法" class="headerlink" title="暴力匹配算法"></a>暴力匹配算法</h1><p>假设现在我们面临这样一个问题：有一个文本串S，和一个模式串P，现在要查找P在S中的位置，怎么查找呢？<br>如果用暴力匹配的思路，并假设现在文本串S匹配到 i 位置，模式串P匹配到 j 位置，则有：<br>如果当前字符匹配成功（即S[i] == P[j]），则i++，j++，继续匹配下一个字符；<br>如果失配（即S[i]! = P[j]），令i = i - (j - 1)，j = 0。相当于每次匹配失败时，i 回溯，j 被置为0。<br>理清楚了暴力匹配算法的流程及内在的逻辑，咱们可以写出暴力匹配的代码，如下：    </p>
-<pre><code>int ViolentMatch(char* s, char* p)  
-{  
-    int sLen = strlen(s);  
-    int pLen = strlen(p);  
-
-int i = 0;  
-int j = 0;  
-while (i &lt; sLen &amp;&amp; j &lt; pLen)  
-{  
-    if (s[i] == p[j])  
-    {  
-        //①如果当前字符匹配成功（即S[i] == P[j]），则i++，j++      
-        i++;  
-        j++;  
-    }  
-    else  
-    {  
-        //②如果失配（即S[i]! = P[j]），令i = i - (j - 1)，j = 0      
-        i = i - j + 1;  
-        j = 0;  
-    }  
-}  
-//匹配成功，返回模式串p在文本串s中的位置，否则返回-1  
-if (j == pLen)  
-    return i - j;  
-else  
-    return -1;  
-</code></pre><p>}  </p>
-<h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><p>下面先直接给出KMP的算法流程（如果感到一点点不适，没关系，坚持下，稍后会有具体步骤及解释，越往后看越会柳暗花明☺）：<br>假设现在文本串S匹配到 i 位置，模式串P匹配到 j 位置<br>如果j = -1，或者当前字符匹配成功（即S[i] == P[j]），都令i++，j++，继续匹配下一个字符；<br>如果j != -1，且当前字符匹配失败（即S[i] != P[j]），则令 i 不变，j = next[j]。此举意味着失配时，模式串P相对于文本串S向右移动了j - next [j] 位。<br>换言之，当匹配失败时，模式串向右移动的位数为：失配字符所在位置 - 失配字符对应的next 值（next 数组的求解会在下文的3.3.3节中详细阐述），即移动的实际位数为：j - next[j]，且此值大于等于1。<br>很快，你也会意识到next 数组各值的含义：代表当前字符之前的字符串中，有多大长度的相同前缀后缀。例如如果next [j] = k，代表j 之前的字符串中有最大长度为k 的相同前缀后缀。<br>此也意味着在某个字符失配时，该字符对应的next 值会告诉你下一步匹配中，模式串应该跳到哪个位置（跳到next [j] 的位置）。如果next [j] 等于0或-1，则跳到模式串的开头字符，若next [j] = k 且 k &gt; 0，代表下次匹配跳到j 之前的某个字符，而不是跳到开头，且具体跳过了k 个字符。<br>转换成代码表示，则是：  </p>
-<pre><code>int KmpSearch(char* s, char* p)  
-{  
-int i = 0;  
-int j = 0;  
-int sLen = strlen(s);  
-int pLen = strlen(p);  
-while (i &lt; sLen &amp;&amp; j &lt; pLen)  
-{  
-    //①如果j = -1，或者当前字符匹配成功（即S[i] == P[j]），都令i++，j++      
-    if (j == -1 || s[i] == p[j])  
-    {  
-        i++;  
-        j++;  
-    }  
-    else  
-    {  
-        //②如果j != -1，且当前字符匹配失败（即S[i] != P[j]），则令 i 不变，j = next[j]      
-        //next[j]即为j所对应的next值        
-        j = next[j];  
-    }  
-}  
-if (j == pLen)  
-    return i - j;  
-else  
-    return -1;  
-} 
-</code></pre><h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>①寻找前缀后缀最长公共元素长度<br>②求next数组<br>`    </p>
-<pre><code>void GetNext(char* p,int next[])    
-{       
-
-int pLen = strlen(p);      
-next[0] = -1;     
-int k = -1;  
-int j = 0;  
-while (j &lt; pLen - 1)  
-{  
-    //p[k]表示前缀，p[j]表示后缀  
-    if (k == -1 || p[j] == p[k])   
-    {  
-        ++k;  
-        ++j;  
-        next[j] = k;  
-    }  
-    else   
-    {  
-        k = next[k];  
-    }  
-}  
-}`  
-</code></pre><p>③根据next数组进行匹配<br>综上，KMP的next 数组相当于告诉我们：当模式串中的某个字符跟文本串中的某个字符匹配失配时，模式串下一步应该跳到哪个位置。如模式串中在j 处的字符跟文本串在i 处的字符匹配失配时，下一步用next [j] 处的字符继续跟文本串i 处的字符匹配，相当于模式串向右移动 j - next[j] 位。</p>
-
-          
+          <p>字符串匹配是计算机的基本任务之一。<br>举例来说，有一个字符串”BBC ABCDAB ABCDABCDABDE”，我想知道，里面是否包含另一个字符串”ABCDABD”？   </p>
+<h1 id="暴力匹配算法"><a href="#暴力匹配算法" class="headerlink" title="暴力匹配算法"></a>暴力匹配算法</h1><p>假设现在我们面临这样一个问题：有一个文本串S，和一个模式串P，现在要查找P在S中的位置，怎么查找呢？<br>如果用暴力匹配的思路，并假设现在文本串S匹配到 i 位置，模式串P匹配到 j 位置，则有：<br>如果当前字符匹配成功（即S[i] == P[j]），则i++，j++，继续匹配下一个字符；<br>如果失配（即S[i]! = P[j]），令i = i - (j - 1)，j = 0。相当于每次匹配失败时，i 回溯，j 被置为0。  </p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/KMP-alg.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
