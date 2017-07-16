@@ -94,7 +94,7 @@
 <meta property="og:url" content="http://qisens.win/2017/FFmpeg.html">
 <meta property="og:site_name" content="你的征程是星辰大海">
 <meta property="og:description" content="安装可通过PPA进行安装   sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next  sudo apt-get update  sudo apt-get install ffmpeg 相关概念比特率比特率，是一个决定音视频总体质量的参数。他决定每个时间单位处理的bit数，英文为 bit rate，描述每秒钟输出多少 KB 的参数，单位是">
-<meta property="og:updated_time" content="2017-07-11T12:27:42.052Z">
+<meta property="og:updated_time" content="2017-07-16T13:33:10.276Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FFmpeg在Ubuntu下的安装及常见视频处理方法">
 <meta name="twitter:description" content="安装可通过PPA进行安装   sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next  sudo apt-get update  sudo apt-get install ffmpeg 相关概念比特率比特率，是一个决定音视频总体质量的参数。他决定每个时间单位处理的bit数，英文为 bit rate，描述每秒钟输出多少 KB 的参数，单位是">
@@ -405,6 +405,7 @@ sudo apt-get update
 
 sudo apt-get install ffmpeg
 </code></pre><h1 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h1><h2 id="比特率"><a href="#比特率" class="headerlink" title="比特率"></a>比特率</h2><p>比特率，是一个决定音视频总体质量的参数。他决定每个时间单位处理的bit数，英文为 bit rate，描述每秒钟输出多少 KB 的参数，单位是 Kbps，也就是 kbit/s，8Kbit/s = 1KB/s。压缩同一个视频，视频编码率越大，文件体积越大，画质越好。  </p>
+<a id="more"></a>  
 <p>MP3一般使用的比特率为 8~320kbps。  </p>
 <p>设置比特率：<br>比特率决定处理1s的编码流需要多少bits，设置用-b选项。区分音视频用-b:a和-b:v<br>例如：设置整体1.5Mbit每秒  </p>
 <pre><code>ffmpeg -i file.avi -b 1.5M file.mp4  
@@ -494,8 +495,8 @@ ffmpeg -i input.avi -b:v 1500K output.mp4
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/inline.html" rel="prev" title="C++之inline内联函数浅析">
-                C++之inline内联函数浅析 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/ML2.html" rel="prev" title="十大机器学习算法介绍（二）">
+                十大机器学习算法介绍（二） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
