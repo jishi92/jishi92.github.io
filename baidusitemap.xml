@@ -4,28 +4,8 @@
 
     
   <url>
-    <loc>http://qisens.win/2017/ML2.html</loc>
-    <lastmod>2017-07-16T13:09:25.368Z</lastmod>
-    <data>
-        <display>
-        <title>十大机器学习算法介绍（二）</title>
-        <pubTime>2017-06-16T12:50:39.000Z</pubTime>
-        
-        <tag>machine learning</tag>
-         
-         
-           
-             
-              <breadCrumb title="ML" url="http://qisens.win/categories/ML/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://qisens.win/2017/linux.html</loc>
-    <lastmod>2017-07-16T05:08:06.378Z</lastmod>
+    <lastmod>2017-07-16T13:13:49.505Z</lastmod>
     <data>
         <display>
         <title>linux基础知识总结</title>
@@ -39,6 +19,46 @@
            
              
               <breadCrumb title="others" url="http://qisens.win/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/ML.html</loc>
+    <lastmod>2017-07-16T13:13:12.653Z</lastmod>
+    <data>
+        <display>
+        <title>十大机器学习算法介绍（一）</title>
+        <pubTime>2017-06-15T05:25:46.000Z</pubTime>
+        
+        <tag>-machine learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://qisens.win/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/ML2.html</loc>
+    <lastmod>2017-07-16T13:09:25.368Z</lastmod>
+    <data>
+        <display>
+        <title>十大机器学习算法介绍（二）</title>
+        <pubTime>2017-06-16T12:50:39.000Z</pubTime>
+        
+        <tag>machine learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://qisens.win/categories/ML/"/>
           
         </display>
     </data>
@@ -208,26 +228,6 @@
            
              
               <breadCrumb title="C++" url="http://qisens.win/categories/C/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://qisens.win/2017/ML.html</loc>
-    <lastmod>2017-06-25T06:04:23.685Z</lastmod>
-    <data>
-        <display>
-        <title>十大机器学习算法介绍（一）</title>
-        <pubTime>2017-06-25T05:25:46.000Z</pubTime>
-        
-        <tag>-machine learning</tag>
-         
-         
-           
-             
-              <breadCrumb title="ML" url="http://qisens.win/categories/ML/"/>
           
         </display>
     </data>
