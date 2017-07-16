@@ -1063,7 +1063,7 @@
               
                 
                 <a class="post-title-link" href="/2017/object.html" itemprop="url">
-                  浅析面向对象编程
+                  浅析面向对象编程思想
                 </a>
               
             
@@ -1138,10 +1138,14 @@
 
       
         
-          
-            <p><img src="https://pic1.zhimg.com/664ba37eeee9f4623c06c066867f1d38_b.jpg" alt=""></p>
-
-          
+          <p>面向对象的三个基本特征<br>面向对象的三个基本特征是：封装、继承、多态。其中，封装可以隐藏实现细节，使得代码模块化；继承可以扩展已存在的代码模块（类）；它们的目的都是为了——代码重用。而多态则是为了实现另一个目的——接口重用！<br><img src="http://img.my.csdn.net/uploads/201211/22/1353564524_6375.png" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/object.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1292,6 +1296,200 @@
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/ML2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/ML2.html" itemprop="url">
+                  十大机器学习算法介绍（二）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-26T20:50:39+08:00">
+                2017-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="K均值算法"><a href="#K均值算法" class="headerlink" title="K均值算法"></a>K均值算法</h1><p>K – 均值算法是一种非监督式学习算法，它能解决聚类问题。使用 K – 均值算法来将一个数据归入一定数量的集群（假设有 k 个集群）的过程是简单的。一个集群内的数据点是均匀齐次的，并且异于别的集群。</p>
+<p>还记得从墨水渍里找出形状的活动吗？K – 均值算法在某方面类似于这个活动。观察形状，并延伸想象来找出到底有多少种集群或者总体。<br><img src="http://ww3.sinaimg.cn/mw690/6941baebjw1ewidi90napj207w08cq2y.jpg" alt=""> </p>
+<p><strong>K – 均值算法怎样形成集群：</strong></p>
+<p>K – 均值算法给每个集群选择k个点。这些点称作为质心。<br>每一个数据点与距离最近的质心形成一个集群，也就是 k 个集群。<br>根据现有的类别成员，找出每个类别的质心。现在我们有了新质心。<br>当我们有新质心后，重复步骤 2 和步骤 3。找到距离每个数据点最近的质心，并与新的k集群联系起来。重复这个过程，直到数据都收敛了，也就是当质心不再改变。</p>
+<p><strong>如何决定 K 值：</strong></p>
+<p>K – 均值算法涉及到集群，每个集群有自己的质心。一个集群内的质心和各数据点之间距离的平方和形成了这个集群的平方值之和。同时，当所有集群的平方值之和加起来的时候，就组成了集群方案的平方值之和。</p>
+<p>我们知道，当集群的数量增加时，K值会持续下降。但是，如果你将结果用图表来表示，你会看到距离的平方总和快速减少。到某个值 k 之后，减少的速度就大大下降了。在此，我们可以找到集群数量的最优值。<br><img src="http://ww2.sinaimg.cn/mw690/6941baebjw1ewidi8p97lj20sg0ect9p.jpg" alt=""></p>
+<p>Python代码</p>
+<pre><code>#Import Library
+from sklearn.cluster import KMeans
+
+#Assumed you have, X (attributes) for training data set and x_test(attributes) of test_dataset
+# Create KNeighbors classifier object model 
+k_means = KMeans(n_clusters=3, random_state=0)
+
+# Train the model using the training sets and check score
+model.fit(X)
+
+#Predict Output
+predicted= model.predict(x_test)
+</code></pre><h1 id="降维算法"><a href="#降维算法" class="headerlink" title="降维算法"></a>降维算法</h1><p>在过去的 4 到 5 年里，在每一个可能的阶段，信息捕捉都呈指数增长。公司、政府机构、研究组织在应对着新资源以外，还捕捉详尽的信息。</p>
+<p>举个例子：电子商务公司更详细地捕捉关于顾客的资料：个人信息、网络浏览记录、他们的喜恶、购买记录、反馈以及别的许多信息，比你身边的杂货店售货员更加关注你。</p>
+<p>作为一个数据科学家，我们提供的数据包含许多特点。这听起来给建立一个经得起考研的模型提供了很好材料，但有一个挑战：如何从 1000 或者 2000 里分辨出最重要的变量呢？在这种情况下，降维算法和别的一些算法（比如决策树、随机森林、PCA、因子分析）帮助我们根据相关矩阵，缺失的值的比例和别的要素来找出这些重要变量。 </p>
+<p>Python代码  </p>
+<pre><code>#Import Library
+from sklearn import decomposition
+
+#Assumed you have training and test data set as train and test
+# Create PCA obeject pca= decomposition.PCA(n_components=k) #default value of k =min(n_sample, n_features)
+# For Factor analysis
+#fa= decomposition.FactorAnalysis()
+# Reduced the dimension of training dataset using PCA
+train_reduced = pca.fit_transform(train)
+
+#Reduced the dimension of test dataset
+test_reduced = pca.transform(test)
+
+#For more detail on this, please refer  this link.
+</code></pre><h1 id="Gradient-Boosting-和-AdaBoost-算法"><a href="#Gradient-Boosting-和-AdaBoost-算法" class="headerlink" title="Gradient Boosting 和 AdaBoost 算法"></a>Gradient Boosting 和 AdaBoost 算法</h1><p>当我们要处理很多数据来做一个有高预测能力的预测时，我们会用到 GBM 和 AdaBoost 这两种 boosting 算法。boosting 算法是一种集成学习算法。它结合了建立在多个基础估计值基础上的预测结果，来增进单个估计值的可靠程度。这些 boosting 算法通常在数据科学比赛如 Kaggl、AV Hackathon、CrowdAnalytix 中很有效。 </p>
+<p>Python代码： </p>
+<pre><code>#Import Library
+from sklearn.ensemble import GradientBoostingClassifier
+
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset
+# Create Gradient Boosting Classifier object
+model= GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=0)
+
+# Train the model using the training sets and check score
+model.fit(X, y)
+
+#Predict Output
+predicted= model.predict(x_test)
+</code></pre>
+          
         
       
     </div>
@@ -1622,154 +1820,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/BST.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="羁士">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="你的征程是星辰大海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/BST.html" itemprop="url">
-                  浅析B树，B+/-树，AVL树，红黑树
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T13:22:16+08:00">
-                2017-06-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="B树——二叉搜索树"><a href="#B树——二叉搜索树" class="headerlink" title="B树——二叉搜索树"></a>B树——二叉搜索树</h1><p>##定义：<br>1.所有非叶子结点至多拥有两个儿子（Left和Right）；<br>2.所有结点存储一个关键字；<br>3.非叶子结点的左指针指向小于其关键字的子树，右指针指向大于其关键字的子树； </p>
-<p>B树的搜索，从根结点开始，如果查询的关键字与结点的关键字相等，那么就命中；否则，如果查询关键字比结点关键字小，就进入左儿子；如果比结点关键字大，就进入右儿子；如果左儿子或右儿子的指针为空，则报告找不到相应的关键字。   </p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/BST.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1819,7 +1869,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1841,7 +1891,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
