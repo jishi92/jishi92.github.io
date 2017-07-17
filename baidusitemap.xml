@@ -4,6 +4,48 @@
 
     
   <url>
+    <loc>http://qisens.win/2017/FFmpeg.html</loc>
+    <lastmod>2017-07-17T13:47:49.957Z</lastmod>
+    <data>
+        <display>
+        <title>FFmpeg在Ubuntu下的安装及常见视频处理方法</title>
+        <pubTime>2017-06-11T12:14:50.000Z</pubTime>
+        
+        <tag>FFmpeg</tag>
+         
+        <tag>Ubuntu</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://qisens.win/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/hexo.html</loc>
+    <lastmod>2017-07-17T13:47:40.077Z</lastmod>
+    <data>
+        <display>
+        <title>使用hexo+github搭建个人博客遇到的问题及解决方法</title>
+        <pubTime>2017-06-04T05:24:20.000Z</pubTime>
+        
+        <tag>-hexo</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://qisens.win/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://qisens.win/2017/ML2.html</loc>
     <lastmod>2017-07-16T13:39:22.994Z</lastmod>
     <data>
@@ -17,28 +59,6 @@
            
              
               <breadCrumb title="ML" url="http://qisens.win/categories/ML/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://qisens.win/2017/FFmpeg.html</loc>
-    <lastmod>2017-07-16T13:39:08.469Z</lastmod>
-    <data>
-        <display>
-        <title>FFmpeg在Ubuntu下的安装及常见视频处理方法</title>
-        <pubTime>2017-04-11T12:14:50.000Z</pubTime>
-        
-        <tag>FFmpeg</tag>
-         
-        <tag>Ubuntu</tag>
-         
-         
-           
-             
-              <breadCrumb title="others" url="http://qisens.win/categories/others/"/>
           
         </display>
     </data>
@@ -248,26 +268,6 @@
            
              
               <breadCrumb title="C++" url="http://qisens.win/categories/C/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://qisens.win/2017/hexo.html</loc>
-    <lastmod>2017-06-25T06:03:41.026Z</lastmod>
-    <data>
-        <display>
-        <title>使用hexo+github搭建个人博客遇到的问题及解决方法</title>
-        <pubTime>2017-06-25T05:24:20.000Z</pubTime>
-        
-        <tag>-hexo</tag>
-         
-         
-           
-             
-              <breadCrumb title="others" url="http://qisens.win/categories/others/"/>
           
         </display>
     </data>
