@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="FFmpeg,Ubuntu," />
+  <meta name="keywords" content="Hadoop,MapReduce,分布式计算," />
 
 
 
@@ -87,17 +87,24 @@
 
 
 
-<meta name="description" content="安装可通过PPA进行安装   sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next  sudo apt-get update  sudo apt-get install ffmpeg 相关概念比特率比特率，是一个决定音视频总体质量的参数。他决定每个时间单位处理的bit数，英文为 bit rate，描述每秒钟输出多少 KB 的参数，单位是">
-<meta name="keywords" content="FFmpeg,Ubuntu">
+<meta name="description" content="分布式计算框架有很多，只是适合做的种类不一样。1、MapReduce适合做离线计算2、storm适合做流式计算，更适合实时计算3、spark是内存式计算框架，更适合做快速得到结果的计算">
+<meta name="keywords" content="Hadoop,MapReduce,分布式计算">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FFmpeg在Ubuntu下的安装及常见视频处理方法">
-<meta property="og:url" content="http://qisens.win/2017/FFmpeg.html">
+<meta property="og:title" content="Hadoop分布式计算框架MapReduce浅析">
+<meta property="og:url" content="http://qisens.win/2017/hadoop-mapreduce.html">
 <meta property="og:site_name" content="你的征程是星辰大海">
-<meta property="og:description" content="安装可通过PPA进行安装   sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next  sudo apt-get update  sudo apt-get install ffmpeg 相关概念比特率比特率，是一个决定音视频总体质量的参数。他决定每个时间单位处理的bit数，英文为 bit rate，描述每秒钟输出多少 KB 的参数，单位是">
-<meta property="og:updated_time" content="2017-07-17T13:47:49.957Z">
+<meta property="og:description" content="分布式计算框架有很多，只是适合做的种类不一样。1、MapReduce适合做离线计算2、storm适合做流式计算，更适合实时计算3、spark是内存式计算框架，更适合做快速得到结果的计算">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/437049-ad038e4944370d47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/437049-a083e6d26cbe9a04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/437049-5eac5b7b1137f0a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/437049-428226524c12af6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/437049-715027dab7315a0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/437049-914fbdfa7991a150.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-07-23T14:35:43.285Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FFmpeg在Ubuntu下的安装及常见视频处理方法">
-<meta name="twitter:description" content="安装可通过PPA进行安装   sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next  sudo apt-get update  sudo apt-get install ffmpeg 相关概念比特率比特率，是一个决定音视频总体质量的参数。他决定每个时间单位处理的bit数，英文为 bit rate，描述每秒钟输出多少 KB 的参数，单位是">
+<meta name="twitter:title" content="Hadoop分布式计算框架MapReduce浅析">
+<meta name="twitter:description" content="分布式计算框架有很多，只是适合做的种类不一样。1、MapReduce适合做离线计算2、storm适合做流式计算，更适合实时计算3、spark是内存式计算框架，更适合做快速得到结果的计算">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/437049-ad038e4944370d47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -125,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://qisens.win/2017/FFmpeg.html"/>
+  <link rel="canonical" href="http://qisens.win/2017/hadoop-mapreduce.html"/>
 
 
 
 
 
-  <title> FFmpeg在Ubuntu下的安装及常见视频处理方法 | 你的征程是星辰大海 </title>
+  <title> Hadoop分布式计算框架MapReduce浅析 | 你的征程是星辰大海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -304,7 +311,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/FFmpeg.html">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/hadoop-mapreduce.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="羁士">
@@ -325,7 +332,7 @@
             
             
               
-                FFmpeg在Ubuntu下的安装及常见视频处理方法
+                Hadoop分布式计算框架MapReduce浅析
               
             
           </h1>
@@ -340,8 +347,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-11T20:14:50+08:00">
-                2017-06-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-23T22:03:45+08:00">
+                2017-06-23
               </time>
             
 
@@ -398,53 +405,37 @@
       
 
       
-        <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>可通过PPA进行安装  </p>
-<pre><code>sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next
-
-sudo apt-get update
-
-sudo apt-get install ffmpeg
-</code></pre><h1 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h1><h2 id="比特率"><a href="#比特率" class="headerlink" title="比特率"></a>比特率</h2><p>比特率，是一个决定音视频总体质量的参数。他决定每个时间单位处理的bit数，英文为 bit rate，描述每秒钟输出多少 KB 的参数，单位是 Kbps，也就是 kbit/s，8Kbit/s = 1KB/s。压缩同一个视频，视频编码率越大，文件体积越大，画质越好。  </p>
+        <p>分布式计算框架有很多，只是适合做的种类不一样。<br>1、MapReduce适合做离线计算<br>2、storm适合做流式计算，更适合实时计算<br>3、spark是内存式计算框架，更适合做快速得到结果的计算  </p>
 <a id="more"></a>  
-<p>MP3一般使用的比特率为 8~320kbps。  </p>
-<p>设置比特率：<br>比特率决定处理1s的编码流需要多少bits，设置用-b选项。区分音视频用-b:a和-b:v<br>例如：设置整体1.5Mbit每秒  </p>
-<pre><code>ffmpeg -i file.avi -b 1.5M file.mp4  
-ffmpeg -i input.avi -b:v 1500K output.mp4
-</code></pre><h2 id="帧数"><a href="#帧数" class="headerlink" title="帧数"></a>帧数</h2><p>每秒钟播放的图片数，单位 fps（英文：Frames Per Second），帧率就是每秒编码进视频文件的帧数目。人类的眼睛需要每秒至少15帧才能将图像连贯在一起。帧率的单位是HZ，LCD显示一般有60Hz的平率。高的帧率可以得到更流畅、更逼真的动画。一般来说30fps就是可以接受的，但是将性能提升至60fps则可以明显提升交互感和逼真感，但是一般来说超过75fps一般就不容易察觉到有明显的流畅度提升了。如果帧率超过屏幕刷新率只会浪费图形处理的能力，因为显示器不能以这么快的速度更新，这样超过刷新率的帧率就浪费掉了。  </p>
-<p>在同一视频，同一码率的情况下，帧数越大，则画质越不好。尤其是运动的画面。因为每张画面会分担每秒有限的文件体积，如果画面越多，那么每张画面所能表现的内容就越有限。  </p>
-<p>当画面的FPS达到60帧/秒时，已经能满足绝大部分应用需求。一般情况下，如果能够保证游戏画面的平均FPS能够达到30帧/秒，那么画面已经基本流畅；能够达到50帧/秒，就基本可以体会到行云流水的感觉了。一般人很难分辨出60 帧/秒与100帧/秒有什么不同。  </p>
-<p><strong>帧率设置</strong><br>使用-r选项<br>ffmpeg -i input -r fps output<br>例如：<br>ffmpeg -i input.avi -r 30 output.mp4</p>
-<h2 id="分辨率"><a href="#分辨率" class="headerlink" title="分辨率"></a>分辨率</h2><p>最好理解的概念了，表示画面的大小，单位是像素 px。<br>和编码率的关系：越高的分辨率，需要越高的编码率，因为图像的细节多了，需要的文件体积也应该增大，否则还不如画面小一些，你会发现同一码率，画面越大，图像的马赛克程度越明显。 </p>
-<h2 id="采样率"><a href="#采样率" class="headerlink" title="采样率"></a>采样率</h2><p>每秒钟对音频信号的采样次数，采样频率越高声音还原度越高，声音更加自然。单位是赫兹 Hz。音频文件一般使用的采样率是 44100 Hz ，也就是一秒钟采样 44100 次，之所以使用这个数值是因为经过了反复实验，人们发现这个采样精度最合适，低于这个值就会有较明显的损失，而高于这个值人的耳朵已经很难分辨，而且增大了数字音频所占用的空间。我们所使用的CD的采样标准就是44.1k，目前44.1k还是一个最通行的标准。  </p>
-<h1 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h1><p><strong>主要参数</strong><br>-i 设定输入流<br>-f 设定输出格式<br>-ss 开始时间<br>视频参数：<br>-b 设定视频流量，默认为200Kbit/s<br>-r 设定帧速率，默认为25<br>-s 设定画面的宽与高<br>-aspect 设定画面的比例<br>-vn 不处理视频<br>-vcodec 设定视频编解码器，未设定时则使用与输入流相同的编解码器<br>音频参数：<br>-ar 设定采样率<br>-ac 设定声音的Channel数<br>-acodec 设定声音编解码器，未设定时则使用与输入流相同的编解码器<br>-an 不处理音频  </p>
-<p><strong>用法举例</strong>  </p>
-<h2 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h2><p>ffmpeg最常用功能就是格式转换，在这里要特别提的是，音、视频文件格式有两个容器格式（如mov、flv)与编码格式（如H.264）<br><code>ffmpeg -i input.flv output.mp4</code> </p>
-<h2 id="尺寸变换"><a href="#尺寸变换" class="headerlink" title="尺寸变换"></a>尺寸变换</h2><p><code>ffmpeg -i input.mp4 -s 640x360 output.mp4</code> </p>
-<h2 id="剪切视频段"><a href="#剪切视频段" class="headerlink" title="剪切视频段"></a>剪切视频段</h2><p><code>ffmpeg -i input.mp4 -ss 5 -t 10 output.mp4</code><br>上面的命令-ss 5指定从输入视频第5秒开始截取，-t 10指明最多截取10秒。 但是上面的命令可能会比较慢，更好的命令如下：  </p>
-<p><code>ffmpeg -ss 5 -i input.mp4 -t 10 -c:v copy -c:a copy output.mp4</code><br>上面的命令把-ss 5放到-i前面，与原来的区别是，这样会先跳转到第5秒在开始解码输入视频，而原来的会从开始解码，只是丢弃掉前5秒的结果。 而-c:v copy -c:a copy标示视频与音频的编码不发生改变，而是直接复制，这样会大大提升速度，因为这样就不需要完全解码视频（视频剪切也不需要完全解码）  </p>
-<p><strong>注意：-vcodec 有一个缩写叫做 -c:v ， -acodec 有一个缩写叫做 -c:a 。</strong>  </p>
-<h2 id="改变FPS"><a href="#改变FPS" class="headerlink" title="改变FPS"></a>改变FPS</h2><p>FFmpeg可以用于降低或提高视频的帧率，因为信息丢失不可逆法则，提高帧率只会简单地让某些帧的画面多重复一次或多次，所以提高帧率不会提高画质。  </p>
-<pre><code>ffmpeg -i input.mp4 -r 30 output.mp4
-</code></pre><p>上面的命令，不论原始视频帧率是多少，输出视频都会是30帧每秒。这种情况之下视频的时间轴不会变化，不会有慢动作或快动作的效果。  </p>
-<h2 id="截取图片"><a href="#截取图片" class="headerlink" title="截取图片"></a>截取图片</h2><p>视频10秒的地方(-ss 参数)截取一张1920x1080尺寸大小的，格式为jpg的图片 -ss后跟的时间单位为秒  </p>
-<p><code>ffmpeg -i input_video.mp4 -y -f image2 -t 0.001 -ss 10 -s 1920x1080 output.jpg</code><br>把视频的前30帧转换成一个Gif  </p>
-<pre><code>ffmpeg -i input_video.mp4 -vframes 30 -y -f gif output.gif
-</code></pre><p>将视频转成 gif</p>
-<pre><code>ffmpeg -ss 00:00:00.000 -i input.mp4 -pix_fmt rgb24 -r 10 -s 320x240 -t 00:00:10.000 output.gif
-</code></pre><p>将输入的文件从(-ss)设定的时间开始以10帧频率，输出到320x240大小的 gif 中，时间长度为-t 设定的参数。通过这样转换出来的 gif 一般都比较大，可以使用 ImageMagick 来优化图片的大小。  </p>
-<h1 id="转码时的输出信息"><a href="#转码时的输出信息" class="headerlink" title="转码时的输出信息"></a>转码时的输出信息</h1><blockquote>
-<p>frame=   28 fps=0.0 q=0.0 size=      2kB time=00:00:01.49 bitrate=  11.3kbits/s<br>frame=   30 fps= 17 q=-0.0 size=      13kB time=00:00:01.49 bitrate=  71.1kbits/<br>frame=   34 fps= 15 q=-0.0 size=      20kB time=00:00:01.66 bitrate=  99.9kbits/<br>frame=   38 fps= 13 q=-0.0 size=      31kB time=00:00:01.83 bitrate= 138.1kbits/<br>frame=   42 fps= 12 q=-0.0 size=      40kB time=00:00:02.00 bitrate= 165.1kbits/<br>frame=   46 fps= 11 q=-0.0 size=      49kB time=00:00:02.17 bitrate= 185.4kbits/<br>frame=   50 fps= 10 q=-0.0 size=      57kB time=00:00:02.34 bitrate= 199.3kbits/<br>frame=   54 fps= 10 q=-0.0 size=      63kB time=00:00:02.51 bitrate= 204.9kbits/<br>frame=   58 fps=9.5 q=-0.0 size=      74kB time=00:00:02.68 bitrate= 226.2kbits/<br>frame=   62 fps=9.2 q=-0.0 size=      85kB time=00:00:02.68 bitrate= 260.5kbits/<br>frame=   65 fps=8.8 q=-0.0 size=      92kB time=00:00:02.85 bitrate= 264.9kbits/  </p>
-</blockquote>
-<p>FFmpeg 确实不会显示进度条和百分比，不过，它会给你比进度条和百分比还要多的信息。  </p>
-<ol>
-<li>最左边的 frame= 65 是转码所进行到的帧数，显示 65 就表示现在已经转到了第 65 帧。</li>
-<li>第二个 fps=8.8 中的 FPS 就是 Frame per Second ，也就是现在电脑每秒所处理的帧的数量。注意这个数字跟视频的帧率并无关系。</li>
-<li>其实我也不知道后面那个 <code>q=-0.0</code> 是什么意思。 </li>
-<li>接下来的 size= 92kB 表示现在已经转换出来的视频的体积，这个数字只会越变越大啊。  </li>
-<li>第五个 time=00:00:02.85 顾名思义就是时间了，它是已经转换出来的视频的时间。在我看来，它也是一个比百分比进度条更加精准的进度显示。  </li>
-</ol>
-<p>转码需要多久，最后在哪里能看到我也不懂，希望知道的人看见可以留言补充。</p>
-<p>官方文档：<a href="https://www.ffmpeg.org/ffmpeg.html#Video-Options" target="_blank" rel="external">https://www.ffmpeg.org/ffmpeg.html#Video-Options</a></p>
+<h1 id="MapReduce设计理念"><a href="#MapReduce设计理念" class="headerlink" title="MapReduce设计理念"></a>MapReduce设计理念</h1><h2 id="何为分布式计算"><a href="#何为分布式计算" class="headerlink" title="何为分布式计算"></a>何为分布式计算</h2><p>移动计算，而不是移动数据。<br>把计算程序都进行部署到不同的机器上，然后在不同的机器上进行计算，然后进行汇总，做到不移动计算的数据，也能得到计算结果。</p>
+<p><strong>MR（MapReduce）计算框架图解  </strong><br><img src="http://upload-images.jianshu.io/upload_images/437049-ad038e4944370d47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>解决大数据的问题：<br>1、数据存储（HDFS）<br>2、数据计算(MapReduce)  </p>
+<p>首先对数据进行处理split为每一个数据片段，每一数据片段都会有一个map线程去执行，如果有多个片段会并发的同时执行。  </p>
+<p>所以：如上图：<br>第一个步骤是：如何把数据切片，按照什么规则去切分。<br>第二个步骤是：就是map部分<br>第三个步骤是shuffle部分<br>第四个部分是 reduce部分<br>第五个部分就是 输出部分（计算生成的数据，也是保存在HDFS上）  </p>
+<p>整个MR过程就是：就是把HDFS数据进行计算处理，然后输出结果  </p>
+<h2 id="实例MR计算"><a href="#实例MR计算" class="headerlink" title="实例MR计算"></a>实例MR计算</h2><p><img src="http://upload-images.jianshu.io/upload_images/437049-a083e6d26cbe9a04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>在shuffling阶段会有相应的合并和排序<br>有可能reduce为一个或者多个，这个是由程序去决定。</p>
+<h2 id="hadoop计算框架Shuffler"><a href="#hadoop计算框架Shuffler" class="headerlink" title="hadoop计算框架Shuffler"></a>hadoop计算框架Shuffler</h2><p>Shuffer的功能：<br>在mapper 和reducer中间的一个步骤。<br>可以把mapper的输出按照某种key值重新切分和组合成n份，把key值符合某种范围的输出送到特定的reducer那里，<br>可以简化reducer过程。<br><img src="http://upload-images.jianshu.io/upload_images/437049-5eac5b7b1137f0a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="map过程"><a href="#map过程" class="headerlink" title="map过程"></a>map过程</h2><p>map是一个Java程序，或者其他计算机程序，map得到的结果在内存中， 内存有一定的阈值，当到达一定的阈值后，就需要写入到磁盘中， 这个过程叫做溢写。  </p>
+<p>在写入之前要做几件事情，partion和sort。把当前map的数据进行输出和排序，然后再溢写到磁盘。放在磁盘中的数据是已经排好序的数据。  </p>
+<p><strong>什么是partition？</strong>  </p>
+<p>partition分区的数据是为以后产生作用的。把map的输出数据分成一个一个区，partition可以由程序员自定义编写代码。如果不写按照默认的分区模式进行分区，默认的分区模式是什么呢？ Hash模运算<br>1、获取hash值，每个对象的hash值得到一个整数，把这个整数模reduce的个数，得到一个结果。假如：hash模2，只有两种结果0或者1，然后map的结果分成了两个部分，0区或者1区。  </p>
+<p><strong>分区有什么作用？？？ 这是mapredure如何结局负载均衡和数据倾斜？</strong>  </p>
+<p>分区是为了把map的输出进行负载均衡，解决数据倾斜的问题。这样后期通过reduce进行计算的数据就不会有数据倾斜问题，一个计算的过多，一个计算的过少。这就是分区的作用。  </p>
+<p><strong>map为什么不会数据倾斜？？？</strong><br>map的数据是切片，每一片的大小相等，所以map的输入数据不会出现数据倾斜的问题。  </p>
+<p><strong>sort</strong><br>sort也有默认的的sort。默认的sort是按照ascii进行排序的。（即按照字典进行排序的）<br>为什么要sort？？？定义排序规则</p>
+<p>上图中merge on disk什么意思？？？<br>每次都会溢写到磁盘中，溢写会按照hash值进行合并，相同hash值放到一起。每一次溢写就会生成一个文件，溢写的次数越多，生成的文件越多，这些文件需要进行合并为一个大的文件，如何合并，就是按照hash值进行合并，这是默认的规则。  </p>
+<p>合并的目的？？？<br>减少map的输出，因为后期reduce会移动map的输出到reduce服务器上，减少map的输出，就会减少网络io的操作，所以很有必要的。  </p>
+<p>以上是map的处理  </p>
+<h2 id="reduce过程"><a href="#reduce过程" class="headerlink" title="reduce过程"></a>reduce过程</h2><p>map的处理结果落到磁盘以后，然后会进行merge，为什么merge，如果merge？？？  </p>
+<p>reduce 的输入数据就是map的输出数据，reduce的数据来源是map输出数据的拷贝。拷贝哪些数据，是根据partition的结果，只拷贝分给对应的reduce的数据。之前分区是按照reduce去模后的值进行分区的，分区以后的数据在copy到reduce所在的机器上，同事进行merge，便于下一步reduce进行处理。  </p>
+<p>分区就是在把数据拷贝到reduce的时候起作用的  </p>
+<p>为什么reduce task开始也有merge操作？？？<br>因为reduce会从很多的map输出结果中拷贝数据，这样会有很多个小文件，reduce为了计算，就需要对这些小文件进行merge。这就是为什么reduce开始时要进行merge操作。这个合并不是人为控制的，这个会根据key相同的进行合并，是hadoop自有的功能。合并完成以后相同key的数据会进行merge。  </p>
+<p>两个reduce是可以并发的。  </p>
+<p><strong>抓重点：</strong><br>这个过程比较虽然比较复杂，但是有很多部分是hadoop框架已经做的工作，只有一部分需要我们编程实现！！！  </p>
+<p>哪些部分需要我们编程实现？？？  </p>
+<p>1、partition（如何分区）<br>2、sort 比较（如何比较）<br>3、比较会进行多次<br>4、combiner<br><img src="http://upload-images.jianshu.io/upload_images/437049-428226524c12af6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">  </p>
+<p><strong>注意：</strong>在map执行之后，立刻进行partition，map的输出结果会分到哪个reduce，这个叫做分区，分区以后放在内存中，在溢写的时候，要执行sort和combiner，sort其实就是比较，默认按照ascii大小进行比较。 combiner可能会没有，所以上副图没有画combiner，这个意思是初次合并。  combiner可以减少map的输出数据。<br><img src="http://upload-images.jianshu.io/upload_images/437049-715027dab7315a0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/437049-914fbdfa7991a150.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>MapReduce的Split大小  </p>
+<p>1、max.split(100M)<br>2、min.split(10M)<br>3、block（64M）<br>如何进行切分，切分大小算法<br>4、max(min.split,min(max.split,block))<br>代入如上值为： 64M  </p>
 
       
     </div>
@@ -474,9 +465,11 @@ ffmpeg -i input.avi -b:v 1500K output.mp4
       
         <div class="post-tags">
           
-            <a href="/tags/FFmpeg/" rel="tag"># FFmpeg</a>
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
           
-            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+            <a href="/tags/MapReduce/" rel="tag"># MapReduce</a>
+          
+            <a href="/tags/分布式计算/" rel="tag"># 分布式计算</a>
           
         </div>
       
@@ -489,8 +482,8 @@ ffmpeg -i input.avi -b:v 1500K output.mp4
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/hexo.html" rel="next" title="使用hexo+github搭建个人博客遇到的问题及解决方法">
-                <i class="fa fa-chevron-left"></i> 使用hexo+github搭建个人博客遇到的问题及解决方法
+              <a href="/2017/Cppmemory2.html" rel="next" title="C/C++内存管理详解（二）">
+                <i class="fa fa-chevron-left"></i> C/C++内存管理详解（二）
               </a>
             
           </div>
@@ -499,8 +492,8 @@ ffmpeg -i input.avi -b:v 1500K output.mp4
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/ML.html" rel="prev" title="十大机器学习算法介绍（一）">
-                十大机器学习算法介绍（一） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/inline.html" rel="prev" title="C++之inline内联函数浅析">
+                C++之inline内联函数浅析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -650,7 +643,7 @@ ffmpeg -i input.avi -b:v 1500K output.mp4
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关概念"><span class="nav-number">2.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#比特率"><span class="nav-number">2.1.</span> <span class="nav-text">比特率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帧数"><span class="nav-number">2.2.</span> <span class="nav-text">帧数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分辨率"><span class="nav-number">2.3.</span> <span class="nav-text">分辨率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#采样率"><span class="nav-number">2.4.</span> <span class="nav-text">采样率</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见用法"><span class="nav-number">3.</span> <span class="nav-text">常见用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#格式转换"><span class="nav-number">3.1.</span> <span class="nav-text">格式转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尺寸变换"><span class="nav-number">3.2.</span> <span class="nav-text">尺寸变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#剪切视频段"><span class="nav-number">3.3.</span> <span class="nav-text">剪切视频段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改变FPS"><span class="nav-number">3.4.</span> <span class="nav-text">改变FPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#截取图片"><span class="nav-number">3.5.</span> <span class="nav-text">截取图片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转码时的输出信息"><span class="nav-number">4.</span> <span class="nav-text">转码时的输出信息</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MapReduce设计理念"><span class="nav-number">1.</span> <span class="nav-text">MapReduce设计理念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#何为分布式计算"><span class="nav-number">1.1.</span> <span class="nav-text">何为分布式计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例MR计算"><span class="nav-number">1.2.</span> <span class="nav-text">实例MR计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hadoop计算框架Shuffler"><span class="nav-number">1.3.</span> <span class="nav-text">hadoop计算框架Shuffler</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map过程"><span class="nav-number">1.4.</span> <span class="nav-text">map过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reduce过程"><span class="nav-number">1.5.</span> <span class="nav-text">reduce过程</span></a></li></ol></li></ol></div>
             
 
           </div>
