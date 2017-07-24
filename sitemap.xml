@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://qisens.win/2017/linux-commu.html</loc>
+    
+    <lastmod>2017-07-24T07:18:13.888Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://qisens.win/2017/vim.html</loc>
+    
+    <lastmod>2017-07-24T06:31:28.745Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://qisens.win/2017/linux.html</loc>
+    
+    <lastmod>2017-07-24T02:58:43.737Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://qisens.win/2017/hadoop-mapreduce.html</loc>
     
     <lastmod>2017-07-23T14:35:43.285Z</lastmod>
@@ -47,13 +68,6 @@
     <loc>http://qisens.win/2017/ML2.html</loc>
     
     <lastmod>2017-07-16T13:39:22.994Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://qisens.win/2017/linux.html</loc>
-    
-    <lastmod>2017-07-16T13:13:49.505Z</lastmod>
     
   </url>
   

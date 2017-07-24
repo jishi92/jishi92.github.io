@@ -96,7 +96,7 @@
 <meta property="og:description" content="Linux结构可以把Linux系统看作由四部分构成：内核、用户界面、文件结构和实用工具。">
 <meta property="og:image" content="http://i.imgur.com/K7Gao8A.gif">
 <meta property="og:image" content="http://i.imgur.com/uQVWPei.png">
-<meta property="og:updated_time" content="2017-07-16T13:13:49.505Z">
+<meta property="og:updated_time" content="2017-07-24T02:58:43.737Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux基础知识总结">
 <meta name="twitter:description" content="Linux结构可以把Linux系统看作由四部分构成：内核、用户界面、文件结构和实用工具。">
@@ -871,7 +871,16 @@ rpm -ivh RPM包全路径名称：安装包到当前系统有提示信息
 如果忽略这个错误信息继续卸载，使用 --nodeps命令行选项
 </code></pre><p>升级rpm包：</p>
 <pre><code>rpm -u RPM包全路径包
-</code></pre>
+</code></pre><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><strong>cat主要有三大功能：</strong><br>1.一次显示整个文件。<br>2.从键盘创建一个文件，只能创建新文件,不能编辑已有文件.<br>3.将几个文件合并为一个文件  </p>
+<p><strong>touch命令 </strong><br>创建空白文件或修改文件时间  </p>
+<p><strong>apache目录访问控制的参数有：</strong><br>AuthName:验证窗口的名称<br>AuthType:验证的类型，这里定义的是Basic<br>AuthUserFile:验证所使用的帐号密码配置文件<br>Require:指定可以登录网页的用户  </p>
+<p><strong>Linux下多线程编程常用的pthread库提供的函数名和意义：</strong><br>pthread_create 创建一个线程<br>pthread_join用来等待一个线程的结束<br>pthread_mutex_init 初始化一个线程互斥锁<br>pthread_exit结束一个线程  </p>
+<p>Linux操作系统包括<strong>三种不同类型的进程</strong>，每种进程都有自己的特点和属性。<br> 1.交互进程——由一个shell启动的进程。交互进程既可以在前台运行，也可以在后台运行。<br> 2.批处理进程——这种进程和终端没有联系，是一个进程序列。<br> 3.监控进程（也称守护进程）——Linux系统启动时启动的进程，并在后台运行。  </p>
+<p>arm-linux-gcc  -g -o example example.c<br>-g选项，加入GDB能够 使用 的调试信息, 使用 GDB调试时比较方便  </p>
+<p>arm-linux-gcc  -o example example.c<br>不加-c、-S、-E参数，编译器将执行预处理、编译、汇编、连接操作直接生成可执行代码。<br>-o参数用于指定输出的文件，输出文件名为example,如果不指定输出文件，则默认输出a.out  </p>
+<p>arm-linux-gcc  -c -o example.o example.c<br>-c参数将对源程序example.c进行预处理、编译、汇编操作，生成example.0文件<br>去掉指定输出选项”-o example.o”自动输出为example.o,所以说在这里-o加不加都可以  </p>
+<p>arm-linux-gcc  -S -o example.s example.c<br>   -S参数将对源程序example.c进行预处理、编译，生成example.s文件<br>   -o选项同上</p>
+
       
     </div>
 
@@ -924,6 +933,10 @@ rpm -ivh RPM包全路径名称：安装包到当前系统有提示信息
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/linux-commu.html" rel="prev" title="浅析Linux进程间通信的几种方式">
+                浅析Linux进程间通信的几种方式 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -995,7 +1008,7 @@ rpm -ivh RPM包全路径名称：安装包到当前系统有提示信息
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1017,7 +1030,7 @@ rpm -ivh RPM包全路径名称：安装包到当前系统有提示信息
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1072,7 +1085,7 @@ rpm -ivh RPM包全路径名称：安装包到当前系统有提示信息
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux结构"><span class="nav-number">1.</span> <span class="nav-text">Linux结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux基本命令"><span class="nav-number">2.</span> <span class="nav-text">Linux基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">2.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件查看和连接"><span class="nav-number">2.2.</span> <span class="nav-text">文件查看和连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令的操作"><span class="nav-number">2.3.</span> <span class="nav-text">命令的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录相关"><span class="nav-number">2.4.</span> <span class="nav-text">目录相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件权限"><span class="nav-number">2.5.</span> <span class="nav-text">文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件操作"><span class="nav-number">2.5.1.</span> <span class="nav-text">文件操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户组操作"><span class="nav-number">2.5.2.</span> <span class="nav-text">用户组操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助命令"><span class="nav-number">2.6.</span> <span class="nav-text">帮助命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VI命令"><span class="nav-number">2.7.</span> <span class="nav-text">VI命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备硬盘操作"><span class="nav-number">2.8.</span> <span class="nav-text">设备硬盘操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络配置"><span class="nav-number">2.9.</span> <span class="nav-text">网络配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装软件"><span class="nav-number">2.10.</span> <span class="nav-text">安装软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改文件所有者chown"><span class="nav-number">2.11.</span> <span class="nav-text">更改文件所有者chown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程管理"><span class="nav-number">2.12.</span> <span class="nav-text">进程管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务调度"><span class="nav-number">2.13.</span> <span class="nav-text">任务调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#at命令"><span class="nav-number">2.14.</span> <span class="nav-text">at命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#batch命令"><span class="nav-number">2.15.</span> <span class="nav-text">batch命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell命令"><span class="nav-number">2.16.</span> <span class="nav-text">shell命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置日期"><span class="nav-number">2.17.</span> <span class="nav-text">设置日期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件安装"><span class="nav-number">2.18.</span> <span class="nav-text">软件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPM管理"><span class="nav-number">2.19.</span> <span class="nav-text">RPM管理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux结构"><span class="nav-number">1.</span> <span class="nav-text">Linux结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux基本命令"><span class="nav-number">2.</span> <span class="nav-text">Linux基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">2.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件查看和连接"><span class="nav-number">2.2.</span> <span class="nav-text">文件查看和连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令的操作"><span class="nav-number">2.3.</span> <span class="nav-text">命令的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录相关"><span class="nav-number">2.4.</span> <span class="nav-text">目录相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件权限"><span class="nav-number">2.5.</span> <span class="nav-text">文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件操作"><span class="nav-number">2.5.1.</span> <span class="nav-text">文件操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户组操作"><span class="nav-number">2.5.2.</span> <span class="nav-text">用户组操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助命令"><span class="nav-number">2.6.</span> <span class="nav-text">帮助命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VI命令"><span class="nav-number">2.7.</span> <span class="nav-text">VI命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备硬盘操作"><span class="nav-number">2.8.</span> <span class="nav-text">设备硬盘操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络配置"><span class="nav-number">2.9.</span> <span class="nav-text">网络配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装软件"><span class="nav-number">2.10.</span> <span class="nav-text">安装软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改文件所有者chown"><span class="nav-number">2.11.</span> <span class="nav-text">更改文件所有者chown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程管理"><span class="nav-number">2.12.</span> <span class="nav-text">进程管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务调度"><span class="nav-number">2.13.</span> <span class="nav-text">任务调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#at命令"><span class="nav-number">2.14.</span> <span class="nav-text">at命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#batch命令"><span class="nav-number">2.15.</span> <span class="nav-text">batch命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell命令"><span class="nav-number">2.16.</span> <span class="nav-text">shell命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置日期"><span class="nav-number">2.17.</span> <span class="nav-text">设置日期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件安装"><span class="nav-number">2.18.</span> <span class="nav-text">软件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPM管理"><span class="nav-number">2.19.</span> <span class="nav-text">RPM管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">2.20.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -4,6 +4,70 @@
 
     
   <url>
+    <loc>http://qisens.win/2017/linux-commu.html</loc>
+    <lastmod>2017-07-24T07:18:13.888Z</lastmod>
+    <data>
+        <display>
+        <title>浅析Linux进程间通信的几种方式</title>
+        <pubTime>2017-07-18T06:55:21.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://qisens.win/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/vim.html</loc>
+    <lastmod>2017-07-24T06:31:28.745Z</lastmod>
+    <data>
+        <display>
+        <title>图解Vim常见命令</title>
+        <pubTime>2017-06-14T03:18:09.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>Vim</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://qisens.win/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/linux.html</loc>
+    <lastmod>2017-07-24T02:58:43.737Z</lastmod>
+    <data>
+        <display>
+        <title>linux基础知识总结</title>
+        <pubTime>2017-07-16T02:12:20.000Z</pubTime>
+        
+        <tag>linux</tag>
+         
+        <tag>总结</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://qisens.win/categories/others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://qisens.win/2017/hadoop-mapreduce.html</loc>
     <lastmod>2017-07-23T14:35:43.285Z</lastmod>
     <data>
@@ -153,28 +217,6 @@
            
              
               <breadCrumb title="ML" url="http://qisens.win/categories/ML/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://qisens.win/2017/linux.html</loc>
-    <lastmod>2017-07-16T13:13:49.505Z</lastmod>
-    <data>
-        <display>
-        <title>linux基础知识总结</title>
-        <pubTime>2017-07-16T02:12:20.000Z</pubTime>
-        
-        <tag>linux</tag>
-         
-        <tag>总结</tag>
-         
-         
-           
-             
-              <breadCrumb title="others" url="http://qisens.win/categories/others/"/>
           
         </display>
     </data>

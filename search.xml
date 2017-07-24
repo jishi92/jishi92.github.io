@@ -1,202 +1,1981 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title><![CDATA[linux基础知识总结]]></title>
-    <url>%2F2017%2Flinux.html</url>
-    <content type="text"><![CDATA[Linux结构可以把Linux系统看作由四部分构成：内核、用户界面、文件结构和实用工具。 /bin 普通用户的可执行文件，系统的任何用户都可以执行该目录中的命令 /boot 存放Linux操作系统启动时所需要的文件 /dev 系统中所有设备文件 /etc 系统中的配置文件 /home 普通用户的宿主目录，每个用户在该目下都有一个于用户名同名的目录。 /mnt 中的子目录用于系统中可移动设备的挂载点 /root 超级用户root的宿主目录 /sbin 系统中的管理命令，普通用户不能执行 /tmp 系统的临时目录 /usr 系统应用程序的相关文件 /var 系统中经常变化的文件如日志文件和用户邮件 通配符： * 代表多个字母或数字 ？ 一个 别名： 命令：alias显示系统当前定义的所有alias alias cp =&apos;cp-i&apos; alias ll=&apos;ls -l --color = tty&apos; Linux基本命令启动 shutdown - r now 重启 shutdown - h now 立刻关机 reboot 重启 文件查看和连接cat cat [选项] (file1)… more 显示文件内容，带分页 less 显示文件内容，带分页 grep 在文本中查询指定内容管道命令[把上一个命令的结果给|后的命令处理] grep &quot;shunping&quot; aaa.java grep -n ...... 显示行数 grep -n &quot;shunping&quot; aaa.java &gt; kkk.bak 重定向命令 ls -l &gt; a.txt 列表的内容写入文件 a.txt（覆盖写） ls -l &gt;&gt; a.txt 追加写到文件的末尾 find的使用：在特定目录下搜索并显示指定名称的文件和目录，搜索一段时间内被存取/变更的文件或目录。 find /home -amin -10 十分钟内存取的文件和目录 find /home -atime -10 十小时 find /home -cmin -10 十分钟内更改过的 find /home -size +10k 大小为10k的 将目前目录及其子目录下所有延伸档名是 c 的档案列出来。 #find . -name “*.c”将目前目录其其下子目录中所有一般档案列出 #find . -ftype f将目前目录及其子目录下所有最近 20 分钟内更新过的档案列出 #find . -ctime -20 命令的操作more more [选项] …分屏显示命令 less less [选项] 按页显示命令 clear 清除屏幕命令 history 查看历史命令记录 目录相关cd .. 可进入上一层目录 cd - 进入上一个进入的目录 cd ~ 可进入用户的home目录 pwd 显示当前在哪个路径 ls 列出文件和目录 ls -a 显示隐藏文件 ls -l 显示常列表格式 mkdir 建立目录 rmdir 删除空目录 touch 建立空文件 文件权限文件操作cp 复制命令 mv 移动文件和改文件rm 删除文件和目录rm -rf * 删除所有内容（包括目录和文件）如何修改文件的访问权限 chmod 777 along 范例 :将档案 file1.txt 设为所有人皆可读取: chmod ugo+r file1.txt 将档案 file1.txt 设为所有人皆可读取: chmod a+r file1.txt 将档案 file1.txt 与 file2.txt 设为该档案拥有者,与其所属同一个群体者可写入,但其他以外的人则不可写入: chmod ug+w,o-w file1.txt file2.txt 将 ex1.py 设定为只有该档案拥有者可以执行: chmod u+x ex1.py 将目前目录下的所有档案与子目录皆设为任何人可读取: chmod -R a+r * 用户组操作su- 切换成系统管理员 su 用户之间的切换 logout 用户注销 useradd xiaoming 添加用户（root下） passwd xiaoming 设置xiaoming的密码 userdel xiaoming 删除用户 userdel -r xiaoming删除用户及其主目录 每个用户必须属于某一个组，不能独立于组外。每个文件有所有者、所在组、其它组的概念 *1，所有者：一般指创建者 用ls -ahl 命令可以查看文件的所有者 用chown 用户名 文件名 来修改文件的所有者 *2，文件所在组 —-用户所在的组 ls -ahl 可以看见文件的所有组 chgrp 组名 文件名 修改文件所在组 *3，其它组—除开文件的所有者和所在组的用户外， 系统其他用户都是文件的其他组 添加组 ---groupadd policeman 查看Linux中所有组 ： vi /etc/group 查看该文件或cat /etc/group | more 创建用户并指定将该用户分配到哪个组 useradd -g 组名 用户名 查看Linux中所有用户信息：vi /etc/passwd 或者cat /etc/passwd 文件权限：—–分为三种：r-可读，用四表示w-可写，用2表示x-可执行，用1表示 -d ：指定用户主目录，默认情况下，将会在/home目录下新建一个与用户名相同的用户主目录 删除用户的命令为userdel，该命令的格式为：userdel &lt;用户名&gt; 修改用户属性 usermod –g&lt;主组名&gt; -G &lt;组名&gt; -d &lt;用户主目录&gt; -s &lt;用户shell&gt; 在添加用户时，可以指定将该用户添加到哪个组中，同样的用root的管理权限可以改变某个用户所在的组：usermod -g 组名 用户名 可以用 usermod -d 目录名 用户名 改变该用户登录的初始目录 增加用户组 groupadd &lt;新组名&gt; 删除用户组 groupdel &lt;组名&gt; 修改组成员：直接编辑/etc/group文件，将用户名写到对应的组名的后面 whoami命令的功能在于显示用户自身的用户名。 who [选项]：该命令主要用于查看当前在线的用户情况 w命令 ：用于显示登录到系统的用户情况 finger命令可用于查找和显示用户信息，并且在查找后显示指定账号的相关信息 chfn命令能够改变系统存储的用户信息 切换用户身份：su [用户名] 帮助命令man &lt;command&gt; info &lt;command&gt; help [command] VI命令vi有三种基本工作模式，分别是：命令模式（command mode）、插入模式（insert mode）和底行模式（last line mode） 进入vi： 命令“vi 文件名” 命令“vi”，在退出vi时再指定文件名 选项“+n”，表示希望在进入vi之后，光标处于文件中第n行上， 选项“+”表示希望在进入vi之后光标处于文件最末行。 保存文件: 1.在命令模式下,连按两次大写字母。 2.在末行模式下: :w vi保存当前编辑的文件，但并不退出vi，而是继续等待用户输入命令。 :w &lt;newfile&gt; :w! &lt;newfile&gt; 把当前文件的内容保存到指定的文件newfile中，如果newfile已经存在，则覆盖原有内容。 在末行模式下，有四种方法可以退出vi返回到shell： :q 系统退出vi返回到shell。在用此命令时，若编辑的文件没有被保存，则vi在窗口的最末行给出提示信息。 :q! vi放弃所作修改而直接退到shell下。 :wq 先保存文件，然后再退出vi返回到shell。 :x 该命令的功能与命令模式下的ZZ命令功能相同 0（数字0） 移到当前行的行首 $ 移到当前行的行尾 设备硬盘操作挂载设备 查看设备：使用命令“fdisk –l”可以查看系统的存储设备 挂载设备 ：首先使用mkdir命令建立挂载点目录，然后再使用mount命令挂载相关设备 mkfs [选项][-t &lt;文件系统类型&gt;] [设备名称] [区块数] 说明：把指定的设备格式为指定的文件系统。 查看磁盘使用情况 df [-参数] 比如， df-l 查看某个目录是在哪个分区 df [目录全路径] 查看Linux系统分区具体情况 fdish -l 网络配置配置网络接口可以使用三种不同的工具来完成： 1使用网络接口配置程序netconfig 2使用图形配置工具 3使用终端命令ifconfig 监控网络状态信息:显示网络统计信息的命令netstat此命令用来显示整个系统目前的网络情况。例如目前的连接、数据包传递数据 、或路由表的内容。如 netstat -an netstat -anp|more (查看网络端口的使用的情况)显示数据包经过历程命令：traceroute route 查看路由表 1.追踪路由 ：tracert 目标ip/域名 2.测试两个ip是否畅通：ping 目标IP 3.window下查看IP情况：ipconfig 4.Linux/unix下查看IP情况：ifconfig 5.linux 网络环境配置： 第一种： (1) 用root身份登陆，运行setup命令进入到text mode setup utility 对网络进行配置，这里可以进行ip、子网掩码、默认网管、dns的设置 (2) 这时网卡的配置没有立即生效，运行 /etc/rc.d/init.d/network restart命令我们刚才作的配置生效。 第二种： (1)ifconfig eth0 x.x.x.x对网卡进行设置 (2)infconfig eth0 network x.x.x.x对子网掩码设置 对广播地址和dns使用默认的 注意：这样配置网络会立即生效，但是是临时生效 第三种： (1) 修改/etc/sysconfig/network-scripts/ifcfg-eth0 这个文件的各个属性可以修改，包括ip，子网掩码、广播地址、默认网关 (2)这是网卡的配置没有生效运行/etc/rc.d/init.d/network restart 命令我们刚才做的设置才生效Linux中的所有设备都是文件，这种方法是最底层的方法，永久性修改 VMware下Linux和window ping (1) windows下ipconfig查看VM网卡IP (2) 配置Linux的IP使两者处于同一个子网的 即可以ping通 ifconfig &lt;设备名&gt; &lt;IP地址&gt; netmask &lt;掩码&gt; 例如： ifconfig eth0 192.168.15.11 netmask 255.255.255.0 在网络配置界面中，通过“激活”或者“解除”按钮可以启动或者禁用网络接口， 网络控制程序network /etc/rc.d/init.d/network start|stop|restart 命令ifconfig : ifconfig &lt;设备名&gt; [up|down] 命令ifup/ifdown ifup eth0 ifdown eth0 安装软件获取最新版本的Apache源代码 将源代码解压缩 ./configure –- prefix=/home/myapache 执行编译命令：make 执行安装命令：make install 账号和用户管理 用户和组的配置信息保存在以下三个文件中： /etc/passwd /etc/shadow /etc/etc/group 更改文件所有者chownchown [选项] user[:group] &lt;file&gt;... 更改文件访问权限命令chmod chmod [选项] &lt;mode&gt; &lt;file&gt;... mode：[ugoa][[+-=][rwxX]...][,…]， mode也可以用数字来表示权限： chmod abc file a,b,c各为一个数字，分别表示User、Group、及Other的权限。权限是关于可读（r）、可写(w)、可执行(r)三个属性设置值的和，其中r=4，w=2，x=1， 例如： 若要rwx属性，则4+2+1=7； 若要rw-属性，则4+2=6； 若要r-x属性，则4+1=7 进程管理Linux操作系统包括三种不同类型的进程，每种进程都有自己的特点和属性： 交互进程:由shell启动的进程。 批处理进程:这种进程和终端没有联系，是一个进程序列。 守护进程:在后台持续运行的进程。 前台启动:一般地，用户键入一个命令，就已经启动了一个前台的进程。 后台启动 :对于非常耗时进程，可以然进程在后台运行。从后台启动进程其实就是在命令结尾加上一个“&amp;”号 每个进程，都会对应一个父进程，而这个父进程可以复制多个子进程每个进程都可能以两种方式存在：后台或前台 进程就是正在执行的程序 显示系统执行的进程：ps命令，可以不加任何参数 1. ps -a :显示当前终端的所有进程信息 2：ps -u :以用户的格式显示进程信息 3. ps -x :显示后台进程运行的参数 ps -aux 终止进程：kill/killall 终止某个进程：kill 进程号 如：kill 6251 kill -q 5222 ：因为某些进程会捕捉某些信息，如果直接不能结束进程，可以使用“ -q”传送信息 动态监控进程：top top和ps类似，top在执行一段时间可以更新正在进行的进程 1.监视特定用户 top：输入此命令,按回车键，查看执行的进程 u：然后输入“u” 回车，在输入用户名即可 2.终止指定的进程 top： k: 输入k回车，再输入要结束的进程ID 3.top -d 10 :指定系统更新进程的时间为10秒 按小q退出 任务调度任务调度指系统在某个时间执行的特定的命令和程序 任务调度分类： 1.系统工作：有些重要的工作必须周而复始的执行，如病毒扫描….. 2.个别用户工作：个别用户可能希望执行某些程序 置任务调度文件：/etc/crontab 设置个人任务调度：执行crontab -e命令 接着输入任务到调度文件 如：5**** ls -l /etc/ &gt; /tmp/to.txt 意思是说每小时的第五分钟执行ls -l /etc/ &gt; /tmp/to.txt 任务调度的使用： 1.设置任务 crontab -e 2.每隔一定时间去执行 data &gt; /home/mydata1 希望每天凌晨2：00执行 date &gt;&gt; /home/mydate 02*** date &gt;&gt; /home/mydate 调度文件的规则： 字段名称 说明 范围 分钟 每小时第几分钟 0~59 小时 每日的第几个小时 0~23 日期 每月的第几天 1~31 日历 每年的第几个月 1~12 星期 每周的第几天 0~6 3.怎么样调度多个任务？ a.在crontab -e 中直接写 b.可以把所有的任务写入一个可执行文件（shell编程） 例子： vi mytask.sh date &gt;&gt; /home/mydate cp /home/mydate /root chmod 744 mytask.sh crontab -e ***** /root/mytask.sh 终止任务调度： crontab -r ：终止任务调度 crontab -l ：列出当前有哪些任务调度 at命令在shell提示符下输入”at 时间”，然后按回车键。这时在下一行shell会等待用户继续输入要执行的命令。每一行输入一个命令，所有命令都输入完毕后按Ctrl+d键结束。 将各个命令写入shell脚本中，然后使用下面格式设置在指定时间执行shell脚本中的命令： at 时间 –f脚本文件。 batch命令crone命令在系统启动时由一个shell脚本自动启动，进入后台。 cron启动后搜索/var/spool/cron目录，寻找以/etc/passwd文件中的用户名命名的crontab文件，被找到的这种文件将载入内存。 如果没有crontab文件，就转入“休眠”状态，释放系统资源。 cron每分钟“醒”过来一次，查看当前是否有需要运行的命令。 如果发现某个用户设置了crontab文件，它将以该用户的身份去运行文件中指定的命令。命令执行结束后，任何输出都将作为邮件发送给crontab的所有者，或者/etc/crontab文件中MAILTO环境变量中指定的用户。 内存查看命令free 磁盘空间用量查看命令df shell命令作为命令语言互动式地解释和执行用户输入的命令只是shell功能的一个方面 另外shell还可以进行程序设计，他提供了定义变量和参数的手段以及丰富的程序控制结构。使用shell类似于DOS中的批处理文件称为shell script shell有很多，常用的有3种：/bin/sh /bin/csh /bin/ksh 查看shell种类 ：ls -l /bin/*sh 1.查看目前使用的是哪种shell env [该命令可以显示当前操作系统的环境变量] 2.shell的修改: 直接输入：chsh -s 输入新的shell 如：/bin/csh 设置日期1.date命令。可以直接输入date 来查看系统时间 2.利用date命令来更改系统时间 date MMDDHHMCCYY.SS:指定月月日日时时分分年年年年.秒秒 3.查看日历：cal 3 2002 ：查看2001年3月的日历 4.查看年历：cal 2008 软件安装1.linux JDK的安装 a.把**.iso 文件挂载在虚拟机上做好配置 mount /mnt/cdrom unmount /mnt/cdrom b.把安装文件拷贝到 /home cp 文件 /home c.cd /home d.安装 ./**.bin e.看看文件 /etc/profile[环境配置文件] f.配置刚才自己安装的JDK 2.eclipse a.安装文件拷贝到 /home b.安装 tar -zxvf **.tar.gz c.启动eclipse[进入图形界面] startx ./eclipse ./eclipse &amp; 后台方式运行 RPM管理介绍：一种用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成 具有.RPM扩展名的文件。 RPM是RedHat Package Manager（RedHat软件包管理工具）的缩写 RPM包的名称格式：apache-1.3.23-11.i386.rpm **RPM 常用命令 rpm -qa:查询所安装的所有rpm软件包 rpm -qa | more rpm -pa | grep x rpm -q 软件包名 （查询软件包是否安装） rpm -q foo rpm -qi 软件包名：查询软件包信息 rpm -ql file rpm -ql 软件包名 ：查询软件包中的文件 rpm -ql file rpm -qf文件全路径名：查询文件所属的软件包 rpm -qf /etc/passwd rpm -qp包文件名：查询包的信息、对这个软件包的介绍 rpm -qp jdk-1-5_linux -i586.rpm 安装rpm包： rpm -i RPM包路径名称：安装包到当前系统 i = install rpm -ivh RPM包全路径名称：安装包到当前系统有提示信息 参数说明：i = install 安装 v = verbase 提示 h = hash 进度条 删除rpm包：rpm -e jdk 如果其它软件包依赖于您要卸载的软件包，卸载时则会产生错误的信息 如果忽略这个错误信息继续卸载，使用 --nodeps命令行选项 升级rpm包： rpm -u RPM包全路径包]]></content>
-      <categories>
-        <category>others</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>总结</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[win7滑轮滚动excel就停止工作的解决方法]]></title>
-    <url>%2F2017%2Fexcel-win7.html</url>
-    <content type="text"><![CDATA[重装系统后又安装了office 2013，但这次的excel正常使用没什么问题，一拉进度条或滚动滑轮就停止工作，网上很多什么修改注册表和删除文件的方法都没有，安装Microsoft的补丁也没用，最后下载替换了一个dll文件就解决了，不管32还是64位都可以解决。 下载地址：http://www.dllzj.com/osf.dll/ 解压后把dll文件放到office15文件夹下替换即可。]]></content>
-      <categories>
-        <category>others</category>
-      </categories>
-      <tags>
-        <tag>win7</tag>
-        <tag>excel</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[字符串匹配——KMP算法的C++实现]]></title>
-    <url>%2F2017%2FKMP-alg.html</url>
-    <content type="text"><![CDATA[字符串匹配是计算机的基本任务之一。举例来说，有一个字符串”BBC ABCDAB ABCDABCDABDE”，我想知道，里面是否包含另一个字符串”ABCDABD”？ 暴力匹配算法假设现在我们面临这样一个问题：有一个文本串S，和一个模式串P，现在要查找P在S中的位置，怎么查找呢？如果用暴力匹配的思路，并假设现在文本串S匹配到 i 位置，模式串P匹配到 j 位置，则有：如果当前字符匹配成功（即S[i] == P[j]），则i++，j++，继续匹配下一个字符；如果失配（即S[i]! = P[j]），令i = i - (j - 1)，j = 0。相当于每次匹配失败时，i 回溯，j 被置为0。 理清楚了暴力匹配算法的流程及内在的逻辑，咱们可以写出暴力匹配的代码，如下： int ViolentMatch(char* s, char* p) { int sLen = strlen(s); int pLen = strlen(p); int i = 0; int j = 0; while (i &lt; sLen &amp;&amp; j &lt; pLen) { if (s[i] == p[j]) { //①如果当前字符匹配成功（即S[i] == P[j]），则i++，j++ i++; j++; } else { //②如果失配（即S[i]! = P[j]），令i = i - (j - 1)，j = 0 i = i - j + 1; j = 0; } } //匹配成功，返回模式串p在文本串s中的位置，否则返回-1 if (j == pLen) return i - j; else return -1; } KMP算法下面先直接给出KMP的算法流程（如果感到一点点不适，没关系，坚持下，稍后会有具体步骤及解释，越往后看越会柳暗花明☺）：假设现在文本串S匹配到 i 位置，模式串P匹配到 j 位置如果j = -1，或者当前字符匹配成功（即S[i] == P[j]），都令i++，j++，继续匹配下一个字符；如果j != -1，且当前字符匹配失败（即S[i] != P[j]），则令 i 不变，j = next[j]。此举意味着失配时，模式串P相对于文本串S向右移动了j - next [j] 位。换言之，当匹配失败时，模式串向右移动的位数为：失配字符所在位置 - 失配字符对应的next 值（next 数组的求解会在下文的3.3.3节中详细阐述），即移动的实际位数为：j - next[j]，且此值大于等于1。很快，你也会意识到next 数组各值的含义：代表当前字符之前的字符串中，有多大长度的相同前缀后缀。例如如果next [j] = k，代表j 之前的字符串中有最大长度为k 的相同前缀后缀。此也意味着在某个字符失配时，该字符对应的next 值会告诉你下一步匹配中，模式串应该跳到哪个位置（跳到next [j] 的位置）。如果next [j] 等于0或-1，则跳到模式串的开头字符，若next [j] = k 且 k &gt; 0，代表下次匹配跳到j 之前的某个字符，而不是跳到开头，且具体跳过了k 个字符。转换成代码表示，则是： int KmpSearch(char* s, char* p) { int i = 0; int j = 0; int sLen = strlen(s); int pLen = strlen(p); while (i &lt; sLen &amp;&amp; j &lt; pLen) { //①如果j = -1，或者当前字符匹配成功（即S[i] == P[j]），都令i++，j++ if (j == -1 || s[i] == p[j]) { i++; j++; } else { //②如果j != -1，且当前字符匹配失败（即S[i] != P[j]），则令 i 不变，j = next[j] //next[j]即为j所对应的next值 j = next[j]; } } if (j == pLen) return i - j; else return -1; } 步骤①寻找前缀后缀最长公共元素长度②求next数组` void GetNext(char* p,int next[]) { int pLen = strlen(p); next[0] = -1; int k = -1; int j = 0; while (j &lt; pLen - 1) { //p[k]表示前缀，p[j]表示后缀 if (k == -1 || p[j] == p[k]) { ++k; ++j; next[j] = k; } else { k = next[k]; } } }` ③根据next数组进行匹配综上，KMP的next 数组相当于告诉我们：当模式串中的某个字符跟文本串中的某个字符匹配失配时，模式串下一步应该跳到哪个位置。如模式串中在j 处的字符跟文本串在i 处的字符匹配失配时，下一步用next [j] 处的字符继续跟文本串i 处的字符匹配，相当于模式串向右移动 j - next[j] 位。]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>KMP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[链表的常见操作]]></title>
-    <url>%2F2017%2Fnodelist.html</url>
-    <content type="text"><![CDATA[若只论链表与二叉树，链表又更容易将指针指的出神入化，二叉树稍逊，一个 left, 一个 right 的二次元世界，弄不出什么花来。 所以想要把握指针的灵魂，练就一身弹”指”神通的俊功夫，还得多练练链表。 下面，我就随意截取几道经典的链表问题，陪诸君练练手。（为简化问题，凸显实质，皆为单链表） struct ListNode { int val; ListNode *next; ListNode(int x) : val(x), next(nullptr) {} }; 链表的逆 1-&gt;2-&gt;3-&gt;4-&gt;5 ^ root想要逆序，最直接的想法，就是希望上图中的链表指向反过来。我们借用一个空指针 node 指向一个空节点: 1-&gt;2-&gt;3-&gt;4-&gt;5 | ListNode* reverse(ListNode *root) { ^ | ListNode *node = nullptr; root | } | null | ^ | node | 第一步，我们希望节点1从单链表中剥离，于是让其指向 node, 但我们不能因此而找不到链表索引，故需要一个额外的指针 next, 指向后续节点：几个简单的指针转移，便将节点1反向的去指向了 node 节点。如法炮制的话，节点2, 节点3, 节点4, 节点5 都调转枪头，我们的目的便达到了。 ListNode* reverse(ListNode *root) { ListNode *node = nullptr; while (root) { ListNode *next = root-&gt;next; root-&gt;next = node; node = root; root = next; } return node; } 链表除重1-&gt;1-&gt;2-&gt;2-&gt;3-&gt;4^headcur如果用一个指针 cur 来指向当前节点的话，出现重复的条件即为：cur-&gt;value == cur-&gt;next-&gt;value，如上图中，1 与 1 是重复的。我们只要想办法去掉重复的那个 1 即可。 1-&gt;1-&gt;2-&gt;2-&gt;3-&gt;4 | if (cur-&gt;val == cur-&gt;next-&gt;val) { ^ ^ ^ | ListNode *next = cur-&gt;next-&gt;next; cur next | delete cur-&gt;next; | ^ | cur-&gt;next = next; |_____| | } 这个思路简单，易懂，但这个问题却又是很多复杂问题的基础。还是需要注意的。 ListNode *removeDuplicates(ListNode *head) { if (head == nullptr) return head; for (ListNode *cur=head; cur-&gt;next; ) if (cur-&gt;val == cur-&gt;next-&gt;val) { ListNode *next = cur-&gt;next-&gt;next; delete cur-&gt;next; cur-&gt;next = next; } else { cur = cur-&gt;next; } return head; } 链表合并a(1-&gt;2-&gt;3) b(4-&gt;5-&gt;6) ==&gt; 1-&gt;4-&gt;2-&gt;5-&gt;3-&gt;6这个问题本身非常简单，但想通过这个基本问题，引申出链表问题一个非常常见的技巧。即设立 dummy 节点，可以称为是傀儡节点，其作用在于让合成的新链表有一个着手点。这个节点的值可以随意，我们最终返回的，实际上是 dummy.next;要注意，每一步指针的捣腾都是按照顺序的，用笔纸画一画会比较清楚。 ListNode *shuffleMerge(ListNode *a, ListNode *b) { ListNode dummy(0), *tail = &amp;dummy; while (a &amp;&amp; b) { tail-&gt;next = a; tail = a; a = a-&gt;next; tail-&gt;next = b; tail = b; b = b-&gt;next; } tail-&gt;next = a ? a : b; return dummy.next; } 移动节点a(1-&gt;2-&gt;3),b(1-&gt;2-&gt;3)==&gt; a(2-&gt;3),b(1-&gt;1-&gt;2-&gt;3)这个问题几乎不足为道，但这个操作，将有助于咱们更深入的对链表进行研究。封装这个操作，我们可以避免纠缠于非常基本的问题。(a 为 source(s), b 为 dest(d)) void moveNode(ListNode **destRef, ListNode **sourceRef) { ListNode *newNode = *sourceRef; *sourceRef = newNode-&gt;next; newNode-&gt;next = *destRef; *destRef = newNode; } 顺序合并1-&gt;3-&gt;5 , 2-&gt;4-&gt;6 ==&gt; 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6 这也是非常基本的操作，结合上述的傀儡节点与 moveNode 两个技巧，应该可以很轻松的写出如下思路： ListNode *sortedMerge(ListNode *a, ListNode *b) { ListNode dummy(0), *tail = &amp;dummy; for ( ;a &amp;&amp; b; tail = tail-&gt;next) { if (a-&gt;val &lt;= b-&gt;val) moveNode(&amp;(tail-&gt;next), &amp;a); else moveNode(&amp;(tail-&gt;next), &amp;b); } tail-&gt;next = a ? a : b; return dummy.next; } 傀儡节点毕竟耗费了额外的空间，同样的思路，能否改进为不耗费额外空间呢？我们来思考另一个例子： ListNode *sortedMerge(ListNode *a, ListNode *b) { ListNode *ret = nullptr, **lastPtrRef = &amp;ret; for (; a &amp;&amp; b; lastPtrRef = &amp;((*lastPtrRef)-&gt;next)) { if (a-&gt;val &lt;= b-&gt;val) moveNode(lastPtrRef, &amp;a); else moveNode(lastPtrRef, &amp;b); } *lastPtrRef = a ? a : b; return ret; } 思路完全一致，但不消耗额外空间。即无需傀儡，直接上位。 另，这个问题也可以用递归解决，权当额外思考题了(可能更加直观)： ListNode *sortedMerge(ListNode *a, ListNode *b) { ListNode *ret = nullptr; if (a == nullptr) return b; else if (b == nullptr) return a; if (a-&gt;val &lt;= b-&gt;val) { ret = a; ret-&gt;next = sortedMerge(a-&gt;next, b); } else { ret = b; ret-&gt;next = sortedMerge(a, b-&gt;next); } return ret; } 顺序插入newnode(4),head(1-&gt;3-&gt;5-&gt;7-&gt;8)==&gt; 1-&gt;3-&gt;4-&gt;5-&gt;7-&gt;8 给一个有序链表 head, 一个新节点 newNode. 将新节点插入该链表中。 问题本身简单到不行，但我们仅仅是以此来复习一下上次所讲的三种策略。 直接插入法（教科书法） 傀儡节点 引用法（指针的指针） 首先最朴素的第一种方法，也是教科书上经常讲述的方案。在这个问题里，我们需要分别考虑两种情况：其一，newNode 的值比 head 还要小，那么它应该直接放到最前面（这个动作是连接而非插入）；其二，newNode 的值比 head 要大，那么毫无疑问，需要遍历整个链表，找到 newNode 应该插入的位置，进行插入。 if (*headRef == nullptr || (*headRef)-&gt;val &gt;= newNode-&gt;val) { newNode-&gt;next = *headRef; *headRef = newNode; } else { ListNode *curr = *headRef; while (curr-&gt;next != nullptr &amp;&amp; curr-&gt;next-&gt;val &lt; newNode-&gt;val) curr = curr-&gt;next; newNode-&gt;next = curr-&gt;next; curr-&gt;next = newNode; } 简单又好理解。 然后我们来看看第二种，很常用的傀儡法。为了避免像上面分两种情况分别处理那么麻烦，不如自立山头，统一处理。 void sortedInsert(ListNode **headRef, ListNode *newNode) { ListNode dummy(0), *tail = &amp;dummy; dummy.next = *headRef; while (tail-&gt;next != NULL &amp;&amp; tail-&gt;next-&gt;val &lt; newNode-&gt;val) tail = tail-&gt;next; newNode-&gt;next = tail-&gt;next; tail-&gt;next = newNode; *headRef = dummy.next; } 可以看到，代码完全照搬上面的第二种情况。更加紧凑。 好了，最后我们来看看最精简的第三种方案，使用引用。细心的童鞋会发现，上面我们定位的一直是 curr-&gt;next 节点。这个 next 很罗嗦，但普通的插入，必须要知道前后节点，所以也是不得已为之。如果我们采用引用，则只需要知道后面的节点即可。 ListNode **currRef = headRef; while (*currRef != nullptr &amp;&amp; (*currRef)-&gt;val &lt; newNode-&gt;val) currRef = &amp;((*currRef)-&gt;next); newNode-&gt;next = *currRef; *currRef = newNode; 可以看到，我们将 newNode-&gt;next 指向 curr 节点后，直接将 newNode 节点生生挪到链表里去了。这是因为 currRef 处于链表中第 2 个(从 0 开始)位置，当 *currRef = newNode 之后，相当于将这个位置指向的地址换成了 newNode. 而 newNode 已经和后面的节点相连，所以很顺利的顺延了后续链表。 寥寥五行，非常精简。上述三种思路都应该掌握，而核心应该掌握最后一种方案。 链表排序我们趁热打铁，上面讨论了 sortedInsert 方法的实现。那么我们倒过来，实现最基础的面试题，插入排序。 思路呢，非常简单，弄一个空链表：ListNode *newHead = nullptr;, 然后遍历整个链表，将每一个节点 sortedInsert 到 newHead 中。代码如下： void insertSort(ListNode **headRef) { ListNode *newHead = nullptr; for (ListNode *curr = *headRef, *next; curr; curr = next) { next = curr-&gt;next; sortedInsert(&amp;newHead, curr); } *headRef = newHead; } 转自：https://segmentfault.com/a/1190000002490878#articleHeader3]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[浅析openstack虚拟化技术]]></title>
-    <url>%2F2017%2Fvirtualization.html</url>
-    <content type="text"><![CDATA[opensatck Openstack：OpenStack is a cloud operating system that controls large pools of compute, storage, and networking resources throughout a datacenter, all managed through a dashboard that gives administrators control while empowering their users to provision resources through a web interface. 以上是官网对 OpenStack 的定义，OpenStack 对数据中心的计算、存储和网络资源进行统一管理。 由此可见，OpenStack 针对的是 IT 基础设施，是 IaaS 这个层次的云操作系统。 虚拟化虚拟化是云计算的基础。虚拟机共享物理机的 CPU、内存、IO 硬件资源，但逻辑上虚拟机之间是相互隔离的。物理机我们一般称为宿主机（Host），宿主机上面的虚拟机称为客户机（Guest）。Host将自己的硬件资源虚拟化并提供给 Guest 使用主要是通过一个叫做 Hypervisor 的程序实现的。 Hypervisor是一种运行在物理服务器和操作系统之间的中间软件层,可允许多个操作系统和应用共享一套基础物理硬件，因此也可以看作是虚拟环境中的“元”操作系统，它可以协调访问服务器上的所有物理设备和虚拟机，也叫虚拟机监视器（Virtual Machine Monitor）。Hypervisor是所有虚拟化技术的核心。非中断地支持多工作负载迁移的能力是Hypervisor的基本功能。当服务器启动并执行Hypervisor时，它会给每一台虚拟机分配适量的内存、CPU、网络和磁盘，并加载所有虚拟机的客户操作系统。根据 Hypervisor 的实现方式和所处的位置，虚拟化又分为两种：1型虚拟化和2型虚拟化 1型虚拟化Hypervisor 直接安装在物理机上，多个虚拟机在 Hypervisor 上运行。Hypervisor 实现方式一般是一个特殊定制的 Linux 系统。Xen 和 VMWare 的 ESXi 都属于这个类型。 2型虚拟化物理机上首先安装常规的操作系统，比如 Redhat、Ubuntu 和 Windows。Hypervisor 作为 OS 上的一个程序模块运行，并对管理虚拟机进行管理。KVM、VirtualBox 和 VMWare Workstation 都属于这个类型。 理论上讲：1型虚拟化一般对硬件虚拟化功能进行了特别优化，性能上比2型要高；2型虚拟化因为基于普通的操作系统，会比较灵活，比如支持虚拟机嵌套。嵌套意味着可以在KVM虚拟机中再运行KVM。 KVM下面重点介绍KVM这种2型虚拟化技术。基本概念KVM 全称是Kernel-Based Virtual Machine。即 KVM 是基于 Linux 内核实现的。OpenStack 对 KVM 支持得也最好。KVM有一个内核模块叫 kvm.ko，只用于管理虚拟 CPU 和内存。而IO 的虚拟化，比如存储和网络设备由Linux 内核和Qemu来实现。即KVM 本身只关注虚拟机调度和内存管理这两个方面。IO 外设的任务交给 Linux 内核和Qemu。 Libvirt简单说就是 KVM 的管理工具。其实，Libvirt除了能管理 KVM 这种 Hypervisor，还能管理 Xen，VirtualBox 等。OpenStack底层也使用 Libvirt，所以很有必要学习一下。Libvirt 包含 3 个东西：后台 daemon 程序 libvirtd、API库和命令行工具 virsh libvirtd是服务程序，接收和处理 API 请求； API 库使得其他人可以开发基于 Libvirt 的高级工具，比如 virt-manager，这是个图形化的 KVM 管理工具，后面我们也会介绍； virsh 是我们经常要用的KVM 命令行工具，后面会有使用的示例。 作为 KVM 和OpenStack 的实施人员，virsh 和virt-manager 是一定要会用的。 CPU虚拟化KVM 的虚拟化是需要CPU 硬件支持的。虚机中的每一个虚拟 vCPU 则对应 qemu-kvm 进程中的一个线程。看下图即虚机的 vCPU 总数可以超过物理 CPU 数量，这个叫 CPU overcommit（超配）。 KVM 允许 overcommit，这个特性使得虚机能够充分利用宿主机的 CPU 资源。但在使用overcommit 的时候，需要对虚机的负载情况有所了解，需要测试。 内存虚拟化KVM 通过内存虚拟化共享物理系统内存，动态分配给虚拟机。看下图为了在一台机器上运行多个虚拟机，KVM 需要实现 VA（虚拟内存） -&gt; PA（物理内存） -&gt; MA（机器内存）直接的地址转换。虚机 OS 控制虚拟地址到客户内存物理地址的映射（VA -&gt; PA），但是虚机 OS 不能直接访问实际机器内存，因此 KVM 需要负责映射客户物理内存到实际机器内存 （PA -&gt; MA）。内存也是可以 overcommit 的，即所有虚机的内存之和可以超过宿主机的物理内存。但使用时也需要充分测试，否则性能会受影响。 网络虚拟化这是 OpenStack 官网上给出的计算节点（可以理解为 KVM 的宿主机）虚拟网络的逻辑图，上面的网络设备很多，层次也很复杂。网络虚拟化中最重要的两个东西：Linux Bridge 和 VLAN。]]></content>
-      <categories>
-        <category>others</category>
-      </categories>
-      <tags>
-        <tag>-openstack</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[浅析面向对象编程思想]]></title>
-    <url>%2F2017%2Fobject.html</url>
-    <content type="text"><![CDATA[面向对象的三个基本特征面向对象的三个基本特征是：封装、继承、多态。其中，封装可以隐藏实现细节，使得代码模块化；继承可以扩展已存在的代码模块（类）；它们的目的都是为了——代码重用。而多态则是为了实现另一个目的——接口重用！ 什么是封装？封装可以隐藏实现细节，使得代码模块化；封装是把过程和数据包围起来，对数据的访问只能通过已定义的界面。面向对象计算始于这个基本概念，即现实世界可以被描绘成一系列完全自治、封装的对象，这些对象通过一个受保护的接口访问其他对象。在面向对象编程上可理解为：把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏。 什么是继承？继承是指这样一种能力：它可以使用现有类的所有功能，并在无需重新编写原来的类的情况下对这些功能进行扩展。其继承的过程，就是从一般到特殊的过程。通过继承创建的新类称为“子类”或“派生类”。被继承的类称为“基类”、“父类”或“超类”。要实现继承，可以通过“继承”（Inheritance）和“组合”（Composition）来实现。在某些 OOP 语言中，一个子类可以继承多个基类。但是一般情况下，一个子类只能有一个基类，要实现多重继承，可以通过多级继承来实现。继承的实现方式？继承概念的实现方式有三类：实现继承、接口继承和可视继承。 实现继承是指使用基类的属性和方法而无需额外编码的能力； 接口继承是指仅使用属性和方法的名称、但是子类必须提供实现的能力； 可视继承是指子窗体（类）使用基窗体（类）的外观和实现代码的能力 什么是多态？多态性（polymorphisn）是允许你将父对象设置成为和一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作。简单的说，就是一句话：允许将子类类型的指针赋值给父类类型的指针。实现多态，有二种方式，覆盖，重载。覆盖：是指子类重新定义父类的虚函数的做法。重载：是指允许存在多个同名函数，而这些函数的参数表不同（或许参数个数不同，或许参数类型不同，或许两者都不同）。 分析：“重载”是指在同一个类中相同的返回类型和方法名，但是参数的个数和类型可以不同“覆盖\重写”是在不同的类中。 其实，重载的概念并不属于“面向对象编程”，重载的实现是：编译器根据函数不同的参数表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（至少对于编译器来说是这样的）。如，有两个同名函数：function func(p:integer):integer;和function func(p:string):integer;。那么编译器做过修饰后的函数名称可能是这样的：int_func、str_func。对于这两个函数的调用，在编译器间就已经确定了，是静态的（记住：是静态）。也就是说，它们的地址在编译期就绑定了（早绑定），因此，重载和多态无关！真正和多态相关的是“覆盖”。当子类重新定义了父类的虚函数后，父类指针根据赋给它的不同的子类指针，动态（记住：是动态！）的调用属于子类的该函数，这样的函数调用在编译期间是无法确定的（调用的子类的虚函数的地址无法给出）。因此，这样的函数地址是在运行期绑定的（晚邦定）。结论就是：重载只是一种语言特性，与多态无关，与面向对象也无关！引用一句Bruce Eckel的话：“不要犯傻，如果它不是晚邦定，它就不是多态。” 附一张很形象的图]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>object</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[浅析C++之STL迭代器]]></title>
-    <url>%2F2017%2Fiterator.html</url>
-    <content type="text"><![CDATA[泛型编程 STL是一种泛型编程。面向对象编程关注的是编程的数据方面，而泛型编程关注的是算法。它们之间的共同点是抽象和创建可重用代码，但理念决然不同。 泛型编程旨在编写独立于数据类型的代码，在C++中完成通用程序的工具是模板，模板使得算法独立于存储的数据类型，而迭代器使算法独立于使用的容器的类型。 什么是迭代器迭代器可以理解为一种泛型的指针，可以指向容器中的任一位置；而普通指针可以指向内存中的任一地址。STL的每一个容器类模版中，都定义了一组对应的迭代器类。使用迭代器，算法函数可以访问容器中指定位置的元素，而无需关心元素的具体类型。泛型编程中的函数不仅独立于容器中存储的数据类型，而且独立于容器本身的数据结构。模板提供了存储在容器中的数据类型的通用表示，因此，还需要遍历容器中的值的通用表示，迭代器正是这样的通用表示。比如我们可以创建一个find()函数，不仅可以查找数组，链表，也可以查找其他的容器类型。 迭代器的用法(1) 每种容器类型都定义了自己的迭代器类型，如vector:vector&lt;int&gt;::iterator iter;这条语句定义了一个名为iter的变量，它的数据类型是由vector定义的iterator类型。 (2) 使用迭代器读取vector中的每一个元素：vector&lt;int&gt; ivec(10,1); for(vector&lt;int&gt;::iterator iter=ivec.begin();iter!=ivec.end();++iter) { *iter=2; //使用 * 访问迭代器所指向的元素 } const_iterator: 只能读取容器中的元素，而不能修改。 for(vector&lt;int&gt;::const_iterator citer=ivec.begin();citer!=ivec.end();citer++) { cout&lt;&lt;*citer; //*citer=3; error } vector::const_iterator 和 const vector::iterator的区别const vector::iterator newiter=ivec.begin();*newiter=11; //可以修改指向容器的元素//newiter++; //迭代器本身不能被修改 (3) iterator的算术操作：iterator除了进行++,–操作，可以将iter+n,iter-n赋给一个新的iteraor对象。还可以使用一个iterator减去另外一个iterator.const vector::iterator newiter=ivec.begin();vector::iterator newiter2=ivec.end();cout&lt;&lt;”\n”&lt;&lt;newiter2-newiter;一個很典型使用vector的STL程式: #include &lt;vector&gt; #include &lt;iostream&gt; using namespace std; int main(void) { vector&lt;int&gt; v; v.push_back(1); v.push_back(2); v.push_back(3); vector&lt;int&gt;::iterator it; for (it = v.begin(); it != v.end(); ++it) { cout &lt;&lt; *it &lt;&lt; &apos; &apos;; } cout &lt;&lt; endl; 迭代器可以很好的兼容C++的内置类型，特别是常见的C++指针被视为C++数组的迭代器。当然，在标准的C++库中所有的容器都定义了一个迭代器类型，即嵌套类型的迭代器，代表各自的指针类型。 迭代器的类型迭代器可以分为不同的种类，这是因为他们使用不同的算法、不同的要求附加在其身上。例如，find()算法需要一个可以递增的迭代器，而reverse()算法需要一个可以递减的迭代器等。总之，在STL和C++标准库中有5种迭代器。（1）、输入迭代器(Input Iterator):只能向前单步迭代元素，不允许修改由该迭代器所引用的元素；（2）、输出迭代器(Output Iterator):只能向前单步迭代元素，对由该迭代器所引用的元素只有写权限；（3）、向前迭代器(Forward Iterator):该迭代器可以在一个区间中进行读写操作，它拥有输入迭代器的所有特性和输出迭代器的部分特性，以及向前单步迭代元素的能力；（4）、双向迭代器(Bidirectional Iterator):在向前迭代器的基础上增加了向后单步迭代元素的能力；（5）、随机访问迭代器(Random Access Iterator):不仅综合以后4种迭代器的所有功能，还可以像指针那样进行算术计算；vector、deque提供的是随机访问迭代器，list提供的是双向迭代器，set和map提供的是向前迭代器。 相应的操作集为：除了输出迭代器，其他类别的迭代器形成了一个层次结构：需要低级类别迭代器的地方，可使用任意一种更高级的迭代器。例如，对于需要输入迭代器的算法，可传递前向、双向或随机访问迭代器调用该算法。而反之则不行。注意：向算法传递无效的迭代器类别所引起的错误，无法保证会在编译时被捕获到。map, set, list类型提供双向迭代器，而string, vector和deque容器上定义的迭代器都是随机访问迭代器，用作访问内置数组元素的指针也是随机访问迭代器。istream_iterator是输入迭代器，ostream_iterator是输出迭代器。另外，虽然map和set类型提供双向迭代器，但关联容器只能使用这部分算法的一个子集。因为关联容器的键是const对象。因此，关联容器不能使用任何写序列元素的算法。只能使用与关联容器绑在一起的迭代器来提供用于读操作的实参。因此，在处理算法时，最好将关联容器上的迭代器视为支持自减运算的输入迭代器，而不是完整的双向迭代器。最后需要注意的是，stack、queue、priority_queue 都不支持任一种迭代器，它们都是容器适配器类型，stack是用vector/deque/list对象创建了一个先进后出容器，queue是用deque或list对象创建了一个先进先出容器，priority_queue是用vector/deque创建了一个排序队列 常用的容器成员]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>-C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[C++中struct和class的区别]]></title>
-    <url>%2F2017%2Fstructclass.html</url>
-    <content type="text"><![CDATA[C++中的struct对C中的struct进行了扩充，它已经不再只是一个包含不同数据类型的数据结构了，它已经获取了太多的功能。 struct和class都可以继承，都可以包含成员函数，都可以实现多态，都可以有构造函数和西沟函数。但主要有两点区别 1、最本质的一个区别就是默认的访问控制：默认的继承访问权限struct是public的，class是private的。所以我们在平时写类继承的时候，通常会这样写：class B : public A就是为了指明是public继承，而不是用默认的private继承。 当然，到底默认是public继承还是private继承，取决于子类而不是基类。如： struct A{}； class B : A{}; //private继承 struct C : B{}； //public继承 struct作为数据结构的实现体，它默认的数据访问控制是public的，而class作为对象的实现体，它默认的成员变量访问控制是private的 到底是用struct还是class，完全看个人的喜好，你可以将程序里所有的class全部替换成struct，它依旧可以很正常的运行。但我给出的最好建议，还是：当你觉得你要做的更像是一种数据结构的话，那么用struct，如果你要做的更像是一种对象的话，那么用class。 当然，我在这里还要强调一点的就是，对于访问控制，应该在程序里明确的指出，而不是依靠默认，这是一个良好的习惯，也让你的代码更具可读性。 2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。这一点在Stanley B.Lippman写的Inside the C++ Object Model有过说明。 3、其他区别还是上面所说的，C++中的struct是对C中的struct的扩充，既然是扩充，那么它就要兼容过去C中struct应有的所有特性。例如你可以这样写： struct A//定义一个struct { char c1; int n2; double db3; }; A a={&apos;p&apos;, 7, 3.1415926}; //定义时直接赋值 也就是说struct可以在定义的时候用{}赋初值。但class不行，而且当struct中包含构造函数（或虚函数），struct也不能用{}赋初值了。 而加入一个普通的成员函数呢？你会发现{}依旧可用。其实你可以将普通的函数理解成对数据结构的一种算法，这并不打破它数据结构的特性。那么，看到这里，我们发现即使是struct想用{}来赋初值，它也必须满足很多的约束条件，这些条件实际上就是让struct更体现出一种数据机构而不是类的特性。那为什么我们在上面仅仅将struct改成class，{}就不能用了呢？其实问题恰巧是我们之前所讲的——访问控制！你看看，我们忘记了什么？对，将struct改成class的时候，访问控制由public变为private了，那当然就不能用{}来赋初值了。加上一个public，你会发现，class也是能用{}的，和struct毫无区别！！！做个总结，从上面的区别，我们可以看出，struct更适合看成是一个数据结构的实现体，class更适合看成是一个对象的实现体。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>-C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[浅析B树，B+/-树，AVL树，红黑树]]></title>
-    <url>%2F2017%2FBST.html</url>
-    <content type="text"><![CDATA[B树——二叉搜索树##定义：1.所有非叶子结点至多拥有两个儿子（Left和Right）；2.所有结点存储一个关键字；3.非叶子结点的左指针指向小于其关键字的子树，右指针指向大于其关键字的子树； B树的搜索，从根结点开始，如果查询的关键字与结点的关键字相等，那么就命中；否则，如果查询关键字比结点关键字小，就进入左儿子；如果比结点关键字大，就进入右儿子；如果左儿子或右儿子的指针为空，则报告找不到相应的关键字。 如果B树的所有非叶子结点的左右子树的结点数目均保持差不多（平衡），那么B树的搜索性能逼近二分查找；但它比连续内存空间的二分查找的优点是，改变B树结构（插入与删除结点）不需要移动大段的内存数据，甚至通常是常数开销。在实际使用中，通常是在B树的基础上添加平衡算法，编程平衡二叉树。平衡二叉树又叫AVL树，是由作者姓名命名的，平衡二叉树还有一个改进的版本，叫做红黑树。 BST效率总结 : 查找最好时间复杂度O(logN)，最坏时间复杂度O(N)。插入删除操作算法简单，时间复杂度与查找差不多 B-树——一种非二叉搜索树##定义 定义任意非叶子结点最多具有M个儿子，M&gt;2； 根节点的儿子树[2,M]； 除根节点之外的非叶子结点的儿子数为[M/2,M]； 每个节点存放至少M/2-1(向上取整)和至多M-1个关键字； 非叶子结点的关键字个数等于指向儿子的指针个数减去1 非叶子结点的关键字：K[1],K[2]…K[M-1],:且K[i]小于K[i+1]； 非叶子结点的指针：P[1],P[2],,,,,P[M],其中P[M]指向关键字大于K[M-1]的子树，其他P[i]指向关键字属于(K[i-1],k[i])的子树； 所有叶子节点位于同一层。 如M=3 B-树有着如下的特性： 关键字集合分布在整颗树中； 任何一个关键字出现且只出现在一个结点中； 搜索有可能在非叶子结点结束； 其搜索性能等价于在关键字全集内做一次二分查找； 自动层次控制； 同时，由于限制了除根结点以外的非叶子结点，至少含有M/2个儿子，确保了结点的至少利用率，其最低搜索性能为： 公式中，M为设定的非叶子节点最多子树的个数，N为关键字总数；所以B-树的性能总是等价于2分查找（与M值无关），也就没有B树平衡的问题；由于M/2的限制，在插入节点的时候，如果节点已经满了，需要将节点分裂成两个各占M/2的节点；删除节点的时候，需要将两个不足M/2的节点合并 B-Tree效率总结： 由于考虑磁盘储存结构，B树的查找、删除、插入的代价都远远要小于任何二叉结构树(读写磁盘次数的降低)。 B+树——多路搜索树定义：其定义基本与B-树同，除了： 非叶子结点的子树指针与关键字个数相同； 非叶子结点的子树指针P[i]，指向关键字值属于[K[i], K[i+1])的子树（B-树是开区间）； 为所有叶子结点增加一个链指针； 所有关键字都在叶子结点出现； AVL——平衡二叉搜索树定义： 平衡二叉树或为空树,或为如下性质的二叉排序树: 左右子树深度之差的绝对值不超过1; 左右子树仍然为平衡二叉树. 平衡因子BF=左子树深度－右子树深度.平衡二叉树每个结点的平衡因子只能是1，0，-1。若其绝对值超过1，则该二叉排序树就是不平衡的。 AVL树是最先发明的自平衡二叉查找树。在AVL树中任何节点的两个子树的高度最大差别为一，所以它也被称为高度平衡树。查找、插入和删除在平均和最坏情况下都是O（log n）。 红黑树——改进的AVL定义： 每个结点要么是红的，要么是黑的。 根结点是黑的。 每个叶结点，即空结点（NIL）是黑的。 如果一个结点是红的，那么它的俩个儿子都是黑的。 对每个结点，从该结点到其子孙结点的所有路径上包含相同数目的黑结点。 AVL是严格平衡树，因此在增加或者删除节点的时候，根据不同情况，旋转的次数比红黑树要多；红黑是弱平衡的，用非严格的平衡来换取增删节点时候旋转次数的降低,所以简单说，搜索的次数远远大于插入和删除，那么选择AVL树，如果搜索，插入删除次数几乎差不多，应该选择RB树。红黑树上每个结点内含五个域，color，key，left，right，p。如果相应的指针域没有，则设为NIL。 红黑树与AVL比较结构对比： AVL的结构高度平衡，RBT的结构基本平衡。平衡度AVL &gt; RBT.查找对比： AVL 查找时间复杂度最好，最坏情况都是O(logN)。 RBT 查找时间复杂度最好为O(logN)，最坏情况下比AVL略差。插入删除对比： AVL的插入和删除结点很容易造成树结构的不平衡，而RBT的平衡度要求较低。因此在大量数据插入的情况下，RBT需要通过旋转变色操作来重新达到平衡的频度要小于AVL。 如果需要平衡处理时，RBT比AVL多一种变色操作，而且变色的时间复杂度在O(logN)数量级上。但是由于操作简单，所以在实践中这种变色仍然是非常快速的。 当插入一个结点都引起了树的不平衡，AVL和RBT都最多需要2次旋转操作。但删除一个结点引起不平衡后，AVL最多需要logN 次旋转操作，而RBT最多只需要3次。因此两者插入一个结点的代价差不多，但删除一个结点的代价RBT要低一些。 AVL和RBT的插入删除代价主要还是消耗在查找待操作的结点上。因此时间复杂度基本上都是与O(logN) 成正比的。 总体评价：大量数据实践证明，RBT的总体统计性能要好于平衡二叉树。]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>-数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[C++之inline内联函数浅析]]></title>
-    <url>%2F2017%2Finline.html</url>
-    <content type="text"><![CDATA[C语言中使用宏定义容易出错，而且不能调试，无法操作类的私有数据成员。所以，在C++中尽量用内联函数来代替宏代码。inline函数的另一个优点是，函数被内联后，编译器可以根据上下文自己决定优化措施。 什么是内联函数内联函数是C++的增强特性之一，用来降低程序的运行时间。当内联函数收到编译器的指示时，即可发生内联：编译器将使用函数的定义体来替代函数调用语句，这种替代行为发生在编译阶段而非程序运行阶段。 值得注意的是，内联函数仅仅是对编译器的内联建议，编译器是否觉得采取你的建议取决于函数是否符合内联的有利条件。如果函数体非常大，那么编译器将忽略函数的内联声明，而将内联函数作为普通函数处理。 如何使函数内联定义函数时，在函数的最前面以关键字“inline”声明函数，即可使函数称为内联声明函数。 例如： Class A { Public: inline int add(int a, int b) { return (a + b); }; } Class A { Public: int add(int a, int b); }; inline int A::add(int a, int b) { return (a + b); } 为什么要使用内联函数有时候我们会写一些功能专一的函数，这些函数的函数体不大，包含了很少的执行语句。例如在计算1~1000以内的素数时，我们经常会使用开方操作使运算范围缩小，这时我们会写一个函数： int root(int n) { return (int)sqrt((float)n); } 然后我们的求范围内素数的函数可以这样写。 int prime(int n) { int i; for (i = 2; i &lt;= root(n); i++) { if (n%i == 0) return 0; return 1; } } 当然，把root函数放在循环中不是个不明智的选择，但想象一下，在某个程序上下文内必须频繁地调用某个类似root的函数，其调用函数的花销会有多大：当遇到普通函数的调用指令时，程序会保存当前函数的执行现场，将函数中的局部变量以及函数地址压入堆栈，然后再将即将调用的新函数加载到内存中，这要经历复制参数值、跳转到所调用函数的内存位置、执行函数代码、存储函数返回值等过程，当函数执行完后，再获取之前正在调用的函数的地址，回去继续执行那个函数，运行时间开销简直太多了。 C++内联函数提供了替代函数调用的方案，通过inline声明，编译器首先在函数调用处使用函数体本身语句替换了函数调用语句，然后编译替换后的代码。因此，通过内联函数，编译器不需要跳转到内存其他地址去执行函数调用，也不需要保留函数调用时的现场数据。 inline函数的优缺点分析优点： 它通过避免函数调用所带来的开销来提高你程序的运行速度。 当函数调用发生时，它节省了变量弹栈、压栈的开销。 它避免了一个函数执行完返回原现场的开销。 通过将函数声明为内联，你可以把函数定义放在头文件内。 缺点： 因为代码的扩展，内联函数增大了可执行程序的体积。 C++内联函数的展开是中编译阶段，这就意味着如果你的内联函数发生了改动，那么就需要重新编译代码。 当你把内联函数放在头文件中时，它将会使你的头文件信息变多，不过头文件的使用者不用在意这些。 有时候内联函数并不受到青睐，比如在嵌入式系统中，嵌入式系统的存储约束可能不允许体积很大的可执行程序。 什么时候该使用内联函数当程序设计需要时，每个函数都可以声明为inline。下面列举一些有用的建议： 当对程序执行性能有要求时，那么就使用内联函数吧。 当你想宏定义一个函数时，那就果断使用内联函数吧。 在类内部定义的函数会默认声明为inline函数，这有利于 类实现细节的隐藏。 关键点 内联声明只是一种对编译器的建议，编译器是否采用内联措施由编译器自己来决定。甚至在汇编阶段或链接阶段，一些没有inline声明的函数编译器也会将它内联展开。 编译器的内联看起来就像是代码的复制与粘贴，这与预处理宏是很不同的：宏是强制的内联展开，可能将会污染所有的命名空间与代码，将为程序的调试带来困难。 所有中类中定义的函数都默认声明为inline函数，所有我们不用显示地去声明inline。 虚函数不允许内联。 虽然说模板函数放中头文件中，但它们不一定是内联的。（不是说定义在头文件中的函数都是内联函数）。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>-C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hadoop分布式计算框架MapReduce浅析]]></title>
-    <url>%2F2017%2Fhadoop-mapreduce.html</url>
-    <content type="text"><![CDATA[分布式计算框架有很多，只是适合做的种类不一样。1、MapReduce适合做离线计算2、storm适合做流式计算，更适合实时计算3、spark是内存式计算框架，更适合做快速得到结果的计算 MapReduce设计理念何为分布式计算移动计算，而不是移动数据。把计算程序都进行部署到不同的机器上，然后在不同的机器上进行计算，然后进行汇总，做到不移动计算的数据，也能得到计算结果。 MR（MapReduce）计算框架图解 解决大数据的问题：1、数据存储（HDFS）2、数据计算(MapReduce) 首先对数据进行处理split为每一个数据片段，每一数据片段都会有一个map线程去执行，如果有多个片段会并发的同时执行。 所以：如上图：第一个步骤是：如何把数据切片，按照什么规则去切分。第二个步骤是：就是map部分第三个步骤是shuffle部分第四个部分是 reduce部分第五个部分就是 输出部分（计算生成的数据，也是保存在HDFS上） 整个MR过程就是：就是把HDFS数据进行计算处理，然后输出结果 实例MR计算在shuffling阶段会有相应的合并和排序有可能reduce为一个或者多个，这个是由程序去决定。 hadoop计算框架ShufflerShuffer的功能：在mapper 和reducer中间的一个步骤。可以把mapper的输出按照某种key值重新切分和组合成n份，把key值符合某种范围的输出送到特定的reducer那里，可以简化reducer过程。 map过程map是一个Java程序，或者其他计算机程序，map得到的结果在内存中， 内存有一定的阈值，当到达一定的阈值后，就需要写入到磁盘中， 这个过程叫做溢写。 在写入之前要做几件事情，partion和sort。把当前map的数据进行输出和排序，然后再溢写到磁盘。放在磁盘中的数据是已经排好序的数据。 什么是partition？ partition分区的数据是为以后产生作用的。把map的输出数据分成一个一个区，partition可以由程序员自定义编写代码。如果不写按照默认的分区模式进行分区，默认的分区模式是什么呢？ Hash模运算1、获取hash值，每个对象的hash值得到一个整数，把这个整数模reduce的个数，得到一个结果。假如：hash模2，只有两种结果0或者1，然后map的结果分成了两个部分，0区或者1区。 分区有什么作用？？？ 这是mapredure如何结局负载均衡和数据倾斜？ 分区是为了把map的输出进行负载均衡，解决数据倾斜的问题。这样后期通过reduce进行计算的数据就不会有数据倾斜问题，一个计算的过多，一个计算的过少。这就是分区的作用。 map为什么不会数据倾斜？？？map的数据是切片，每一片的大小相等，所以map的输入数据不会出现数据倾斜的问题。 sortsort也有默认的的sort。默认的sort是按照ascii进行排序的。（即按照字典进行排序的）为什么要sort？？？定义排序规则 上图中merge on disk什么意思？？？每次都会溢写到磁盘中，溢写会按照hash值进行合并，相同hash值放到一起。每一次溢写就会生成一个文件，溢写的次数越多，生成的文件越多，这些文件需要进行合并为一个大的文件，如何合并，就是按照hash值进行合并，这是默认的规则。 合并的目的？？？减少map的输出，因为后期reduce会移动map的输出到reduce服务器上，减少map的输出，就会减少网络io的操作，所以很有必要的。 以上是map的处理 reduce过程map的处理结果落到磁盘以后，然后会进行merge，为什么merge，如果merge？？？ reduce 的输入数据就是map的输出数据，reduce的数据来源是map输出数据的拷贝。拷贝哪些数据，是根据partition的结果，只拷贝分给对应的reduce的数据。之前分区是按照reduce去模后的值进行分区的，分区以后的数据在copy到reduce所在的机器上，同事进行merge，便于下一步reduce进行处理。 分区就是在把数据拷贝到reduce的时候起作用的 为什么reduce task开始也有merge操作？？？因为reduce会从很多的map输出结果中拷贝数据，这样会有很多个小文件，reduce为了计算，就需要对这些小文件进行merge。这就是为什么reduce开始时要进行merge操作。这个合并不是人为控制的，这个会根据key相同的进行合并，是hadoop自有的功能。合并完成以后相同key的数据会进行merge。 两个reduce是可以并发的。 抓重点：这个过程比较虽然比较复杂，但是有很多部分是hadoop框架已经做的工作，只有一部分需要我们编程实现！！！ 哪些部分需要我们编程实现？？？ 1、partition（如何分区）2、sort 比较（如何比较）3、比较会进行多次4、combiner 注意：在map执行之后，立刻进行partition，map的输出结果会分到哪个reduce，这个叫做分区，分区以后放在内存中，在溢写的时候，要执行sort和combiner，sort其实就是比较，默认按照ascii大小进行比较。 combiner可能会没有，所以上副图没有画combiner，这个意思是初次合并。 combiner可以减少map的输出数据。MapReduce的Split大小 1、max.split(100M)2、min.split(10M)3、block（64M）如何进行切分，切分大小算法4、max(min.split,min(max.split,block))代入如上值为： 64M]]></content>
-      <categories>
-        <category>others</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>MapReduce</tag>
-        <tag>分布式计算</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[C/C++内存管理详解（二）]]></title>
-    <url>%2F2017%2FCppmemory2.html</url>
-    <content type="text"><![CDATA[本文将继上一篇继续讲解内存管理的问题，这篇主要讨论一下malloc/free和new/delete的用法和区别，及做个总结。 指针参数是如何传递内存的如果函数的参数是一个指针，不要指望用该指针去申请动态内存。如下示例中，Test函数的语句GetMemory(str, 200)并没有使str获得期望的内存，str依旧是NULL，为什么？ void GetMemory(char *p, int num){ p = (char *)malloc(sizeof(char) * num); } void Test(void){ char *str = NULL; GetMemory(str, 100); // str 仍然为 NULL strcpy(str, &quot;hello&quot;); // 运行错误 } 毛病出在函数GetMemory中。编译器总是要为函数的每个参数制作临时副本，指针参数p的副本_p，编译器使_p=p。如果函数体内的程序修改了_p的内容，就导致参数p的内容作相应的修改。这就是指针可以用作输出参数的原因。在本例中，_p申请了新的内存，只是把 _p所指的内存地址改变了，但是p丝毫未变。所以函数GetMemory并不能输出任何东西。事实上，每执行一次GetMemory就会泄露一块内存，因为没有用free释放内存。 如果非得要用指针参数去申请内存，那么应该改用“指向指针的指针”，见示例： void GetMemory2(char **p, int num){ *p = (char *)malloc(sizeof(char) * num); } void Test2(void){ char *str = NULL; GetMemory2(&amp;str, 100); // 注意参数是 &amp;str，而不是str strcpy(str, &quot;hello&quot;); cout&lt;&lt; str &lt;&lt; endl; free(str); } 由于“指向指针的指针”这个概念不容易理解，我们可以用函数返回值来传递动态内存。这种方法更加简单，见示例： char *GetMemory3(int num){ char *p = (char *)malloc(sizeof(char) * num); return p;//返回值 } void Test3(void){ char *str = NULL; str = GetMemory3(100); strcpy(str, &quot;hello&quot;); cout&lt;&lt; str &lt;&lt; endl; free(str); } 用函数返回值来传递动态内存这种方法虽然好用，但是常常有人把return语句用错了。这里强调不要用return语句返回指向“栈内存”的指针，因为该内存在函数结束时自动消亡，见示例： char *GetString(void){ char p[] = &quot;hello world&quot;; return p; // 编译器将提出警告 } void Test4(void){ char *str = NULL; str = GetString(); // str 的内容是垃圾 cout&lt;&lt; str &lt;&lt; endl; } 用调试器逐步跟踪Test4，发现执行str = GetString语句后str不再是NULL指针，但是str的内容不是“hello world”而是垃圾。如果把上述示例改写成如下示例，会怎么样？ char *GetString2(void){ char *p = &quot;hello world&quot;; return p; } void Test5(void){ char *str = NULL; str = GetString2(); cout&lt;&lt; str &lt;&lt; endl; } 函数Test5运行虽然不会出错，但是函数GetString2的设计概念却是错误的。因为GetString2内的“hello world”是常量字符串，位于静态存储区，它在程序生命期内恒定不变。无论什么时候调用GetString2，它返回的始终是同一个“只读”的内存块。 杜绝“野指针”“野指针”不是NULL指针，是指向“垃圾”内存的指针。人们一般不会错用NULL指针，因为用if语句很容易判断。但是“野指针”是很危险的，if语句对它不起作用。 “野指针”的成因主要有三种：(1). 指针变量没有被初始化。任何指针变量刚被创建时不会自动成为NULL指针，它的缺省值是随机的，它会乱指一气。所以，指针变量在创建的同时应当被初始化，要么将指针设置为NULL，要么让它指向合法的内存。例如： char *p = NULL; char *str = (char *) malloc(100); (2). 指针p被free或者delete之后，没有置为NULL，让人误以为p是个合法的指针。(3). 指针操作超越了变量的作用域范围。这种情况让人防不胜防，示例程序如下： class A{ public: void Func(void){ cout &lt;&lt; “Func of class A” &lt;&lt; endl; } }; void Test(void){ A *p; { A a; p = &amp;a; // 注意 a 的生命期 } p-&gt;Func(); // p是“野指针” } 函数Test在执行语句p-&gt;Func()时，对象a已经消失，而p是指向a的，所以p就成了“野指针”。但奇怪的是我运行这个程序时居然没有出错，这可能与编译器有关。 有了malloc/free为什么还要new/deletemalloc与free是C++/C语言的标准库函数，new/delete是C++的运算符。它们都可用于申请动态内存和释放内存。对于非内部数据类型的对象而言，光用maloc/free无法满足动态对象的要求。对象在创建的同时要自动执行构造函数，对象在消亡之前要自动执行析构函数。由于malloc/free是库函数而不是运算符，不在编译器控制权限之内，不能够把执行构造函数和析构函数的任务强加于malloc/free。因此C++语言需要一个能完成动态内存分配和初始化工作的运算符new，以及一个能完成清理与释放内存工作的运算符delete。注意new/delete不是库函数。我们先看一看malloc/free和new/delete如何实现对象的动态内存管理，见示例： class Obj{ public : Obj(void){ cout &lt;&lt; “Initialization” &lt;&lt; endl; } ~Obj(void){ cout &lt;&lt; “Destroy” &lt;&lt; endl; } void Initialize(void){ cout &lt;&lt; “Initialization” &lt;&lt; endl; } void Destroy(void){ cout &lt;&lt; “Destroy” &lt;&lt; endl; } }; void UseMallocFree(void){ Obj *a = (obj *)malloc(sizeof(obj)); // 申请动态内存 a-&gt;Initialize(); // 初始化 //… a-&gt;Destroy(); // 清除工作 free(a); // 释放内存 } void UseNewDelete(void){ Obj *a = new Obj; // 申请动态内存并且初始化 //… delete a; // 清除并且释放内存 } 类Obj的函数Initialize模拟了构造函数的功能，函数Destroy模拟了析构函数的功能。函数UseMallocFree中，由于malloc/free不能执行构造函数与析构函数，必须调用成员函数Initialize和Destroy来完成初始化与清除工作。函数UseNewDelete则简单得多。所以我们不要企图用malloc/free来完成动态对象的内存管理，应该用new/delete。由于内部数据类型的“对象”没有构造与析构的过程，对它们而言malloc/free和new/delete是等价的。既然new/delete的功能完全覆盖了malloc/free，为什么C++不把malloc/free淘汰出局呢？这是因为C++程序经常要调用C函数，而C程序只能用malloc/free管理动态内存。如果用free释放“new创建的动态对象”，那么该对象因无法执行析构函数而可能导致程序出错。如果用delete释放“malloc申请的动态内存”，结果也会导致程序出错，但是该程序的可读性很差。所以new/delete必须配对使用，malloc/free也一样。 内存耗尽怎么办如果在申请动态内存时找不到足够大的内存块，malloc和new将返回NULL指针，宣告内存申请失败。通常有三种方式处理“内存耗尽”问题。(1). 判断指针是否为NULL，如果是则马上用return语句终止本函数。例如： void Func(void){ A *a = new A; if(a == NULL) return; … } (2). 判断指针是否为NULL，如果是则马上用exit(1)终止整个程序的运行。例如： void Func(void){ A *a = new A; if(a == NULL){ cout &lt;&lt; “Memory Exhausted” &lt;&lt; endl; exit(1); } … } (3). 为new和malloc设置异常处理函数。例如Visual C++可以用_set_new_hander函数为new设置用户自己定义的异常处理函数，也可以让malloc享用与new相同的异常处理函数。详细内容请参考C++使用手册。上述 (1)、(2) 方式使用最普遍。如果一个函数内有多处需要申请动态内存，那么方式 (1) 就显得力不从心（释放内存很麻烦），应该用方式 (2) 来处理。很多人不忍心用exit(1)，问：“不编写出错处理程序，让操作系统自己解决行不行？”不行。如果发生“内存耗尽”这样的事情，一般说来应用程序已经无药可救。如果不用exit(1)把坏程序杀死，它可能会害死操作系统。道理如同：如果不把歹徒击毙，歹徒在老死之前会犯下更多的罪。有一个很重要的现象要告诉大家。对于32位以上的应用程序而言，无论怎样使用malloc与new，几乎不可能导致“内存耗尽”。对于32位以上的应用程序，“内存耗尽”错误处理程序毫无用处。这下可把Unix和Windows程序员们乐坏了：反正错误处理程序不起作用，我就不写了，省了很多麻烦。必须强调：不加错误处理将导致程序的质量很差，千万不可因小失大。 void main(void){ float *p = NULL; while(TRUE){ p = new float[1000000]; cout &lt;&lt; “eat memory” &lt;&lt; endl; if(p==NULL) exit(1); } } malloc/free的使用要点函数malloc的原型如下： void * malloc(size_t size); 用malloc申请一块长度为length的整数类型的内存，程序如下： int *p = (int *) malloc(sizeof(int) * length); 我们应当把注意力集中在两个要素上：“类型转换”和“sizeof”。 malloc返回值的类型是void，所以在调用malloc时要显式地进行类型转换，将void 转换成所需要的指针类型。 malloc函数本身并不识别要申请的内存是什么类型，它只关心内存的总字节数。我们通常记不住int, float等数据类型的变量的确切字节数。例如int变量在16位系统下是2个字节，在32位下是4个字节；而float变量在16位系统下是4个字节，在32位下也是4个字节。最好用以下程序作一次测试： cout &lt;&lt; sizeof(char) &lt;&lt; endl; cout &lt;&lt; sizeof(int) &lt;&lt; endl; cout &lt;&lt; sizeof(unsigned int) &lt;&lt; endl; cout &lt;&lt; sizeof(long) &lt;&lt; endl; cout &lt;&lt; sizeof(unsigned long) &lt;&lt; endl; cout &lt;&lt; sizeof(float) &lt;&lt; endl; cout &lt;&lt; sizeof(double) &lt;&lt; endl; cout &lt;&lt; sizeof(void *) &lt;&lt; endl; 在malloc的“()”中使用sizeof运算符是良好的风格，但要当心有时我们会昏了头，写出 p = malloc(sizeof(p))这样的程序来。函数free的原型如下： void free( void * memblock ); 为什么free函数不象malloc函数那样复杂呢？这是因为指针p的类型以及它所指的内存的容量事先都是知道的，语句free(p)能正确地释放内存。如果p是NULL指针，那么free对p无论操作多少次都不会出问题。如果p不是NULL指针，那么free对p连续操作两次就会导致程序运行错误。 new/delete的使用要点运算符new使用起来要比函数malloc简单得多，例如： int *p1 = (int *)malloc(sizeof(int) * length); int *p2 = new int[length]; 这是因为new内置了sizeof、类型转换和类型安全检查功能。对于非内部数据类型的对象而言，new在创建动态对象的同时完成了初始化工作。如果对象有多个构造函数，那么new的语句也可以有多种形式。例如： class Obj{ public : Obj(void); // 无参数的构造函数 Obj(int x); // 带一个参数的构造函数 … } void Test(void){ Obj *a = new Obj; Obj *b = new Obj(1); // 初值为1 … delete a; delete b; } 如果用new创建对象数组，那么只能使用对象的无参数构造函数。例如： Obj *objects = new Obj[100]; // 创建100个动态对象 不能写成： Obj *objects = new Obj[100](1);// 创建100个动态对象的同时赋初值1 在用delete释放对象数组时，留意不要丢了符号‘[]’。例如： delete []objects; // 正确的用法 delete objects; // 错误的用法 后者有可能引起程序崩溃和内存泄漏。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>内存</tag>
-        <tag>指针</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[C/C++内存管理详解（一）]]></title>
-    <url>%2F2017%2FCppmemory.html</url>
-    <content type="text"><![CDATA[内存管理是C++最令人切齿痛恨的问题，也是C++最有争议的问题，C++高手从中获得了更好的性能，更大的自由，C++菜鸟的收获则是一遍一遍的检查代码和对C++的痛恨，但内存管理在C++中无处不在，内存泄漏几乎在每个C++程序中都会发生，因此要想成为C++高手，内存管理一关是必须要过的，除非放弃C++，转到Java或者.NET，他们的内存管理基本是自动的，当然你也放弃了自由和对内存的支配权，还放弃了C++超绝的性能。 伟大的Bill Gates 曾经失言： 640K ought to be enough for everybody — Bill Gates 1981程序员们经常编写内存管理程序，往往提心吊胆。如果不想触雷，唯一的解决办法就是发现所有潜伏的地雷并且排除它们，躲是躲不了的。 内存分配方式简介在C++中，内存分成5个区，他们分别是堆、栈、自由存储区、全局/静态存储区和常量存储区。栈：在执行函数时，函数内局部变量的存储单元都可以在栈上创建，函数执行结束时这些存储单元自动被释放。栈内存分配运算内置于处理器的指令集中，效率很高，但是分配的内存容量有限。堆：就是那些由,malloc分配的内存块，他们的释放编译器不去管，由我们的应用程序去控制，一般一个malloc对应一个 free。如果程序员没有释放掉，那么在程序结束后，操作系统会自动回收。自由存储区：就是那些由new等分配的内存块，他和堆是十分相似的，不过它是用delete来结束自己的生命的。自由存储区是否能够是堆（问题等价于 new 是否能在堆上动态分配内存），这取决于 operator new 的实现细节。事实上，自由存储区不仅可以是堆，还可以是静态存储区。 (new与malloc的区别之一：new操作符从自由存储区（free store）上为对象动态分配内存空间，而malloc函数从堆上动态分配内存。自由存储区是C++基于new操作符的一个抽象概念，凡是通过new操作符进行内存申请，该内存即为自由存储区。而堆是操作系统中的术语，是操作系统所维护的一块特殊内存，用于程序的内存动态分配，C语言使用malloc从堆上分配内存，使用free释放已分配的对应内存。) 全局/静态存储区：全局变量和静态变量被分配到同一块内存中，在以前的C语言中，全局变量又分为初始化的和未初始化的，在C++里面没有这个区分了，他们共同占用同一块内存区。常量存储区：这是一块比较特殊的存储区，他们里面存放的是常量，不允许修改。 明确区分堆与栈主要的区别由以下几点： (1). 管理方式不同 (2). 空间大小不同 (3). 能否产生碎片不同 (4). 生长方向不同 (5). 分配方式不同 (6). 分配效率不同管理方式：对于栈来讲，是由编译器自动管理，无需我们手工控制；对于堆来说，释放工作由程序员控制，容易产生memory leak。空间大小：一般来讲在32位系统下，堆内存可以达到4G的空间，从这个角度来看堆内存几乎是没有什么限制的。但是对于栈来讲，一般都是有一定的空间大小的，例如，在VC6下面，默认的栈空间大小是1M（好像是，记不清楚了）。当然，我们可以修改：打开工程，依次操作菜单如下：Project-&gt;Setting-&gt;Link，在Category 中选中Output，然后在Reserve中设定堆栈的最大值和commit。注意：reserve最小值为4Byte；commit是保留在虚拟内存的页文件里面，它设置的较大会使栈开辟较大的值，可能增加内存的开销和启动时间。碎片问题：对于堆来讲，频繁的new/delete势必会造成内存空间的不连续，从而造成大量的碎片，使程序效率降低。对于栈来讲，则不会存在这个问题，因为栈是先进后出的队列，他们是如此的一一对应，以至于永远都不可能有一个内存块从栈中间弹出，在他弹出之前，在他上面的后进的栈内容已经被弹出，详细的可以参考数据结构，这里我们就不再一一讨论了。生长方向：对于堆来讲，生长方向是向上的，也就是向着内存地址增加的方向；对于栈来讲，它的生长方向是向下的，是向着内存地址减小的方向增长。分配方式：堆都是动态分配的，没有静态分配的堆。栈有2种分配方式：静态分配和动态分配。静态分配是编译器完成的，比如局部变量的分配。动态分配由alloca函数进行分配，但是栈的动态分配和堆是不同的，他的动态分配是由编译器进行释放，无需我们手工实现。分配效率：栈是机器系统提供的数据结构，计算机会在底层对栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了栈的效率比较高。堆则是C/C++函数库提供的，它的机制是很复杂的，例如为了分配一块内存，库函数会按照一定的算法（具体的算法可以参考数据结构/操作系统）在堆内存中搜索可用的足够大小的空间，如果没有足够大小的空间（可能是由于内存碎片太多），就有可能调用系统功能去增加程序数据段的内存空间，这样就有机会分到足够大小的内存，然后进行返回。显然，堆的效率比栈要低得多。从这里我们可以看到，堆和栈相比，由于大量new/delete的使用，容易造成大量的内存碎片；由于没有专门的系统支持，效率很低；由于可能引发用户态和核心态的切换，内存的申请，代价变得更加昂贵。所以栈在程序中是应用最广泛的，就算是函数的调用也利用栈去完成，函数调用过程中的参数，返回地址，EBP和局部变量都采用栈的方式存放。所以，我们推荐大家尽量用栈，而不是用堆。虽然栈有如此众多的好处，但是由于和堆相比不是那么灵活，有时候分配大量的内存空间，还是用堆好一些。无论是堆还是栈，都要防止越界现象的发生（除非你是故意使其越界），因为越界的结果要么是程序崩溃，要么是摧毁程序的堆、栈结构，产生以想不到的结果,就算是在你的程序运行过程中，没有发生上面的问题，你还是要小心，说不定什么时候就崩掉，那时候debug可是相当困难的：） 控制C++的内存分配在嵌入式系统中使用C++的一个常见问题是内存分配，即对new 和 delete 操作符的失控。具有讽刺意味的是，问题的根源却是C++对内存的管理非常的容易而且安全。具体地说，当一个对象被消除时，它的析构函数能够安全的释放所分配的内存。这当然是个好事情，但是这种使用的简单性使得程序员们过度使用new 和 delete，而不注意在嵌入式C++环境中的因果关系。并且，在嵌入式系统中，由于内存的限制，频繁的动态分配不定大小的内存会引起很大的问题以及堆破碎的风险。作为忠告，保守的使用内存分配是嵌入式环境中的第一原则。但当你必须要使用new和delete时，你不得不控制C++中的内存分配。你需要用一个全局的new 和delete来代替系统的内存分配符，并且一个类一个类的重载new和delete。一个防止堆破碎的通用方法是从不同固定大小的内存持中分配不同类型的对象。对每个类重载new 和delete就提供了这样的控制。 重载全局的new和delete操作符可以很容易地重载new 和 delete 操作符，如下所示: void * operator new(size_t size){ void *p = malloc(size); return (p); } void operator delete(void *p){ free(p); } 这段代码可以代替默认的操作符来满足内存分配的请求。出于解释C++的目的，我们也可以直接调用malloc() 和free()。也可以对单个类的new 和 delete操作符重载。这是你能灵活的控制对象的内存分配。 class TestClass { public: void * operator new(size_t size); void operator delete(void *p); // .. other members here ... }; void *TestClass::operator new(size_t size){ void *p = malloc(size); // Replace this with alternative allocator return (p); } void TestClass::operator delete(void *p){ free(p); // Replace this with alternative de-allocator } 所有TestClass 对象的内存分配都采用这段代码。更进一步，任何从TestClass 继承的类也都采用这一方式，除非它自己也重载了new 和 delete 操作符。通过重载new 和 delete 操作符的方法，你可以自由地采用不同的分配策略，从不同的内存池中分配不同的类对象。 为单个的类重载new[]和delete[]必须小心对象数组的分配。你可能希望调用到被你重载过的new 和 delete 操作符，但并不如此。内存的请求被定向到全局的new[]和delete[] 操作符，而这些内存来自于系统堆。C++将对象数组的内存分配作为一个单独的操作，而不同于单个对象的内存分配。为了改变这种方式，你同样需要重载new[] 和 delete[]操作符。 class TestClass { public: void * operator new[ ](size_t size); void operator delete[ ](void *p); // .. other members here .. }; void *TestClass::operator new[ ](size_t size){ void *p = malloc(size); return (p); } void TestClass::operator delete[ ](void *p){ free(p); } int main(void){ TestClass *p = new TestClass[10]; // ... etc ... delete[ ] p; } 但是注意：对于多数C++的实现，new[]操作符中的个数参数是数组的大小加上额外的存储对象数目的一些字节。在你的内存分配机制重要考虑的这一点。你应该尽量避免分配对象数组，从而使你的内存分配策略简单。 常见的内存错误及其对策发生内存错误是件非常麻烦的事情。编译器不能自动发现这些错误，通常是在程序运行时才能捕捉到。而这些错误大多没有明显的症状，时隐时现，增加了改错的难度。有时用户怒气冲冲地把你找来，程序却没有发生任何问题，你一走，错误又发作了。 常见的内存错误及其对策如下： 内存分配未成功，却使用了它。编程新手常犯这种错误，因为他们没有意识到内存分配会不成功。常用解决办法是，在使用内存之前检查指针是否为NULL。如果指针p是函数的参数，那么在函数的入口处用assert(p!=NULL)进行检查。如果是用malloc或new来申请内存，应该用if(p==NULL) 或if(p!=NULL)进行防错处理。 内存分配虽然成功，但是尚未初始化就引用它。犯这种错误主要有两个起因：一是没有初始化的观念；二是误以为内存的缺省初值全为零，导致引用初值错误（例如数组）。内存的缺省初值究竟是什么并没有统一的标准，尽管有些时候为零值，我们宁可信其无不可信其有。所以无论用何种方式创建数组，都别忘了赋初值，即便是赋零值也不可省略，不要嫌麻烦。 内存分配成功并且已经初始化，但操作越过了内存的边界。例如在使用数组时经常发生下标“多1”或者“少1”的操作。特别是在for循环语句中，循环次数很容易搞错，导致数组操作越界。 忘记了释放内存或删除（delete）指向动态内存的指针失败，因而无法将该块内存返还给自由存储区，造成内存泄露。含有这种错误的函数每被调用一次就丢失一块内存。刚开始时系统的内存充足，你看不到错误。终有一次程序突然死掉，系统出现提示：内存耗尽。动态内存的申请与释放必须配对使用。 对同一块内存空间使用两次delete表达式。当两个指针指向同一个动态创建的对象，删除时就会发生错误。如果在其中一个指针做delete操作将释放内存，但接着delete第二个指针则会造成自由存储区的破坏。 释放了内存却继续使用它。 有三种情况： (1). 程序中的对象调用关系过于复杂，实在难以搞清楚某个对象究竟是否已经释放了内存，此时应该重新设计数据结构，从根本上解决对象管理的混乱局面。 (2). 函数的return语句写错了，注意不要返回指向“栈内存”的“指针”或者“引用”，因为该内存在函数体结束时被自动销毁。 (3). 使用free或delete释放了内存后，没有将指针设置为NULL。导致产生“野指针”。 那么如何避免产生野指针呢？这里列出了5条规则，平常写程序时多注意一下，养成良好的习惯。规则1：用malloc或new申请内存之后，应该立即检查指针值是否为NULL。防止使用指针值为NULL的内存。规则2：不要忘记为数组和动态内存赋初值。防止将未被初始化的内存作为右值使用。规则3：避免数组或指针的下标越界，特别要当心发生“多1”或者“少1”操作。规则4：动态内存的申请与释放必须配对，防止内存泄漏。规则5：用free或delete释放了内存之后，立即将指针设置为NULL，防止产生“野指针”。 指针与数组的对比C++/C程序中，指针和数组在不少地方可以相互替换着用，让人产生一种错觉，以为两者是等价的。数组要么在静态存储区被创建（如全局数组），要么在栈上被创建。数组名对应着（而不是指向）一块内存，其地址与容量在生命期内保持不变，只有数组的内容可以改变。指针可以随时指向任意类型的内存块，它的特征是“可变”，所以我们常用指针来操作动态内存。指针远比数组灵活，但也更危险。下面以字符串为例比较指针与数组的特性。 修改内容下面示例中，字符数组a的容量是6个字符，其内容为 hello。a的内容可以改变，如a[0]= ‘X’。指针p指向常量字符串“world”（位于静态存储区，内容为world），常量字符串的内容是不可以被修改的。从语法上看，编译器并不觉得语句p[0]= ‘X’有什么不妥，但是该语句企图修改常量字符串的内容而导致运行错误。 char a[] = “hello”; a[0] = ‘X’; cout &lt;&lt; a &lt;&lt; endl; char *p = “world”; // 注意p指向常量字符串 p[0] = ‘X’; // 编译器不能发现该错误 cout &lt;&lt; p &lt;&lt; endl; 内容复制与比较不能对数组名进行直接复制与比较。若想把数组a的内容复制给数组b，不能用语句 b = a ，否则将产生编译错误。应该用标准库函数strcpy进行复制。同理，比较b和a的内容是否相同，不能用if(b==a) 来判断，应该用标准库函数strcmp进行比较。语句 p = a 并不能把a的内容复制指针p，而是把a的地址赋给了p。要想复制a的内容，可以先用库函数malloc为p申请一块容量为strlen(a)+1个字符的内存，再用strcpy进行字符串复制。同理，语句if(p==a) 比较的不是内容而是地址，应该用库函数strcmp来比较。 // 数组… char a[] = &quot;hello&quot;; char b[10]; strcpy(b, a); // 不能用 b = a; if(strcmp(b, a) == 0) // 不能用 if (b == a) … // 指针… int len = strlen(a); char *p = (char *)malloc(sizeof(char)*(len+1)); strcpy(p,a); // 不要用 p = a; if(strcmp(p, a) == 0) // 不要用 if (p == a) … 计算内存容量用运算符sizeof可以计算出数组的容量（字节数）。如下示例中，sizeof(a)的值是12（注意别忘了’’）。指针p指向a，但是sizeof(p)的值却是4。这是因为sizeof(p)得到的是一个指针变量的字节数，相当于sizeof(char)，而不是p所指的内存容量。*C++/C语言没有办法知道指针所指的内存容量，除非在申请内存时记住它。 char a[] = &quot;hello world&quot;; char *p = a; cout&lt;&lt; sizeof(a) &lt;&lt; endl; // 12字节 cout&lt;&lt; sizeof(p) &lt;&lt; endl; // 4字节 注意当数组作为函数的参数进行传递时，该数组自动退化为同类型的指针。如下示例中，不论数组a的容量是多少，sizeof(a)始终等于sizeof(char *)。 void Func(char a[100]){ cout&lt;&lt; sizeof(a) &lt;&lt; endl; // 4字节而不是100字节 }]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>内存</tag>
-        <tag>指针</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[十大机器学习算法介绍（二）]]></title>
-    <url>%2F2017%2FML2.html</url>
-    <content type="text"><![CDATA[K均值算法K – 均值算法是一种非监督式学习算法，它能解决聚类问题。使用 K – 均值算法来将一个数据归入一定数量的集群（假设有 k 个集群）的过程是简单的。一个集群内的数据点是均匀齐次的，并且异于别的集群。 还记得从墨水渍里找出形状的活动吗？K – 均值算法在某方面类似于这个活动。观察形状，并延伸想象来找出到底有多少种集群或者总体。 K – 均值算法怎样形成集群： K – 均值算法给每个集群选择k个点。这些点称作为质心。每一个数据点与距离最近的质心形成一个集群，也就是 k 个集群。根据现有的类别成员，找出每个类别的质心。现在我们有了新质心。当我们有新质心后，重复步骤 2 和步骤 3。找到距离每个数据点最近的质心，并与新的k集群联系起来。重复这个过程，直到数据都收敛了，也就是当质心不再改变。 如何决定 K 值： K – 均值算法涉及到集群，每个集群有自己的质心。一个集群内的质心和各数据点之间距离的平方和形成了这个集群的平方值之和。同时，当所有集群的平方值之和加起来的时候，就组成了集群方案的平方值之和。 我们知道，当集群的数量增加时，K值会持续下降。但是，如果你将结果用图表来表示，你会看到距离的平方总和快速减少。到某个值 k 之后，减少的速度就大大下降了。在此，我们可以找到集群数量的最优值。 Python代码 #Import Library from sklearn.cluster import KMeans #Assumed you have, X (attributes) for training data set and x_test(attributes) of test_dataset # Create KNeighbors classifier object model k_means = KMeans(n_clusters=3, random_state=0) # Train the model using the training sets and check score model.fit(X) #Predict Output predicted= model.predict(x_test) 降维算法在过去的 4 到 5 年里，在每一个可能的阶段，信息捕捉都呈指数增长。公司、政府机构、研究组织在应对着新资源以外，还捕捉详尽的信息。 举个例子：电子商务公司更详细地捕捉关于顾客的资料：个人信息、网络浏览记录、他们的喜恶、购买记录、反馈以及别的许多信息，比你身边的杂货店售货员更加关注你。 作为一个数据科学家，我们提供的数据包含许多特点。这听起来给建立一个经得起考研的模型提供了很好材料，但有一个挑战：如何从 1000 或者 2000 里分辨出最重要的变量呢？在这种情况下，降维算法和别的一些算法（比如决策树、随机森林、PCA、因子分析）帮助我们根据相关矩阵，缺失的值的比例和别的要素来找出这些重要变量。 Python代码 #Import Library from sklearn import decomposition #Assumed you have training and test data set as train and test # Create PCA obeject pca= decomposition.PCA(n_components=k) #default value of k =min(n_sample, n_features) # For Factor analysis #fa= decomposition.FactorAnalysis() # Reduced the dimension of training dataset using PCA train_reduced = pca.fit_transform(train) #Reduced the dimension of test dataset test_reduced = pca.transform(test) #For more detail on this, please refer this link. Gradient Boosting 和 AdaBoost 算法当我们要处理很多数据来做一个有高预测能力的预测时，我们会用到 GBM 和 AdaBoost 这两种 boosting 算法。boosting 算法是一种集成学习算法。它结合了建立在多个基础估计值基础上的预测结果，来增进单个估计值的可靠程度。这些 boosting 算法通常在数据科学比赛如 Kaggl、AV Hackathon、CrowdAnalytix 中很有效。 Python代码： #Import Library from sklearn.ensemble import GradientBoostingClassifier #Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset # Create Gradient Boosting Classifier object model= GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=0) # Train the model using the training sets and check score model.fit(X, y) #Predict Output predicted= model.predict(x_test)]]></content>
-      <categories>
-        <category>ML</category>
-      </categories>
-      <tags>
-        <tag>machine learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[十大机器学习算法介绍（一）]]></title>
-    <url>%2F2017%2FML.html</url>
-    <content type="text"><![CDATA[机器学习算法分为三类：有监督学习、无监督学习、增强学习。有监督学习需要标识数据（用于训练，即有正例又有负例），无监督学习不需要标识数据，增强学习介于两者之间（有部分标识数据）。下面将向大家具体介绍机器学习中10大算法（主要介绍有监督、无监督两类）。 监督学习1 决策树决策树是一种树形结构，为人们提供决策依据，决策树可以用来回答yes和no问题，它通过树形结构将各种情况组合都表示出来，每个分支表示一次选择（选择yes还是no），直到所有选择都进行完毕，最终给出正确答案。 定义：决策树（decision tree）是一个树结构（可以是二叉树或非二叉树）。其每个非叶节点表示一个特征属性上的测试，每个分支代表这个特征属性在某个值域上的输出，而每个叶节点存放一个类别。使用决策树进行决策的过程就是从根节点开始，测试待分类项中相应的特征属性，并按照其值选择输出分支，直到到达叶子节点，将叶子节点存放的类别作为决策结果。构造决策树的关键步骤是分裂属性。所谓分裂属性就是在某个节点处按照某一特征属性的不同划分构造不同的分支，其目标是让各个分裂子集尽可能地“纯”。尽可能“纯”就是尽量让一个分裂子集中待分类项属于同一类别。分裂属性分为三种不同的情况： 1、属性是离散值且不要求生成二叉决策树。此时用属性的每一个划分作为一个分支。 2、属性是离散值且要求生成二叉决策树。此时使用属性划分的一个子集进行测试，按照“属于此子集”和“不属于此子集”分成两个分支。 3、属性是连续值。此时确定一个值作为分裂点split_point，按照 &gt;split_point和&lt;=split_point生成两个分支。 ID3信息增益（information gain）表示得知特征X的信息而使得类Y的信息的不确定性减少的程度。定义：特征A对训练数据集D的信息增益g（D,A），定义集合D的经验熵H（D）与特征A给定条件下D的经验条件熵H（D|A）之差。一般地，熵与条件熵之差成为互信息（mutual information），决策树学习中的信息增益等价于训练数据集中类与特征的互信息。ID3算法的核心是在决策树各个子结点上应用信息增益准则选择特征，递归的构建决策树。具体方法是:从根结点开始，对结点计算所有可能的特征的信息增益，选择信息增益最大的特征作为结点的特征，由该特征的不同取值建立子结点；再对子结点递归调用以上方法，构建决策树。直到所有特征的信息增益均很小或没有特征可以选择为止。 C4.5ID3算法存在一个问题，就是偏向于多值属性，例如，如果存在唯一标识属性ID，则ID3会选择它作为分裂属性，这样虽然使得划分充分纯净，但这种划分对分类几乎毫无用处。ID3的后继算法C4.5使用增益率（gain ratio）的信息增益扩充，试图克服这个偏倚。C4.5算法首先定义了“分裂信息”，其定义可以表示成： 其中各符号意义和ID3算法相同，然后增益率定义为： C4.5选择具有最大增益率的属性作为分裂属性，其具体应用于ID3类似。python代码： #Import Library #Import other necessary libraries like pandas, numpy... from sklearn import tree #Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset # Create tree object model = tree.DecisionTreeClassifier(criterion=&apos;gini&apos;) # for classification, here you can change the algorithm as gini or entropy (information gain) by default it is gini # model = tree.DecisionTreeRegressor() for regression # Train the model using the training sets and check score model.fit(X, y) model.score(X, y) #Predict Output predicted= model.predict(x_test) 2 朴素贝叶斯分类（NBC）在预示变量间相互独立的前提下，根据贝叶斯定理可以得到朴素贝叶斯这个分类方法。用更简单的话来说，一个朴素贝叶斯分类器假设一个分类的特性与该分类的其它特性不相关。举个例子，如果一个水果又圆又红，并且直径大约是 3 英寸，那么这个水果可能会是苹果。即便这些特性互相依赖，或者依赖于别的特性的存在，朴素贝叶斯分类器还是会假设这些特性分别独立地暗示这个水果是个苹果。 朴素贝叶斯模型易于建造，且对于大型数据集非常有用。虽然简单，但是朴素贝叶斯的表现却超越了非常复杂的分类方法。 贝叶斯定理提供了一种从P(c)、P(x)和P(x|c) 计算后验概率 P(c|x) 的方法。请看以下等式：在这里， P(c|x) 是已知预示变量（属性）的前提下，类（目标）的后验概率P(c) 是类的先验概率P(x|c) 是可能性，即已知类的前提下，预示变量的概率P(x) 是预示变量的先验概率 例子：让我们用一个例子来理解这个概念。在下面，我有一个天气的训练集和对应的目标变量“Play”。现在，我们需要根据天气情况，将会“玩”和“不玩”的参与者进行分类。让我们执行以下步骤。 步骤1：把数据集转换成频率表。 步骤2：利用类似“当Overcast可能性为0.29时，玩耍的可能性为0.64”这样的概率，创造 Likelihood 表格。步骤3：现在，使用朴素贝叶斯等式来计算每一类的后验概率。后验概率最大的类就是预测的结果。 问题：如果天气晴朗，参与者就能玩耍。这个陈述正确吗？ 我们可以使用讨论过的方法解决这个问题。于是 P（会玩 | 晴朗）= P（晴朗 | 会玩）* P（会玩）/ P （晴朗） 我们有 P （晴朗 |会玩）= 3/9 = 0.33，P（晴朗） = 5/14 = 0.36, P（会玩）= 9/14 = 0.64 现在，P(会玩 | 晴朗）= 0.33 * 0.64 / 0.36 = 0.60，有更大的概率。 朴素贝叶斯使用了一个相似的方法，通过不同属性来预测不同类别的概率。这个算法通常被用于文本分类，以及涉及到多个类的问题。 一些应用例子: 判断垃圾邮件对新闻的类别进行分类，比如科技、政治、运动判断文本表达的感情是积极的还是消极的人脸识别 Python代码： #Import Library from sklearn.naive_bayes import GaussianNB #Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset # Create SVM classification object model = GaussianNB() # there is other distribution for multinomial classes like Bernoulli Naive Bayes, Refer link # Train the model using the training sets and check score model.fit(X, y) #Predict Output predicted= model.predict(x_test) 3 线性回归线性回归通常用于根据连续变量估计实际数值（房价、呼叫次数、总销售额等）。我们通过拟合最佳直线来建立自变量和因变量的关系。这条最佳直线叫做回归线，并且用 Y= a *X + b 这条线性等式来表示。 理解线性回归的最好办法是回顾一下童年。假设在不问对方体重的情况下，让一个五年级的孩子按体重从轻到重的顺序对班上的同学排序，你觉得这个孩子会怎么做？他（她）很可能会目测人们的身高和体型，综合这些可见的参数来排列他们。这是现实生活中使用线性回归的例子。实际上，这个孩子发现了身高和体型与体重有一定的关系，这个关系看起来很像上面的等式。 在这个等式中： Y：因变量a：斜率x：自变量b ：截距系数 a 和 b 可以通过最小二乘法获得。 参见下例。我们找出最佳拟合直线 y=0.2811x+13.9。已知人的身高，我们可以通过这条等式求出体重。线性回归的两种主要类型是一元线性回归和多元线性回归。一元线性回归的特点是只有一个自变量。多元线性回归的特点正如其名，存在多个自变量。找最佳拟合直线的时候，你可以拟合到多项或者曲线回归。这些就被叫做多项或曲线回归。 Python代码： #Import Library #Import other necessary libraries like pandas, numpy... from sklearn import linear_model #Load Train and Test datasets #Identify feature and response variable(s) and values must be numeric and numpy arrays x_train=input_variables_values_training_datasets y_train=target_variables_values_training_datasets x_test=input_variables_values_test_datasets # Create linear regression object linear = linear_model.LinearRegression() # Train the model using the training sets and check score linear.fit(x_train, y_train) linear.score(x_train, y_train) #Equation coefficient and Intercept print(&apos;Coefficient: n&apos;, linear.coef_) print(&apos;Intercept: n&apos;, linear.intercept_) #Predict Output predicted= linear.predict(x_test) 4 逻辑回归别被它的名字迷惑了！这是一个分类算法而不是一个回归算法。该算法可根据已知的一系列因变量估计离散数值（比方说二进制数值 0 或 1 ，是或否，真或假）。简单来说，它通过将数据拟合进一个逻辑函数来预估一个事件出现的概率。因此，它也被叫做逻辑回归。因为它预估的是概率，所以它的输出值大小在 0 和 1 之间（正如所预计的一样）。 让我们再次通过一个简单的例子来理解这个算法。 假设你的朋友让你解开一个谜题。这只会有两个结果：你解开了或是你没有解开。想象你要解答很多道题来找出你所擅长的主题。这个研究的结果就会像是这样：假设题目是一道十年级的三角函数题，你有 70%的可能会解开这道题。然而，若题目是个五年级的历史题，你只有30%的可能性回答正确。这就是逻辑回归能提供给你的信息。 从数学上看，在结果中，几率的对数使用的是预测变量的线性组合模型。 odds= p/ (1-p) = probability of event occurrence / probability of not event occurrence ln(odds) = ln(p/(1-p)) logit(p) = ln(p/(1-p)) = b0+b1X1+b2X2+b3X3....+bkXk 在上面的式子里，p 是我们感兴趣的特征出现的概率。它选用使观察样本值的可能性最大化的值作为参数，而不是通过计算误差平方和的最小值（就如一般的回归分析用到的一样）。现在你也许要问了，为什么我们要求出对数呢？简而言之，这种方法是复制一个阶梯函数的最佳方法之一。 Python代码： #Import Library from sklearn.linear_model import LogisticRegression #Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset # Create logistic regression object model = LogisticRegression() # Train the model using the training sets and check score model.fit(X, y) model.score(X, y) #Equation coefficient and Intercept print(&apos;Coefficient: n&apos;, model.coef_) print(&apos;Intercept: n&apos;, model.intercept_) #Predict Output predicted= model.predict(x_test) 你可以尝试更多的方法来改进这个模型： 加入交互项精简模型特性使用正则化方法使用非线性模型 5 K-最近邻算法（KNN）该算法可用于分类问题和回归问题。然而，在业界内，K – 最近邻算法更常用于分类问题。K – 最近邻算法是一个简单的算法。它储存所有的案例，通过周围k个案例中的大多数情况划分新的案例。根据一个距离函数，新案例会被分配到它的 K 个近邻中最普遍的类别中去。 这些距离函数可以是欧式距离、曼哈顿距离、明式距离或者是汉明距离。前三个距离函数用于连续函数，第四个函数（汉明函数）则被用于分类变量。如果 K=1，新案例就直接被分到离其最近的案例所属的类别中。有时候，使用 KNN 建模时，选择 K 的取值是一个挑战 我们可以很容易地在现实生活中应用到 KNN。如果想要了解一个完全陌生的人，你也许想要去找他的好朋友们或者他的圈子来获得他的信息。 在选择使用 KNN 之前，你需要考虑的事情： KNN 的计算成本很高。变量应该先标准化（normalized），不然会被更高范围的变量偏倚。在使用KNN之前，要在野值去除和噪音去除等前期处理多花功夫。 Python代码 #Import Library from sklearn.neighbors import KNeighborsClassifier #Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset # Create KNeighbors classifier object model KNeighborsClassifier(n_neighbors=6) # default value for n_neighbors is 5 # Train the model using the training sets and check score model.fit(X, y) #Predict Output predicted= model.predict(x_test) 6 随机森林随机森林是表示决策树总体的一个专有名词。在随机森林算法中，我们有一系列的决策树（因此又名“森林”）。为了根据一个新对象的属性将其分类，每一个决策树有一个分类，称之为这个决策树“投票”给该分类。这个森林选择获得森林里（在所有树中）获得票数最多的分类。 每棵树是像这样种植养成的： 如果训练集的案例数是 N，则从 N 个案例中用重置抽样法随机抽取样本。这个样本将作为“养育”树的训练集。假如有 M 个输入变量，则定义一个数字 m&lt;&lt;M。m 表示，从 M 中随机选中 m 个变量，这 m 个变量中最好的切分会被用来切分该节点。在种植森林的过程中，m 的值保持不变。尽可能大地种植每一棵树，全程不剪枝。 Python代码： #Import Library from sklearn.ensemble import RandomForestClassifier #Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset # Create Random Forest object model= RandomForestClassifier() # Train the model using the training sets and check score model.fit(X, y) #Predict Output predicted= model.predict(x_test) 7 SVM支持向量机是一种基于分类边界的方法。 基本原理： 如果训练数据分布在二维平面上的点,它们按照其分类 聚集在不同的区域。 基于分类边界的分类算法的目标是，通过训练，找到这些分类之间的边界。 对于多维数据（N维），可以将他们视为N维空间中的点，而分类边界就是N维空间中的面，称为超面。 线性分类器使用超平面类型的边界，非线性分类器使用超曲面。 支持向量机的原理是将低维空间的点映射到高维空间,使它们成为线性可分,再使用线性划分的原理来判断分类边界。在高维空间中是一种线性划分,而在原有的数据空间中,是一种非线性划分。 这是一种分类方法。在这个算法中，我们将每个数据在N维空间中用点标出（N是你所有的特征总数），每个特征的值是一个坐标的值。 举个例子，如果我们只有身高和头发长度两个特征，我们会在二维空间中标出这两个变量，每个点有两个坐标（这些坐标叫做支持向量）。现在，我们会找到将两组不同数据分开的一条直线。两个分组中距离最近的两个点到这条线的距离同时最优化。 上面示例中的黑线将数据分类优化成两个小组，两组中距离最近的点（图中A、B点）到达黑线的距离满足最优条件。这条直线就是我们的分割线。接下来，测试数据落到直线的哪一边，我们就将它分到哪一类去。 Python代码： #Import Library from sklearn import svm #Assumed you have, X (predic tor) and Y (target) for training data set and x_test(predictor) of test_dataset # Create SVM classification object model = svm.svc() # there is various option associated with it, this is simple for classification. You can refer link, for mo# re detail. # Train the model using the training sets and check score model.fit(X, y) model.score(X, y) #Predict Output predicted= model.predict(x_test)]]></content>
-      <categories>
-        <category>ML</category>
-      </categories>
-      <tags>
-        <tag>-machine learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[FFmpeg在Ubuntu下的安装及常见视频处理方法]]></title>
-    <url>%2F2017%2FFFmpeg.html</url>
-    <content type="text"><![CDATA[安装可通过PPA进行安装 sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next sudo apt-get update sudo apt-get install ffmpeg 相关概念比特率比特率，是一个决定音视频总体质量的参数。他决定每个时间单位处理的bit数，英文为 bit rate，描述每秒钟输出多少 KB 的参数，单位是 Kbps，也就是 kbit/s，8Kbit/s = 1KB/s。压缩同一个视频，视频编码率越大，文件体积越大，画质越好。 MP3一般使用的比特率为 8~320kbps。 设置比特率：比特率决定处理1s的编码流需要多少bits，设置用-b选项。区分音视频用-b:a和-b:v例如：设置整体1.5Mbit每秒 ffmpeg -i file.avi -b 1.5M file.mp4 ffmpeg -i input.avi -b:v 1500K output.mp4 帧数每秒钟播放的图片数，单位 fps（英文：Frames Per Second），帧率就是每秒编码进视频文件的帧数目。人类的眼睛需要每秒至少15帧才能将图像连贯在一起。帧率的单位是HZ，LCD显示一般有60Hz的平率。高的帧率可以得到更流畅、更逼真的动画。一般来说30fps就是可以接受的，但是将性能提升至60fps则可以明显提升交互感和逼真感，但是一般来说超过75fps一般就不容易察觉到有明显的流畅度提升了。如果帧率超过屏幕刷新率只会浪费图形处理的能力，因为显示器不能以这么快的速度更新，这样超过刷新率的帧率就浪费掉了。 在同一视频，同一码率的情况下，帧数越大，则画质越不好。尤其是运动的画面。因为每张画面会分担每秒有限的文件体积，如果画面越多，那么每张画面所能表现的内容就越有限。 当画面的FPS达到60帧/秒时，已经能满足绝大部分应用需求。一般情况下，如果能够保证游戏画面的平均FPS能够达到30帧/秒，那么画面已经基本流畅；能够达到50帧/秒，就基本可以体会到行云流水的感觉了。一般人很难分辨出60 帧/秒与100帧/秒有什么不同。 帧率设置使用-r选项ffmpeg -i input -r fps output例如：ffmpeg -i input.avi -r 30 output.mp4 分辨率最好理解的概念了，表示画面的大小，单位是像素 px。和编码率的关系：越高的分辨率，需要越高的编码率，因为图像的细节多了，需要的文件体积也应该增大，否则还不如画面小一些，你会发现同一码率，画面越大，图像的马赛克程度越明显。 采样率每秒钟对音频信号的采样次数，采样频率越高声音还原度越高，声音更加自然。单位是赫兹 Hz。音频文件一般使用的采样率是 44100 Hz ，也就是一秒钟采样 44100 次，之所以使用这个数值是因为经过了反复实验，人们发现这个采样精度最合适，低于这个值就会有较明显的损失，而高于这个值人的耳朵已经很难分辨，而且增大了数字音频所占用的空间。我们所使用的CD的采样标准就是44.1k，目前44.1k还是一个最通行的标准。 常见用法主要参数-i 设定输入流-f 设定输出格式-ss 开始时间视频参数：-b 设定视频流量，默认为200Kbit/s-r 设定帧速率，默认为25-s 设定画面的宽与高-aspect 设定画面的比例-vn 不处理视频-vcodec 设定视频编解码器，未设定时则使用与输入流相同的编解码器音频参数：-ar 设定采样率-ac 设定声音的Channel数-acodec 设定声音编解码器，未设定时则使用与输入流相同的编解码器-an 不处理音频 用法举例 格式转换ffmpeg最常用功能就是格式转换，在这里要特别提的是，音、视频文件格式有两个容器格式（如mov、flv)与编码格式（如H.264）ffmpeg -i input.flv output.mp4 尺寸变换ffmpeg -i input.mp4 -s 640x360 output.mp4 剪切视频段ffmpeg -i input.mp4 -ss 5 -t 10 output.mp4上面的命令-ss 5指定从输入视频第5秒开始截取，-t 10指明最多截取10秒。 但是上面的命令可能会比较慢，更好的命令如下： ffmpeg -ss 5 -i input.mp4 -t 10 -c:v copy -c:a copy output.mp4上面的命令把-ss 5放到-i前面，与原来的区别是，这样会先跳转到第5秒在开始解码输入视频，而原来的会从开始解码，只是丢弃掉前5秒的结果。 而-c:v copy -c:a copy标示视频与音频的编码不发生改变，而是直接复制，这样会大大提升速度，因为这样就不需要完全解码视频（视频剪切也不需要完全解码） 注意：-vcodec 有一个缩写叫做 -c:v ， -acodec 有一个缩写叫做 -c:a 。 改变FPSFFmpeg可以用于降低或提高视频的帧率，因为信息丢失不可逆法则，提高帧率只会简单地让某些帧的画面多重复一次或多次，所以提高帧率不会提高画质。 ffmpeg -i input.mp4 -r 30 output.mp4 上面的命令，不论原始视频帧率是多少，输出视频都会是30帧每秒。这种情况之下视频的时间轴不会变化，不会有慢动作或快动作的效果。 截取图片视频10秒的地方(-ss 参数)截取一张1920x1080尺寸大小的，格式为jpg的图片 -ss后跟的时间单位为秒 ffmpeg -i input_video.mp4 -y -f image2 -t 0.001 -ss 10 -s 1920x1080 output.jpg把视频的前30帧转换成一个Gif ffmpeg -i input_video.mp4 -vframes 30 -y -f gif output.gif 将视频转成 gif ffmpeg -ss 00:00:00.000 -i input.mp4 -pix_fmt rgb24 -r 10 -s 320x240 -t 00:00:10.000 output.gif 将输入的文件从(-ss)设定的时间开始以10帧频率，输出到320x240大小的 gif 中，时间长度为-t 设定的参数。通过这样转换出来的 gif 一般都比较大，可以使用 ImageMagick 来优化图片的大小。 转码时的输出信息 frame= 28 fps=0.0 q=0.0 size= 2kB time=00:00:01.49 bitrate= 11.3kbits/sframe= 30 fps= 17 q=-0.0 size= 13kB time=00:00:01.49 bitrate= 71.1kbits/frame= 34 fps= 15 q=-0.0 size= 20kB time=00:00:01.66 bitrate= 99.9kbits/frame= 38 fps= 13 q=-0.0 size= 31kB time=00:00:01.83 bitrate= 138.1kbits/frame= 42 fps= 12 q=-0.0 size= 40kB time=00:00:02.00 bitrate= 165.1kbits/frame= 46 fps= 11 q=-0.0 size= 49kB time=00:00:02.17 bitrate= 185.4kbits/frame= 50 fps= 10 q=-0.0 size= 57kB time=00:00:02.34 bitrate= 199.3kbits/frame= 54 fps= 10 q=-0.0 size= 63kB time=00:00:02.51 bitrate= 204.9kbits/frame= 58 fps=9.5 q=-0.0 size= 74kB time=00:00:02.68 bitrate= 226.2kbits/frame= 62 fps=9.2 q=-0.0 size= 85kB time=00:00:02.68 bitrate= 260.5kbits/frame= 65 fps=8.8 q=-0.0 size= 92kB time=00:00:02.85 bitrate= 264.9kbits/ FFmpeg 确实不会显示进度条和百分比，不过，它会给你比进度条和百分比还要多的信息。 最左边的 frame= 65 是转码所进行到的帧数，显示 65 就表示现在已经转到了第 65 帧。 第二个 fps=8.8 中的 FPS 就是 Frame per Second ，也就是现在电脑每秒所处理的帧的数量。注意这个数字跟视频的帧率并无关系。 其实我也不知道后面那个 q=-0.0 是什么意思。 接下来的 size= 92kB 表示现在已经转换出来的视频的体积，这个数字只会越变越大啊。 第五个 time=00:00:02.85 顾名思义就是时间了，它是已经转换出来的视频的时间。在我看来，它也是一个比百分比进度条更加精准的进度显示。 转码需要多久，最后在哪里能看到我也不懂，希望知道的人看见可以留言补充。 官方文档：https://www.ffmpeg.org/ffmpeg.html#Video-Options]]></content>
-      <categories>
-        <category>others</category>
-      </categories>
-      <tags>
-        <tag>FFmpeg</tag>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[使用hexo+github搭建个人博客遇到的问题及解决方法]]></title>
-    <url>%2F2017%2Fhexo.html</url>
-    <content type="text"><![CDATA[之前一直就想搭建自己的个人博客了，但一直拖着没动手，昨天终于花了一天的时间完成了，从安装到域名注册到配置美化，但还没有完成，之后还会一直继续修改。 关于搭建的教程网上各种教程，但是要学会分辨，有些是错的，这里我也不多说了，只说一下搭建过程中遇到的问题及解决方法。 1、port：4000端口打不开1、可能被占用了，改为5000。但并不是修改配置文件中的port参数，而是hexo\node_modules\hexo-server中的index.js，修改其中的port参数。2、可能是修改主题配置文件时产生错误无法显示，重新下载主题配置文件覆盖后得到解决。 2、可以在本地预览但是不能同步到GitHub是deploy的空格问题，配置文件中所有的冒号后面都要加一个空格！ type: git， （不是GitHub）repository:git@github.com:qisenshi/qisenshi.github.io.git（也不是https那个url） 3、在本地预览正常但在Chrome上显示很错乱可能是main.css重写出现错误，删除public中的main.css后重新hexo g,hexo d，问题解决 4、注册域名到阿里云去注册了一个域名，然后绑定你的github.io域名，然后解析域名，但坑爹的是.win域名后缀不能备案，除此之外很多国际域名都不可以备案，谨慎购买！ 5、美化主题，修改配置文件浏览了一圈发现简介大方的next主题很不错，就clone了这个主题，而且这个主题有官方网站，之后的各种配置完全可以参考. 6、写文章问题搭建完博客怎么写文章呢，新建的文章new出来都是md格式的，所以要下载一个md编辑器，这里推荐MarkdownPad可以直接打开本地编辑，Learning-Markdown (Markdown 入门参考)也有一些markdown的写作方法，不难。 7、搜索引擎验证网站下载HTML文件验证的时候明明可以打开却一直提示验证失败，原来是上传GitHub的过程中会自动添加一些东西，直接去GitHub上修改，只保留HTML中的内容，然后验证成功完成添加。 最后，附个关于主题优化及hexo进阶的链接：Hexo+nexT主题搭建个人博客 再附上两个搭建过程写的还算清晰的博客： http://blog.csdn.net/wkzd2016/article/details/70170786 http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html]]></content>
-      <categories>
-        <category>others</category>
-      </categories>
-      <tags>
-        <tag>-hexo</tag>
-      </tags>
-  </entry>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[浅析Linux进程间通信的几种方式]]></title>
+      <url>/2017/linux-commu.html</url>
+      <content type="html"><![CDATA[<h1 id="进程通信的目的"><a href="#进程通信的目的" class="headerlink" title="进程通信的目的"></a>进程通信的目的</h1><ul>
+<li>数据传输<br>一个进程需要将它的数据发送给另一个进程，发送的数据量在一个字节到几M字节之间</li>
+</ul>
+<ul>
+<li>共享数据<br>多个进程想要操作共享数据，一个进程对共享数据</li>
+</ul>
+<ul>
+<li>通知事<br>一个进程需要向另一个或一组进程发送消息，通知它（它们）发生了某种事件（如进程终止时要通知父进程）。</li>
+</ul>
+<ul>
+<li>资源共享<br>多个进程之间共享同样的资源。为了作到这一点，需要内核提供锁和同步机制。</li>
+</ul>
+<ul>
+<li>进程控制<br>有些进程希望完全控制另一个进程的执行（如Debug进程），此时控制进程希望能够拦截另一个进程的所有陷入和异常，并能够及时知道它的状态改变</li>
+</ul>
+<a id="more"></a>  
+<h1 id="linux使用的进程间通信方式"><a href="#linux使用的进程间通信方式" class="headerlink" title="linux使用的进程间通信方式"></a>linux使用的进程间通信方式</h1><h2 id="管道-pipe"><a href="#管道-pipe" class="headerlink" title="管道( pipe )"></a>管道( pipe )</h2><p>管道这种通讯方式有两种限制，一是半双工的通信，数据只能单向流动，二是只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</p>
+<p>流管道s_pipe: 去除了第一种限制,可以双向传输.</p>
+<p>管道可用于具有亲缘关系进程间的通信，命名管道:name_pipe克服了管道没有名字的限制，因此，除具有管道所具有的功能外，它还允许无亲缘关系进程间的通信；</p>
+<h2 id="信号量-semophore"><a href="#信号量-semophore" class="headerlink" title="信号量( semophore )"></a>信号量( semophore )</h2><p>信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，<strong>主要作为进程间以及同一进程内不同线程之间的同步手段。</strong></p>
+<p>信号是比较复杂的通信方式，用于通知接受进程有某种事件发生，除了用于进程间通信外，进程还可以发送信号给进程本身；linux除了支持Unix早期信号语义函数sigal外，还支持语义符合Posix.1标准的信号函数sigaction（实际上，该函数是基于BSD的，BSD为了实现可靠信号机制，又能够统一对外接口，用sigaction函数重新实现了signal函数）；</p>
+<h2 id="消息队列-message-queue"><a href="#消息队列-message-queue" class="headerlink" title="消息队列( message queue )"></a>消息队列( message queue )</h2><p>消息队列是由消息的链表，存放在内核中并由消息队列标识符标识<strong>。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</strong></p>
+<p>消息队列是消息的链接表，包括Posix消息队列system V消息队列。有足够权限的进程可以向队列中添加消息，被赋予读权限的进程则可以读走队列中的消息。消息队列克服了信号承载信息量少，管道只能承载无格式字节流以及缓冲区大小受限等缺点。</p>
+<h2 id="信号-singal"><a href="#信号-singal" class="headerlink" title="信号 ( singal )"></a>信号 ( singal )</h2><p>信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</p>
+<p><strong>主要作为进程间以及同一进程不同线程之间的同步手段。</strong></p>
+<h2 id="共享内存-shared-memory"><a href="#共享内存-shared-memory" class="headerlink" title="共享内存( shared memory )"></a>共享内存( shared memory )</h2><p>共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。<strong>共享内存是最快的 IPC 方式</strong>，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号量，配合使用，来实现进程间的同步和通信。</p>
+<p>使得多个进程可以访问同一块内存空间，是最快的可用IPC形式。是针对其他通信机制运行效率较低而设计的。往往与其它通信机制，<strong>如信号量结合使用，来达到进程间的同步及互斥。 </strong> </p>
+<h2 id="套接字-socket"><a href="#套接字-socket" class="headerlink" title="套接字( socket )"></a>套接字( socket )</h2><p>套解口也是一种进程间通信机制，与其他通信机制不同的是，<strong>它可用于不同机器间的进程通信</strong></p>
+<p>更为一般的进程间通信机制，可用于不同机器之间的进程间通信。起初是由Unix系统的BSD分支开发出来的，但现在一般可以移植到其它类Unix系统上：Linux和System V的变种都支持套接字。</p>
+<h2 id="进程间通信各种方式效率比较"><a href="#进程间通信各种方式效率比较" class="headerlink" title="进程间通信各种方式效率比较"></a>进程间通信各种方式效率比较</h2><p><img src="http://i.imgur.com/QjQYaNc.png" alt=""></p>
+<blockquote>
+<p>注:无连接: 指无需调用某种形式的OPEN,就有发送消息的能力流控制:<br>如果系统资源短缺或者不能接收更多消息,则发送进程能进行流量控制</p>
+</blockquote>
+<p>各种通信方式的比较和优缺点</p>
+<p>管道：速度慢，容量有限，只有父子进程能通讯</p>
+<p>FIFO：任何进程间都能通讯，但速度慢</p>
+<p>消息队列：容量受到系统限制，且要注意第一次读的时候，要考虑上一次没有读完数据的问题</p>
+<p>信号量：不能传递复杂消息，只能用来同步</p>
+<p>共享内存区：能够很容易控制容量，速度快，但要保持同步。<br>比如一个进程在写的时候，另一个进程要注意读写的问题，相当于线程中的线程安全，当然，共享内存区同样可以用作线程间通讯，不过没这个必要，线程间本来就已经共享了同一进程内的一块内存  </p>
+<p>如果用户传递的信息较少或是需要通过信号来触发某些行为．前文提到的软中断信号机制不失为一种简捷有效的进程间通信方式．  </p>
+<p>但若是进程间要求传递的信息量比较大或者进程间存在交换数据的要求，那就需要考虑别的通信方式了。  </p>
+<p>无名管道简单方便．但局限于单向通信的工作方式．并且只能在创建它的进程及其子孙进程之间实现管道的共享：  </p>
+<p>有名管道虽然可以提供给任意关系的进程使用．但是由于其长期存在于系统之中，使用不当容易出错．所以普通用户一般不建议使用。  </p>
+<p>消息缓冲可以不再局限于父子进程，而允许任意进程通过共享消息队列来实现进程间通信，并由系统调用函数来实现消息发送和接收之间的同步，从而使得用户在使用消息缓冲进行通信时不再需要考虑同步问题，使用方便，但是信息的复制需要额外消耗CPU的时间，不适宜于信息量大或操作频繁的场合。  </p>
+<p>共享内存针对消息缓冲的缺点改而利用内存缓冲区直接交换信息，无须复制，快捷、信息量大是其优点。  </p>
+<p>但是共享内存的通信方式是通过将共享的内存缓冲区直接附加到进程的虚拟地址空间中来实现的，因此，这些进程之间的读写操作的同步问题操作系统无法实现。必须由各进程利用其他同步工具解决。另外，由于内存实体存在于计算机系统中，所以只能由处于同一个计算机系统中的诸进程共享。不方便网络通信。  </p>
+<p>共享内存块提供了在任意数量的进程之间进行高效双向通信的机制。每个使用者都可以读取写入数据，但是所有程序之间必须达成并遵守一定的协议，以防止诸如在读取信息之前覆写内存空间等竞争状态的出现。  </p>
+<p>不幸的是，Linux无法严格保证提供对共享内存块的独占访问，甚至是在您通过使用IPC_PRIVATE创建新的共享内存块的时候也不能保证访问的独占性。 同时，多个使用共享内存块的进程之间必须协调使用同一个键值。  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> others </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[linux基础知识总结]]></title>
+      <url>/2017/linux.html</url>
+      <content type="html"><![CDATA[<h1 id="Linux结构"><a href="#Linux结构" class="headerlink" title="Linux结构"></a>Linux结构</h1><p>可以把Linux系统看作由四部分构成：内核、用户界面、文件结构和实用工具。<br><img src="http://i.imgur.com/K7Gao8A.gif" alt=""></p>
+<a id="more"></a>  
+<pre><code>/bin 普通用户的可执行文件，系统的任何用户都可以执行该目录中的命令
+
+/boot 存放Linux操作系统启动时所需要的文件
+
+/dev 系统中所有设备文件
+
+/etc 系统中的配置文件
+
+/home 普通用户的宿主目录，每个用户在该目下都有一个于用户名同名的目录。
+
+/mnt 中的子目录用于系统中可移动设备的挂载点
+
+/root 超级用户root的宿主目录
+
+/sbin 系统中的管理命令，普通用户不能执行
+
+/tmp 系统的临时目录
+
+/usr  系统应用程序的相关文件
+
+/var 系统中经常变化的文件如日志文件和用户邮件  
+</code></pre><p>通配符：</p>
+<pre><code>* 代表多个字母或数字
+
+？    一个
+</code></pre><p>别名：</p>
+<pre><code>命令：alias显示系统当前定义的所有alias
+
+alias cp =&apos;cp-i&apos;
+
+alias ll=&apos;ls -l --color = tty&apos;
+</code></pre><h1 id="Linux基本命令"><a href="#Linux基本命令" class="headerlink" title="Linux基本命令"></a>Linux基本命令</h1><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>　　　</p>
+<pre><code>shutdown - r now   重启
+shutdown - h now   立刻关机
+reboot             重启
+</code></pre><h2 id="文件查看和连接"><a href="#文件查看和连接" class="headerlink" title="文件查看和连接"></a>文件查看和连接</h2><p>cat   cat [选项] (file1)…<br>            more   显示文件内容，带分页<br>            less   显示文件内容，带分页<br>            grep   在文本中查询指定内容<br>管道命令[把上一个命令的结果给|后的命令处理]</p>
+<pre><code>grep   &quot;shunping&quot; aaa.java
+
+grep -n ......         显示行数 
+
+grep -n &quot;shunping&quot; aaa.java &gt; kkk.bak 重定向命令
+
+
+
+ls -l &gt; a.txt           列表的内容写入文件 a.txt（覆盖写）
+
+ls -l &gt;&gt; a.txt     追加写到文件的末尾
+</code></pre><p>find的使用：在特定目录下搜索并显示指定名称的文件和目录，搜索一段时间内被存取/变更的文件或目录。  </p>
+<pre><code>find /home -amin -10  十分钟内存取的文件和目录
+
+find /home -atime -10 十小时
+
+find /home -cmin -10 十分钟内更改过的
+
+find /home -size +10k  大小为10k的  
+</code></pre><p>将目前目录及其子目录下所有延伸档名是 c 的档案列出来。</p>
+<p>　　#find . -name “*.c”<br>将目前目录其其下子目录中所有一般档案列出</p>
+<p>　　#find . -ftype f<br>将目前目录及其子目录下所有最近 20 分钟内更新过的档案列出</p>
+<p>　　#find . -ctime -20</p>
+<h2 id="命令的操作"><a href="#命令的操作" class="headerlink" title="命令的操作"></a>命令的操作</h2><p>more  more [选项]  <file>…分屏显示命令</file></p>
+<p>less   less [选项] <filename> 按页显示命令</filename></p>
+<p>clear  清除屏幕命令</p>
+<p>history            查看历史命令记录</p>
+<h2 id="目录相关"><a href="#目录相关" class="headerlink" title="目录相关"></a>目录相关</h2><pre><code>cd ..              可进入上一层目录
+
+ cd -                进入上一个进入的目录
+
+ cd ~                   可进入用户的home目录
+
+pwd                显示当前在哪个路径
+
+ls                 列出文件和目录
+
+ls -a              显示隐藏文件
+
+ls -l              显示常列表格式
+
+mkdir                    建立目录
+
+rmdir              删除空目录
+
+touch              建立空文件
+</code></pre><h2 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h2><h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><p>cp   复制命令  　<br>mv   移动文件和改文件<br>rm    删除文件和目录<br>rm -rf *      删除所有内容（包括目录和文件）<br>如何修改文件的访问权限 chmod 777 along  </p>
+<pre><code>范例 :将档案 file1.txt 设为所有人皆可读取:  
+  chmod ugo+r file1.txt
+
+　　将档案 file1.txt 设为所有人皆可读取:
+
+　　chmod a+r file1.txt
+
+　　将档案 file1.txt 与 file2.txt 设为该档案拥有者,与其所属同一个群体者可写入,但其他以外的人则不可写入:
+
+　　chmod ug+w,o-w file1.txt file2.txt
+
+
+
+　　将 ex1.py 设定为只有该档案拥有者可以执行:
+
+　　chmod u+x ex1.py
+
+　　将目前目录下的所有档案与子目录皆设为任何人可读取:
+
+　　chmod -R a+r *
+</code></pre><h3 id="用户组操作"><a href="#用户组操作" class="headerlink" title="用户组操作"></a>用户组操作</h3><pre><code>su-                切换成系统管理员
+
+su                用户之间的切换
+
+logout             用户注销
+
+useradd  xiaoming  添加用户（root下）
+
+passwd   xiaoming  设置xiaoming的密码
+
+userdel  xiaoming  删除用户
+
+userdel -r xiaoming删除用户及其主目录
+</code></pre><p>每个用户必须属于某一个组，不能独立于组外。<br>每个文件有所有者、所在组、其它组的概念</p>
+<p>*1，所有者：一般指创建者</p>
+<pre><code>用ls -ahl 命令可以查看文件的所有者
+
+用chown 用户名 文件名 来修改文件的所有者
+</code></pre><p>*2，文件所在组 —-用户所在的组</p>
+<pre><code>ls -ahl  可以看见文件的所有组
+
+chgrp 组名 文件名 修改文件所在组
+</code></pre><p>*3，其它组—除开文件的所有者和所在组的用户外，</p>
+<pre><code>系统其他用户都是文件的其他组  
+
+添加组 ---groupadd policeman
+
+查看Linux中所有组 ： vi /etc/group 查看该文件或cat /etc/group | more
+
+创建用户并指定将该用户分配到哪个组
+
+useradd -g 组名 用户名
+
+查看Linux中所有用户信息：vi /etc/passwd 或者cat /etc/passwd  
+</code></pre><p>文件权限：—–分为三种：<br>r-可读，用四表示<br>w-可写，用2表示<br>x-可执行，用1表示  </p>
+<p>-d <dirname>：指定用户主目录，默认情况下，将会在/home目录下新建一个与用户名相同的用户主目录</dirname></p>
+<p>删除用户的命令为userdel，该命令的格式为：<code>userdel &lt;用户名&gt;</code></p>
+<p>修改用户属性</p>
+<pre><code>usermod –g&lt;主组名&gt; -G &lt;组名&gt; -d &lt;用户主目录&gt; -s &lt;用户shell&gt;
+</code></pre><p>在添加用户时，可以指定将该用户添加到哪个组中，同样的用root的管理权限可以改变某个用户所在的组：usermod -g 组名 用户名</p>
+<pre><code>可以用 usermod -d 目录名 用户名 改变该用户登录的初始目录 
+</code></pre><p>增加用户组</p>
+<pre><code>groupadd &lt;新组名&gt;
+</code></pre><p>删除用户组</p>
+<pre><code>groupdel &lt;组名&gt;
+</code></pre><p>修改组成员：直接编辑/etc/group文件，将用户名写到对应的组名的后面</p>
+<p>whoami命令的功能在于显示用户自身的用户名。</p>
+<p>who [选项]：该命令主要用于查看当前在线的用户情况</p>
+<p>w命令 ：用于显示登录到系统的用户情况</p>
+<p>finger命令可用于查找和显示用户信息，并且在查找后显示指定账号的相关信息</p>
+<p>chfn命令能够改变系统存储的用户信息</p>
+<p> 切换用户身份：su [用户名]</p>
+<h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><pre><code>man  &lt;command&gt;     info &lt;command&gt;   help [command]
+</code></pre><h2 id="VI命令"><a href="#VI命令" class="headerlink" title="VI命令"></a>VI命令</h2><p>vi有三种基本工作模式，分别是：命令模式（command mode）、插入模式（insert mode）和底行模式（last line mode）  </p>
+<p>进入vi：</p>
+<pre><code>命令“vi 文件名”
+
+命令“vi”，在退出vi时再指定文件名
+
+选项“+n”，表示希望在进入vi之后，光标处于文件中第n行上，
+
+选项“+”表示希望在进入vi之后光标处于文件最末行。
+</code></pre><p>保存文件:</p>
+<p>1.在命令模式下,连按两次大写字母<z>。</z></p>
+<p>2.在末行模式下:</p>
+<pre><code>:w   vi保存当前编辑的文件，但并不退出vi，而是继续等待用户输入命令。 :w &lt;newfile&gt;
+
+:w! &lt;newfile&gt;  把当前文件的内容保存到指定的文件newfile中，如果newfile已经存在，则覆盖原有内容。
+</code></pre><p>在末行模式下，有四种方法可以退出vi返回到shell：</p>
+<pre><code>:q   系统退出vi返回到shell。在用此命令时，若编辑的文件没有被保存，则vi在窗口的最末行给出提示信息。
+
+:q!  vi放弃所作修改而直接退到shell下。
+
+:wq         先保存文件，然后再退出vi返回到shell。
+
+:x    该命令的功能与命令模式下的ZZ命令功能相同
+</code></pre><p>0（数字0） 移到当前行的行首</p>
+<p>$  移到当前行的行尾</p>
+<h2 id="设备硬盘操作"><a href="#设备硬盘操作" class="headerlink" title="设备硬盘操作"></a>设备硬盘操作</h2><p>挂载设备</p>
+<p>查看设备：使用命令“fdisk –l”可以查看系统的存储设备</p>
+<p>挂载设备 ：首先使用mkdir命令建立挂载点目录，然后再使用mount命令挂载相关设备</p>
+<p>mkfs [选项][-t &lt;文件系统类型&gt;] [设备名称] [区块数]</p>
+<p>说明：把指定的设备格式为指定的文件系统。</p>
+<pre><code>查看磁盘使用情况
+
+   df [-参数] 比如， df-l
+
+查看某个目录是在哪个分区
+
+    df [目录全路径]
+
+查看Linux系统分区具体情况
+
+    fdish -l
+</code></pre><h2 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h2><p>配置网络接口可以使用三种不同的工具来完成：</p>
+<p>1使用网络接口配置程序netconfig</p>
+<p>2使用图形配置工具</p>
+<p>3使用终端命令ifconfig   </p>
+<p>监控网络状态信息:<br>显示网络统计信息的命令netstat<br>此命令用来显示整个系统目前的网络情况。例如目前的连接、数据包传递数据         、或路由表的内容。如 netstat -an      netstat -anp|more (查看网络端口的使用的情况)<br>显示数据包经过历程命令：traceroute</p>
+<pre><code>route 查看路由表
+</code></pre><hr>
+<p>1.追踪路由 ：tracert 目标ip/域名</p>
+<p>  2.测试两个ip是否畅通：ping 目标IP</p>
+<p>  3.window下查看IP情况：ipconfig</p>
+<p>  4.Linux/unix下查看IP情况：ifconfig</p>
+<p> 5.linux 网络环境配置：</p>
+<p>  第一种：</p>
+<pre><code> (1) 用root身份登陆，运行setup命令进入到text mode setup utility 
+     对网络进行配置，这里可以进行ip、子网掩码、默认网管、dns的设置
+
+ (2) 这时网卡的配置没有立即生效，运行
+/etc/rc.d/init.d/network restart命令我们刚才作的配置生效。
+</code></pre><p>  第二种：</p>
+<pre><code>(1)ifconfig eth0 x.x.x.x对网卡进行设置
+
+(2)infconfig eth0 network x.x.x.x对子网掩码设置
+
+ 对广播地址和dns使用默认的
+
+ 注意：这样配置网络会立即生效，但是是临时生效
+</code></pre><p>  第三种：</p>
+<pre><code>(1) 修改/etc/sysconfig/network-scripts/ifcfg-eth0
+
+  这个文件的各个属性可以修改，包括ip，子网掩码、广播地址、默认网关
+
+ (2)这是网卡的配置没有生效运行/etc/rc.d/init.d/network restart 
+   命令我们刚才做的设置才生效Linux中的所有设备都是文件，这种方法是最底层的方法，永久性修改
+</code></pre><p>VMware下Linux和window ping</p>
+<pre><code>(1) windows下ipconfig查看VM网卡IP
+
+(2) 配置Linux的IP使两者处于同一个子网的 即可以ping通
+
+
+
+
+ ifconfig &lt;设备名&gt; &lt;IP地址&gt; netmask &lt;掩码&gt;
+</code></pre><p>例如：</p>
+<p>ifconfig eth0 192.168.15.11 netmask 255.255.255.0</p>
+<p>在网络配置界面中，通过“激活”或者“解除”按钮可以启动或者禁用网络接口，</p>
+<p>网络控制程序network</p>
+<p>/etc/rc.d/init.d/network  start|stop|restart</p>
+<p>命令ifconfig :</p>
+<p>ifconfig &lt;设备名&gt; [up|down]</p>
+<p>命令ifup/ifdown</p>
+<p>ifup eth0</p>
+<p>ifdown eth0<br><img src="http://i.imgur.com/uQVWPei.png" alt=""></p>
+<h2 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h2><p>获取最新版本的Apache源代码</p>
+<p>将源代码解压缩</p>
+<p>./configure –- prefix=/home/myapache</p>
+<p>执行编译命令：make</p>
+<p>执行安装命令：make install </p>
+<p>账号和用户管理</p>
+<p>用户和组的配置信息保存在以下三个文件中：</p>
+<p>/etc/passwd</p>
+<p>/etc/shadow</p>
+<p>/etc/etc/group</p>
+<h2 id="更改文件所有者chown"><a href="#更改文件所有者chown" class="headerlink" title="更改文件所有者chown"></a>更改文件所有者chown</h2><pre><code>chown [选项] user[:group] &lt;file&gt;...
+</code></pre><p>更改文件访问权限命令chmod</p>
+<pre><code> chmod [选项] &lt;mode&gt; &lt;file&gt;...
+
+mode：[ugoa][[+-=][rwxX]...][,…]，
+
+ mode也可以用数字来表示权限：
+
+chmod abc file
+</code></pre><p>a,b,c各为一个数字，分别表示User、Group、及Other的权限。权限是关于可读（r）、可写(w)、可执行(r)三个属性设置值的和，其中r=4，w=2，x=1，</p>
+<p>例如：</p>
+<p>若要rwx属性，则4+2+1=7；</p>
+<p>若要rw-属性，则4+2=6；</p>
+<p>若要r-x属性，则4+1=7</p>
+<h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p>Linux操作系统包括三种不同类型的进程，每种进程都有自己的特点和属性：</p>
+<p><strong>交互进程</strong>:由shell启动的进程。</p>
+<p><strong>批处理进程</strong>:这种进程和终端没有联系，是一个进程序列。</p>
+<p><strong>守护进程</strong>:在后台持续运行的进程。</p>
+<p>前台启动:一般地，用户键入一个命令，就已经启动了一个前台的进程。</p>
+<p>后台启动 :对于非常耗时进程，可以然进程在后台运行。从后台启动进程其实就是在命令结尾加上一个“&amp;”号</p>
+<p>每个进程，都会对应一个父进程，而这个父进程可以复制多个子进程<br>每个进程都可能以两种方式存在：后台或前台</p>
+<p>进程就是正在执行的程序</p>
+<p>  显示系统执行的进程：ps命令，可以不加任何参数</p>
+<pre><code>   1. ps -a :显示当前终端的所有进程信息
+
+2：ps -u :以用户的格式显示进程信息
+
+3. ps -x :显示后台进程运行的参数
+
+           ps -aux
+
+ 终止进程：kill/killall
+
+ 终止某个进程：kill 进程号  如：kill 6251
+
+ kill -q 5222 ：因为某些进程会捕捉某些信息，如果直接不能结束进程，可以使用“          -q”传送信息
+</code></pre><p> 动态监控进程：top</p>
+<pre><code>top和ps类似，top在执行一段时间可以更新正在进行的进程
+
+          1.监视特定用户
+
+          top：输入此命令,按回车键，查看执行的进程
+
+          u：然后输入“u” 回车，在输入用户名即可
+
+          2.终止指定的进程
+
+          top：
+
+          k: 输入k回车，再输入要结束的进程ID
+
+          3.top -d 10 :指定系统更新进程的时间为10秒
+
+          按小q退出
+</code></pre><h2 id="任务调度"><a href="#任务调度" class="headerlink" title="任务调度"></a>任务调度</h2><p>任务调度指系统在某个时间执行的特定的命令和程序</p>
+<p>任务调度分类：</p>
+<p> 1.系统工作：有些重要的工作必须周而复始的执行，如病毒扫描…..</p>
+<p> 2.个别用户工作：个别用户可能希望执行某些程序</p>
+<pre><code>置任务调度文件：/etc/crontab
+
+设置个人任务调度：执行crontab -e命令
+
+          接着输入任务到调度文件
+
+          如：5**** ls -l /etc/ &gt; /tmp/to.txt
+
+意思是说每小时的第五分钟执行ls -l /etc/ &gt; /tmp/to.txt
+</code></pre><p>任务调度的使用：</p>
+<p>  1.设置任务 crontab -e</p>
+<p>  2.每隔一定时间去执行 data &gt; /home/mydata1</p>
+<pre><code>希望每天凌晨2：00执行 date &gt;&gt; /home/mydate
+
+          02*** date &gt;&gt; /home/mydate
+
+调度文件的规则：
+
+字段名称                      说明              范围
+
+分钟                   每小时第几分钟          0~59
+
+小时                   每日的第几个小时     0~23
+
+日期                   每月的第几天              1~31
+
+日历                  每年的第几个月          1~12
+
+星期                   每周的第几天              0~6
+</code></pre><p>3.怎么样调度多个任务？</p>
+<p>  a.在crontab -e 中直接写</p>
+<p> b.可以把所有的任务写入一个可执行文件（shell编程）</p>
+<pre><code>例子： vi mytask.sh
+
+          date &gt;&gt; /home/mydate
+
+          cp /home/mydate /root
+
+          chmod 744 mytask.sh
+
+          crontab -e
+
+          ***** /root/mytask.sh
+</code></pre><p> 终止任务调度：     crontab -r ：终止任务调度</p>
+<pre><code>crontab -l ：列出当前有哪些任务调度
+</code></pre><h2 id="at命令"><a href="#at命令" class="headerlink" title="at命令"></a>at命令</h2><p>在shell提示符下输入”at 时间”，然后按回车键。这时在下一行shell会等待用户继续输入要执行的命令。每一行输入一个命令，所有命令都输入完毕后按Ctrl+d键结束。</p>
+<p>将各个命令写入shell脚本中，然后使用下面格式设置在指定时间执行shell脚本中的命令：</p>
+<p>at 时间 –f脚本文件。</p>
+<h2 id="batch命令"><a href="#batch命令" class="headerlink" title="batch命令"></a>batch命令</h2><p>crone命令在系统启动时由一个shell脚本自动启动，进入后台。</p>
+<p>cron启动后搜索/var/spool/cron目录，寻找以/etc/passwd文件中的用户名命名的crontab文件，被找到的这种文件将载入内存。</p>
+<p>如果没有crontab文件，就转入“休眠”状态，释放系统资源。</p>
+<p>cron每分钟“醒”过来一次，查看当前是否有需要运行的命令。</p>
+<p>如果发现某个用户设置了crontab文件，它将以该用户的身份去运行文件中指定的命令。命令执行结束后，任何输出都将作为邮件发送给crontab的所有者，或者/etc/crontab文件中MAILTO环境变量中指定的用户。</p>
+<p>内存查看命令free</p>
+<p>磁盘空间用量查看命令df</p>
+<h2 id="shell命令"><a href="#shell命令" class="headerlink" title="shell命令"></a>shell命令</h2><p>作为命令语言互动式地解释和执行用户输入的命令只是shell功能的一个方面</p>
+<p>另外shell还可以进行程序设计，他提供了定义变量和参数的手段以及丰富的程序控制结构。使用shell类似于DOS中的批处理文件称为shell script</p>
+<p> shell有很多，常用的有3种：/bin/sh  /bin/csh   /bin/ksh</p>
+<p>查看shell种类 ：ls -l /bin/*sh</p>
+<p>   1.查看目前使用的是哪种shell</p>
+<pre><code>env [该命令可以显示当前操作系统的环境变量]
+</code></pre><p>   2.shell的修改:</p>
+<pre><code>直接输入：chsh -s 输入新的shell 如：/bin/csh
+</code></pre><h2 id="设置日期"><a href="#设置日期" class="headerlink" title="设置日期"></a>设置日期</h2><pre><code>1.date命令。可以直接输入date 来查看系统时间
+
+2.利用date命令来更改系统时间
+
+  date MMDDHHMCCYY.SS:指定月月日日时时分分年年年年.秒秒
+
+ 3.查看日历：cal 3 2002  ：查看2001年3月的日历
+
+ 4.查看年历：cal 2008
+</code></pre><h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><p>1.linux JDK的安装</p>
+<pre><code>a.把**.iso 文件挂载在虚拟机上做好配置
+
+         mount /mnt/cdrom
+
+         unmount /mnt/cdrom
+
+b.把安装文件拷贝到 /home
+
+         cp 文件 /home
+
+c.cd /home
+
+d.安装
+
+         ./**.bin
+
+e.看看文件 /etc/profile[环境配置文件]
+
+f.配置刚才自己安装的JDK
+</code></pre><p>2.eclipse</p>
+<pre><code>a.安装文件拷贝到 /home
+
+b.安装
+
+         tar -zxvf **.tar.gz
+
+c.启动eclipse[进入图形界面]
+
+         startx   ./eclipse
+
+./eclipse &amp; 后台方式运行
+</code></pre><h2 id="RPM管理"><a href="#RPM管理" class="headerlink" title="RPM管理"></a>RPM管理</h2><p>介绍：一种用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成     具有.RPM扩展名的文件。</p>
+<p>RPM是RedHat Package Manager（RedHat软件包管理工具）的缩写</p>
+<p>RPM包的名称格式：apache-1.3.23-11.i386.rpm</p>
+<p>**RPM 常用命令</p>
+<pre><code>rpm -qa:查询所安装的所有rpm软件包
+
+          rpm -qa | more
+
+          rpm -pa | grep x
+
+rpm -q 软件包名 （查询软件包是否安装）
+
+          rpm -q foo
+
+rpm -qi 软件包名：查询软件包信息
+
+          rpm -ql file
+
+rpm -ql 软件包名 ：查询软件包中的文件
+
+          rpm -ql file
+
+rpm -qf文件全路径名：查询文件所属的软件包
+
+          rpm -qf /etc/passwd
+
+rpm -qp包文件名：查询包的信息、对这个软件包的介绍
+
+          rpm -qp jdk-1-5_linux -i586.rpm
+</code></pre><p>安装rpm包：</p>
+<pre><code>rpm -i RPM包路径名称：安装包到当前系统
+
+i = install
+
+rpm -ivh RPM包全路径名称：安装包到当前系统有提示信息
+
+参数说明：i = install 安装
+
+           v = verbase 提示
+
+           h = hash 进度条
+</code></pre><p>删除rpm包：rpm -e jdk</p>
+<pre><code>     如果其它软件包依赖于您要卸载的软件包，卸载时则会产生错误的信息
+
+如果忽略这个错误信息继续卸载，使用 --nodeps命令行选项
+</code></pre><p>升级rpm包：</p>
+<pre><code>rpm -u RPM包全路径包
+</code></pre><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><strong>cat主要有三大功能：</strong><br>1.一次显示整个文件。<br>2.从键盘创建一个文件，只能创建新文件,不能编辑已有文件.<br>3.将几个文件合并为一个文件  </p>
+<p><strong>touch命令 </strong><br>创建空白文件或修改文件时间  </p>
+<p><strong>apache目录访问控制的参数有：</strong><br>AuthName:验证窗口的名称<br>AuthType:验证的类型，这里定义的是Basic<br>AuthUserFile:验证所使用的帐号密码配置文件<br>Require:指定可以登录网页的用户  </p>
+<p><strong>Linux下多线程编程常用的pthread库提供的函数名和意义：</strong><br>pthread_create 创建一个线程<br>pthread_join用来等待一个线程的结束<br>pthread_mutex_init 初始化一个线程互斥锁<br>pthread_exit结束一个线程  </p>
+<p>Linux操作系统包括<strong>三种不同类型的进程</strong>，每种进程都有自己的特点和属性。<br> 1.交互进程——由一个shell启动的进程。交互进程既可以在前台运行，也可以在后台运行。<br> 2.批处理进程——这种进程和终端没有联系，是一个进程序列。<br> 3.监控进程（也称守护进程）——Linux系统启动时启动的进程，并在后台运行。  </p>
+<p>arm-linux-gcc  -g -o example example.c<br>-g选项，加入GDB能够 使用 的调试信息, 使用 GDB调试时比较方便  </p>
+<p>arm-linux-gcc  -o example example.c<br>不加-c、-S、-E参数，编译器将执行预处理、编译、汇编、连接操作直接生成可执行代码。<br>-o参数用于指定输出的文件，输出文件名为example,如果不指定输出文件，则默认输出a.out  </p>
+<p>arm-linux-gcc  -c -o example.o example.c<br>-c参数将对源程序example.c进行预处理、编译、汇编操作，生成example.0文件<br>去掉指定输出选项”-o example.o”自动输出为example.o,所以说在这里-o加不加都可以  </p>
+<p>arm-linux-gcc  -S -o example.s example.c<br>   -S参数将对源程序example.c进行预处理、编译，生成example.s文件<br>   -o选项同上</p>
+]]></content>
+      
+        <categories>
+            
+            <category> others </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> 总结 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[win7滑轮滚动excel就停止工作的解决方法]]></title>
+      <url>/2017/excel-win7.html</url>
+      <content type="html"><![CDATA[<p>重装系统后又安装了office 2013，但这次的excel正常使用没什么问题，一拉进度条或滚动滑轮就停止工作，网上很多什么修改注册表和删除文件的方法都没有，安装Microsoft的补丁也没用，最后下载替换了一个dll文件就解决了，不管32还是64位都可以解决。  </p>
+<p>下载地址：<a href="http://www.dllzj.com/osf.dll/" target="_blank" rel="external">http://www.dllzj.com/osf.dll/</a></p>
+<p>解压后把dll文件放到office15文件夹下替换即可。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> others </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> win7 </tag>
+            
+            <tag> excel </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[字符串匹配——KMP算法的C++实现]]></title>
+      <url>/2017/KMP-alg.html</url>
+      <content type="html"><![CDATA[<p>字符串匹配是计算机的基本任务之一。<br>举例来说，有一个字符串”BBC ABCDAB ABCDABCDABDE”，我想知道，里面是否包含另一个字符串”ABCDABD”？   </p>
+<h1 id="暴力匹配算法"><a href="#暴力匹配算法" class="headerlink" title="暴力匹配算法"></a>暴力匹配算法</h1><p>假设现在我们面临这样一个问题：有一个文本串S，和一个模式串P，现在要查找P在S中的位置，怎么查找呢？<br>如果用暴力匹配的思路，并假设现在文本串S匹配到 i 位置，模式串P匹配到 j 位置，则有：<br>如果当前字符匹配成功（即S[i] == P[j]），则i++，j++，继续匹配下一个字符；<br>如果失配（即S[i]! = P[j]），令i = i - (j - 1)，j = 0。相当于每次匹配失败时，i 回溯，j 被置为0。  </p>
+<a id="more"></a>
+<p>理清楚了暴力匹配算法的流程及内在的逻辑，咱们可以写出暴力匹配的代码，如下：    </p>
+<pre><code>int ViolentMatch(char* s, char* p)  
+{  
+    int sLen = strlen(s);  
+    int pLen = strlen(p);  
+
+int i = 0;  
+int j = 0;  
+while (i &lt; sLen &amp;&amp; j &lt; pLen)  
+{  
+    if (s[i] == p[j])  
+    {  
+        //①如果当前字符匹配成功（即S[i] == P[j]），则i++，j++      
+        i++;  
+        j++;  
+    }  
+    else  
+    {  
+        //②如果失配（即S[i]! = P[j]），令i = i - (j - 1)，j = 0      
+        i = i - j + 1;  
+        j = 0;  
+    }  
+}  
+//匹配成功，返回模式串p在文本串s中的位置，否则返回-1  
+if (j == pLen)  
+    return i - j;  
+else  
+    return -1;  
+</code></pre><p>}  </p>
+<h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><p>下面先直接给出KMP的算法流程（如果感到一点点不适，没关系，坚持下，稍后会有具体步骤及解释，越往后看越会柳暗花明☺）：<br>假设现在文本串S匹配到 i 位置，模式串P匹配到 j 位置<br>如果j = -1，或者当前字符匹配成功（即S[i] == P[j]），都令i++，j++，继续匹配下一个字符；<br>如果j != -1，且当前字符匹配失败（即S[i] != P[j]），则令 i 不变，j = next[j]。此举意味着失配时，模式串P相对于文本串S向右移动了j - next [j] 位。<br>换言之，当匹配失败时，模式串向右移动的位数为：失配字符所在位置 - 失配字符对应的next 值（next 数组的求解会在下文的3.3.3节中详细阐述），即移动的实际位数为：j - next[j]，且此值大于等于1。<br>很快，你也会意识到next 数组各值的含义：代表当前字符之前的字符串中，有多大长度的相同前缀后缀。例如如果next [j] = k，代表j 之前的字符串中有最大长度为k 的相同前缀后缀。<br>此也意味着在某个字符失配时，该字符对应的next 值会告诉你下一步匹配中，模式串应该跳到哪个位置（跳到next [j] 的位置）。如果next [j] 等于0或-1，则跳到模式串的开头字符，若next [j] = k 且 k &gt; 0，代表下次匹配跳到j 之前的某个字符，而不是跳到开头，且具体跳过了k 个字符。<br>转换成代码表示，则是：  </p>
+<pre><code>int KmpSearch(char* s, char* p)  
+{  
+int i = 0;  
+int j = 0;  
+int sLen = strlen(s);  
+int pLen = strlen(p);  
+while (i &lt; sLen &amp;&amp; j &lt; pLen)  
+{  
+    //①如果j = -1，或者当前字符匹配成功（即S[i] == P[j]），都令i++，j++      
+    if (j == -1 || s[i] == p[j])  
+    {  
+        i++;  
+        j++;  
+    }  
+    else  
+    {  
+        //②如果j != -1，且当前字符匹配失败（即S[i] != P[j]），则令 i 不变，j = next[j]      
+        //next[j]即为j所对应的next值        
+        j = next[j];  
+    }  
+}  
+if (j == pLen)  
+    return i - j;  
+else  
+    return -1;  
+} 
+</code></pre><h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>①寻找前缀后缀最长公共元素长度<br>②求next数组<br>`    </p>
+<pre><code>void GetNext(char* p,int next[])    
+{       
+
+int pLen = strlen(p);      
+next[0] = -1;     
+int k = -1;  
+int j = 0;  
+while (j &lt; pLen - 1)  
+{  
+    //p[k]表示前缀，p[j]表示后缀  
+    if (k == -1 || p[j] == p[k])   
+    {  
+        ++k;  
+        ++j;  
+        next[j] = k;  
+    }  
+    else   
+    {  
+        k = next[k];  
+    }  
+}  
+}`  
+</code></pre><p>③根据next数组进行匹配<br>综上，KMP的next 数组相当于告诉我们：当模式串中的某个字符跟文本串中的某个字符匹配失配时，模式串下一步应该跳到哪个位置。如模式串中在j 处的字符跟文本串在i 处的字符匹配失配时，下一步用next [j] 处的字符继续跟文本串i 处的字符匹配，相当于模式串向右移动 j - next[j] 位。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 算法 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> C++ </tag>
+            
+            <tag> KMP </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[链表的常见操作]]></title>
+      <url>/2017/nodelist.html</url>
+      <content type="html"><![CDATA[<p>若只论链表与二叉树，链表又更容易将指针指的出神入化，二叉树稍逊，一个 left, 一个 right 的二次元世界，弄不出什么花来。</p>
+<p>所以想要把握指针的灵魂，练就一身弹”指”神通的俊功夫，还得多练练链表。</p>
+<p>下面，我就随意截取几道经典的链表问题，陪诸君练练手。（为简化问题，凸显实质，皆为单链表）</p>
+<a id="more"></a>
+<pre><code>struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+</code></pre><h1 id="链表的逆"><a href="#链表的逆" class="headerlink" title="链表的逆"></a>链表的逆</h1><p> 1-&gt;2-&gt;3-&gt;4-&gt;5<br> ^<br> root<br>想要逆序，最直接的想法，就是希望上图中的链表指向反过来。我们借用一个空指针 node 指向一个空节点:</p>
+<pre><code>1-&gt;2-&gt;3-&gt;4-&gt;5 | ListNode* reverse(ListNode *root) {
+^             |      ListNode *node = nullptr;    
+root          | }
+              |
+null          |
+^             |
+node          |
+</code></pre><p>第一步，我们希望节点1从单链表中剥离，于是让其指向 node, 但我们不能因此而找不到链表索引，故需要一个额外的指针 next, 指向后续节点：<br>几个简单的指针转移，便将节点1反向的去指向了 node 节点。如法炮制的话，节点2, 节点3, 节点4, 节点5 都调转枪头，我们的目的便达到了。</p>
+<pre><code>ListNode* reverse(ListNode *root) {
+     ListNode *node = nullptr;
+     while (root) {
+          ListNode *next = root-&gt;next;
+          root-&gt;next = node;
+          node = root;
+          root = next;
+     }
+     return node;
+}
+</code></pre><h1 id="链表除重"><a href="#链表除重" class="headerlink" title="链表除重"></a>链表除重</h1><p>1-&gt;1-&gt;2-&gt;2-&gt;3-&gt;4<br>^<br>head<br>cur<br>如果用一个指针 cur 来指向当前节点的话，出现重复的条件即为：cur-&gt;value == cur-&gt;next-&gt;value，如上图中，1 与 1 是重复的。我们只要想办法去掉重复的那个 1 即可。</p>
+<pre><code>1-&gt;1-&gt;2-&gt;2-&gt;3-&gt;4    |  if (cur-&gt;val == cur-&gt;next-&gt;val) {
+^  ^  ^             |      ListNode *next = cur-&gt;next-&gt;next;
+cur   next          |      delete cur-&gt;next;
+|     ^             |      cur-&gt;next = next;
+|_____|             |  }
+</code></pre><p>这个思路简单，易懂，但这个问题却又是很多复杂问题的基础。还是需要注意的。</p>
+<pre><code>ListNode *removeDuplicates(ListNode *head) {
+    if (head == nullptr) return head;
+    for (ListNode *cur=head; cur-&gt;next; )
+        if (cur-&gt;val == cur-&gt;next-&gt;val) {
+            ListNode *next = cur-&gt;next-&gt;next;
+            delete cur-&gt;next;
+            cur-&gt;next = next;
+        } else { cur = cur-&gt;next; }
+    return head;
+}
+</code></pre><h1 id="链表合并"><a href="#链表合并" class="headerlink" title="链表合并"></a>链表合并</h1><p>a(1-&gt;2-&gt;3) b(4-&gt;5-&gt;6)   ==&gt;    1-&gt;4-&gt;2-&gt;5-&gt;3-&gt;6<br>这个问题本身非常简单，但想通过这个基本问题，引申出链表问题一个非常常见的技巧。即设立 dummy 节点，可以称为是傀儡节点，其作用在于让合成的新链表有一个着手点。这个节点的值可以随意，我们最终返回的，实际上是 dummy.next;<br>要注意，每一步指针的捣腾都是按照顺序的，用笔纸画一画会比较清楚。</p>
+<pre><code>ListNode *shuffleMerge(ListNode *a, ListNode *b) {
+    ListNode dummy(0), *tail = &amp;dummy;
+    while (a &amp;&amp; b) {
+        tail-&gt;next = a;
+        tail = a;
+        a = a-&gt;next;
+        tail-&gt;next = b;
+        tail = b;
+        b = b-&gt;next;
+    }
+    tail-&gt;next = a ? a : b;
+    return dummy.next;
+}
+</code></pre><h1 id="移动节点"><a href="#移动节点" class="headerlink" title="移动节点"></a>移动节点</h1><p>a(1-&gt;2-&gt;3),b(1-&gt;2-&gt;3)==&gt; a(2-&gt;3),b(1-&gt;1-&gt;2-&gt;3)<br>这个问题几乎不足为道，但这个操作，将有助于咱们更深入的对链表进行研究。封装这个操作，我们可以避免纠缠于非常基本的问题。(a 为 source(s), b 为 dest(d))</p>
+<pre><code>void moveNode(ListNode **destRef, ListNode **sourceRef) {
+ListNode *newNode = *sourceRef;
+*sourceRef = newNode-&gt;next;
+ newNode-&gt;next = *destRef;
+ *destRef = newNode;
+ }
+</code></pre><h1 id="顺序合并"><a href="#顺序合并" class="headerlink" title="顺序合并"></a>顺序合并</h1><p>1-&gt;3-&gt;5 ,     2-&gt;4-&gt;6       ==&gt;  1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6  </p>
+<p>这也是非常基本的操作，结合上述的傀儡节点与 moveNode 两个技巧，应该可以很轻松的写出如下思路：</p>
+<pre><code>ListNode *sortedMerge(ListNode *a, ListNode *b) {
+    ListNode dummy(0), *tail = &amp;dummy;
+    for ( ;a &amp;&amp; b; tail = tail-&gt;next) {
+        if (a-&gt;val &lt;= b-&gt;val) moveNode(&amp;(tail-&gt;next), &amp;a);
+        else moveNode(&amp;(tail-&gt;next), &amp;b);
+    }
+    tail-&gt;next = a ? a : b;
+    return dummy.next;
+}
+</code></pre><p>傀儡节点毕竟耗费了额外的空间，同样的思路，能否改进为不耗费额外空间呢？我们来思考另一个例子：</p>
+<pre><code>ListNode *sortedMerge(ListNode *a, ListNode *b) {
+    ListNode *ret = nullptr, **lastPtrRef = &amp;ret;
+    for (; a &amp;&amp; b; lastPtrRef = &amp;((*lastPtrRef)-&gt;next)) {
+        if (a-&gt;val &lt;= b-&gt;val) moveNode(lastPtrRef, &amp;a);
+        else moveNode(lastPtrRef, &amp;b);
+    }
+    *lastPtrRef = a ? a : b;
+    return ret;
+}
+</code></pre><p>思路完全一致，但不消耗额外空间。即无需傀儡，直接上位。</p>
+<p>另，这个问题也可以用递归解决，权当额外思考题了(可能更加直观)：</p>
+<pre><code>ListNode *sortedMerge(ListNode *a, ListNode *b) {
+    ListNode *ret = nullptr;
+    if (a == nullptr) return b;
+    else if (b == nullptr) return a;
+
+    if (a-&gt;val &lt;= b-&gt;val) { ret = a; ret-&gt;next = sortedMerge(a-&gt;next, b); }
+    else { ret = b; ret-&gt;next = sortedMerge(a, b-&gt;next); }
+
+    return ret;
+}
+</code></pre><h1 id="顺序插入"><a href="#顺序插入" class="headerlink" title="顺序插入"></a>顺序插入</h1><p>newnode(4),head(1-&gt;3-&gt;5-&gt;7-&gt;8)<br>==&gt;  1-&gt;3-&gt;4-&gt;5-&gt;7-&gt;8</p>
+<p>给一个有序链表 head, 一个新节点 newNode. 将新节点插入该链表中。</p>
+<p>问题本身简单到不行，但我们仅仅是以此来复习一下上次所讲的三种策略。</p>
+<ul>
+<li>直接插入法（教科书法）</li>
+</ul>
+<ul>
+<li>傀儡节点</li>
+</ul>
+<ul>
+<li>引用法（指针的指针）  </li>
+</ul>
+<p>首先最朴素的第一种方法，也是教科书上经常讲述的方案。在这个问题里，我们需要分别考虑两种情况：其一，newNode 的值比 head 还要小，那么它应该直接放到最前面（这个动作是连接而非插入）；其二，newNode 的值比 head 要大，那么毫无疑问，需要遍历整个链表，找到 newNode 应该插入的位置，进行插入。</p>
+<pre><code>if (*headRef == nullptr || (*headRef)-&gt;val &gt;= newNode-&gt;val) {
+    newNode-&gt;next = *headRef;
+    *headRef = newNode;
+} else {
+    ListNode *curr = *headRef;
+   while (curr-&gt;next != nullptr &amp;&amp; curr-&gt;next-&gt;val &lt; newNode-&gt;val)
+    curr = curr-&gt;next;
+    newNode-&gt;next = curr-&gt;next;
+    curr-&gt;next = newNode;
+}
+</code></pre><p>简单又好理解。</p>
+<p>然后我们来看看第二种，很常用的傀儡法。为了避免像上面分两种情况分别处理那么麻烦，不如自立山头，统一处理。</p>
+<pre><code>void sortedInsert(ListNode **headRef, ListNode *newNode) {
+ListNode dummy(0), *tail = &amp;dummy;
+dummy.next = *headRef;
+
+while (tail-&gt;next != NULL &amp;&amp; tail-&gt;next-&gt;val &lt; newNode-&gt;val)
+    tail = tail-&gt;next;
+newNode-&gt;next = tail-&gt;next;
+tail-&gt;next = newNode;
+ *headRef = dummy.next;
+}
+</code></pre><p>可以看到，代码完全照搬上面的第二种情况。更加紧凑。</p>
+<p>好了，最后我们来看看最精简的第三种方案，使用引用。细心的童鞋会发现，上面我们定位的一直是 curr-&gt;next 节点。这个 next 很罗嗦，但普通的插入，必须要知道前后节点，所以也是不得已为之。如果我们采用引用，则只需要知道后面的节点即可。</p>
+<pre><code>ListNode **currRef = headRef;
+while (*currRef != nullptr &amp;&amp; (*currRef)-&gt;val &lt; newNode-&gt;val)
+currRef = &amp;((*currRef)-&gt;next);
+newNode-&gt;next = *currRef;
+*currRef = newNode;
+</code></pre><p>可以看到，我们将 newNode-&gt;next 指向 curr 节点后，直接将 newNode 节点生生挪到链表里去了。这是因为 currRef 处于链表中第 2 个(从 0 开始)位置，当 *currRef = newNode 之后，相当于将这个位置指向的地址换成了 newNode. 而 newNode 已经和后面的节点相连，所以很顺利的顺延了后续链表。</p>
+<p>寥寥五行，非常精简。上述三种思路都应该掌握，而核心应该掌握最后一种方案。</p>
+<h1 id="链表排序"><a href="#链表排序" class="headerlink" title="链表排序"></a>链表排序</h1><p>我们趁热打铁，上面讨论了 sortedInsert 方法的实现。那么我们倒过来，实现最基础的面试题，插入排序。</p>
+<p>思路呢，非常简单，弄一个空链表：ListNode *newHead = nullptr;, 然后遍历整个链表，将每一个节点 sortedInsert 到 newHead 中。代码如下：</p>
+<pre><code>void insertSort(ListNode **headRef) {
+    ListNode *newHead = nullptr;
+    for (ListNode *curr = *headRef, *next; curr; curr = next) {
+        next = curr-&gt;next;
+        sortedInsert(&amp;newHead, curr);
+    }
+    *headRef = newHead;
+}
+</code></pre><p>转自：<a href="https://segmentfault.com/a/1190000002490878#articleHeader3" title="谈指神通" target="_blank" rel="external">https://segmentfault.com/a/1190000002490878#articleHeader3</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 数据结构 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> C++ </tag>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[浅析openstack虚拟化技术]]></title>
+      <url>/2017/virtualization.html</url>
+      <content type="html"><![CDATA[<h1 id="opensatck"><a href="#opensatck" class="headerlink" title="opensatck"></a>opensatck</h1><blockquote>
+<p>Openstack：OpenStack is a cloud operating system that controls large pools of compute, storage, and networking resources throughout a datacenter, all managed through a dashboard that gives administrators control while empowering their users to provision resources through a web interface.   </p>
+</blockquote>
+<p>以上是官网对 OpenStack 的定义，OpenStack 对数据中心的计算、存储和网络资源进行统一管理。 由此可见，OpenStack 针对的是 IT 基础设施，是 IaaS 这个层次的云操作系统。<br><a id="more"></a></p>
+<h1 id="虚拟化"><a href="#虚拟化" class="headerlink" title="虚拟化"></a>虚拟化</h1><p>虚拟化是云计算的基础。虚拟机共享物理机的 CPU、内存、IO 硬件资源，但逻辑上虚拟机之间是相互隔离的。<br>物理机我们一般称为宿主机（Host），宿主机上面的虚拟机称为客户机（Guest）。Host将自己的硬件资源虚拟化并提供给 Guest 使用主要是通过一个叫做 Hypervisor 的程序实现的。    </p>
+<p>Hypervisor是一种运行在物理服务器和操作系统之间的中间软件层,可允许多个操作系统和应用共享一套基础物理硬件，因此也可以看作是虚拟环境中的“元”操作系统，它可以协调访问服务器上的所有物理设备和虚拟机，也叫虚拟机监视器（Virtual Machine Monitor）。Hypervisor是所有虚拟化技术的核心。非中断地支持多工作负载迁移的能力是Hypervisor的基本功能。当服务器启动并执行Hypervisor时，它会给每一台虚拟机分配适量的内存、CPU、网络和磁盘，并加载所有虚拟机的客户操作系统。<br>根据 Hypervisor 的实现方式和所处的位置，虚拟化又分为两种：<br>1型虚拟化和2型虚拟化  </p>
+<h2 id="1型虚拟化"><a href="#1型虚拟化" class="headerlink" title="1型虚拟化"></a>1型虚拟化</h2><p>Hypervisor 直接安装在物理机上，多个虚拟机在 Hypervisor 上运行。Hypervisor 实现方式一般是一个特殊定制的 Linux 系统。Xen 和 VMWare 的 ESXi 都属于这个类型。<br> <img src="http://img.blog.csdn.net/20170628215956268?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGlhbnhpbjExMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""> </p>
+<h2 id="2型虚拟化"><a href="#2型虚拟化" class="headerlink" title="2型虚拟化"></a>2型虚拟化</h2><p>物理机上首先安装常规的操作系统，比如 Redhat、Ubuntu 和 Windows。Hypervisor 作为 OS 上的一个程序模块运行，并对管理虚拟机进行管理。KVM、VirtualBox 和 VMWare Workstation 都属于这个类型。<br> <img src="http://img.blog.csdn.net/20170628220141810?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGlhbnhpbjExMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br>理论上讲：<br>1型虚拟化一般对硬件虚拟化功能进行了特别优化，性能上比2型要高；<br>2型虚拟化因为基于普通的操作系统，会比较灵活，比如支持虚拟机嵌套。嵌套意味着可以在KVM虚拟机中再运行KVM。</p>
+<h2 id="KVM"><a href="#KVM" class="headerlink" title="KVM"></a>KVM</h2><p>下面重点介绍KVM这种2型虚拟化技术。<br>基本概念<br>KVM 全称是Kernel-Based Virtual Machine。即 KVM 是基于 Linux 内核实现的。OpenStack 对 KVM 支持得也最好。KVM有一个内核模块叫 kvm.ko，只用于管理虚拟 CPU 和内存。而IO 的虚拟化，比如存储和网络设备由Linux 内核和Qemu来实现。即KVM 本身只关注虚拟机调度和内存管理这两个方面。IO 外设的任务交给 Linux 内核和Qemu。</p>
+<p>Libvirt简单说就是 KVM 的管理工具。<br>其实，Libvirt除了能管理 KVM 这种 Hypervisor，还能管理 Xen，VirtualBox 等。OpenStack底层也使用 Libvirt，所以很有必要学习一下。<br>Libvirt 包含 3 个东西：后台 daemon 程序 libvirtd、API库和命令行工具 virsh</p>
+<ol>
+<li><p>libvirtd是服务程序，接收和处理 API 请求；</p>
+</li>
+<li><p>API 库使得其他人可以开发基于 Libvirt 的高级工具，比如 virt-manager，这是个图形化的 KVM 管理工具，后面我们也会介绍；</p>
+</li>
+<li><p>virsh 是我们经常要用的KVM 命令行工具，后面会有使用的示例。 作为 KVM 和OpenStack 的实施人员，virsh 和virt-manager 是一定要会用的。</p>
+</li>
+</ol>
+<h2 id="CPU虚拟化"><a href="#CPU虚拟化" class="headerlink" title="CPU虚拟化"></a>CPU虚拟化</h2><p>KVM 的虚拟化是需要CPU 硬件支持的。虚机中的每一个虚拟 vCPU 则对应 qemu-kvm 进程中的一个线程。看下图<br><img src="http://img.blog.csdn.net/20170628220322454?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGlhbnhpbjExMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br>即虚机的 vCPU 总数可以超过物理 CPU 数量，这个叫 CPU overcommit（超配）。 KVM 允许 overcommit，这个特性使得虚机能够充分利用宿主机的 CPU 资源。但在使用overcommit 的时候，需要对虚机的负载情况有所了解，需要测试。  </p>
+<h2 id="内存虚拟化"><a href="#内存虚拟化" class="headerlink" title="内存虚拟化"></a>内存虚拟化</h2><p>KVM 通过内存虚拟化共享物理系统内存，动态分配给虚拟机。看下图<br><img src="http://img.blog.csdn.net/20170628220406338?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGlhbnhpbjExMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br>为了在一台机器上运行多个虚拟机，KVM 需要实现 VA（虚拟内存） -&gt; PA（物理内存） -&gt; MA（机器内存）直接的地址转换。虚机 OS 控制虚拟地址到客户内存物理地址的映射（VA -&gt; PA），但是虚机 OS 不能直接访问实际机器内存，因此 KVM 需要负责映射客户物理内存到实际机器内存 （PA -&gt; MA）。<br>内存也是可以 overcommit 的，即所有虚机的内存之和可以超过宿主机的物理内存。但使用时也需要充分测试，否则性能会受影响。  </p>
+<h2 id="网络虚拟化"><a href="#网络虚拟化" class="headerlink" title="网络虚拟化"></a>网络虚拟化</h2><p><img src="http://img.blog.csdn.net/20170628220432102?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGlhbnhpbjExMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br>这是 OpenStack 官网上给出的计算节点（可以理解为 KVM 的宿主机）虚拟网络的逻辑图，上面的网络设备很多，层次也很复杂。<br>网络虚拟化中最重要的两个东西：Linux Bridge 和 VLAN。 </p>
+]]></content>
+      
+        <categories>
+            
+            <category> others </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> -openstack </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[浅析面向对象编程思想]]></title>
+      <url>/2017/object.html</url>
+      <content type="html"><![CDATA[<p>面向对象的三个基本特征<br>面向对象的三个基本特征是：封装、继承、多态。其中，封装可以隐藏实现细节，使得代码模块化；继承可以扩展已存在的代码模块（类）；它们的目的都是为了——代码重用。而多态则是为了实现另一个目的——接口重用！<br><img src="http://img.my.csdn.net/uploads/201211/22/1353564524_6375.png" alt=""></p>
+<a id="more"></a>  
+<p><strong>什么是封装？</strong><br>封装可以隐藏实现细节，使得代码模块化；封装是把过程和数据包围起来，对数据的访问只能通过已定义的界面。面向对象计算始于这个基本概念，即现实世界可以被描绘成一系列完全自治、封装的对象，这些对象通过一个受保护的接口访问其他对象。在面向对象编程上可理解为：把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏。</p>
+<p><strong>什么是继承？</strong><br>继承是指这样一种能力：它可以使用现有类的所有功能，并在无需重新编写原来的类的情况下对这些功能进行扩展。其继承的过程，就是从一般到特殊的过程。<br>通过继承创建的新类称为“子类”或“派生类”。被继承的类称为“基类”、“父类”或“超类”。要实现继承，可以通过“继承”（Inheritance）和“组合”（Composition）来实现。在某些 OOP 语言中，一个子类可以继承多个基类。但是一般情况下，一个子类只能有一个基类，要实现多重继承，可以通过多级继承来实现。<br>继承的实现方式？<br>继承概念的实现方式有三类：实现继承、接口继承和可视继承。</p>
+<ol>
+<li>实现继承是指使用基类的属性和方法而无需额外编码的能力；</li>
+<li>接口继承是指仅使用属性和方法的名称、但是子类必须提供实现的能力；</li>
+<li>可视继承是指子窗体（类）使用基窗体（类）的外观和实现代码的能力</li>
+</ol>
+<p><strong>什么是多态？</strong><br>多态性（polymorphisn）是允许你将父对象设置成为和一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作。简单的说，就是一句话：允许将子类类型的指针赋值给父类类型的指针。<br>实现多态，有二种方式，覆盖，重载。覆盖：是指子类重新定义父类的虚函数的做法。重载：是指允许存在多个同名函数，而这些函数的参数表不同（或许参数个数不同，或许参数类型不同，或许两者都不同）。</p>
+<p>分析：<br>“重载”是指在同一个类中相同的返回类型和方法名，但是参数的个数和类型可以不同<br>“覆盖\重写”是在不同的类中。  </p>
+<p>其实，重载的概念并不属于“面向对象编程”，重载的实现是：编译器根据函数不同的参数表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（至少对于编译器来说是这样的）。如，有两个同名函数：function func(p:integer):integer;和function func(p:string):integer;。那么编译器做过修饰后的函数名称可能是这样的：int_func、str_func。对于这两个函数的调用，在编译器间就已经确定了，是静态的（记住：是静态）。也就是说，它们的地址在编译期就绑定了（早绑定），因此，重载和多态无关！真正和多态相关的是“覆盖”。当子类重新定义了父类的虚函数后，父类指针根据赋给它的不同的子类指针，动态（记住：是动态！）的调用属于子类的该函数，这样的函数调用在编译期间是无法确定的（调用的子类的虚函数的地址无法给出）。因此，这样的函数地址是在运行期绑定的（晚邦定）。结论就是：重载只是一种语言特性，与多态无关，与面向对象也无关！引用一句Bruce Eckel的话：“不要犯傻，如果它不是晚邦定，它就不是多态。”</p>
+<p>附一张很形象的图  </p>
+<p><img src="https://pic1.zhimg.com/664ba37eeee9f4623c06c066867f1d38_b.jpg" alt=""></p>
+]]></content>
+      
+        <categories>
+            
+            <category> C++ </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> C++ </tag>
+            
+            <tag> object </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[浅析C++之STL迭代器]]></title>
+      <url>/2017/iterator.html</url>
+      <content type="html"><![CDATA[<h1 id="泛型编程"><a href="#泛型编程" class="headerlink" title="泛型编程"></a>泛型编程</h1><blockquote>
+<p>STL是一种泛型编程。面向对象编程关注的是编程的数据方面，而泛型编程关注的是算法。它们之间的共同点是抽象和创建可重用代码，但理念决然不同。    </p>
+</blockquote>
+<p>泛型编程旨在编写独立于数据类型的代码，在C++中完成通用程序的工具是模板，模板使得算法独立于存储的数据类型，而迭代器使算法独立于使用的容器的类型。 </p>
+<a id="more"></a>
+<h1 id="什么是迭代器"><a href="#什么是迭代器" class="headerlink" title="什么是迭代器"></a>什么是迭代器</h1><p>迭代器可以理解为一种泛型的指针，可以指向容器中的任一位置；而普通指针可以指向内存中的任一地址。<br>STL的每一个容器类模版中，都定义了一组对应的迭代器类。使用迭代器，算法函数可以访问容器中指定位置的元素，而无需关心元素的具体类型。<br>泛型编程中的函数不仅独立于容器中存储的数据类型，而且独立于容器本身的数据结构。模板提供了存储在容器中的数据类型的通用表示，因此，还需要遍历容器中的值的通用表示，迭代器正是这样的通用表示。<br>比如我们可以创建一个find()函数，不仅可以查找数组，链表，也可以查找其他的容器类型。</p>
+<h1 id="迭代器的用法"><a href="#迭代器的用法" class="headerlink" title="迭代器的用法"></a>迭代器的用法</h1><h2 id="1-每种容器类型都定义了自己的迭代器类型，如vector"><a href="#1-每种容器类型都定义了自己的迭代器类型，如vector" class="headerlink" title="(1) 每种容器类型都定义了自己的迭代器类型，如vector:"></a>(1) 每种容器类型都定义了自己的迭代器类型，如vector:</h2><p><code>vector&lt;int&gt;::iterator iter;</code><br>这条语句定义了一个名为iter的变量，它的数据类型是由vector<int>定义的iterator类型。  </int></p>
+<h2 id="2-使用迭代器读取vector中的每一个元素："><a href="#2-使用迭代器读取vector中的每一个元素：" class="headerlink" title="(2) 使用迭代器读取vector中的每一个元素："></a>(2) 使用迭代器读取vector中的每一个元素：</h2><pre><code>vector&lt;int&gt; ivec(10,1);
+for(vector&lt;int&gt;::iterator iter=ivec.begin();iter!=ivec.end();++iter)
+{
+*iter=2; //使用 * 访问迭代器所指向的元素
+}  
+
+
+const_iterator:
+只能读取容器中的元素，而不能修改。
+for(vector&lt;int&gt;::const_iterator citer=ivec.begin();citer!=ivec.end();citer++)
+{
+cout&lt;&lt;*citer;
+//*citer=3; error
+}  
+</code></pre><p><strong>vector<int>::const_iterator 和 const vector<int>::iterator的区别</int></int></strong><br>const vector<int>::iterator newiter=ivec.begin();<br>*newiter=11; //可以修改指向容器的元素<br>//newiter++; //迭代器本身不能被修改 </int></p>
+<h2 id="3-iterator的算术操作："><a href="#3-iterator的算术操作：" class="headerlink" title="(3) iterator的算术操作："></a>(3) iterator的算术操作：</h2><p>iterator除了进行++,–操作，可以将iter+n,iter-n赋给一个新的iteraor对象。还可以使用一个iterator减去另外一个iterator.<br>const vector<int>::iterator newiter=ivec.begin();<br>vector<int>::iterator newiter2=ivec.end();<br>cout&lt;&lt;”\n”&lt;&lt;newiter2-newiter;<br>一個很典型使用vector的STL程式:  </int></int></p>
+<pre><code>#include &lt;vector&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main(void)
+{
+    vector&lt;int&gt; v;
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
+
+    vector&lt;int&gt;::iterator it;
+    for (it = v.begin(); it != v.end(); ++it)
+    {
+        cout &lt;&lt; *it &lt;&lt; &apos; &apos;;
+    }
+    cout &lt;&lt; endl;
+</code></pre><p>迭代器可以很好的兼容C++的内置类型，特别是常见的C++指针被视为C++数组的迭代器。当然，在标准的C++库中所有的容器都定义了一个迭代器类型，即嵌套类型的迭代器，代表各自的指针类型。</p>
+<h1 id="迭代器的类型"><a href="#迭代器的类型" class="headerlink" title="迭代器的类型"></a>迭代器的类型</h1><p>迭代器可以分为不同的种类，这是因为他们使用不同的算法、不同的要求附加在其身上。例如，find()算法需要一个可以递增的迭代器，而reverse()算法需要一个可以递减的迭代器等。总之，在STL和C++标准库中有5种迭代器。<br><strong>（1）、输入迭代器(Input Iterator)</strong>:只能向前单步迭代元素，不允许修改由该迭代器所引用的元素；<br><strong>（2）、输出迭代器(Output Iterator)</strong>:只能向前单步迭代元素，对由该迭代器所引用的元素只有写权限；<br><strong>（3）、向前迭代器(Forward Iterator)</strong>:该迭代器可以在一个区间中进行读写操作，它拥有输入迭代器的所有特性和输出迭代器的部分特性，以及向前单步迭代元素的能力；<br><strong>（4）、双向迭代器(Bidirectional Iterator)</strong>:在向前迭代器的基础上增加了向后单步迭代元素的能力；<br><strong>（5）、随机访问迭代器(Random Access Iterator)</strong>:不仅综合以后4种迭代器的所有功能，还可以像指针那样进行算术计算；<br><strong>vector、deque提供的是随机访问迭代器，list提供的是双向迭代器，set和map提供的是向前迭代器。</strong></p>
+<h2 id="相应的操作集为："><a href="#相应的操作集为：" class="headerlink" title="相应的操作集为："></a>相应的操作集为：</h2><p><img src="http://img.blog.csdn.net/20130728085616968?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br>除了输出迭代器，其他类别的迭代器形成了一个层次结构：需要低级类别迭代器的地方，可使用任意一种更高级的迭代器。例如，对于需要输入迭代器的算法，可传递前向、双向或随机访问迭代器调用该算法。而反之则不行。注意：向算法传递无效的迭代器类别所引起的错误，无法保证会在编译时被捕获到。<br>map, set, list类型提供双向迭代器，而string, vector和deque容器上定义的迭代器都是随机访问迭代器，用作访问内置数组元素的指针也是随机访问迭代器。istream_iterator是输入迭代器，ostream_iterator是输出迭代器。<br>另外，虽然map和set类型提供双向迭代器，但关联容器只能使用这部分算法的一个子集。因为关联容器的键是const对象。因此，关联容器不能使用任何写序列元素的算法。只能使用与关联容器绑在一起的迭代器来提供用于读操作的实参。因此，在处理算法时，最好将关联容器上的迭代器视为支持自减运算的输入迭代器，而不是完整的双向迭代器。<br><strong>最后需要注意的是，stack、queue、priority_queue 都不支持任一种迭代器，它们都是容器适配器类型，stack是用vector/deque/list对象创建了一个先进后出容器，queue是用deque或list对象创建了一个先进先出容器，priority_queue是用vector/deque创建了一个排序队列</strong></p>
+<h1 id="常用的容器成员"><a href="#常用的容器成员" class="headerlink" title="常用的容器成员"></a>常用的容器成员</h1><p><img src="http://img.blog.csdn.net/20130724190040546?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20130724190057312?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br><img src="http://img.blog.csdn.net/20130724190108671?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20130724190123828?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2ltYmE4ODg4ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+]]></content>
+      
+        <categories>
+            
+            <category> C++ </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> -C++ </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[C++中struct和class的区别]]></title>
+      <url>/2017/structclass.html</url>
+      <content type="html"><![CDATA[<p>C++中的struct对C中的struct进行了扩充，它已经不再只是一个包含不同数据类型的数据结构了，它已经获取了太多的功能。 </p>
+<p>struct和class都可以继承，都可以包含成员函数，都可以实现多态，都可以有构造函数和西沟函数。但主要有两点区别  </p>
+<h1 id="1、最本质的一个区别就是默认的访问控制："><a href="#1、最本质的一个区别就是默认的访问控制：" class="headerlink" title="1、最本质的一个区别就是默认的访问控制："></a>1、最本质的一个区别就是默认的访问控制：</h1><p>默认的继承访问权限<br><strong>struct是public的，class是private的。</strong><br><a id="more"></a><br>所以我们在平时写类继承的时候，通常会这样写：<br>class B : public A<br>就是为了指明是public继承，而不是用默认的private继承。</p>
+<p>当然，到底默认是public继承还是private继承，<strong>取决于子类而不是基类。</strong><br>如：</p>
+<pre><code>struct A{}；  
+class B : A{}; //private继承  
+struct C : B{}； //public继承
+</code></pre><p>struct作为数据结构的实现体，它默认的数据访问控制是public的，而class作为对象的实现体，它默认的成员变量访问控制是private的</p>
+<p>到底是用struct还是class，完全看个人的喜好，你可以将程序里所有的class全部替换成struct，它依旧可以很正常的运行。但我给出的最好建议，还是：当你觉得你要做的更像是一种数据结构的话，那么用struct，如果你要做的更像是一种对象的话，那么用class。   </p>
+<p>当然，我在这里还要强调一点的就是，对于访问控制，应该在程序里明确的指出，而不是依靠默认，这是一个良好的习惯，也让你的代码更具可读性。 </p>
+<h1 id="2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。"><a href="#2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。" class="headerlink" title="2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。"></a>2、“class”这个关键字还用于定义模板参数，但关键字“struct”不用于定义模板参数。</h1><p>这一点在Stanley B.Lippman写的Inside the C++ Object Model有过说明。 </p>
+<h1 id="3、其他区别"><a href="#3、其他区别" class="headerlink" title="3、其他区别"></a>3、其他区别</h1><p>还是上面所说的，C++中的struct是对C中的struct的扩充，既然是扩充，那么它就要兼容过去C中struct应有的所有特性。例如你可以这样写：  </p>
+<pre><code>struct A//定义一个struct
+{
+       char c1;
+       int n2;
+       double db3;
+    };
+    A a={&apos;p&apos;, 7, 3.1415926}; //定义时直接赋值   
+</code></pre><p>也就是说struct可以在定义的时候用{}赋初值。但class不行，而且当struct中包含构造函数（或虚函数），struct也不能用{}赋初值了。  </p>
+<p>而加入一个普通的成员函数呢？你会发现{}依旧可用。其实你可以将普通的函数理解成对数据结构的一种算法，这并不打破它数据结构的特性。<br>那么，看到这里，我们发现即使是struct想用{}来赋初值，它也必须满足很多的约束条件，这些条件实际上就是让struct更体现出一种数据机构而不是类的特性。<br>那为什么我们在上面仅仅将struct改成class，{}就不能用了呢？<br>其实问题恰巧是我们之前所讲的——访问控制！你看看，我们忘记了什么？对，将struct改成class的时候，访问控制由public变为private了，那当然就不能用{}来赋初值了。加上一个public，你会发现，class也是能用{}的，和struct毫无区别！！！<br>做个总结，从上面的区别，我们可以看出，struct更适合看成是一个数据结构的实现体，class更适合看成是一个对象的实现体。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> C++ </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> -C++ </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[浅析B树，B+/-树，AVL树，红黑树]]></title>
+      <url>/2017/BST.html</url>
+      <content type="html"><![CDATA[<h1 id="B树——二叉搜索树"><a href="#B树——二叉搜索树" class="headerlink" title="B树——二叉搜索树"></a>B树——二叉搜索树</h1><p>##定义：<br>1.所有非叶子结点至多拥有两个儿子（Left和Right）；<br>2.所有结点存储一个关键字；<br>3.非叶子结点的左指针指向小于其关键字的子树，右指针指向大于其关键字的子树； </p>
+<p>B树的搜索，从根结点开始，如果查询的关键字与结点的关键字相等，那么就命中；否则，如果查询关键字比结点关键字小，就进入左儿子；如果比结点关键字大，就进入右儿子；如果左儿子或右儿子的指针为空，则报告找不到相应的关键字。   </p>
+<a id="more"></a>
+<p>如果B树的所有非叶子结点的左右子树的结点数目均保持差不多（平衡），那么B树的搜索性能逼近二分查找；但它比连续内存空间的二分查找的优点是，改变B树结构（插入与删除结点）不需要移动大段的内存数据，甚至通常是常数开销。在实际使用中，通常是在B树的基础上添加平衡算法，编程平衡二叉树。<strong>平衡二叉树又叫AVL树，是由作者姓名命名的，平衡二叉树还有一个改进的版本，叫做红黑树。</strong>    </p>
+<p><strong>BST效率总结 :  查找最好时间复杂度O(logN)，最坏时间复杂度O(N)。<br>插入删除操作算法简单，时间复杂度与查找差不多</strong></p>
+<h1 id="B-树——一种非二叉搜索树"><a href="#B-树——一种非二叉搜索树" class="headerlink" title="B-树——一种非二叉搜索树"></a>B-树——一种非二叉搜索树</h1><p>##定义  </p>
+<ol>
+<li>定义任意非叶子结点最多具有M个儿子，M&gt;2；</li>
+<li>根节点的儿子树[2,M]；</li>
+<li>除根节点之外的非叶子结点的儿子数为[M/2,M]；</li>
+<li>每个节点存放至少M/2-1(向上取整)和至多M-1个关键字；</li>
+<li>非叶子结点的关键字个数等于指向儿子的指针个数减去1</li>
+<li>非叶子结点的关键字：K[1],K[2]…K[M-1],:且K[i]小于K[i+1]；</li>
+<li>非叶子结点的指针：P[1],P[2],,,,,P[M],其中P[M]指向关键字大于K[M-1]的子树，其他P[i]指向关键字属于(K[i-1],k[i])的子树；</li>
+<li>所有叶子节点位于同一层。 </li>
+</ol>
+<p>如M=3<br><img src="http://p.blog.csdn.net/images/p_blog_csdn_net/manesking/4.JPG" alt=""></p>
+<p><strong>B-树有着如下的特性：</strong></p>
+<ul>
+<li>关键字集合分布在整颗树中；</li>
+<li>任何一个关键字出现且只出现在一个结点中；</li>
+<li>搜索有可能在非叶子结点结束；</li>
+<li>其搜索性能等价于在关键字全集内做一次二分查找；</li>
+<li>自动层次控制； </li>
+</ul>
+<p>同时，由于限制了除根结点以外的非叶子结点，至少含有M/2个儿子，确保了结点的至少利用率，其最低搜索性能为：  </p>
+<p><img src="http://p.blog.csdn.net/images/p_blog_csdn_net/manesking/0.JPG" alt=""></p>
+<blockquote>
+<p>公式中，M为设定的非叶子节点最多子树的个数，N为关键字总数；所以B-树的性能总是等价于2分查找（与M值无关），也就没有B树平衡的问题；<br>由于M/2的限制，在插入节点的时候，如果节点已经满了，需要将节点分裂成两个各占M/2的节点；删除节点的时候，需要将两个不足M/2的节点合并</p>
+</blockquote>
+<p><strong>B-Tree效率总结： 由于考虑磁盘储存结构，B树的查找、删除、插入的代价都远远要小于任何二叉结构树(读写磁盘次数的降低)。</strong></p>
+<h1 id="B-树——多路搜索树"><a href="#B-树——多路搜索树" class="headerlink" title="B+树——多路搜索树"></a>B+树——多路搜索树</h1><h2 id="定义：其定义基本与B-树同，除了："><a href="#定义：其定义基本与B-树同，除了：" class="headerlink" title="定义：其定义基本与B-树同，除了："></a>定义：其定义基本与B-树同，除了：</h2><ul>
+<li><p>非叶子结点的子树指针与关键字个数相同；</p>
+</li>
+<li><p>非叶子结点的子树指针P[i]，指向关键字值属于[K[i], K[i+1])的子树<br>（B-树是开区间）；</p>
+</li>
+<li>为所有叶子结点增加一个链指针；</li>
+<li>所有关键字都在叶子结点出现；<br><img src="http://p.blog.csdn.net/images/p_blog_csdn_net/manesking/5.JPG" alt=""></li>
+</ul>
+<h1 id="AVL——平衡二叉搜索树"><a href="#AVL——平衡二叉搜索树" class="headerlink" title="AVL——平衡二叉搜索树"></a>AVL——平衡二叉搜索树</h1><h2 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h2><ol>
+<li>平衡二叉树或为空树,或为如下性质的二叉排序树:</li>
+<li>左右子树深度之差的绝对值不超过1;</li>
+<li>左右子树仍然为平衡二叉树.</li>
+</ol>
+<p>平衡因子BF=左子树深度－右子树深度.<br>平衡二叉树每个结点的平衡因子只能是1，0，-1。若其绝对值超过1，则该二叉排序树就是不平衡的。</p>
+<p>AVL树是最先发明的自平衡二叉查找树。在AVL树中任何节点的两个子树的高度最大差别为一，所以它也被称为高度平衡树。查找、插入和删除在平均和最坏情况下都是O（log n）。</p>
+<h1 id="红黑树——改进的AVL"><a href="#红黑树——改进的AVL" class="headerlink" title="红黑树——改进的AVL"></a>红黑树——改进的AVL</h1><h2 id="定义：-1"><a href="#定义：-1" class="headerlink" title="定义："></a>定义：</h2><ol>
+<li>每个结点要么是红的，要么是黑的。   </li>
+<li>根结点是黑的。   </li>
+<li>每个叶结点，即空结点（NIL）是黑的。   </li>
+<li>如果一个结点是红的，那么它的俩个儿子都是黑的。   </li>
+<li>对每个结点，从该结点到其子孙结点的所有路径上包含相同数目的黑结点。</li>
+</ol>
+<p>AVL是严格平衡树，因此在增加或者删除节点的时候，根据不同情况，旋转的次数比红黑树要多；红黑是弱平衡的，用非严格的平衡来换取增删节点时候旋转次数的降低,所以简单说，搜索的次数远远大于插入和删除，那么选择AVL树，如果搜索，插入删除次数几乎差不多，应该选择RB树。<br>红黑树上每个结点内含五个域，color，key，left，right，p。如果相应的指针域没有，则设为NIL。 </p>
+<h1 id="红黑树与AVL比较"><a href="#红黑树与AVL比较" class="headerlink" title="红黑树与AVL比较"></a>红黑树与AVL比较</h1><p><strong>结构对比：</strong> AVL的结构高度平衡，RBT的结构基本平衡。平衡度AVL &gt; RBT.<br><strong>查找对比：</strong> AVL 查找时间复杂度最好，最坏情况都是O(logN)。<br>    RBT 查找时间复杂度最好为O(logN)，最坏情况下比AVL略差。<br><strong>插入删除对比：</strong>  </p>
+<ol>
+<li>AVL的插入和删除结点很容易造成树结构的不平衡，而RBT的平衡度要求较低。因此在大量数据插入的情况下，RBT需要通过旋转变色操作来重新达到平衡的频度要小于AVL。  </li>
+<li>如果需要平衡处理时，RBT比AVL多一种变色操作，而且变色的时间复杂度在O(logN)数量级上。但是由于操作简单，所以在实践中这种变色仍然是非常快速的。  </li>
+<li>当插入一个结点都引起了树的不平衡，AVL和RBT都最多需要2次旋转操作。但删除一个结点引起不平衡后，AVL最多需要logN 次旋转操作，而RBT最多只需要3次。因此两者插入一个结点的代价差不多，但删除一个结点的代价RBT要低一些。  </li>
+<li>AVL和RBT的插入删除代价主要还是消耗在查找待操作的结点上。因此时间复杂度基本上都是与O(logN) 成正比的。</li>
+</ol>
+<p><strong>总体评价：</strong>大量数据实践证明，RBT的总体统计性能要好于平衡二叉树。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 数据结构 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> -数据结构 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[C++之inline内联函数浅析]]></title>
+      <url>/2017/inline.html</url>
+      <content type="html"><![CDATA[<p>C语言中使用宏定义容易出错，而且不能调试，无法操作类的私有数据成员。所以，在C++中尽量用内联函数来代替宏代码。inline函数的另一个优点是，函数被内联后，编译器可以根据上下文自己决定优化措施。  </p>
+<a id="more"></a>  
+<h1 id="什么是内联函数"><a href="#什么是内联函数" class="headerlink" title="什么是内联函数"></a>什么是内联函数</h1><p>内联函数是C++的增强特性之一，用来降低程序的运行时间。当内联函数收到编译器的指示时，即可发生内联：编译器将使用函数的定义体来替代函数调用语句，这种替代行为发生在编译阶段而非程序运行阶段。</p>
+<p>值得注意的是，内联函数仅仅是对编译器的内联建议，编译器是否觉得采取你的建议取决于函数是否符合内联的有利条件。如果函数体非常大，那么编译器将忽略函数的内联声明，而将内联函数作为普通函数处理。</p>
+<h1 id="如何使函数内联"><a href="#如何使函数内联" class="headerlink" title="如何使函数内联"></a>如何使函数内联</h1><p>定义函数时，在函数的最前面以关键字“inline”声明函数，即可使函数称为内联声明函数。</p>
+<p>例如：</p>
+<pre><code>Class A
+{
+ Public:
+    inline int add(int a, int b)
+    {
+       return (a + b);
+    };
+}
+
+Class A
+{
+ Public:
+    int add(int a, int b);
+};
+
+inline int A::add(int a, int b)
+{
+   return (a + b);
+}
+</code></pre><h1 id="为什么要使用内联函数"><a href="#为什么要使用内联函数" class="headerlink" title="为什么要使用内联函数"></a>为什么要使用内联函数</h1><p>有时候我们会写一些功能专一的函数，这些函数的函数体不大，包含了很少的执行语句。例如在计算1~1000以内的素数时，我们经常会使用开方操作使运算范围缩小，这时我们会写一个函数：</p>
+<pre><code>int root(int n)
+{
+　　return (int)sqrt((float)n);
+}
+</code></pre><p>然后我们的求范围内素数的函数可以这样写。</p>
+<pre><code>int prime(int n)
+{
+    int i;
+    for (i = 2; i &lt;= root(n); i++)
+    {
+        if (n%i == 0)
+　　　　　　return 0;
+        return 1;
+    }
+}            
+</code></pre><p>当然，把root函数放在循环中不是个不明智的选择，但想象一下，在某个程序上下文内必须频繁地调用某个类似root的函数，其调用函数的花销会有多大：当遇到普通函数的调用指令时，程序会保存当前函数的执行现场，将函数中的局部变量以及函数地址压入堆栈，然后再将即将调用的新函数加载到内存中，这要经历复制参数值、跳转到所调用函数的内存位置、执行函数代码、存储函数返回值等过程，当函数执行完后，再获取之前正在调用的函数的地址，回去继续执行那个函数，运行时间开销简直太多了。</p>
+<p>C++内联函数提供了替代函数调用的方案，通过inline声明，编译器首先在函数调用处使用函数体本身语句替换了函数调用语句，然后编译替换后的代码。因此，通过内联函数，编译器不需要跳转到内存其他地址去执行函数调用，也不需要保留函数调用时的现场数据。</p>
+<h1 id="inline函数的优缺点分析"><a href="#inline函数的优缺点分析" class="headerlink" title="inline函数的优缺点分析"></a>inline函数的优缺点分析</h1><h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ol>
+<li>它通过避免函数调用所带来的开销来提高你程序的运行速度。</li>
+<li>当函数调用发生时，它节省了变量弹栈、压栈的开销。</li>
+<li>它避免了一个函数执行完返回原现场的开销。</li>
+<li><p>通过将函数声明为内联，你可以把函数定义放在头文件内。  </p>
+<h2 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h2></li>
+<li><p>因为代码的扩展，内联函数增大了可执行程序的体积。</p>
+</li>
+<li>C++内联函数的展开是中编译阶段，这就意味着如果你的内联函数发生了改动，那么就需要重新编译代码。</li>
+<li>当你把内联函数放在头文件中时，它将会使你的头文件信息变多，不过头文件的使用者不用在意这些。</li>
+<li>有时候内联函数并不受到青睐，比如在嵌入式系统中，嵌入式系统的存储约束可能不允许体积很大的可执行程序。</li>
+</ol>
+<h2 id="什么时候该使用内联函数"><a href="#什么时候该使用内联函数" class="headerlink" title="什么时候该使用内联函数"></a>什么时候该使用内联函数</h2><p>当程序设计需要时，每个函数都可以声明为inline。下面列举一些有用的建议：</p>
+<ol>
+<li>当对程序执行性能有要求时，那么就使用内联函数吧。</li>
+<li>当你想宏定义一个函数时，那就果断使用内联函数吧。</li>
+<li>在类内部定义的函数会默认声明为inline函数，这有利于 类实现细节的隐藏。</li>
+</ol>
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h1><ol>
+<li>内联声明只是一种对编译器的建议，编译器是否采用内联措施由编译器自己来决定。甚至在汇编阶段或链接阶段，一些没有inline声明的函数编译器也会将它内联展开。</li>
+<li>编译器的内联看起来就像是代码的复制与粘贴，这与预处理宏是很不同的：宏是强制的内联展开，可能将会污染所有的命名空间与代码，将为程序的调试带来困难。</li>
+<li>所有中类中定义的函数都默认声明为inline函数，所有我们不用显示地去声明inline。</li>
+<li>虚函数不允许内联。</li>
+<li>虽然说模板函数放中头文件中，但它们不一定是内联的。（不是说定义在头文件中的函数都是内联函数）。</li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> C++ </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> -C++ </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hadoop分布式计算框架MapReduce浅析]]></title>
+      <url>/2017/hadoop-mapreduce.html</url>
+      <content type="html"><![CDATA[<p>分布式计算框架有很多，只是适合做的种类不一样。<br>1、MapReduce适合做离线计算<br>2、storm适合做流式计算，更适合实时计算<br>3、spark是内存式计算框架，更适合做快速得到结果的计算  </p>
+<a id="more"></a>  
+<h1 id="MapReduce设计理念"><a href="#MapReduce设计理念" class="headerlink" title="MapReduce设计理念"></a>MapReduce设计理念</h1><h2 id="何为分布式计算"><a href="#何为分布式计算" class="headerlink" title="何为分布式计算"></a>何为分布式计算</h2><p>移动计算，而不是移动数据。<br>把计算程序都进行部署到不同的机器上，然后在不同的机器上进行计算，然后进行汇总，做到不移动计算的数据，也能得到计算结果。</p>
+<p><strong>MR（MapReduce）计算框架图解  </strong><br><img src="http://upload-images.jianshu.io/upload_images/437049-ad038e4944370d47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>解决大数据的问题：<br>1、数据存储（HDFS）<br>2、数据计算(MapReduce)  </p>
+<p>首先对数据进行处理split为每一个数据片段，每一数据片段都会有一个map线程去执行，如果有多个片段会并发的同时执行。  </p>
+<p>所以：如上图：<br>第一个步骤是：如何把数据切片，按照什么规则去切分。<br>第二个步骤是：就是map部分<br>第三个步骤是shuffle部分<br>第四个部分是 reduce部分<br>第五个部分就是 输出部分（计算生成的数据，也是保存在HDFS上）  </p>
+<p>整个MR过程就是：就是把HDFS数据进行计算处理，然后输出结果  </p>
+<h2 id="实例MR计算"><a href="#实例MR计算" class="headerlink" title="实例MR计算"></a>实例MR计算</h2><p><img src="http://upload-images.jianshu.io/upload_images/437049-a083e6d26cbe9a04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>在shuffling阶段会有相应的合并和排序<br>有可能reduce为一个或者多个，这个是由程序去决定。</p>
+<h2 id="hadoop计算框架Shuffler"><a href="#hadoop计算框架Shuffler" class="headerlink" title="hadoop计算框架Shuffler"></a>hadoop计算框架Shuffler</h2><p>Shuffer的功能：<br>在mapper 和reducer中间的一个步骤。<br>可以把mapper的输出按照某种key值重新切分和组合成n份，把key值符合某种范围的输出送到特定的reducer那里，<br>可以简化reducer过程。<br><img src="http://upload-images.jianshu.io/upload_images/437049-5eac5b7b1137f0a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="map过程"><a href="#map过程" class="headerlink" title="map过程"></a>map过程</h2><p>map是一个Java程序，或者其他计算机程序，map得到的结果在内存中， 内存有一定的阈值，当到达一定的阈值后，就需要写入到磁盘中， 这个过程叫做溢写。  </p>
+<p>在写入之前要做几件事情，partion和sort。把当前map的数据进行输出和排序，然后再溢写到磁盘。放在磁盘中的数据是已经排好序的数据。  </p>
+<p><strong>什么是partition？</strong>  </p>
+<p>partition分区的数据是为以后产生作用的。把map的输出数据分成一个一个区，partition可以由程序员自定义编写代码。如果不写按照默认的分区模式进行分区，默认的分区模式是什么呢？ Hash模运算<br>1、获取hash值，每个对象的hash值得到一个整数，把这个整数模reduce的个数，得到一个结果。假如：hash模2，只有两种结果0或者1，然后map的结果分成了两个部分，0区或者1区。  </p>
+<p><strong>分区有什么作用？？？ 这是mapredure如何结局负载均衡和数据倾斜？</strong>  </p>
+<p>分区是为了把map的输出进行负载均衡，解决数据倾斜的问题。这样后期通过reduce进行计算的数据就不会有数据倾斜问题，一个计算的过多，一个计算的过少。这就是分区的作用。  </p>
+<p><strong>map为什么不会数据倾斜？？？</strong><br>map的数据是切片，每一片的大小相等，所以map的输入数据不会出现数据倾斜的问题。  </p>
+<p><strong>sort</strong><br>sort也有默认的的sort。默认的sort是按照ascii进行排序的。（即按照字典进行排序的）<br>为什么要sort？？？定义排序规则</p>
+<p>上图中merge on disk什么意思？？？<br>每次都会溢写到磁盘中，溢写会按照hash值进行合并，相同hash值放到一起。每一次溢写就会生成一个文件，溢写的次数越多，生成的文件越多，这些文件需要进行合并为一个大的文件，如何合并，就是按照hash值进行合并，这是默认的规则。  </p>
+<p>合并的目的？？？<br>减少map的输出，因为后期reduce会移动map的输出到reduce服务器上，减少map的输出，就会减少网络io的操作，所以很有必要的。  </p>
+<p>以上是map的处理  </p>
+<h2 id="reduce过程"><a href="#reduce过程" class="headerlink" title="reduce过程"></a>reduce过程</h2><p>map的处理结果落到磁盘以后，然后会进行merge，为什么merge，如果merge？？？  </p>
+<p>reduce 的输入数据就是map的输出数据，reduce的数据来源是map输出数据的拷贝。拷贝哪些数据，是根据partition的结果，只拷贝分给对应的reduce的数据。之前分区是按照reduce去模后的值进行分区的，分区以后的数据在copy到reduce所在的机器上，同事进行merge，便于下一步reduce进行处理。  </p>
+<p>分区就是在把数据拷贝到reduce的时候起作用的  </p>
+<p>为什么reduce task开始也有merge操作？？？<br>因为reduce会从很多的map输出结果中拷贝数据，这样会有很多个小文件，reduce为了计算，就需要对这些小文件进行merge。这就是为什么reduce开始时要进行merge操作。这个合并不是人为控制的，这个会根据key相同的进行合并，是hadoop自有的功能。合并完成以后相同key的数据会进行merge。  </p>
+<p>两个reduce是可以并发的。  </p>
+<p><strong>抓重点：</strong><br>这个过程比较虽然比较复杂，但是有很多部分是hadoop框架已经做的工作，只有一部分需要我们编程实现！！！  </p>
+<p>哪些部分需要我们编程实现？？？  </p>
+<p>1、partition（如何分区）<br>2、sort 比较（如何比较）<br>3、比较会进行多次<br>4、combiner<br><img src="http://upload-images.jianshu.io/upload_images/437049-428226524c12af6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">  </p>
+<p><strong>注意：</strong>在map执行之后，立刻进行partition，map的输出结果会分到哪个reduce，这个叫做分区，分区以后放在内存中，在溢写的时候，要执行sort和combiner，sort其实就是比较，默认按照ascii大小进行比较。 combiner可能会没有，所以上副图没有画combiner，这个意思是初次合并。  combiner可以减少map的输出数据。<br><img src="http://upload-images.jianshu.io/upload_images/437049-715027dab7315a0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/437049-914fbdfa7991a150.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>MapReduce的Split大小  </p>
+<p>1、max.split(100M)<br>2、min.split(10M)<br>3、block（64M）<br>如何进行切分，切分大小算法<br>4、max(min.split,min(max.split,block))<br>代入如上值为： 64M  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> others </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Hadoop </tag>
+            
+            <tag> MapReduce </tag>
+            
+            <tag> 分布式计算 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[C/C++内存管理详解（二）]]></title>
+      <url>/2017/Cppmemory2.html</url>
+      <content type="html"><![CDATA[<p>本文将继上一篇继续讲解内存管理的问题，这篇主要讨论一下malloc/free和new/delete的用法和区别，及做个总结。</p>
+<a id="more"></a>
+<h1 id="指针参数是如何传递内存的"><a href="#指针参数是如何传递内存的" class="headerlink" title="指针参数是如何传递内存的"></a>指针参数是如何传递内存的</h1><p>如果函数的参数是一个指针，不要指望用该指针去申请动态内存。如下示例中，Test函数的语句GetMemory(str, 200)并没有使str获得期望的内存，str依旧是NULL，为什么？  </p>
+<pre><code>void GetMemory(char *p, int num){
+p = (char *)malloc(sizeof(char) * num);
+}
+void Test(void){
+char *str = NULL;
+GetMemory(str, 100); // str 仍然为 NULL
+strcpy(str, &quot;hello&quot;); // 运行错误
+}
+</code></pre><p>毛病出在函数GetMemory中。编译器总是要为函数的每个参数制作临时副本，指针参数p的副本_p，编译器使_p=p。如果函数体内的程序修改了_p的内容，就导致参数p的内容作相应的修改。这就是指针可以用作输出参数的原因。<br>在本例中，_p申请了新的内存，只是把 _p所指的内存地址改变了，但是p丝毫未变。所以函数GetMemory并不能输出任何东西。事实上，每执行一次GetMemory就会泄露一块内存，因为没有用free释放内存。　　</p>
+<p>如果非得要用指针参数去申请内存，那么应该改用“指向指针的指针”，见示例：</p>
+<pre><code>void GetMemory2(char **p, int num){
+*p = (char *)malloc(sizeof(char) * num);
+}
+void Test2(void){
+char *str = NULL;
+GetMemory2(&amp;str, 100); // 注意参数是 &amp;str，而不是str
+strcpy(str, &quot;hello&quot;);
+cout&lt;&lt; str &lt;&lt; endl;
+
+free(str);
+}
+</code></pre><p>　　由于“指向指针的指针”这个概念不容易理解，我们可以用函数返回值来传递动态内存。这种方法更加简单，见示例：</p>
+<pre><code>char *GetMemory3(int num){
+char *p = (char *)malloc(sizeof(char) * num);
+return p;//返回值
+}
+void Test3(void){
+char *str = NULL;
+str = GetMemory3(100);
+
+strcpy(str, &quot;hello&quot;);
+cout&lt;&lt; str &lt;&lt; endl;
+free(str);
+</code></pre><p>}<br>　　用函数返回值来传递动态内存这种方法虽然好用，但是常常有人把return语句用错了。这里强调不要用return语句返回指向“栈内存”的指针，因为该内存在函数结束时自动消亡，见示例：</p>
+<pre><code>char *GetString(void){
+char p[] = &quot;hello world&quot;;
+return p; // 编译器将提出警告
+}
+void Test4(void){
+char *str = NULL;
+str = GetString(); // str 的内容是垃圾
+cout&lt;&lt; str &lt;&lt; endl;
+}
+</code></pre><p>用调试器逐步跟踪Test4，发现执行str = GetString语句后str不再是NULL指针，但是str的内容不是“hello world”而是垃圾。<br>如果把上述示例改写成如下示例，会怎么样？</p>
+<pre><code>char *GetString2(void){
+char *p = &quot;hello world&quot;;
+return p;
+}
+void Test5(void){
+char *str = NULL;
+str = GetString2();
+cout&lt;&lt; str &lt;&lt; endl;
+}
+</code></pre><p>函数Test5运行虽然不会出错，但是函数GetString2的设计概念却是错误的。因为GetString2内的“hello world”是常量字符串，位于静态存储区，它在程序生命期内恒定不变。无论什么时候调用GetString2，它返回的始终是同一个“只读”的内存块。  </p>
+<h1 id="杜绝“野指针”"><a href="#杜绝“野指针”" class="headerlink" title="杜绝“野指针”"></a>杜绝“野指针”</h1><p>“野指针”不是NULL指针，是指向“垃圾”内存的指针。人们一般不会错用NULL指针，因为用if语句很容易判断。但是“野指针”是很危险的，if语句对它不起作用。 “野指针”的成因主要有三种：<br>(1). 指针变量没有被初始化。任何指针变量刚被创建时不会自动成为NULL指针，它的缺省值是随机的，它会乱指一气。所以，指针变量在创建的同时应当被初始化，要么将指针设置为NULL，要么让它指向合法的内存。例如：</p>
+<pre><code>char *p = NULL;
+char *str = (char *) malloc(100);
+</code></pre><p>(2). 指针p被free或者delete之后，没有置为NULL，让人误以为p是个合法的指针。<br>(3). 指针操作超越了变量的作用域范围。这种情况让人防不胜防，示例程序如下：  </p>
+<pre><code>class A{
+public:
+void Func(void){ cout &lt;&lt; “Func of class A” &lt;&lt; endl; }
+};
+void Test(void){
+A *p;
+{
+A a;
+p = &amp;a; // 注意 a 的生命期
+}
+p-&gt;Func(); // p是“野指针”
+}
+</code></pre><p>函数Test在执行语句p-&gt;Func()时，对象a已经消失，而p是指向a的，所以p就成了“野指针”。但奇怪的是我运行这个程序时居然没有出错，这可能与编译器有关。  </p>
+<h1 id="有了malloc-free为什么还要new-delete"><a href="#有了malloc-free为什么还要new-delete" class="headerlink" title="有了malloc/free为什么还要new/delete"></a>有了malloc/free为什么还要new/delete</h1><p>malloc与free是C++/C语言的标准库函数，new/delete是C++的运算符。它们都可用于申请动态内存和释放内存。<br>对于非内部数据类型的对象而言，光用maloc/free无法满足动态对象的要求。对象在创建的同时要自动执行构造函数，对象在消亡之前要自动执行析构函数。由于malloc/free是库函数而不是运算符，不在编译器控制权限之内，不能够把执行构造函数和析构函数的任务强加于malloc/free。<br>因此C++语言需要一个能完成动态内存分配和初始化工作的运算符new，以及一个能完成清理与释放内存工作的运算符delete。注意new/delete不是库函数。我们先看一看malloc/free和new/delete如何实现对象的动态内存管理，见示例：    </p>
+<pre><code>    class Obj{
+    public :
+　　Obj(void){ cout &lt;&lt; “Initialization” &lt;&lt; endl; }
+　　~Obj(void){ cout &lt;&lt; “Destroy” &lt;&lt; endl; }
+　　void Initialize(void){ cout &lt;&lt; “Initialization” &lt;&lt; endl; }
+　　void Destroy(void){ cout &lt;&lt; “Destroy” &lt;&lt; endl; }
+};
+void UseMallocFree(void){
+    Obj *a = (obj *)malloc(sizeof(obj)); // 申请动态内存
+    a-&gt;Initialize(); // 初始化
+    //…
+
+    a-&gt;Destroy(); // 清除工作
+    free(a); // 释放内存
+}
+void UseNewDelete(void){
+    Obj *a = new Obj; // 申请动态内存并且初始化
+    //…
+    delete a; // 清除并且释放内存
+}
+</code></pre><p>类Obj的函数Initialize模拟了构造函数的功能，函数Destroy模拟了析构函数的功能。函数UseMallocFree中，由于malloc/free不能执行构造函数与析构函数，必须调用成员函数Initialize和Destroy来完成初始化与清除工作。函数UseNewDelete则简单得多。<br>所以我们不要企图用malloc/free来完成动态对象的内存管理，应该用new/delete。由于内部数据类型的“对象”没有构造与析构的过程，对它们而言malloc/free和new/delete是等价的。<br>既然new/delete的功能完全覆盖了malloc/free，为什么C++不把malloc/free淘汰出局呢？这是因为C++程序经常要调用C函数，而C程序只能用malloc/free管理动态内存。<br>如果用free释放“new创建的动态对象”，那么该对象因无法执行析构函数而可能导致程序出错。如果用delete释放“malloc申请的动态内存”，结果也会导致程序出错，但是该程序的可读性很差。所以new/delete必须配对使用，malloc/free也一样。  </p>
+<h2 id="内存耗尽怎么办"><a href="#内存耗尽怎么办" class="headerlink" title="内存耗尽怎么办"></a>内存耗尽怎么办</h2><p>如果在申请动态内存时找不到足够大的内存块，malloc和new将返回NULL指针，宣告内存申请失败。通常有三种方式处理“内存耗尽”问题。<br>(1). 判断指针是否为NULL，如果是则马上用return语句终止本函数。例如：  </p>
+<pre><code>void Func(void){
+A *a = new A;
+if(a == NULL)
+    return;
+…
+}
+</code></pre><p>(2). 判断指针是否为NULL，如果是则马上用exit(1)终止整个程序的运行。例如：</p>
+<pre><code>void Func(void){
+A *a = new A;
+if(a == NULL){
+    cout &lt;&lt; “Memory Exhausted” &lt;&lt; endl;
+    exit(1);
+}
+…
+}
+</code></pre><p>(3). 为new和malloc设置异常处理函数。例如Visual C++可以用_set_new_hander函数为new设置用户自己定义的异常处理函数，也可以让malloc享用与new相同的异常处理函数。详细内容请参考C++使用手册。<br>上述 (1)、(2) 方式使用最普遍。如果一个函数内有多处需要申请动态内存，那么方式 (1) 就显得力不从心（释放内存很麻烦），应该用方式 (2) 来处理。<br>很多人不忍心用exit(1)，问：“不编写出错处理程序，让操作系统自己解决行不行？”<br>不行。如果发生“内存耗尽”这样的事情，一般说来应用程序已经无药可救。如果不用exit(1)把坏程序杀死，它可能会害死操作系统。道理如同：如果不把歹徒击毙，歹徒在老死之前会犯下更多的罪。<br>有一个很重要的现象要告诉大家。对于32位以上的应用程序而言，无论怎样使用malloc与new，几乎不可能导致“内存耗尽”。对于32位以上的应用程序，“内存耗尽”错误处理程序毫无用处。这下可把Unix和Windows程序员们乐坏了：反正错误处理程序不起作用，我就不写了，省了很多麻烦。<br>必须强调：不加错误处理将导致程序的质量很差，千万不可因小失大。  </p>
+<pre><code>void main(void){
+float *p = NULL;
+while(TRUE){
+    p = new float[1000000];
+    cout &lt;&lt; “eat memory” &lt;&lt; endl;
+    if(p==NULL)
+        exit(1);
+    }
+}
+</code></pre><h1 id="malloc-free的使用要点"><a href="#malloc-free的使用要点" class="headerlink" title="malloc/free的使用要点"></a>malloc/free的使用要点</h1><p>函数malloc的原型如下：  </p>
+<pre><code>void * malloc(size_t size);
+</code></pre><p>用malloc申请一块长度为length的整数类型的内存，程序如下：</p>
+<pre><code>int *p = (int *) malloc(sizeof(int) * length);
+</code></pre><p>我们应当把注意力集中在两个要素上：“类型转换”和“sizeof”。</p>
+<ul>
+<li>malloc返回值的类型是void<em>，所以在调用malloc时要显式地进行类型转换，将void </em>转换成所需要的指针类型。  </li>
+<li><p>malloc函数本身并不识别要申请的内存是什么类型，它只关心内存的总字节数。我们通常记不住int, float等数据类型的变量的确切字节数。例如int变量在16位系统下是2个字节，在32位下是4个字节；而float变量在16位系统下是4个字节，在32位下也是4个字节。最好用以下程序作一次测试：  </p>
+<p>  cout &lt;&lt; sizeof(char) &lt;&lt; endl;<br>  cout &lt;&lt; sizeof(int) &lt;&lt; endl;<br>  cout &lt;&lt; sizeof(unsigned int) &lt;&lt; endl;<br>  cout &lt;&lt; sizeof(long) &lt;&lt; endl;<br>  cout &lt;&lt; sizeof(unsigned long) &lt;&lt; endl;<br>  cout &lt;&lt; sizeof(float) &lt;&lt; endl;<br>  cout &lt;&lt; sizeof(double) &lt;&lt; endl;<br>  cout &lt;&lt; sizeof(void *) &lt;&lt; endl;</p>
+</li>
+</ul>
+<p>在malloc的“()”中使用sizeof运算符是良好的风格，但要当心有时我们会昏了头，写出 p = malloc(sizeof(p))这样的程序来。<br>函数free的原型如下：</p>
+<pre><code>void free( void * memblock );
+</code></pre><p>为什么free函数不象malloc函数那样复杂呢？这是因为指针p的类型以及它所指的内存的容量事先都是知道的，语句free(p)能正确地释放内存。如果p是NULL指针，那么free对p无论操作多少次都不会出问题。如果p不是NULL指针，那么free对p连续操作两次就会导致程序运行错误。  </p>
+<h1 id="new-delete的使用要点"><a href="#new-delete的使用要点" class="headerlink" title="new/delete的使用要点"></a>new/delete的使用要点</h1><p>运算符new使用起来要比函数malloc简单得多，例如：</p>
+<pre><code>int *p1 = (int *)malloc(sizeof(int) * length);
+int *p2 = new int[length];
+</code></pre><p>这是因为new内置了sizeof、类型转换和类型安全检查功能。对于非内部数据类型的对象而言，new在创建动态对象的同时完成了初始化工作。如果对象有多个构造函数，那么new的语句也可以有多种形式。例如：</p>
+<pre><code>class Obj{
+public :
+Obj(void); // 无参数的构造函数
+Obj(int x); // 带一个参数的构造函数
+…
+}
+void Test(void){
+Obj *a = new Obj;
+Obj *b = new Obj(1); // 初值为1
+…
+delete a;
+delete b;
+}
+</code></pre><p>如果用new创建对象数组，那么只能使用对象的无参数构造函数。例如：</p>
+<pre><code>Obj *objects = new Obj[100]; // 创建100个动态对象
+</code></pre><p>不能写成：</p>
+<pre><code>Obj *objects = new Obj[100](1);// 创建100个动态对象的同时赋初值1
+</code></pre><p>在用delete释放对象数组时，留意不要丢了符号‘[]’。例如：</p>
+<pre><code>delete []objects; // 正确的用法
+delete objects; // 错误的用法
+</code></pre><p>后者有可能引起程序崩溃和内存泄漏。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> C++ </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> C++ </tag>
+            
+            <tag> 内存 </tag>
+            
+            <tag> 指针 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[C/C++内存管理详解（一）]]></title>
+      <url>/2017/Cppmemory.html</url>
+      <content type="html"><![CDATA[<p>内存管理是C++最令人切齿痛恨的问题，也是C++最有争议的问题，C++高手从中获得了更好的性能，更大的自由，C++菜鸟的收获则是一遍一遍的检查代码和对C++的痛恨，但内存管理在C++中无处不在，内存泄漏几乎在每个C++程序中都会发生，因此要想成为C++高手，内存管理一关是必须要过的，除非放弃C++，转到Java或者.NET，他们的内存管理基本是自动的，当然你也放弃了自由和对内存的支配权，还放弃了C++超绝的性能。<br>　　伟大的Bill Gates 曾经失言：<br>　640K ought to be enough for everybody — Bill Gates 1981<br>程序员们经常编写内存管理程序，往往提心吊胆。如果不想触雷，唯一的解决办法就是发现所有潜伏的地雷并且排除它们，躲是躲不了的。</p>
+<a id="more"></a>
+<h1 id="内存分配方式"><a href="#内存分配方式" class="headerlink" title="内存分配方式"></a>内存分配方式</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在C++中，内存分成5个区，他们分别是堆、栈、自由存储区、全局/静态存储区和常量存储区。<br><strong>栈：</strong>在执行函数时，函数内局部变量的存储单元都可以在栈上创建，函数执行结束时这些存储单元自动被释放。栈内存分配运算内置于处理器的指令集中，效率很高，但是分配的内存容量有限。<br><strong>堆：</strong>就是那些由,malloc分配的内存块，他们的释放编译器不去管，由我们的应用程序去控制，一般一个malloc对应一个 free。如果程序员没有释放掉，那么在程序结束后，操作系统会自动回收。<br><strong>自由存储区：</strong>就是那些由new等分配的内存块，他和堆是十分相似的，不过它是用delete来结束自己的生命的。自由存储区是否能够是堆（问题等价于 new 是否能在堆上动态分配内存），这取决于 operator new 的实现细节。事实上，自由存储区不仅可以是堆，还可以是静态存储区。    </p>
+<blockquote>
+<p>(new与malloc的区别之一：new操作符从自由存储区（free store）上为对象动态分配内存空间，而malloc函数从堆上动态分配内存。自由存储区是C++基于new操作符的一个抽象概念，凡是通过new操作符进行内存申请，该内存即为自由存储区。而堆是操作系统中的术语，是操作系统所维护的一块特殊内存，用于程序的内存动态分配，C语言使用malloc从堆上分配内存，使用free释放已分配的对应内存。)   </p>
+</blockquote>
+<p><strong>全局/静态存储区</strong>：全局变量和静态变量被分配到同一块内存中，在以前的C语言中，全局变量又分为初始化的和未初始化的，在C++里面没有这个区分了，他们共同占用同一块内存区。<br><strong>常量存储区：</strong>这是一块比较特殊的存储区，他们里面存放的是常量，不允许修改。    </p>
+<h2 id="明确区分堆与栈"><a href="#明确区分堆与栈" class="headerlink" title="明确区分堆与栈"></a>明确区分堆与栈</h2><p>主要的区别由以下几点：<br>　　(1). 管理方式不同<br>　　(2). 空间大小不同<br>　　(3). 能否产生碎片不同<br>　　(4). 生长方向不同<br>　　(5). 分配方式不同<br>　　(6). 分配效率不同<br><strong>管理方式</strong>：对于栈来讲，是由编译器自动管理，无需我们手工控制；对于堆来说，释放工作由程序员控制，容易产生memory leak。<br><strong>空间大小</strong>：一般来讲在32位系统下，堆内存可以达到4G的空间，从这个角度来看堆内存几乎是没有什么限制的。但是对于栈来讲，一般都是有一定的空间大小的，例如，在VC6下面，默认的栈空间大小是1M（好像是，记不清楚了）。当然，我们可以修改：打开工程，依次操作菜单如下：Project-&gt;Setting-&gt;Link，在Category 中选中Output，然后在Reserve中设定堆栈的最大值和commit。<br>注意：reserve最小值为4Byte；commit是保留在虚拟内存的页文件里面，它设置的较大会使栈开辟较大的值，可能增加内存的开销和启动时间。<br><strong>碎片问题</strong>：对于堆来讲，频繁的new/delete势必会造成内存空间的不连续，从而造成大量的碎片，使程序效率降低。对于栈来讲，则不会存在这个问题，因为栈是先进后出的队列，他们是如此的一一对应，以至于永远都不可能有一个内存块从栈中间弹出，在他弹出之前，在他上面的后进的栈内容已经被弹出，详细的可以参考数据结构，这里我们就不再一一讨论了。<br><strong>生长方向</strong>：对于堆来讲，生长方向是向上的，也就是向着内存地址增加的方向；对于栈来讲，它的生长方向是向下的，是向着内存地址减小的方向增长。<br><strong>分配方式</strong>：堆都是动态分配的，没有静态分配的堆。栈有2种分配方式：静态分配和动态分配。静态分配是编译器完成的，比如局部变量的分配。动态分配由alloca函数进行分配，但是栈的动态分配和堆是不同的，他的动态分配是由编译器进行释放，无需我们手工实现。<br><strong>分配效率</strong>：栈是机器系统提供的数据结构，计算机会在底层对栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了栈的效率比较高。堆则是C/C++函数库提供的，它的机制是很复杂的，例如为了分配一块内存，库函数会按照一定的算法（具体的算法可以参考数据结构/操作系统）在堆内存中搜索可用的足够大小的空间，如果没有足够大小的空间（可能是由于内存碎片太多），就有可能调用系统功能去增加程序数据段的内存空间，这样就有机会分到足够大小的内存，然后进行返回。显然，堆的效率比栈要低得多。<br>从这里我们可以看到，堆和栈相比，由于大量new/delete的使用，容易造成大量的内存碎片；由于没有专门的系统支持，效率很低；由于可能引发用户态和核心态的切换，内存的申请，代价变得更加昂贵。所以栈在程序中是应用最广泛的，就算是函数的调用也利用栈去完成，函数调用过程中的参数，返回地址，EBP和局部变量都采用栈的方式存放。所以，我们推荐大家尽量用栈，而不是用堆。<br>虽然栈有如此众多的好处，但是由于和堆相比不是那么灵活，有时候分配大量的内存空间，还是用堆好一些。<br>无论是堆还是栈，都要防止越界现象的发生（除非你是故意使其越界），因为越界的结果要么是程序崩溃，要么是摧毁程序的堆、栈结构，产生以想不到的结果,就算是在你的程序运行过程中，没有发生上面的问题，你还是要小心，说不定什么时候就崩掉，那时候debug可是相当困难的：）  </p>
+<h1 id="控制C-的内存分配"><a href="#控制C-的内存分配" class="headerlink" title="控制C++的内存分配"></a>控制C++的内存分配</h1><p>在嵌入式系统中使用C++的一个常见问题是内存分配，即对new 和 delete 操作符的失控。<br>具有讽刺意味的是，问题的根源却是C++对内存的管理非常的容易而且安全。具体地说，当一个对象被消除时，它的析构函数能够安全的释放所分配的内存。<br>这当然是个好事情，但是这种使用的简单性使得程序员们过度使用new 和 delete，而不注意在嵌入式C++环境中的因果关系。并且，在嵌入式系统中，由于内存的限制，频繁的动态分配不定大小的内存会引起很大的问题以及堆破碎的风险。<br>作为忠告，保守的使用内存分配是嵌入式环境中的第一原则。<br>但当你必须要使用new和delete时，你不得不控制C++中的内存分配。你需要用一个全局的new 和delete来代替系统的内存分配符，并且一个类一个类的重载new和delete。<br>一个防止堆破碎的通用方法是从不同固定大小的内存持中分配不同类型的对象。对每个类重载new 和delete就提供了这样的控制。    </p>
+<h2 id="重载全局的new和delete操作符"><a href="#重载全局的new和delete操作符" class="headerlink" title="重载全局的new和delete操作符"></a>重载全局的new和delete操作符</h2><p>可以很容易地重载new 和 delete 操作符，如下所示:</p>
+<pre><code>void * operator new(size_t size){
+void *p = malloc(size);  
+return (p);  
+        }  
+void operator delete(void *p){  
+free(p);  }
+</code></pre><p>这段代码可以代替默认的操作符来满足内存分配的请求。出于解释C++的目的，我们也可以直接调用malloc() 和free()。<br>也可以对单个类的new 和 delete操作符重载。这是你能灵活的控制对象的内存分配。</p>
+<pre><code>class TestClass {
+public:
+void * operator new(size_t size);
+void operator delete(void *p);
+// .. other members here ...
+};
+void *TestClass::operator new(size_t size){
+void *p = malloc(size); // Replace this with alternative allocator
+return (p);
+}
+void TestClass::operator delete(void *p){
+free(p); // Replace this with alternative de-allocator
+}
+</code></pre><p>所有TestClass 对象的内存分配都采用这段代码。更进一步，任何从TestClass 继承的类也都采用这一方式，除非它自己也重载了new 和 delete 操作符。通过重载new 和 delete 操作符的方法，你可以自由地采用不同的分配策略，从不同的内存池中分配不同的类对象。</p>
+<h2 id="为单个的类重载new-和delete"><a href="#为单个的类重载new-和delete" class="headerlink" title="为单个的类重载new[]和delete[]"></a>为单个的类重载new[]和delete[]</h2><p>必须小心对象数组的分配。你可能希望调用到被你重载过的new 和 delete 操作符，但并不如此。内存的请求被定向到全局的new[]和delete[] 操作符，而这些内存来自于系统堆。<br>C++将对象数组的内存分配作为一个单独的操作，而不同于单个对象的内存分配。为了改变这种方式，你同样需要重载new[] 和 delete[]操作符。  </p>
+<pre><code>class TestClass {
+public:
+void * operator new[ ](size_t size);
+void operator delete[ ](void *p);
+// .. other members here ..
+};
+void *TestClass::operator new[ ](size_t size){
+void *p = malloc(size);
+return (p);
+}
+void TestClass::operator delete[ ](void *p){
+free(p);
+}
+int main(void){
+TestClass *p = new TestClass[10];
+// ... etc ...
+delete[ ] p;
+}
+</code></pre><p>　　但是注意：对于多数C++的实现，new[]操作符中的个数参数是数组的大小加上额外的存储对象数目的一些字节。在你的内存分配机制重要考虑的这一点。你应该尽量避免分配对象数组，从而使你的内存分配策略简单。</p>
+<h1 id="常见的内存错误及其对策"><a href="#常见的内存错误及其对策" class="headerlink" title="常见的内存错误及其对策"></a>常见的内存错误及其对策</h1><p>发生内存错误是件非常麻烦的事情。编译器不能自动发现这些错误，通常是在程序运行时才能捕捉到。而这些错误大多没有明显的症状，时隐时现，增加了改错的难度。有时用户怒气冲冲地把你找来，程序却没有发生任何问题，你一走，错误又发作了。 常见的内存错误及其对策如下：</p>
+<ul>
+<li><p>内存分配未成功，却使用了它。编程新手常犯这种错误，因为他们没有意识到内存分配会不成功。常用解决办法是，在使用内存之前检查指针是否为NULL。如果指针p是函数的参数，那么在函数的入口处用assert(p!=NULL)进行检查。如果是用malloc或new来申请内存，应该用if(p==NULL) 或if(p!=NULL)进行防错处理。</p>
+</li>
+<li><p>内存分配虽然成功，但是尚未初始化就引用它。犯这种错误主要有两个起因：一是没有初始化的观念；二是误以为内存的缺省初值全为零，导致引用初值错误（例如数组）。内存的缺省初值究竟是什么并没有统一的标准，尽管有些时候为零值，我们宁可信其无不可信其有。所以无论用何种方式创建数组，都别忘了赋初值，即便是赋零值也不可省略，不要嫌麻烦。</p>
+</li>
+<li><p>内存分配成功并且已经初始化，但操作越过了内存的边界。例如在使用数组时经常发生下标“多1”或者“少1”的操作。特别是在for循环语句中，循环次数很容易搞错，导致数组操作越界。</p>
+</li>
+</ul>
+<ul>
+<li><p>忘记了释放内存或删除（delete）指向动态内存的指针失败，因而无法将该块内存返还给自由存储区，造成内存泄露。含有这种错误的函数每被调用一次就丢失一块内存。刚开始时系统的内存充足，你看不到错误。终有一次程序突然死掉，系统出现提示：内存耗尽。动态内存的申请与释放必须配对使用。</p>
+</li>
+<li><p>对同一块内存空间使用两次delete表达式。当两个指针指向同一个动态创建的对象，删除时就会发生错误。如果在其中一个指针做delete操作将释放内存，但接着delete第二个指针则会造成自由存储区的破坏。</p>
+</li>
+<li><p>释放了内存却继续使用它。<br>　　有三种情况：<br>　　(1). 程序中的对象调用关系过于复杂，实在难以搞清楚某个对象究竟是否已经释放了内存，此时应该重新设计数据结构，从根本上解决对象管理的混乱局面。<br>　　(2). 函数的return语句写错了，注意不要返回指向“栈内存”的“指针”或者“引用”，因为该内存在函数体结束时被自动销毁。<br>　　(3). 使用free或delete释放了内存后，没有将指针设置为NULL。导致产生“野指针”。  </p>
+<h2 id="那么如何避免产生野指针呢？"><a href="#那么如何避免产生野指针呢？" class="headerlink" title="那么如何避免产生野指针呢？"></a>那么如何避免产生野指针呢？</h2><p>这里列出了5条规则，平常写程序时多注意一下，养成良好的习惯。<br>规则1：用malloc或new申请内存之后，应该立即检查指针值是否为NULL。防止使用指针值为NULL的内存。<br>规则2：不要忘记为数组和动态内存赋初值。防止将未被初始化的内存作为右值使用。<br>规则3：避免数组或指针的下标越界，特别要当心发生“多1”或者“少1”操作。<br>规则4：动态内存的申请与释放必须配对，防止内存泄漏。<br>规则5：用free或delete释放了内存之后，立即将指针设置为NULL，防止产生“野指针”。  </p>
+<h1 id="指针与数组的对比"><a href="#指针与数组的对比" class="headerlink" title="指针与数组的对比"></a>指针与数组的对比</h1><p>C++/C程序中，指针和数组在不少地方可以相互替换着用，让人产生一种错觉，以为两者是等价的。<br>数组要么在静态存储区被创建（如全局数组），要么在栈上被创建。数组名对应着（而不是指向）一块内存，其地址与容量在生命期内保持不变，只有数组的内容可以改变。<br>指针可以随时指向任意类型的内存块，它的特征是“可变”，所以我们常用指针来操作动态内存。指针远比数组灵活，但也更危险。<br>下面以字符串为例比较指针与数组的特性。  </p>
+<h2 id="修改内容"><a href="#修改内容" class="headerlink" title="修改内容"></a>修改内容</h2><p>下面示例中，字符数组a的容量是6个字符，其内容为 hello。a的内容可以改变，如a[0]= ‘X’。指针p指向常量字符串“world”（位于静态存储区，内容为world），<strong>常量字符串的内容是不可以被修改的</strong>。从语法上看，编译器并不觉得语句p[0]= ‘X’有什么不妥，但是该语句企图修改常量字符串的内容而导致运行错误。  </p>
+<p>  char a[] = “hello”;<br>  a[0] = ‘X’;<br>  cout &lt;&lt; a &lt;&lt; endl;<br>  char *p = “world”; // 注意p指向常量字符串<br>  p[0] = ‘X’; // 编译器不能发现该错误<br>  cout &lt;&lt; p &lt;&lt; endl;</p>
+</li>
+</ul>
+<h2 id="内容复制与比较"><a href="#内容复制与比较" class="headerlink" title="内容复制与比较"></a>内容复制与比较</h2><p>不能对数组名进行直接复制与比较。若想把数组a的内容复制给数组b，不能用语句 b = a ，否则将产生编译错误。应该用标准库函数strcpy进行复制。同理，比较b和a的内容是否相同，不能用if(b==a) 来判断，应该用标准库函数strcmp进行比较。<br>语句 p = a 并不能把a的内容复制指针p，而是把a的地址赋给了p。要想复制a的内容，可以先用库函数malloc为p申请一块容量为strlen(a)+1个字符的内存，再用strcpy进行字符串复制。同理，语句if(p==a) 比较的不是内容而是地址，应该用库函数strcmp来比较。  </p>
+<pre><code>// 数组…
+char a[] = &quot;hello&quot;;
+char b[10];
+strcpy(b, a); // 不能用 b = a;
+if(strcmp(b, a) == 0) // 不能用 if (b == a)
+…
+// 指针…
+int len = strlen(a);
+char *p = (char *)malloc(sizeof(char)*(len+1));
+strcpy(p,a); // 不要用 p = a;
+if(strcmp(p, a) == 0) // 不要用 if (p == a)
+…
+</code></pre><h2 id="计算内存容量"><a href="#计算内存容量" class="headerlink" title="计算内存容量"></a>计算内存容量</h2><p>用运算符sizeof可以计算出数组的容量（字节数）。如下示例中，sizeof(a)的值是12（注意别忘了’’）。指针p指向a，但是sizeof(p)的值却是4。这是因为sizeof(p)得到的是一个指针变量的字节数，相当于sizeof(char<em>)，而不是p所指的内存容量。<em>*C++/C语言没有办法知道指针所指的内存容量，除非在申请内存时记住它。  </em></em>  </p>
+<pre><code>char a[] = &quot;hello world&quot;;
+char *p = a;
+cout&lt;&lt; sizeof(a) &lt;&lt; endl; // 12字节
+cout&lt;&lt; sizeof(p) &lt;&lt; endl; // 4字节
+</code></pre><p>注意当数组作为函数的参数进行传递时，该数组自动退化为同类型的指针。如下示例中，不论数组a的容量是多少，sizeof(a)始终等于sizeof(char *)。  </p>
+<pre><code>void Func(char a[100]){
+cout&lt;&lt; sizeof(a) &lt;&lt; endl; // 4字节而不是100字节
+}
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> C++ </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> C++ </tag>
+            
+            <tag> 内存 </tag>
+            
+            <tag> 指针 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[十大机器学习算法介绍（二）]]></title>
+      <url>/2017/ML2.html</url>
+      <content type="html"><![CDATA[<h1 id="K均值算法"><a href="#K均值算法" class="headerlink" title="K均值算法"></a>K均值算法</h1><p>K – 均值算法是一种非监督式学习算法，它能解决聚类问题。使用 K – 均值算法来将一个数据归入一定数量的集群（假设有 k 个集群）的过程是简单的。一个集群内的数据点是均匀齐次的，并且异于别的集群。</p>
+<p>还记得从墨水渍里找出形状的活动吗？K – 均值算法在某方面类似于这个活动。观察形状，并延伸想象来找出到底有多少种集群或者总体。<br><img src="http://ww3.sinaimg.cn/mw690/6941baebjw1ewidi90napj207w08cq2y.jpg" alt=""> </p>
+<p><strong>K – 均值算法怎样形成集群：</strong></p>
+<p>K – 均值算法给每个集群选择k个点。这些点称作为质心。<br>每一个数据点与距离最近的质心形成一个集群，也就是 k 个集群。<br>根据现有的类别成员，找出每个类别的质心。现在我们有了新质心。<br>当我们有新质心后，重复步骤 2 和步骤 3。找到距离每个数据点最近的质心，并与新的k集群联系起来。重复这个过程，直到数据都收敛了，也就是当质心不再改变。</p>
+<a id="more"></a>
+<p><strong>如何决定 K 值：</strong></p>
+<p>K – 均值算法涉及到集群，每个集群有自己的质心。一个集群内的质心和各数据点之间距离的平方和形成了这个集群的平方值之和。同时，当所有集群的平方值之和加起来的时候，就组成了集群方案的平方值之和。</p>
+<p>我们知道，当集群的数量增加时，K值会持续下降。但是，如果你将结果用图表来表示，你会看到距离的平方总和快速减少。到某个值 k 之后，减少的速度就大大下降了。在此，我们可以找到集群数量的最优值。<br><img src="http://ww2.sinaimg.cn/mw690/6941baebjw1ewidi8p97lj20sg0ect9p.jpg" alt=""></p>
+<p>Python代码</p>
+<pre><code>#Import Library
+from sklearn.cluster import KMeans
+
+#Assumed you have, X (attributes) for training data set and x_test(attributes) of test_dataset
+# Create KNeighbors classifier object model 
+k_means = KMeans(n_clusters=3, random_state=0)
+
+# Train the model using the training sets and check score
+model.fit(X)
+
+#Predict Output
+predicted= model.predict(x_test)
+</code></pre><h1 id="降维算法"><a href="#降维算法" class="headerlink" title="降维算法"></a>降维算法</h1><p>在过去的 4 到 5 年里，在每一个可能的阶段，信息捕捉都呈指数增长。公司、政府机构、研究组织在应对着新资源以外，还捕捉详尽的信息。</p>
+<p>举个例子：电子商务公司更详细地捕捉关于顾客的资料：个人信息、网络浏览记录、他们的喜恶、购买记录、反馈以及别的许多信息，比你身边的杂货店售货员更加关注你。</p>
+<p>作为一个数据科学家，我们提供的数据包含许多特点。这听起来给建立一个经得起考研的模型提供了很好材料，但有一个挑战：如何从 1000 或者 2000 里分辨出最重要的变量呢？在这种情况下，降维算法和别的一些算法（比如决策树、随机森林、PCA、因子分析）帮助我们根据相关矩阵，缺失的值的比例和别的要素来找出这些重要变量。 </p>
+<p>Python代码  </p>
+<pre><code>#Import Library
+from sklearn import decomposition
+
+#Assumed you have training and test data set as train and test
+# Create PCA obeject pca= decomposition.PCA(n_components=k) #default value of k =min(n_sample, n_features)
+# For Factor analysis
+#fa= decomposition.FactorAnalysis()
+# Reduced the dimension of training dataset using PCA
+train_reduced = pca.fit_transform(train)
+
+#Reduced the dimension of test dataset
+test_reduced = pca.transform(test)
+
+#For more detail on this, please refer  this link.
+</code></pre><h1 id="Gradient-Boosting-和-AdaBoost-算法"><a href="#Gradient-Boosting-和-AdaBoost-算法" class="headerlink" title="Gradient Boosting 和 AdaBoost 算法"></a>Gradient Boosting 和 AdaBoost 算法</h1><p>当我们要处理很多数据来做一个有高预测能力的预测时，我们会用到 GBM 和 AdaBoost 这两种 boosting 算法。boosting 算法是一种集成学习算法。它结合了建立在多个基础估计值基础上的预测结果，来增进单个估计值的可靠程度。这些 boosting 算法通常在数据科学比赛如 Kaggl、AV Hackathon、CrowdAnalytix 中很有效。 </p>
+<p>Python代码： </p>
+<pre><code>#Import Library
+from sklearn.ensemble import GradientBoostingClassifier
+
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset
+# Create Gradient Boosting Classifier object
+model= GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=0)
+
+# Train the model using the training sets and check score
+model.fit(X, y)
+
+#Predict Output
+predicted= model.predict(x_test)
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> ML </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> machine learning </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[十大机器学习算法介绍（一）]]></title>
+      <url>/2017/ML.html</url>
+      <content type="html"><![CDATA[<p><em>机器学习算法分为三类：有监督学习、无监督学习、增强学习。有监督学习需要标识数据（用于训练，即有正例又有负例），无监督学习不需要标识数据，增强学习介于两者之间（有部分标识数据）。下面将向大家具体介绍机器学习中10大算法（主要介绍有监督、无监督两类）。</em></p>
+<h1 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a><strong>监督学习</strong></h1><h2 id="1-决策树"><a href="#1-决策树" class="headerlink" title="1 决策树"></a>1 决策树</h2><p>决策树是一种树形结构，为人们提供决策依据，决策树可以用来回答yes和no问题，它通过树形结构将各种情况组合都表示出来，每个分支表示一次选择（选择yes还是no），直到所有选择都进行完毕，最终给出正确答案。 </p>
+<a id="more"></a>  
+<p>定义：决策树（decision tree）是一个树结构（可以是二叉树或非二叉树）。其每个非叶节点表示一个特征属性上的测试，每个分支代表这个特征属性在某个值域上的输出，而每个叶节点存放一个类别。使用决策树进行决策的过程就是从根节点开始，测试待分类项中相应的特征属性，并按照其值选择输出分支，直到到达叶子节点，将叶子节点存放的类别作为决策结果。<br><img src="http://cdn4.infoqstatic.com/statics_s2_20170711-0402/resource/articles/10-algorithms-machine-learning-engineers-need-to-know/zh/resources/0.jpg" alt=""><br>构造决策树的关键步骤是分裂属性。所谓分裂属性就是在某个节点处按照某一特征属性的不同划分构造不同的分支，其目标是让各个分裂子集尽可能地“纯”。尽可能“纯”就是尽量让一个分裂子集中待分类项属于同一类别。分裂属性分为三种不同的情况：</p>
+<p>   1、属性是离散值且不要求生成二叉决策树。此时用属性的每一个划分作为一个分支。</p>
+<p>   2、属性是离散值且要求生成二叉决策树。此时使用属性划分的一个子集进行测试，按照“属于此子集”和“不属于此子集”分成两个分支。</p>
+<p>   3、属性是连续值。此时确定一个值作为分裂点split_point，按照   &gt;split_point和&lt;=split_point生成两个分支。</p>
+<h3 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h3><p>信息增益（information gain）表示得知特征X的信息而使得类Y的信息的不确定性减少的程度。<br>定义：特征A对训练数据集D的信息增益g（D,A），定义集合D的经验熵H（D）与特征A给定条件下D的经验条件熵H（D|A）之差。一般地，熵与条件熵之差成为互信息（mutual information），决策树学习中的信息增益等价于训练数据集中类与特征的互信息。<br>ID3算法的核心是在决策树各个子结点上应用信息增益准则选择特征，递归的构建决策树。<br>具体方法是:从根结点开始，对结点计算所有可能的特征的信息增益，选择信息增益最大的特征作为结点的特征，由该特征的不同取值建立子结点；再对子结点递归调用以上方法，构建决策树。直到所有特征的信息增益均很小或没有特征可以选择为止。  </p>
+<h3 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h3><p>ID3算法存在一个问题，就是偏向于多值属性，例如，如果存在唯一标识属性ID，则ID3会选择它作为分裂属性，这样虽然使得划分充分纯净，但这种划分对分类几乎毫无用处。ID3的后继算法C4.5使用增益率（gain ratio）的信息增益扩充，试图克服这个偏倚。<br>C4.5算法首先定义了“分裂信息”，其定义可以表示成：</p>
+<p><center><img src="http://img.blog.csdn.net/20160225163257252?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="Alt text"></center><br>其中各符号意义和ID3算法相同，然后增益率定义为：  </p>
+<p><center><img src="http://img.blog.csdn.net/20160225163349611?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="Alt text"></center><br>C4.5选择具有最大增益率的属性作为分裂属性，其具体应用于ID3类似。<br>python代码：</p>
+<pre><code>#Import Library
+#Import other necessary libraries like pandas, numpy...
+from sklearn import tree
+
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset
+# Create tree object 
+model = tree.DecisionTreeClassifier(criterion=&apos;gini&apos;) # for classification, here you can change the algorithm as gini or entropy (information gain) by default it is gini  
+
+# model = tree.DecisionTreeRegressor() for regression
+# Train the model using the training sets and check score
+model.fit(X, y)
+model.score(X, y)
+
+#Predict Output
+predicted= model.predict(x_test)
+</code></pre><h2 id="2-朴素贝叶斯分类（NBC）"><a href="#2-朴素贝叶斯分类（NBC）" class="headerlink" title="2 朴素贝叶斯分类（NBC）"></a>2 朴素贝叶斯分类（NBC）</h2><p>在预示变量间相互独立的前提下，根据贝叶斯定理可以得到朴素贝叶斯这个分类方法。用更简单的话来说，一个朴素贝叶斯分类器假设一个分类的特性与该分类的其它特性不相关。举个例子，如果一个水果又圆又红，并且直径大约是 3 英寸，那么这个水果可能会是苹果。即便这些特性互相依赖，或者依赖于别的特性的存在，朴素贝叶斯分类器还是会假设这些特性分别独立地暗示这个水果是个苹果。</p>
+<p>朴素贝叶斯模型易于建造，且对于大型数据集非常有用。虽然简单，但是朴素贝叶斯的表现却超越了非常复杂的分类方法。</p>
+<p>贝叶斯定理提供了一种从P(c)、P(x)和P(x|c) 计算后验概率 P(c|x) 的方法。请看以下等式：<br><img src="http://ww4.sinaimg.cn/mw690/6941baebjw1ewidiaf1esj208c04sdg3.jpg" alt=""><br>在这里，</p>
+<p>P(c|x) 是已知预示变量（属性）的前提下，类（目标）的后验概率<br>P(c) 是类的先验概率<br>P(x|c) 是可能性，即已知类的前提下，预示变量的概率<br>P(x) 是预示变量的先验概率  </p>
+<p>例子：让我们用一个例子来理解这个概念。在下面，我有一个天气的训练集和对应的目标变量“Play”。现在，我们需要根据天气情况，将会“玩”和“不玩”的参与者进行分类。让我们执行以下步骤。</p>
+<p>步骤1：把数据集转换成频率表。</p>
+<p>步骤2：利用类似“当Overcast可能性为0.29时，玩耍的可能性为0.64”这样的概率，创造 Likelihood 表格。<br><img src="http://ww4.sinaimg.cn/mw690/6941baebjw1ewidi9yyh7j20nx08qmz6.jpg" alt=""><br>步骤3：现在，使用朴素贝叶斯等式来计算每一类的后验概率。后验概率最大的类就是预测的结果。</p>
+<p>问题：如果天气晴朗，参与者就能玩耍。这个陈述正确吗？</p>
+<p>我们可以使用讨论过的方法解决这个问题。于是 P（会玩 | 晴朗）= P（晴朗 | 会玩）* P（会玩）/ P （晴朗）</p>
+<p>我们有 P （晴朗 |会玩）= 3/9 = 0.33，P（晴朗） = 5/14 = 0.36, P（会玩）= 9/14 = 0.64</p>
+<p>现在，P(会玩 | 晴朗）= 0.33 * 0.64 / 0.36 = 0.60，有更大的概率。</p>
+<p>朴素贝叶斯使用了一个相似的方法，通过不同属性来预测不同类别的概率。这个算法通常被用于文本分类，以及涉及到多个类的问题。  </p>
+<p>一些应用例子:</p>
+<p>判断垃圾邮件<br>对新闻的类别进行分类，比如科技、政治、运动<br>判断文本表达的感情是积极的还是消极的<br>人脸识别  </p>
+<p>Python代码：</p>
+<pre><code>#Import Library
+from sklearn.naive_bayes import GaussianNB
+
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset
+# Create SVM classification object model = GaussianNB() # there is other distribution for multinomial classes like Bernoulli Naive Bayes, Refer link
+# Train the model using the training sets and check score
+model.fit(X, y)
+
+#Predict Output
+predicted= model.predict(x_test)
+</code></pre><h2 id="3-线性回归"><a href="#3-线性回归" class="headerlink" title="3 线性回归"></a>3 线性回归</h2><p>线性回归通常用于根据连续变量估计实际数值（房价、呼叫次数、总销售额等）。我们通过拟合最佳直线来建立自变量和因变量的关系。这条最佳直线叫做回归线，并且用 Y= a *X + b 这条线性等式来表示。</p>
+<p>理解线性回归的最好办法是回顾一下童年。假设在不问对方体重的情况下，让一个五年级的孩子按体重从轻到重的顺序对班上的同学排序，你觉得这个孩子会怎么做？他（她）很可能会目测人们的身高和体型，综合这些可见的参数来排列他们。这是现实生活中使用线性回归的例子。实际上，这个孩子发现了身高和体型与体重有一定的关系，这个关系看起来很像上面的等式。</p>
+<p>在这个等式中：</p>
+<p>Y：因变量<br>a：斜率<br>x：自变量<br>b ：截距<br>系数 a 和 b 可以通过最小二乘法获得。  </p>
+<p>参见下例。我们找出最佳拟合直线 y=0.2811x+13.9。已知人的身高，我们可以通过这条等式求出体重。<br><img src="http://ww4.sinaimg.cn/mw690/6941baebjw1ewidicea70j20d807vglw.jpg" alt=""><br>线性回归的两种主要类型是一元线性回归和多元线性回归。一元线性回归的特点是只有一个自变量。多元线性回归的特点正如其名，存在多个自变量。找最佳拟合直线的时候，你可以拟合到多项或者曲线回归。这些就被叫做多项或曲线回归。  </p>
+<p>Python代码：</p>
+<pre><code>#Import Library
+#Import other necessary libraries like pandas, numpy...
+from sklearn import linear_model
+
+#Load Train and Test datasets
+#Identify feature and response variable(s) and values must be numeric and numpy arrays
+x_train=input_variables_values_training_datasets
+y_train=target_variables_values_training_datasets
+x_test=input_variables_values_test_datasets
+
+# Create linear regression object
+linear = linear_model.LinearRegression()
+
+# Train the model using the training sets and check score
+linear.fit(x_train, y_train)
+linear.score(x_train, y_train)
+
+#Equation coefficient and Intercept
+print(&apos;Coefficient: n&apos;, linear.coef_)
+print(&apos;Intercept: n&apos;, linear.intercept_)
+
+#Predict Output
+predicted= linear.predict(x_test)
+</code></pre><h2 id="4-逻辑回归"><a href="#4-逻辑回归" class="headerlink" title="4 逻辑回归"></a>4 逻辑回归</h2><p>别被它的名字迷惑了！这是一个分类算法而不是一个回归算法。该算法可根据已知的一系列因变量估计离散数值（比方说二进制数值 0 或 1 ，是或否，真或假）。简单来说，它通过将数据拟合进一个逻辑函数来预估一个事件出现的概率。因此，它也被叫做逻辑回归。因为它预估的是概率，所以它的输出值大小在 0 和 1 之间（正如所预计的一样）。</p>
+<p>让我们再次通过一个简单的例子来理解这个算法。</p>
+<p>假设你的朋友让你解开一个谜题。这只会有两个结果：你解开了或是你没有解开。想象你要解答很多道题来找出你所擅长的主题。这个研究的结果就会像是这样：假设题目是一道十年级的三角函数题，你有 70%的可能会解开这道题。然而，若题目是个五年级的历史题，你只有30%的可能性回答正确。这就是逻辑回归能提供给你的信息。</p>
+<p>从数学上看，在结果中，几率的对数使用的是预测变量的线性组合模型。</p>
+<pre><code>odds= p/ (1-p) = probability of event occurrence / probability of not event occurrence
+ln(odds) = ln(p/(1-p))
+logit(p) = ln(p/(1-p)) = b0+b1X1+b2X2+b3X3....+bkXk
+</code></pre><p>在上面的式子里，p 是我们感兴趣的特征出现的概率。它选用使观察样本值的可能性最大化的值作为参数，而不是通过计算误差平方和的最小值（就如一般的回归分析用到的一样）。现在你也许要问了，为什么我们要求出对数呢？简而言之，这种方法是复制一个阶梯函数的最佳方法之一。<br><img src="http://ww2.sinaimg.cn/mw690/6941baebjw1ewidicf28vj20et0ba3z1.jpg" alt=""></p>
+<p>Python代码：</p>
+<pre><code>#Import Library
+from sklearn.linear_model import LogisticRegression
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset
+# Create logistic regression object
+model = LogisticRegression()
+
+# Train the model using the training sets and check score
+model.fit(X, y)
+model.score(X, y)
+
+#Equation coefficient and Intercept
+print(&apos;Coefficient: n&apos;, model.coef_)
+print(&apos;Intercept: n&apos;, model.intercept_)
+
+#Predict Output
+predicted= model.predict(x_test)
+</code></pre><p>你可以尝试更多的方法来改进这个模型：</p>
+<p>加入交互项<br>精简模型特性<br>使用正则化方法<br>使用非线性模型  </p>
+<h2 id="5-K-最近邻算法（KNN）"><a href="#5-K-最近邻算法（KNN）" class="headerlink" title="5 K-最近邻算法（KNN）"></a>5 K-最近邻算法（KNN）</h2><p>该算法可用于分类问题和回归问题。然而，在业界内，K – 最近邻算法更常用于分类问题。K – 最近邻算法是一个简单的算法。它储存所有的案例，通过周围k个案例中的大多数情况划分新的案例。根据一个距离函数，新案例会被分配到它的 K 个近邻中最普遍的类别中去。</p>
+<p>这些距离函数可以是欧式距离、曼哈顿距离、明式距离或者是汉明距离。前三个距离函数用于连续函数，第四个函数（汉明函数）则被用于分类变量。如果 K=1，新案例就直接被分到离其最近的案例所属的类别中。有时候，使用 KNN 建模时，选择 K 的取值是一个挑战  </p>
+<p><img src="http://ww3.sinaimg.cn/mw690/6941baebjw1ewidi9vrbpj20jv08pwew.jpg" alt=""><br>我们可以很容易地在现实生活中应用到 KNN。如果想要了解一个完全陌生的人，你也许想要去找他的好朋友们或者他的圈子来获得他的信息。</p>
+<p>在选择使用 KNN 之前，你需要考虑的事情：  </p>
+<p>KNN 的计算成本很高。<br>变量应该先标准化（normalized），不然会被更高范围的变量偏倚。<br>在使用KNN之前，要在野值去除和噪音去除等前期处理多花功夫。  </p>
+<p>Python代码</p>
+<pre><code>#Import Library
+from sklearn.neighbors import KNeighborsClassifier
+
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset
+# Create KNeighbors classifier object model 
+KNeighborsClassifier(n_neighbors=6) # default value for n_neighbors is 5
+
+# Train the model using the training sets and check score
+model.fit(X, y)
+
+#Predict Output
+predicted= model.predict(x_test)
+</code></pre><h2 id="6-随机森林"><a href="#6-随机森林" class="headerlink" title="6 随机森林"></a>6 随机森林</h2><p>随机森林是表示决策树总体的一个专有名词。在随机森林算法中，我们有一系列的决策树（因此又名“森林”）。为了根据一个新对象的属性将其分类，每一个决策树有一个分类，称之为这个决策树“投票”给该分类。这个森林选择获得森林里（在所有树中）获得票数最多的分类。</p>
+<p>每棵树是像这样种植养成的：</p>
+<p>如果训练集的案例数是 N，则从 N 个案例中用重置抽样法随机抽取样本。这个样本将作为“养育”树的训练集。<br>假如有 M 个输入变量，则定义一个数字 m&lt;&lt;M。m 表示，从 M 中随机选中 m 个变量，这 m 个变量中最好的切分会被用来切分该节点。在种植森林的过程中，m 的值保持不变。<br>尽可能大地种植每一棵树，全程不剪枝。</p>
+<p>Python代码：</p>
+<pre><code>#Import Library
+from sklearn.ensemble import RandomForestClassifier
+
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset
+# Create Random Forest object
+model= RandomForestClassifier()
+
+# Train the model using the training sets and check score
+model.fit(X, y)
+
+#Predict Output
+predicted= model.predict(x_test)
+</code></pre><h2 id="7-SVM"><a href="#7-SVM" class="headerlink" title="7 SVM"></a>7 SVM</h2><p>支持向量机是一种基于分类边界的方法。</p>
+<p>基本原理：</p>
+<p>如果训练数据分布在二维平面上的点,它们按照其分类 聚集在不同的区域。</p>
+<p>基于分类边界的分类算法的目标是，通过训练，找到这些分类之间的边界。</p>
+<p>对于多维数据（N维），可以将他们视为N维空间中的点，而分类边界就是N维空间中的面，称为超面。</p>
+<p>线性分类器使用超平面类型的边界，非线性分类器使用超曲面。</p>
+<p>支持向量机的原理是将低维空间的点映射到高维空间,使它们成为线性可分,再使用线性划分的原理来判断分类边界。在高维空间中是一种线性划分,而在原有的数据空间中,是一种非线性划分。</p>
+<p>这是一种分类方法。在这个算法中，我们将每个数据在N维空间中用点标出（N是你所有的特征总数），每个特征的值是一个坐标的值。</p>
+<p>举个例子，如果我们只有身高和头发长度两个特征，我们会在二维空间中标出这两个变量，每个点有两个坐标（这些坐标叫做支持向量）。<br><img src="http://ww3.sinaimg.cn/mw690/6941baebjw1ewidibaihyj20nw0g6jsi.jpg" alt=""><br>现在，我们会找到将两组不同数据分开的一条直线。两个分组中距离最近的两个点到这条线的距离同时最优化。<br><img src="http://ww1.sinaimg.cn/mw690/6941baebjw1ewidiaz88rj208c05ojrl.jpg" alt=""></p>
+<p>上面示例中的黑线将数据分类优化成两个小组，两组中距离最近的点（图中A、B点）到达黑线的距离满足最优条件。这条直线就是我们的分割线。接下来，测试数据落到直线的哪一边，我们就将它分到哪一类去。</p>
+<p>Python代码：</p>
+<pre><code>#Import Library
+from sklearn import svm
+
+#Assumed you have, X (predic
+tor) and Y (target) for training data set and x_test(predictor) of test_dataset
+# Create SVM classification object 
+model = svm.svc() # there is various option associated with it, this is simple for classification. You can refer link, for mo# re detail.
+# Train the model using the training sets and check score
+model.fit(X, y)
+model.score(X, y)
+
+#Predict Output
+predicted= model.predict(x_test)
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> ML </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> -machine learning </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[图解Vim常见命令]]></title>
+      <url>/2017/vim.html</url>
+      <content type="html"><![CDATA[<p><img src="http://i.imgur.com/BRAuuzK.jpg" alt="">  </p>
+<a id="more"></a>
+<p>vi编辑器中有三种状态模式<br>1.命令模式<br>2.输入模式<br>3.末行模式</p>
+<p><img src="http://files.jb51.net/file_images/article/201207/2012071021463634.jpg" alt=""></p>
+]]></content>
+      
+        <categories>
+            
+            <category> others </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Vim </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[FFmpeg在Ubuntu下的安装及常见视频处理方法]]></title>
+      <url>/2017/FFmpeg.html</url>
+      <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>可通过PPA进行安装  </p>
+<pre><code>sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next
+
+sudo apt-get update
+
+sudo apt-get install ffmpeg
+</code></pre><h1 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h1><h2 id="比特率"><a href="#比特率" class="headerlink" title="比特率"></a>比特率</h2><p>比特率，是一个决定音视频总体质量的参数。他决定每个时间单位处理的bit数，英文为 bit rate，描述每秒钟输出多少 KB 的参数，单位是 Kbps，也就是 kbit/s，8Kbit/s = 1KB/s。压缩同一个视频，视频编码率越大，文件体积越大，画质越好。  </p>
+<a id="more"></a>  
+<p>MP3一般使用的比特率为 8~320kbps。  </p>
+<p>设置比特率：<br>比特率决定处理1s的编码流需要多少bits，设置用-b选项。区分音视频用-b:a和-b:v<br>例如：设置整体1.5Mbit每秒  </p>
+<pre><code>ffmpeg -i file.avi -b 1.5M file.mp4  
+ffmpeg -i input.avi -b:v 1500K output.mp4
+</code></pre><h2 id="帧数"><a href="#帧数" class="headerlink" title="帧数"></a>帧数</h2><p>每秒钟播放的图片数，单位 fps（英文：Frames Per Second），帧率就是每秒编码进视频文件的帧数目。人类的眼睛需要每秒至少15帧才能将图像连贯在一起。帧率的单位是HZ，LCD显示一般有60Hz的平率。高的帧率可以得到更流畅、更逼真的动画。一般来说30fps就是可以接受的，但是将性能提升至60fps则可以明显提升交互感和逼真感，但是一般来说超过75fps一般就不容易察觉到有明显的流畅度提升了。如果帧率超过屏幕刷新率只会浪费图形处理的能力，因为显示器不能以这么快的速度更新，这样超过刷新率的帧率就浪费掉了。  </p>
+<p>在同一视频，同一码率的情况下，帧数越大，则画质越不好。尤其是运动的画面。因为每张画面会分担每秒有限的文件体积，如果画面越多，那么每张画面所能表现的内容就越有限。  </p>
+<p>当画面的FPS达到60帧/秒时，已经能满足绝大部分应用需求。一般情况下，如果能够保证游戏画面的平均FPS能够达到30帧/秒，那么画面已经基本流畅；能够达到50帧/秒，就基本可以体会到行云流水的感觉了。一般人很难分辨出60 帧/秒与100帧/秒有什么不同。  </p>
+<p><strong>帧率设置</strong><br>使用-r选项<br>ffmpeg -i input -r fps output<br>例如：<br>ffmpeg -i input.avi -r 30 output.mp4</p>
+<h2 id="分辨率"><a href="#分辨率" class="headerlink" title="分辨率"></a>分辨率</h2><p>最好理解的概念了，表示画面的大小，单位是像素 px。<br>和编码率的关系：越高的分辨率，需要越高的编码率，因为图像的细节多了，需要的文件体积也应该增大，否则还不如画面小一些，你会发现同一码率，画面越大，图像的马赛克程度越明显。 </p>
+<h2 id="采样率"><a href="#采样率" class="headerlink" title="采样率"></a>采样率</h2><p>每秒钟对音频信号的采样次数，采样频率越高声音还原度越高，声音更加自然。单位是赫兹 Hz。音频文件一般使用的采样率是 44100 Hz ，也就是一秒钟采样 44100 次，之所以使用这个数值是因为经过了反复实验，人们发现这个采样精度最合适，低于这个值就会有较明显的损失，而高于这个值人的耳朵已经很难分辨，而且增大了数字音频所占用的空间。我们所使用的CD的采样标准就是44.1k，目前44.1k还是一个最通行的标准。  </p>
+<h1 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h1><p><strong>主要参数</strong><br>-i 设定输入流<br>-f 设定输出格式<br>-ss 开始时间<br>视频参数：<br>-b 设定视频流量，默认为200Kbit/s<br>-r 设定帧速率，默认为25<br>-s 设定画面的宽与高<br>-aspect 设定画面的比例<br>-vn 不处理视频<br>-vcodec 设定视频编解码器，未设定时则使用与输入流相同的编解码器<br>音频参数：<br>-ar 设定采样率<br>-ac 设定声音的Channel数<br>-acodec 设定声音编解码器，未设定时则使用与输入流相同的编解码器<br>-an 不处理音频  </p>
+<p><strong>用法举例</strong>  </p>
+<h2 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h2><p>ffmpeg最常用功能就是格式转换，在这里要特别提的是，音、视频文件格式有两个容器格式（如mov、flv)与编码格式（如H.264）<br><code>ffmpeg -i input.flv output.mp4</code> </p>
+<h2 id="尺寸变换"><a href="#尺寸变换" class="headerlink" title="尺寸变换"></a>尺寸变换</h2><p><code>ffmpeg -i input.mp4 -s 640x360 output.mp4</code> </p>
+<h2 id="剪切视频段"><a href="#剪切视频段" class="headerlink" title="剪切视频段"></a>剪切视频段</h2><p><code>ffmpeg -i input.mp4 -ss 5 -t 10 output.mp4</code><br>上面的命令-ss 5指定从输入视频第5秒开始截取，-t 10指明最多截取10秒。 但是上面的命令可能会比较慢，更好的命令如下：  </p>
+<p><code>ffmpeg -ss 5 -i input.mp4 -t 10 -c:v copy -c:a copy output.mp4</code><br>上面的命令把-ss 5放到-i前面，与原来的区别是，这样会先跳转到第5秒在开始解码输入视频，而原来的会从开始解码，只是丢弃掉前5秒的结果。 而-c:v copy -c:a copy标示视频与音频的编码不发生改变，而是直接复制，这样会大大提升速度，因为这样就不需要完全解码视频（视频剪切也不需要完全解码）  </p>
+<p><strong>注意：-vcodec 有一个缩写叫做 -c:v ， -acodec 有一个缩写叫做 -c:a 。</strong>  </p>
+<h2 id="改变FPS"><a href="#改变FPS" class="headerlink" title="改变FPS"></a>改变FPS</h2><p>FFmpeg可以用于降低或提高视频的帧率，因为信息丢失不可逆法则，提高帧率只会简单地让某些帧的画面多重复一次或多次，所以提高帧率不会提高画质。  </p>
+<pre><code>ffmpeg -i input.mp4 -r 30 output.mp4
+</code></pre><p>上面的命令，不论原始视频帧率是多少，输出视频都会是30帧每秒。这种情况之下视频的时间轴不会变化，不会有慢动作或快动作的效果。  </p>
+<h2 id="截取图片"><a href="#截取图片" class="headerlink" title="截取图片"></a>截取图片</h2><p>视频10秒的地方(-ss 参数)截取一张1920x1080尺寸大小的，格式为jpg的图片 -ss后跟的时间单位为秒  </p>
+<p><code>ffmpeg -i input_video.mp4 -y -f image2 -t 0.001 -ss 10 -s 1920x1080 output.jpg</code><br>把视频的前30帧转换成一个Gif  </p>
+<pre><code>ffmpeg -i input_video.mp4 -vframes 30 -y -f gif output.gif
+</code></pre><p>将视频转成 gif</p>
+<pre><code>ffmpeg -ss 00:00:00.000 -i input.mp4 -pix_fmt rgb24 -r 10 -s 320x240 -t 00:00:10.000 output.gif
+</code></pre><p>将输入的文件从(-ss)设定的时间开始以10帧频率，输出到320x240大小的 gif 中，时间长度为-t 设定的参数。通过这样转换出来的 gif 一般都比较大，可以使用 ImageMagick 来优化图片的大小。  </p>
+<h1 id="转码时的输出信息"><a href="#转码时的输出信息" class="headerlink" title="转码时的输出信息"></a>转码时的输出信息</h1><blockquote>
+<p>frame=   28 fps=0.0 q=0.0 size=      2kB time=00:00:01.49 bitrate=  11.3kbits/s<br>frame=   30 fps= 17 q=-0.0 size=      13kB time=00:00:01.49 bitrate=  71.1kbits/<br>frame=   34 fps= 15 q=-0.0 size=      20kB time=00:00:01.66 bitrate=  99.9kbits/<br>frame=   38 fps= 13 q=-0.0 size=      31kB time=00:00:01.83 bitrate= 138.1kbits/<br>frame=   42 fps= 12 q=-0.0 size=      40kB time=00:00:02.00 bitrate= 165.1kbits/<br>frame=   46 fps= 11 q=-0.0 size=      49kB time=00:00:02.17 bitrate= 185.4kbits/<br>frame=   50 fps= 10 q=-0.0 size=      57kB time=00:00:02.34 bitrate= 199.3kbits/<br>frame=   54 fps= 10 q=-0.0 size=      63kB time=00:00:02.51 bitrate= 204.9kbits/<br>frame=   58 fps=9.5 q=-0.0 size=      74kB time=00:00:02.68 bitrate= 226.2kbits/<br>frame=   62 fps=9.2 q=-0.0 size=      85kB time=00:00:02.68 bitrate= 260.5kbits/<br>frame=   65 fps=8.8 q=-0.0 size=      92kB time=00:00:02.85 bitrate= 264.9kbits/  </p>
+</blockquote>
+<p>FFmpeg 确实不会显示进度条和百分比，不过，它会给你比进度条和百分比还要多的信息。  </p>
+<ol>
+<li>最左边的 frame= 65 是转码所进行到的帧数，显示 65 就表示现在已经转到了第 65 帧。</li>
+<li>第二个 fps=8.8 中的 FPS 就是 Frame per Second ，也就是现在电脑每秒所处理的帧的数量。注意这个数字跟视频的帧率并无关系。</li>
+<li>其实我也不知道后面那个 <code>q=-0.0</code> 是什么意思。 </li>
+<li>接下来的 size= 92kB 表示现在已经转换出来的视频的体积，这个数字只会越变越大啊。  </li>
+<li>第五个 time=00:00:02.85 顾名思义就是时间了，它是已经转换出来的视频的时间。在我看来，它也是一个比百分比进度条更加精准的进度显示。  </li>
+</ol>
+<p>转码需要多久，最后在哪里能看到我也不懂，希望知道的人看见可以留言补充。</p>
+<p>官方文档：<a href="https://www.ffmpeg.org/ffmpeg.html#Video-Options" target="_blank" rel="external">https://www.ffmpeg.org/ffmpeg.html#Video-Options</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> others </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> FFmpeg </tag>
+            
+            <tag> Ubuntu </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[使用hexo+github搭建个人博客遇到的问题及解决方法]]></title>
+      <url>/2017/hexo.html</url>
+      <content type="html"><![CDATA[<p>之前一直就想搭建自己的个人博客了，但一直拖着没动手，昨天终于花了一天的时间完成了，从安装到域名注册到配置美化，但还没有完成，之后还会一直继续修改。</p>
+<p>关于搭建的教程网上各种教程，但是要学会分辨，有些是错的，这里我也不多说了，只说一下搭建过程中遇到的问题及解决方法。</p>
+<h1 id="1、port：4000端口打不开"><a href="#1、port：4000端口打不开" class="headerlink" title="1、port：4000端口打不开"></a><strong>1、port：4000端口打不开</strong></h1><p>1、可能被占用了，改为5000。但并不是修改配置文件中的port参数，而是hexo\node_modules\hexo-server中的index.js，修改其中的port参数。<br>2、可能是修改主题配置文件时产生错误无法显示，重新下载主题配置文件覆盖后得到解决。</p>
+<a id="more"></a>
+<h1 id="2、可以在本地预览但是不能同步到GitHub"><a href="#2、可以在本地预览但是不能同步到GitHub" class="headerlink" title="2、可以在本地预览但是不能同步到GitHub"></a><strong>2、可以在本地预览但是不能同步到GitHub</strong></h1><p>是deploy的空格问题，配置文件中所有的冒号后面都要加一个空格！ type: git， （不是GitHub）repository:git@github.com:qisenshi/qisenshi.github.io.git（也不是https那个url）</p>
+<h1 id="3、在本地预览正常但在Chrome上显示很错乱"><a href="#3、在本地预览正常但在Chrome上显示很错乱" class="headerlink" title="3、在本地预览正常但在Chrome上显示很错乱"></a><strong>3、在本地预览正常但在Chrome上显示很错乱</strong></h1><p>可能是main.css重写出现错误，删除public中的main.css后重新hexo g<br>,hexo d，问题解决</p>
+<h1 id="4、注册域名"><a href="#4、注册域名" class="headerlink" title="4、注册域名"></a><strong>4、注册域名</strong></h1><p>到阿里云去注册了一个域名，然后绑定你的github.io域名，然后解析域名，但坑爹的是.win域名后缀不能备案，除此之外很多国际域名都不可以备案，谨慎购买！</p>
+<h1 id="5、美化主题，修改配置文件"><a href="#5、美化主题，修改配置文件" class="headerlink" title="5、美化主题，修改配置文件"></a><strong>5、美化主题，修改配置文件</strong></h1><p>浏览了一圈发现简介大方的next主题很不错，就clone了这个主题，而且这个主题有<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">官方网站</a>，之后的各种配置完全可以参考.</p>
+<h1 id="6、写文章问题"><a href="#6、写文章问题" class="headerlink" title="6、写文章问题"></a><strong>6、写文章问题</strong></h1><p>搭建完博客怎么写文章呢，新建的文章new出来都是md格式的，所以要下载一个md编辑器，这里推荐MarkdownPad可以直接打开本地编辑，<a href="http://xianbai.me/learn-md/index.html" target="_blank" rel="external">Learning-Markdown (Markdown 入门参考)</a>也有一些markdown的写作方法，不难。</p>
+<h1 id="7、搜索引擎验证网站"><a href="#7、搜索引擎验证网站" class="headerlink" title="7、搜索引擎验证网站"></a><strong>7、搜索引擎验证网站</strong></h1><p>下载HTML文件验证的时候明明可以打开却一直提示验证失败，原来是上传GitHub的过程中会自动添加一些东西，直接去GitHub上修改，只保留HTML中的内容，然后验证成功完成添加。</p>
+<p>最后，附个关于主题优化及hexo进阶的链接：<a href="http://www.wuxubj.cn/2016/08/Hexo-nexT-build-personal-blog/" target="_blank" rel="external">Hexo+nexT主题搭建个人博客</a></p>
+<p>再附上两个搭建过程写的还算清晰的博客：</p>
+<p><a href="http://blog.csdn.net/wkzd2016/article/details/70170786" target="_blank" rel="external">http://blog.csdn.net/wkzd2016/article/details/70170786</a></p>
+<p><a href="http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="external">http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> others </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> -hexo </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
 </search>
