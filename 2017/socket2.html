@@ -1,0 +1,1189 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="C++,socket,网络编程,TCP/UDP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="原理部分   在网络编程中最常用的方案便是Client/Server (客户机/服务器)模型。在这种方案中客户应用程序向服务器程序请求服务。一个服务程序通常在一个众所周知的地址监听对服务的请求，也就是说，服务进程一 直处于休眠状态，直到一个客户向这个服务的地址提出了连接请求。在这个时刻，服务程序被”惊醒”并且为客户提供服务－对客户的请求作出适当的反应。   　 　为了方便这种Client/Serv">
+<meta name="keywords" content="C++,socket,网络编程,TCP&#x2F;UDP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ socket网络编程学习（二）TCP&#x2F;UDP编程">
+<meta property="og:url" content="http://qisens.win/2017/socket2.html">
+<meta property="og:site_name" content="你的征程是星辰大海">
+<meta property="og:description" content="原理部分   在网络编程中最常用的方案便是Client/Server (客户机/服务器)模型。在这种方案中客户应用程序向服务器程序请求服务。一个服务程序通常在一个众所周知的地址监听对服务的请求，也就是说，服务进程一 直处于休眠状态，直到一个客户向这个服务的地址提出了连接请求。在这个时刻，服务程序被”惊醒”并且为客户提供服务－对客户的请求作出适当的反应。   　 　为了方便这种Client/Serv">
+<meta property="og:updated_time" content="2017-07-26T14:08:33.793Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ socket网络编程学习（二）TCP&#x2F;UDP编程">
+<meta name="twitter:description" content="原理部分   在网络编程中最常用的方案便是Client/Server (客户机/服务器)模型。在这种方案中客户应用程序向服务器程序请求服务。一个服务程序通常在一个众所周知的地址监听对服务的请求，也就是说，服务进程一 直处于休眠状态，直到一个客户向这个服务的地址提出了连接请求。在这个时刻，服务程序被”惊醒”并且为客户提供服务－对客户的请求作出适当的反应。   　 　为了方便这种Client/Serv">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://qisens.win/2017/socket2.html"/>
+
+
+
+
+
+  <title> C++ socket网络编程学习（二）TCP/UDP编程 | 你的征程是星辰大海 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">你的征程是星辰大海</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">在路上</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/socket2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                C++ socket网络编程学习（二）TCP/UDP编程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-17T10:43:38+08:00">
+                2017-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="原理部分"><a href="#原理部分" class="headerlink" title="原理部分"></a>原理部分</h1><p>   在网络编程中最常用的方案便是Client/Server (客户机/服务器)模型。在这种方案中客户应用程序向服务器程序请求服务。一个服务程序通常在一个众所周知的地址监听对服务的请求，也就是说，服务进程一 直处于休眠状态，直到一个客户向这个服务的地址提出了连接请求。在这个时刻，服务程序被”惊醒”并且为客户提供服务－对客户的请求作出适当的反应。  </p>
+<p>　 　为了方便这种Client/Server模型的网络编程，90年代初，由Microsoft联合了其他几家公司共同制定了一套WINDOWS下的网络编 程接口，即Windows Sockets规范，它不是一种网络协议,而是一套开放的、支持多种协议的Windows下的网络编程接口。现在的Winsock已经基本上实现了与协议 无关，你可以使用Winsock来调用多种协议的功能，但较常使用的是TCP/IP协议。Socket实际在计算机中提供了一个通信端口，可以通过这个端 口与任何一个具有Socket接口的计算机通信。应用程序在网络上传输，接收的信息都通过这个Socket接口来实现。</p>
+<p>　　微软为 Visual C++定义了Winsock类如CAsyncSocket类和派生于CAsyncSocket 的CSocket类，它们简单易用，读者朋友当然可以使用这些类来实现自己的网络程序，但是为了更好的了解Winsock API编程技术，我们这里探讨怎样使用底层的API函数实现简单的 Winsock 网络应用程式设计，分别说明如何在Server端和Client端操作Socket，实现基于TCP/IP的数据传送，最后给出相关的源代码。</p>
+<p>　　在VC中进行WINSOCK的API编程开发的时候，需要在项目中使用下面的三个文件，否则会出现编译错误。</p>
+<p>　　1．WINSOCK.H: 这是WINSOCK API的头文件，需要包含在项目中。</p>
+<p>　　2．WSOCK32.LIB: WINSOCK API连接库文件。在使用中，一定要把它作为项目的非缺省的连接库包含到项目文件中去。 </p>
+<p>　　3．WINSOCK.DLL: WINSOCK的动态连接库，位于WINDOWS的安装目录下。</p>
+<a id="more"></a>  
+<h1 id="服务器端操作-socket（套接字）"><a href="#服务器端操作-socket（套接字）" class="headerlink" title="服务器端操作 socket（套接字）"></a>服务器端操作 socket（套接字）</h1><h2 id="在初始化阶段调用WSAStartup"><a href="#在初始化阶段调用WSAStartup" class="headerlink" title="在初始化阶段调用WSAStartup()"></a>在初始化阶段调用WSAStartup()</h2><p>　 　此函数在应用程序中初始化Windows Sockets DLL ，只有此函数调用成功后，应用程序才可以再调用其他Windows Sockets DLL中的API函数。在程式中调用该函数的形式如下：WSAStartup((WORD)((1&lt;&lt;8|1)， （LPWSADATA）&amp;WSAData)，其中(1&lt;&lt;8|1)表示我们用的是WinSocket1.1版本，WSAata用来存 储系统传回的关于WinSocket的资料。</p>
+<h2 id="建立Socket"><a href="#建立Socket" class="headerlink" title="建立Socket"></a>建立Socket</h2><p>　　初始化WinSock的动态连接库后，需要在 服务器端建立一个监听的Socket，为此可以调用Socket()函数用来建立这个监听的Socket，并定义此Socket所使用的通信协议。此函数 调用成功返回Socket对象，失败则返回INVALID_SOCKET(调用WSAGetLastError()可得知原因，所有WinSocket 的API函数都可以使用这个函数来获取失败的原因)。</p>
+<p>　　SOCKET PASCAL FAR socket( int af, int type, int protocol )</p>
+<p>　　参数: af:目前只提供 PF_INET(AF_INET)；</p>
+<p>　　　　　type：Socket 的类型 (SOC\K_STREAM、SOCK_DGRAM)；</p>
+<p>　　　　　protocol：通讯协定(如果使用者不指定则设为0)；</p>
+<p>　　如果要建立的是遵从TCP/IP协议的socket，第二个参数type应为SOCK_STREAM，如为UDP（数据报）的socket，应为SOCK_DGRAM。</p>
+<h2 id="绑定端口"><a href="#绑定端口" class="headerlink" title="绑定端口"></a>绑定端口</h2><p>　　接下来要为服务器端定义的这个监听的Socket指定一个地址及端口（Port），这样客户端才知道待会要连接哪一个地址的哪个端口，为此我们要调用bind()函数，该函数调用成功返回0，否则返回SOCKET_ERROR。</p>
+<p>　　int PASCAL FAR bind( SOCKET s, const struct sockaddr FAR *name,int namelen );</p>
+<p>　　参 数： s：Socket对象名；</p>
+<p>　　　　　　name：Socket的地址值，这个地址必须是执行这个程式所在机器的IP地址；</p>
+<p>　　　　　　namelen：name的长度； </p>
+<p>　 　如果使用者不在意地址或端口的值，那么可以设定地址为INADDR_ANY，及Port为0，Windows Sockets 会自动将其设定适当之地址及Port (1024 到 5000之间的值)。此后可以调用getsockname()函数来获知其被设定的值。</p>
+<h2 id="监听"><a href="#监听" class="headerlink" title="监听"></a>监听</h2><p>　 　当服务器端的Socket对象绑定完成之后,服务器端必须建立一个监听的队列来接收客户端的连接请求。listen()函数使服务器端的Socket 进入监听状态，并设定可以建立的最大连接数(目前最大值限制为 5, 最小值为1)。该函数调用成功返回0，否则返回SOCKET_ERROR。</p>
+<p>　　int PASCAL FAR listen( SOCKET s, int backlog );</p>
+<p>　　参 数： s：需要建立监听的Socket；  </p>
+<p>　　　　　　backlog：最大连接个数；  </p>
+<p>　 　服务器端的Socket调用完listen（）后，如果此时客户端调用connect（）函数提出连接申请的话，Server 端必须再调用accept() 函数，这样服务器端和客户端才算正式完成通信程序的连接动作。为了知道什么时候客户端提出连接要求，从而服务器端的Socket在恰当的时候调用 accept()函数完成连接的建立，我们就要使用WSAAsyncSelect（）函数，让系统主动来通知我们有客户端提出连接请求了。该函数调用成功 返回0，否则返回SOCKET_ERROR。</p>
+<p>　　int PASCAL FAR WSAAsyncSelect( SOCKET s, HWND hWnd,unsigned int wMsg, long lEvent );</p>
+<p>　　参数： s：Socket 对象；　<br>　　　　　hWnd ：接收消息的窗口句柄；  </p>
+<p>　　　　　wMsg：传给窗口的消息；  </p>
+<p>　 　　　 lEvent：被注册的网络事件，也即是应用程序向窗口发送消息的网路事件，该值为下列值FD_READ、FD_WRITE、FD_OOB、 FD_ACCEPT、FD_CONNECT、FD_CLOSE的组合，各个值的具体含意为FD_READ：希望在套接字S收到数据时收到消 息；FD_WRITE：希望在套接字S上可以发送数据时收到消息；FD_ACCEPT：希望在套接字S上收到连接请求时收到消息；FD_CONNECT： 希望在套接字S上连接成功时收到消息；FD_CLOSE：希望在套接字S上连接关闭时收到消息；FD_OOB：希望在套接字S上收到带外数据时收到消息。 具体应用时，wMsg应是在应用程序中定义的消息名称，而消息结构中的lParam则为以上各种网络事件名称。所以，可以在窗口处理自定义消息函数中使用 以下结构来响应Socket的不同事件：　</p>
+<pre><code>switch(lParam)　
+{
+　case FD_READ:
+　　 …　　
+　　 break;
+　case FD_WRITE:
+　　 …
+　　 break;
+　…
+}　
+</code></pre><h2 id="服务器端接受客户端的连接请求"><a href="#服务器端接受客户端的连接请求" class="headerlink" title="服务器端接受客户端的连接请求"></a>服务器端接受客户端的连接请求</h2><p>　 　当Client提出连接请求时，Server 端hwnd视窗会收到Winsock Stack送来我们自定义的一个消息，这时，我们可以分析lParam，然后调用相关的函数来处理此事件。为了使服务器端接受客户端的连接请求，就要使用 accept() 函数，该函数新建一Socket与客户端的Socket相通，原先监听之Socket继续进入监听状态，等待他人的连接要求。该函数调用成功返回一个新产 生的Socket对象，否则返回INVALID_SOCKET。  </p>
+<p>　　SOCKET PASCAL FAR accept( SCOKET s, struct sockaddr FAR <em>addr,int FAR </em>addrlen );  </p>
+<p>　　参数：s：Socket的识别码；</p>
+<p>　　　　　addr：存放来连接的客户端的地址；</p>
+<p>　　　　　addrlen：addr的长度</p>
+<h2 id="结束-socket-连接"><a href="#结束-socket-连接" class="headerlink" title="结束 socket 连接"></a>结束 socket 连接</h2><p>　 　结束服务器和客户端的通信连接是很简单的，这一过程可以由服务器或客户机的任一端启动，只要调用closesocket()就可以了，而要关闭 Server端监听状态的socket，同样也是利用此函数。另外，与程序启动时调用WSAStartup()憨数相对应，程式结束前，需要调用 WSACleanup() 来通知Winsock Dll释放Socket所占用的资源。这两个函数都是调用成功返回0，否则返回SOCKET_ERROR。  </p>
+<p>　　int PASCAL FAR closesocket( SOCKET s );  </p>
+<p>　　参数：s：Socket 的识别码； </p>
+<p>　　int PASCAL FAR WSACleanup( void );</p>
+<p>　　参数： 无</p>
+<h1 id="TCP与UDP在socket编程中的区别"><a href="#TCP与UDP在socket编程中的区别" class="headerlink" title="TCP与UDP在socket编程中的区别"></a>TCP与UDP在socket编程中的区别</h1><h2 id="TCP与UDP的区别基于连接与无连接"><a href="#TCP与UDP的区别基于连接与无连接" class="headerlink" title="TCP与UDP的区别基于连接与无连接"></a>TCP与UDP的区别基于连接与无连接</h2><ol>
+<li>对系统资源的要求（TCP较多，UDP少） </li>
+<li>UDP程序结构较简单 </li>
+<li>流模式与数据报模式 </li>
+<li>TCP保证数据正确性，UDP可能丢包 </li>
+<li>TCP保证数据顺序，UDP不保证 </li>
+<li>部分满足以下几点要求时，应该采用UDP 面向数据报方式 网络数据大多为短消息 </li>
+<li>拥有大量Client </li>
+<li>对数据安全性无特殊要求 </li>
+<li>网络负担非常重，但对响应速度要求高 </li>
+<li>具体编程时的区别 socket()的参数不同 </li>
+<li>UDP Server不需要调用listen和accept </li>
+<li>UDP收发数据用sendto/recvfrom函数 </li>
+<li>TCP：地址信息在connect/accept时确定 </li>
+<li>UDP：在sendto/recvfrom函数中每次均 需指定地址信息 </li>
+<li><p>UDP：shutdown函数无效 </p>
+<h2 id="man—-socket"><a href="#man—-socket" class="headerlink" title="man—-socket"></a>man—-socket</h2><p>通过查看socket的man手册可以看到socket函数的第一个参数的值可以为下面这些值：<br>Name Purpose<br>PF_UNIX, PF_LOCAL Local communication<br>PF_INET IPv4 Internet protocols<br>PF_INET6 IPv6 Internet protocols<br>PF_IPX IPX - Novell protocols<br>PF_NETLINK Kernel user interface device<br>PF_X25 ITU-T X.25 / ISO-8208 protocol<br>PF_AX25 Amateur radio AX.25 protocol<br>PF_ATMPVC Access to raw ATM PVCs<br>PF_APPLETALK Appletalk<br>PF_PACKET Low level packet interface  </p>
+</li>
+</ol>
+<h2 id="编程区别"><a href="#编程区别" class="headerlink" title="编程区别"></a>编程区别</h2><p>通常我们在说到网络编程时默认是指TCP编程，即用前面提到的socket函数创建一个socket用于TCP通讯，函数参数我们通常填为SOCK_STREAM。即socket(PF_INET, SOCK_STREAM, 0)，这表示建立一个socket用于流式网络通讯。  SOCK_STREAM这种的特点是面向连接的，即每次收发数据之前必须通过connect建立连接，也是双向的，即任何一方都可以收发数据，协议本身提供了一些保障机制保证它是可靠的、有序的，即每个包按照发送的顺序到达接收方。 </p>
+<p>而SOCK_DGRAM这种是User Datagram Protocol协议的网络通讯，它是无连接的，不可靠的，因为通讯双方发送数据后不知道对方是否已经收到数据，是否正常收到数据。任何一方建立一个socket以后就可以用sendto发送数据，也可以用recvfrom接收数据。根本不关心对方是否存在，是否发送了数据。它的特点是通讯速度比较快。大家都知道TCP是要经过三次握手的，而UDP没有。  </p>
+<h2 id="TCP编程的服务器端一般步骤是："><a href="#TCP编程的服务器端一般步骤是：" class="headerlink" title="TCP编程的服务器端一般步骤是："></a>TCP编程的服务器端一般步骤是：</h2><p>  1、创建一个socket，用函数socket()；<br>  2、设置socket属性，用函数setsockopt(); * 可选<br>  3、绑定IP地址、端口等信息到socket上，用函数bind();<br>  4、开启监听，用函数listen()；<br>  5、接收客户端上来的连接，用函数accept()；<br>  6、收发数据，用函数send()和recv()，或者read()和write();<br>  7、关闭网络连接；<br>  8、关闭监听；  </p>
+<pre><code> #include &lt;stdio.h&gt;  
+#include &lt;Winsock2.h&gt;  
+#pragma comment(lib, &quot;ws2_32.lib&quot;)  
+void main()  
+{  
+WORD wVersionRequested;  
+WSADATA wsaData;  
+int err;  
+
+wVersionRequested = MAKEWORD( 1, 1 );  
+
+err = WSAStartup( wVersionRequested, &amp;wsaData );  
+if ( err != 0 )   
+{  
+    return;  
+}  
+
+if ( LOBYTE( wsaData.wVersion ) != 1 ||  
+            HIBYTE( wsaData.wVersion ) != 1 )   
+{  
+    WSACleanup( );  
+    return;  
+}  
+SOCKET sockSrv=socket(AF_INET,SOCK_STREAM,0);  
+
+SOCKADDR_IN addrSrv;  
+addrSrv.sin_addr.S_un.S_addr=htonl(INADDR_ANY);  
+addrSrv.sin_family=AF_INET;  
+addrSrv.sin_port=htons(6000);  
+
+bind(sockSrv,(SOCKADDR*)&amp;addrSrv,sizeof(SOCKADDR));// 绑定端口  
+
+listen(sockSrv,5);  
+
+SOCKADDR_IN addrClient;// 连接上的客户端ip地址  
+int len=sizeof(SOCKADDR);  
+while(1)  
+{  
+    SOCKET sockConn=accept(sockSrv,(SOCKADDR*)&amp;addrClient,&amp;len);// 接受客户端连接,获取客户端的ip地址  
+    char sendBuf[50];  
+    sprintf(sendBuf,&quot;Welcome %s to here!&quot;,inet_ntoa(addrClient.sin_addr));// 组合消息发送出去  
+    send(sockConn,sendBuf,strlen(sendBuf)+1,0);// 发送消息到客户端  
+    char recvBuf[50];  
+    recv(sockConn,recvBuf,50,0);// 接受客户端消息  
+    printf(&quot;%s\n&quot;,recvBuf);  
+    //closesocket(sockConn);//断开连接  
+}  
+
+}  
+</code></pre><h2 id="TCP编程的客户端一般步骤是："><a href="#TCP编程的客户端一般步骤是：" class="headerlink" title="TCP编程的客户端一般步骤是："></a>TCP编程的客户端一般步骤是：</h2><p>  1、创建一个socket，用函数socket()；    2、设置socket属性，用函数setsockopt();<em> 可选<br>  3、绑定IP地址、端口等信息到socket上，用函数bind();</em> 可选<br>  4、设置要连接的对方的IP地址和端口等属性；<br>  5、连接服务器，用函数connect()；<br>  6、收发数据，用函数send()和recv()，或者read()和write();<br>  7、关闭网络连接；</p>
+<pre><code>#include &lt;stdio.h&gt;  
+#include &lt;Winsock2.h&gt;  
+#pragma comment(lib, &quot;ws2_32.lib&quot;)  
+void main()  
+{  
+WORD wVersionRequested;  
+WSADATA wsaData;//WSAata用来存储系统传回的关于WinSocket的资料。  
+int err;  
+
+wVersionRequested = MAKEWORD( 1, 1 );  
+
+err = WSAStartup( wVersionRequested, &amp;wsaData );  
+if ( err != 0 ) {  
+    return;  
+}  
+
+if ( LOBYTE( wsaData.wVersion ) != 1 ||HIBYTE( wsaData.wVersion ) != 1 )   
+{  
+    WSACleanup( );  
+    return;  
+}  
+SOCKET sockClient=socket(AF_INET,SOCK_STREAM,0);// AF_INET ..tcp连接  
+//初始化连接与端口号  
+SOCKADDR_IN addrSrv;  
+addrSrv.sin_addr.S_un.S_addr=inet_addr(&quot;127.0.0.1&quot;);//本机地址，服务器在本机开启  
+addrSrv.sin_family=AF_INET;  
+addrSrv.sin_port=htons(6000);// 设置端口号  
+connect(sockClient,(SOCKADDR*)&amp;addrSrv,sizeof(SOCKADDR));//连接服务器  
+char recvBuf[50];  
+recv(sockClient,recvBuf,50,0);//接受数据  
+printf(&quot;%s\n&quot;,recvBuf);  
+send(sockClient,&quot;hello&quot;,strlen(&quot;hello&quot;)+1,0);//发送数据  
+closesocket(sockClient);//关闭连接  
+WSACleanup();  
+}  
+</code></pre><h2 id="UDP编程的服务器端一般步骤是："><a href="#UDP编程的服务器端一般步骤是：" class="headerlink" title="UDP编程的服务器端一般步骤是："></a>UDP编程的服务器端一般步骤是：</h2><p>  1、创建一个socket，用函数socket()；<br>  2、设置socket属性，用函数setsockopt();* 可选<br>  3、绑定IP地址、端口等信息到socket上，用函数bind();<br>  4、循环接收数据，用函数recvfrom();<br>  5、关闭网络连接；  </p>
+<pre><code>#include &lt;stdio.h&gt;  
+#include &lt;Winsock2.h&gt;  
+#pragma comment(lib, &quot;ws2_32.lib&quot;)  
+void main()  
+{  
+//初始化socket库  
+WORD wVersionRequested;  
+WSADATA wsaData;  
+int err;  
+wVersionRequested = MAKEWORD( 1, 1 );  
+err = WSAStartup( wVersionRequested, &amp;wsaData );  
+if ( err != 0 )   
+{  
+   return;  
+}  
+if ( LOBYTE( wsaData.wVersion ) != 1 ||  
+        HIBYTE( wsaData.wVersion ) != 1 )   
+{  
+   WSACleanup( );  
+   return;   
+}  
+SOCKET sockSrv = socket( AF_INET , SOCK_DGRAM , 0 ) ;  
+SOCKADDR_IN addrSrv ;  
+addrSrv.sin_addr.S_un.S_addr = htonl(INADDR_ANY) ;  
+addrSrv.sin_family = AF_INET ;  
+addrSrv.sin_port = htons(4000) ;  
+bind( sockSrv , (SOCKADDR*)&amp;addrSrv , sizeof(SOCKADDR) ) ;  
+
+char sendBuf[100] ;  
+char recvBuf[100] ;  
+char tempBuf[200] ;  
+SOCKADDR_IN addrClient ;  
+int len = sizeof(SOCKADDR) ;  
+while (1)  
+{  
+   recvfrom(sockSrv,recvBuf,100,0,(SOCKADDR*)&amp;addrClient,&amp;len) ;  
+   if ( &apos;q&apos; == recvBuf[0] )  
+   {  
+        sendto(sockSrv,&quot;q&quot;,strlen(&quot;q&quot;)+1,0,(SOCKADDR*)&amp;addrClient,len) ;  
+        printf(&quot;chat end!\n&quot;) ;  
+        break ;  
+   }  
+   sprintf(tempBuf,&quot;%s say : %s&quot;,inet_ntoa(addrClient.sin_addr),recvBuf) ;  
+   printf( &quot;%s\n&quot; , tempBuf ) ;  
+   printf( &quot;Please input data:\n&quot; ) ;  
+   gets( sendBuf ) ;  
+   sendto(sockSrv,sendBuf,strlen(sendBuf)+1,0,(SOCKADDR*)&amp;addrClient,len) ;  
+}  
+closesocket( sockSrv ) ;  
+WSACleanup() ;  
+}  
+</code></pre><h2 id="UDP编程的客户端一般步骤是："><a href="#UDP编程的客户端一般步骤是：" class="headerlink" title="UDP编程的客户端一般步骤是："></a>UDP编程的客户端一般步骤是：</h2><p>  1、创建一个socket，用函数socket()；<br>  2、设置socket属性，用函数setsockopt();<em> 可选<br>  3、绑定IP地址、端口等信息到socket上，用函数bind();</em> 可选<br>  4、设置对方的IP地址和端口等属性;<br>  5、发送数据，用函数sendto();<br>  6、关闭网络连接；  </p>
+<pre><code>#include &lt;stdio.h&gt;  
+#include &lt;Winsock2.h&gt;  
+#pragma comment(lib, &quot;ws2_32.lib&quot;)  
+void main()  
+{  
+//初始化socket库  
+WORD wVersionRequested;  
+WSADATA wsaData;  
+int err;wVersionRequested = MAKEWORD( 1, 1 );  
+err = WSAStartup( wVersionRequested, &amp;wsaData );  
+if ( err != 0 )   
+{   
+    return;  
+}     
+if ( LOBYTE( wsaData.wVersion ) != 1 || HIBYTE( wsaData.wVersion ) != 1 )  
+{  
+    WSACleanup( );   
+    return;   
+}  
+SOCKET sockClient = socket( AF_INET , SOCK_DGRAM , 0 ) ;  
+SOCKADDR_IN addrSrv ;  
+addrSrv.sin_addr.S_un.S_addr = inet_addr(&quot;127.0.0.1&quot;) ;  
+addrSrv.sin_family = AF_INET ;  
+addrSrv.sin_port = htons(4000) ;  
+char sendBuf[100] ;  
+char recvBuf[100] ;  
+char tempBuf[200] ;  
+int len = sizeof(SOCKADDR) ;  
+while (1)  
+{   
+    printf(&quot;Please input data:\n&quot;);   
+    gets( sendBuf ) ;   
+    sendto( sockClient , sendBuf , strlen(sendBuf) , 0 , (SOCKADDR*)&amp;addrSrv , len ) ;   
+    recvfrom( sockClient , recvBuf , 100 , 0 , (SOCKADDR*)&amp;addrSrv , &amp;len ) ;  
+    if ( &apos;q&apos; == recvBuf[0] )  
+    {  
+        sendto(sockClient , &quot;q&quot; , strlen(&quot;q&quot;)+1 , 0 , (SOCKADDR*)&amp;addrSrv , len) ;  
+        printf(&quot;chat end!&quot;) ;  
+        break ;   
+    }   
+    sprintf( tempBuf , &quot;%s say: %s\n&quot; , inet_ntoa(addrSrv.sin_addr) , recvBuf ) ;  
+    printf( tempBuf ) ;  
+}  
+closesocket(sockClient) ;  
+WSACleanup() ;  
+}  
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/socket/" rel="tag"># socket</a>
+          
+            <a href="/tags/网络编程/" rel="tag"># 网络编程</a>
+          
+            <a href="/tags/TCP-UDP/" rel="tag"># TCP/UDP</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/linux.html" rel="next" title="linux基础知识总结">
+                <i class="fa fa-chevron-left"></i> linux基础知识总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/linux-commu.html" rel="prev" title="浅析Linux进程间通信的几种方式">
+                浅析Linux进程间通信的几种方式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="羁士" />
+          <p class="site-author-name" itemprop="name">羁士</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/qisenshi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dianxin113" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-csdn"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原理部分"><span class="nav-number">1.</span> <span class="nav-text">原理部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务器端操作-socket（套接字）"><span class="nav-number">2.</span> <span class="nav-text">服务器端操作 socket（套接字）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在初始化阶段调用WSAStartup"><span class="nav-number">2.1.</span> <span class="nav-text">在初始化阶段调用WSAStartup()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立Socket"><span class="nav-number">2.2.</span> <span class="nav-text">建立Socket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绑定端口"><span class="nav-number">2.3.</span> <span class="nav-text">绑定端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监听"><span class="nav-number">2.4.</span> <span class="nav-text">监听</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器端接受客户端的连接请求"><span class="nav-number">2.5.</span> <span class="nav-text">服务器端接受客户端的连接请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束-socket-连接"><span class="nav-number">2.6.</span> <span class="nav-text">结束 socket 连接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP与UDP在socket编程中的区别"><span class="nav-number">3.</span> <span class="nav-text">TCP与UDP在socket编程中的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP与UDP的区别基于连接与无连接"><span class="nav-number">3.1.</span> <span class="nav-text">TCP与UDP的区别基于连接与无连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#man—-socket"><span class="nav-number">3.2.</span> <span class="nav-text">man—-socket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程区别"><span class="nav-number">3.3.</span> <span class="nav-text">编程区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP编程的服务器端一般步骤是："><span class="nav-number">3.4.</span> <span class="nav-text">TCP编程的服务器端一般步骤是：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP编程的客户端一般步骤是："><span class="nav-number">3.5.</span> <span class="nav-text">TCP编程的客户端一般步骤是：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP编程的服务器端一般步骤是："><span class="nav-number">3.6.</span> <span class="nav-text">UDP编程的服务器端一般步骤是：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP编程的客户端一般步骤是："><span class="nav-number">3.7.</span> <span class="nav-text">UDP编程的客户端一般步骤是：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羁士</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<script type="text/javascript">(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=17741496514051371274' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();</script>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
