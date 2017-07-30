@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="C++,编译,链接," />
+  <meta name="keywords" content="C++,多线程编程," />
 
 
 
@@ -87,19 +87,20 @@
 
 
 
-<meta name="description" content="程序处理的基本流程如图： 预处理预处理相当于根据预处理指令组装新的C/C++程序。经过预处理，会产生一个没有宏定义，没有条件编译指令，没有特殊符号的输出文件，这个文件的含义同原本的文件无异，只是内容上有所不同。  读取C/C++源程序，对其中的伪指令（以#开头的指令）进行处理 ①将所有的“#define”删除，并且展开所有的宏定义 ②处理所有的条件编译指令，如：“#if”、“#ifdef”、“#e">
-<meta name="keywords" content="C++,编译,链接">
+<meta name="description" content="学习C++很久了却一直没有学到多线程编程的知识，现在就来学习一下并做个整理。我们可以用CreateThread和_beginthreadex来创建多线程程序，那么他们之间有什么样的区别呢？先看一个实例，下面这个程序的主线程会创建了一个子线程并等待其运行完毕，子线程就输出它的线程ID号然后输出一句经典名言——Hello World。整个程序的代码非常简短，只有区区几行。 //最简单的创建多线程实例">
+<meta name="keywords" content="C++,多线程编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++中程序编译流程解析">
-<meta property="og:url" content="http://qisens.win/2017/bianyiliucheng.html">
+<meta property="og:title" content="windows下的C++多线程编程学习（一）">
+<meta property="og:url" content="http://qisens.win/2017/thread1.html">
 <meta property="og:site_name" content="你的征程是星辰大海">
-<meta property="og:description" content="程序处理的基本流程如图： 预处理预处理相当于根据预处理指令组装新的C/C++程序。经过预处理，会产生一个没有宏定义，没有条件编译指令，没有特殊符号的输出文件，这个文件的含义同原本的文件无异，只是内容上有所不同。  读取C/C++源程序，对其中的伪指令（以#开头的指令）进行处理 ①将所有的“#define”删除，并且展开所有的宏定义 ②处理所有的条件编译指令，如：“#if”、“#ifdef”、“#e">
-<meta property="og:image" content="http://s1.51cto.com/wyfs02/M02/7E/89/wKioL1cDsP_goUwlAAAlcbFkNbs906.png?_=5377024">
-<meta property="og:updated_time" content="2017-07-29T03:05:25.195Z">
+<meta property="og:description" content="学习C++很久了却一直没有学到多线程编程的知识，现在就来学习一下并做个整理。我们可以用CreateThread和_beginthreadex来创建多线程程序，那么他们之间有什么样的区别呢？先看一个实例，下面这个程序的主线程会创建了一个子线程并等待其运行完毕，子线程就输出它的线程ID号然后输出一句经典名言——Hello World。整个程序的代码非常简短，只有区区几行。 //最简单的创建多线程实例">
+<meta property="og:image" content="http://i.imgur.com/oNYZIqz.png">
+<meta property="og:image" content="http://i.imgur.com/eTFpbv4.png">
+<meta property="og:updated_time" content="2017-07-30T13:37:01.132Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++中程序编译流程解析">
-<meta name="twitter:description" content="程序处理的基本流程如图： 预处理预处理相当于根据预处理指令组装新的C/C++程序。经过预处理，会产生一个没有宏定义，没有条件编译指令，没有特殊符号的输出文件，这个文件的含义同原本的文件无异，只是内容上有所不同。  读取C/C++源程序，对其中的伪指令（以#开头的指令）进行处理 ①将所有的“#define”删除，并且展开所有的宏定义 ②处理所有的条件编译指令，如：“#if”、“#ifdef”、“#e">
-<meta name="twitter:image" content="http://s1.51cto.com/wyfs02/M02/7E/89/wKioL1cDsP_goUwlAAAlcbFkNbs906.png?_=5377024">
+<meta name="twitter:title" content="windows下的C++多线程编程学习（一）">
+<meta name="twitter:description" content="学习C++很久了却一直没有学到多线程编程的知识，现在就来学习一下并做个整理。我们可以用CreateThread和_beginthreadex来创建多线程程序，那么他们之间有什么样的区别呢？先看一个实例，下面这个程序的主线程会创建了一个子线程并等待其运行完毕，子线程就输出它的线程ID号然后输出一句经典名言——Hello World。整个程序的代码非常简短，只有区区几行。 //最简单的创建多线程实例">
+<meta name="twitter:image" content="http://i.imgur.com/oNYZIqz.png">
 
 
 
@@ -127,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://qisens.win/2017/bianyiliucheng.html"/>
+  <link rel="canonical" href="http://qisens.win/2017/thread1.html"/>
 
 
 
 
 
-  <title> C++中程序编译流程解析 | 你的征程是星辰大海 </title>
+  <title> windows下的C++多线程编程学习（一） | 你的征程是星辰大海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -306,7 +307,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/bianyiliucheng.html">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/thread1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="羁士">
@@ -327,7 +328,7 @@
             
             
               
-                C++中程序编译流程解析
+                windows下的C++多线程编程学习（一）
               
             
           </h1>
@@ -342,8 +343,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-29T10:49:51+08:00">
-                2017-07-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T21:11:34+08:00">
+                2017-07-25
               </time>
             
 
@@ -400,25 +401,97 @@
       
 
       
-        <p>程序处理的基本流程如图：<br><img src="http://s1.51cto.com/wyfs02/M02/7E/89/wKioL1cDsP_goUwlAAAlcbFkNbs906.png?_=5377024" alt=""></p>
-<h1 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h1><p>预处理相当于根据预处理指令组装新的C/C++程序。经过预处理，会产生一个没有宏定义，没有条件编译指令，没有特殊符号的输出文件，这个文件的含义同原本的文件无异，只是内容上有所不同。 </p>
-<p><strong>读取C/C++源程序，对其中的伪指令（以#开头的指令）进行处理</strong></p>
-<p>①将所有的“#define”删除，并且展开所有的宏定义</p>
-<p>②处理所有的条件编译指令，如：“#if”、“#ifdef”、“#elif”、“#else”、“endif”等。这些伪指令的引入使得程序员可以通过定义不同的宏来决定编译程序对哪些代码进行处理。预编译程序将根据有关的文件，将那些不必要的代码过滤掉。 </p>
-<p>③处理“#include”预编译指令，将被包含的文件插入到该预编译指令的位置。</p>
-<p>（注意：这个过程可能是递归进行的，也就是说被包含的文件可能还包含其他文件）</p>
-<p> <strong>删除所有的注释</strong></p>
-<p> <strong>添加行号和文件名标识。</strong></p>
-<p>以便于编译时编译器产生调试用的行号信息及用于编译时产生的编译错误或警告时能够显示行号</p>
-<p><strong>保留所有的#pragma编译器指令</strong></p>
-<a id="more"></a>
-<h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><p>将预处理完的文件进行一系列词法分析、语法分析、语义分析及优化后，产生相应的汇编代码文件。</p>
-<h1 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h1><p>将编译完的汇编代码文件翻译成机器指令，并生成可重定位目标程序的.o文件，该文件为二进制文件，字节编码是机器指令。  </p>
-<p>汇编器是将汇编代码转变成机器可以执行的指令，每一个汇编语句几乎都对应一条机器指令。所以汇编器的汇编过程相对于编译器来讲比较简单，它没有复杂的语法，也没有语义，也不需要做指令优化，只是根据汇编指令和机器指令的对照表一一翻译即可。  </p>
-<h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><p>通过链接器将一个个目标文件（或许还会有库文件）链接在一起生成一个完整的可执行程序。<br>由汇编程序生成的目标文件并不能立即就被执行，其中可能还有许多没有解决的问题。</p>
-<p>例如，某个源文件中的函数可能引用了另一个源文件中定义的某个符号（如变量或者函数调用等）；在程序中可能调用了某个库文件中的函数，等等。所有的这些问题，都需要经链接程序的处理方能得以解决。   </p>
-<p>链接程序的主要工作就是将有关的目标文件彼此相连接，也就是将在一个文件中引用的符号同该符号在另外一个文件中的定义连接起来，使得所有的这些目标文件成为一个能够被操作系统装入执行的统一整体。</p>
-<p>至此，大致经过这几个步骤，一个完整的可执行程序产生了。</p>
+        <p>学习C++很久了却一直没有学到多线程编程的知识，现在就来学习一下并做个整理。<br>我们可以用CreateThread和_beginthreadex来创建多线程程序，那么他们之间有什么样的区别呢？<br>先看一个实例，下面这个程序的主线程会创建了一个子线程并等待其运行完毕，子线程就输出它的线程ID号然后输出一句经典名言——Hello World。整个程序的代码非常简短，只有区区几行。</p>
+<pre><code>//最简单的创建多线程实例  
+#include &lt;stdio.h&gt;  
+#include &lt;windows.h&gt;  
+//子线程函数  
+DWORD WINAPI ThreadFun(LPVOID pM)  
+{  
+    printf(&quot;子线程的线程ID号为：%d\n子线程输出Hello World\n&quot;, GetCurrentThreadId());  
+    return 0;  
+}  
+//主函数，所谓主函数其实就是主线程执行的函数。  
+int main()  
+{  
+    printf(&quot;     最简单的创建多线程实例\n&quot;);  
+    printf(&quot; -- by MoreWindows( http://blog.csdn.net/MoreWindows ) --\n\n&quot;);  
+
+    HANDLE handle = CreateThread(NULL, 0, ThreadFun, NULL, 0, NULL);  
+    WaitForSingleObject(handle, INFINITE);  
+    return 0;  
+} 
+</code></pre><p><img src="http://i.imgur.com/oNYZIqz.png" alt=""></p>
+<p>下面来细讲下代码中的一些函数</p>
+<h1 id="CreateThread"><a href="#CreateThread" class="headerlink" title="CreateThread"></a>CreateThread</h1><p>函数功能：创建线程</p>
+<p>函数原型：</p>
+<pre><code>  HANDLE WINAPI CreateThread(
+
+  LPSECURITY_ATTRIBUTES lpThreadAttributes,  
+//第一个参数表示线程内核对象的安全属性，一般传入NULL表示使用默认设置。
+
+  SIZE_T dwStackSize,  
+//第二个参数表示线程栈空间大小。传入0表示使用默认大小（1MB）。
+
+  LPTHREAD_START_ROUTINE lpStartAddress,  
+//第三个参数表示新线程所执行的线程函数地址，多个线程可以使用同一个函数地址。
+
+  LPVOID lpParameter,  
+//第四个参数是传给线程函数的参数。
+
+  DWORD dwCreationFlags,  
+//第五个参数指定额外的标志来控制线程的创建，为0表示线程创建之后立即就可以进行调度，如果为CREATE_SUSPENDED则表示线程创建后暂停运行，这样它就无法调度，直到调用ResumeThread()。
+
+  LPDWORD lpThreadId
+//第六个参数将返回线程的ID号，传入NULL表示不需要返回该线程ID号。
+
+);
+</code></pre><p>函数返回值：</p>
+<p>成功返回新线程的句柄，失败返回NULL。   </p>
+<h1 id="WaitForSingleObject"><a href="#WaitForSingleObject" class="headerlink" title="WaitForSingleObject"></a>WaitForSingleObject</h1><p>函数功能：等待函数 – 使线程进入等待状态，直到指定的内核对象被触发。</p>
+<p>函数原形：</p>
+<pre><code>  DWORD WINAPI WaitForSingleObject(
+
+  HANDLE hHandle,  
+//第一个参数为要等待的内核对象。
+
+  DWORD dwMilliseconds  
+//第二个参数为最长等待的时间，以毫秒为单位，如传入5000就表示5秒，  
+传入0就立即返回，传入INFINITE表示无限等待。
+
+);
+</code></pre><p>函数说明：</p>
+<p>因为线程的句柄在线程运行时是未触发的，线程结束运行，句柄处于触发状态。所以可以用WaitForSingleObject()来等待一个线程结束运行。</p>
+<p>函数返回值：</p>
+<p>在指定的时间内对象被触发，函数返回WAIT_OBJEC\T_0。超过最长等待时间对象仍未被触发返回WAIT_TIMEOUT。传入参数有错误将返回WAIT_FAILED。</p>
+<h1 id="beginthreadex的区别"><a href="#beginthreadex的区别" class="headerlink" title="_beginthreadex的区别"></a>_beginthreadex的区别</h1><p>CreateThread()函数是Windows提供的API接口，在C/C++语言另有一个创建线程的函数_beginthreadex()，在很多书上（包括《Windows核心编程》）提到过尽量使用_beginthreadex()来代替使用CreateThread()，这是为什么了？  </p>
+<p>为了解决像strerror()、strtok()、tmpnam()、gmtime()、asctime()等函数也会遇到这种由多个线程访问修改导致的数据覆盖问题。Windows操作系统提供了这样的一种解决方案——每个线程都将拥有自己专用的一块内存区域来供标准C运行库中所有有需要的函数使用。而且这块内存区域的创建就是由C/C++运行库函数_beginthreadex()来负责的。  </p>
+<p>_beginthreadex()函数在创建新线程时会分配并初始化一个_tiddata块。这个_tiddata块自然是用来存放一些需要线程独享的数据。事实上新线程运行时会首先将_tiddata块与自己进一步关联起来。然后新线程调用标准C运行库函数如strtok()时就会先取得_tiddata块的地址再将需要保护的数据存入_tiddata块中。这样每个线程就只会访问和修改自己的数据而不会去篡改其它线程的数据了。因此，如果在代码中有使用标准C运行库中的函数时，尽量使用_beginthreadex()来代替CreateThread()。</p>
+<p>接下来，类似于上面的程序用CreateThread()创建输出“Hello World”的子线程，下面使用_beginthreadex()来创建多个子线程：</p>
+<pre><code>//创建多子个线程实例  
+#include &lt;stdio.h&gt;  
+#include &lt;process.h&gt;  
+#include &lt;windows.h&gt;  
+//子线程函数  
+unsigned int __stdcall ThreadFun(PVOID pM)  
+{  
+    printf(&quot;线程ID号为%4d的子线程说：Hello World\n&quot;, GetCurrentThreadId());  
+    return 0;  
+}  
+//主函数，所谓主函数其实就是主线程执行的函数。  
+int main()  
+{  
+    printf(&quot;     创建多个子线程实例 \n&quot;);  
+    printf(&quot; -- by MoreWindows( http://blog.csdn.net/MoreWindows ) --\n\n&quot;);  
+
+    const int THREAD_NUM = 5;  
+    HANDLE handle[THREAD_NUM];  
+    for (int i = 0; i &lt; THREAD_NUM; i++)  
+        handle[i] = (HANDLE)_beginthreadex(NULL, 0, ThreadFun, NULL, 0, NULL);  
+    WaitForMultipleObjects(THREAD_NUM, handle, TRUE, INFINITE);  
+    return 0;  
+}  
+</code></pre><p><img src="http://i.imgur.com/eTFpbv4.png" alt=""></p>
 
       
     </div>
@@ -450,9 +523,7 @@
           
             <a href="/tags/C/" rel="tag"># C++</a>
           
-            <a href="/tags/编译/" rel="tag"># 编译</a>
-          
-            <a href="/tags/链接/" rel="tag"># 链接</a>
+            <a href="/tags/多线程编程/" rel="tag"># 多线程编程</a>
           
         </div>
       
@@ -465,8 +536,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/thread1.html" rel="next" title="windows下的C++多线程编程学习（一）">
-                <i class="fa fa-chevron-left"></i> windows下的C++多线程编程学习（一）
+              <a href="/2017/linux-commu.html" rel="next" title="浅析Linux进程间通信的几种方式">
+                <i class="fa fa-chevron-left"></i> 浅析Linux进程间通信的几种方式
               </a>
             
           </div>
@@ -474,6 +545,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/bianyiliucheng.html" rel="prev" title="C++中程序编译流程解析">
+                C++中程序编译流程解析 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -622,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#预处理"><span class="nav-number">1.</span> <span class="nav-text">预处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译"><span class="nav-number">2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#汇编"><span class="nav-number">3.</span> <span class="nav-text">汇编</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链接"><span class="nav-number">4.</span> <span class="nav-text">链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CreateThread"><span class="nav-number">1.</span> <span class="nav-text">CreateThread</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WaitForSingleObject"><span class="nav-number">2.</span> <span class="nav-text">WaitForSingleObject</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#beginthreadex的区别"><span class="nav-number">3.</span> <span class="nav-text">_beginthreadex的区别</span></a></li></ol></div>
             
 
           </div>

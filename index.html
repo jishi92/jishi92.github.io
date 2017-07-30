@@ -458,6 +458,239 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/thread1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/thread1.html" itemprop="url">
+                  windows下的C++多线程编程学习（一）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T21:11:34+08:00">
+                2017-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>学习C++很久了却一直没有学到多线程编程的知识，现在就来学习一下并做个整理。<br>我们可以用CreateThread和_beginthreadex来创建多线程程序，那么他们之间有什么样的区别呢？<br>先看一个实例，下面这个程序的主线程会创建了一个子线程并等待其运行完毕，子线程就输出它的线程ID号然后输出一句经典名言——Hello World。整个程序的代码非常简短，只有区区几行。</p>
+<pre><code>//最简单的创建多线程实例  
+#include &lt;stdio.h&gt;  
+#include &lt;windows.h&gt;  
+//子线程函数  
+DWORD WINAPI ThreadFun(LPVOID pM)  
+{  
+    printf(&quot;子线程的线程ID号为：%d\n子线程输出Hello World\n&quot;, GetCurrentThreadId());  
+    return 0;  
+}  
+//主函数，所谓主函数其实就是主线程执行的函数。  
+int main()  
+{  
+    printf(&quot;     最简单的创建多线程实例\n&quot;);  
+    printf(&quot; -- by MoreWindows( http://blog.csdn.net/MoreWindows ) --\n\n&quot;);  
+
+    HANDLE handle = CreateThread(NULL, 0, ThreadFun, NULL, 0, NULL);  
+    WaitForSingleObject(handle, INFINITE);  
+    return 0;  
+} 
+</code></pre><p><img src="http://i.imgur.com/oNYZIqz.png" alt=""></p>
+<p>下面来细讲下代码中的一些函数</p>
+<h1 id="CreateThread"><a href="#CreateThread" class="headerlink" title="CreateThread"></a>CreateThread</h1><p>函数功能：创建线程</p>
+<p>函数原型：</p>
+<pre><code>  HANDLE WINAPI CreateThread(
+
+  LPSECURITY_ATTRIBUTES lpThreadAttributes,  
+//第一个参数表示线程内核对象的安全属性，一般传入NULL表示使用默认设置。
+
+  SIZE_T dwStackSize,  
+//第二个参数表示线程栈空间大小。传入0表示使用默认大小（1MB）。
+
+  LPTHREAD_START_ROUTINE lpStartAddress,  
+//第三个参数表示新线程所执行的线程函数地址，多个线程可以使用同一个函数地址。
+
+  LPVOID lpParameter,  
+//第四个参数是传给线程函数的参数。
+
+  DWORD dwCreationFlags,  
+//第五个参数指定额外的标志来控制线程的创建，为0表示线程创建之后立即就可以进行调度，如果为CREATE_SUSPENDED则表示线程创建后暂停运行，这样它就无法调度，直到调用ResumeThread()。
+
+  LPDWORD lpThreadId
+//第六个参数将返回线程的ID号，传入NULL表示不需要返回该线程ID号。
+
+);
+</code></pre><p>函数返回值：</p>
+<p>成功返回新线程的句柄，失败返回NULL。   </p>
+<h1 id="WaitForSingleObject"><a href="#WaitForSingleObject" class="headerlink" title="WaitForSingleObject"></a>WaitForSingleObject</h1><p>函数功能：等待函数 – 使线程进入等待状态，直到指定的内核对象被触发。</p>
+<p>函数原形：</p>
+<pre><code>  DWORD WINAPI WaitForSingleObject(
+
+  HANDLE hHandle,  
+//第一个参数为要等待的内核对象。
+
+  DWORD dwMilliseconds  
+//第二个参数为最长等待的时间，以毫秒为单位，如传入5000就表示5秒，  
+传入0就立即返回，传入INFINITE表示无限等待。
+
+);
+</code></pre><p>函数说明：</p>
+<p>因为线程的句柄在线程运行时是未触发的，线程结束运行，句柄处于触发状态。所以可以用WaitForSingleObject()来等待一个线程结束运行。</p>
+<p>函数返回值：</p>
+<p>在指定的时间内对象被触发，函数返回WAIT_OBJEC\T_0。超过最长等待时间对象仍未被触发返回WAIT_TIMEOUT。传入参数有错误将返回WAIT_FAILED。</p>
+<h1 id="beginthreadex的区别"><a href="#beginthreadex的区别" class="headerlink" title="_beginthreadex的区别"></a>_beginthreadex的区别</h1><p>CreateThread()函数是Windows提供的API接口，在C/C++语言另有一个创建线程的函数_beginthreadex()，在很多书上（包括《Windows核心编程》）提到过尽量使用_beginthreadex()来代替使用CreateThread()，这是为什么了？  </p>
+<p>为了解决像strerror()、strtok()、tmpnam()、gmtime()、asctime()等函数也会遇到这种由多个线程访问修改导致的数据覆盖问题。Windows操作系统提供了这样的一种解决方案——每个线程都将拥有自己专用的一块内存区域来供标准C运行库中所有有需要的函数使用。而且这块内存区域的创建就是由C/C++运行库函数_beginthreadex()来负责的。  </p>
+<p>_beginthreadex()函数在创建新线程时会分配并初始化一个_tiddata块。这个_tiddata块自然是用来存放一些需要线程独享的数据。事实上新线程运行时会首先将_tiddata块与自己进一步关联起来。然后新线程调用标准C运行库函数如strtok()时就会先取得_tiddata块的地址再将需要保护的数据存入_tiddata块中。这样每个线程就只会访问和修改自己的数据而不会去篡改其它线程的数据了。因此，如果在代码中有使用标准C运行库中的函数时，尽量使用_beginthreadex()来代替CreateThread()。</p>
+<p>接下来，类似于上面的程序用CreateThread()创建输出“Hello World”的子线程，下面使用_beginthreadex()来创建多个子线程：</p>
+<pre><code>//创建多子个线程实例  
+#include &lt;stdio.h&gt;  
+#include &lt;process.h&gt;  
+#include &lt;windows.h&gt;  
+//子线程函数  
+unsigned int __stdcall ThreadFun(PVOID pM)  
+{  
+    printf(&quot;线程ID号为%4d的子线程说：Hello World\n&quot;, GetCurrentThreadId());  
+    return 0;  
+}  
+//主函数，所谓主函数其实就是主线程执行的函数。  
+int main()  
+{  
+    printf(&quot;     创建多个子线程实例 \n&quot;);  
+    printf(&quot; -- by MoreWindows( http://blog.csdn.net/MoreWindows ) --\n\n&quot;);  
+
+    const int THREAD_NUM = 5;  
+    HANDLE handle[THREAD_NUM];  
+    for (int i = 0; i &lt; THREAD_NUM; i++)  
+        handle[i] = (HANDLE)_beginthreadex(NULL, 0, ThreadFun, NULL, 0, NULL);  
+    WaitForMultipleObjects(THREAD_NUM, handle, TRUE, INFINITE);  
+    return 0;  
+}  
+</code></pre><p><img src="http://i.imgur.com/eTFpbv4.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/linux-commu.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1650,153 +1883,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/object.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="羁士">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="你的征程是星辰大海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/object.html" itemprop="url">
-                  浅析面向对象编程思想
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-28T21:26:08+08:00">
-                2017-06-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>面向对象的三个基本特征<br>面向对象的三个基本特征是：封装、继承、多态。其中，封装可以隐藏实现细节，使得代码模块化；继承可以扩展已存在的代码模块（类）；它们的目的都是为了——代码重用。而多态则是为了实现另一个目的——接口重用！<br><img src="http://img.my.csdn.net/uploads/201211/22/1353564524_6375.png" alt=""></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/object.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1846,7 +1932,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1868,7 +1954,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
