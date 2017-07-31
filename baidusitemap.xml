@@ -5,11 +5,33 @@
     
   <url>
     <loc>http://qisens.win/2017/thread1.html</loc>
-    <lastmod>2017-07-30T13:37:01.132Z</lastmod>
+    <lastmod>2017-07-31T14:09:56.906Z</lastmod>
     <data>
         <display>
         <title>windows下的C++多线程编程学习（一）</title>
         <pubTime>2017-07-25T13:11:34.000Z</pubTime>
+        
+        <tag>C++</tag>
+         
+        <tag>多线程编程</tag>
+         
+         
+           
+             
+              <breadCrumb title="C++" url="http://qisens.win/categories/C/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/thread2.html</loc>
+    <lastmod>2017-07-31T14:09:29.930Z</lastmod>
+    <data>
+        <display>
+        <title>windows下的C++多线程编程学习（二）</title>
+        <pubTime>2017-07-27T13:12:52.000Z</pubTime>
         
         <tag>C++</tag>
          

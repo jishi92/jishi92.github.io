@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="C++,多线程编程," />
 
 
 
@@ -87,16 +87,23 @@
 
 
 
-<meta name="description" content="google-site-verification: googled3c3ef3b6534c064.html">
-<meta property="og:type" content="website">
-<meta property="og:title" content="你的征程是星辰大海">
-<meta property="og:url" content="http://qisens.win/googled3c3ef3b6534c064.html">
+<meta name="description" content="上一篇中讲到一个多线程报数功能。为了描述方便和代码简洁起见，我们可以只输出最后的报数结果来观察程序是否运行出错。这也非常类似于统计一个网站每天有多少用户登录，每个用户登录用一个线程模拟，线程运行时会将一个表示计数的变量递增。程序在最后输出计数的值表示有今天多少个用户登录，如果这个值不等于我们启动的线程个数，那显然说明这个程序是有问题的。整个程序代码如下：   #include &amp;lt;stdio.">
+<meta name="keywords" content="C++,多线程编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows下的C++多线程编程学习（二）">
+<meta property="og:url" content="http://qisens.win/2017/thread2.html">
 <meta property="og:site_name" content="你的征程是星辰大海">
-<meta property="og:description" content="google-site-verification: googled3c3ef3b6534c064.html">
-<meta property="og:updated_time" content="2017-06-04T12:19:03.995Z">
+<meta property="og:description" content="上一篇中讲到一个多线程报数功能。为了描述方便和代码简洁起见，我们可以只输出最后的报数结果来观察程序是否运行出错。这也非常类似于统计一个网站每天有多少用户登录，每个用户登录用一个线程模拟，线程运行时会将一个表示计数的变量递增。程序在最后输出计数的值表示有今天多少个用户登录，如果这个值不等于我们启动的线程个数，那显然说明这个程序是有问题的。整个程序代码如下：   #include &amp;lt;stdio.">
+<meta property="og:image" content="http://my.csdn.net/uploads/201204/05/1333615687_2140.PNG">
+<meta property="og:image" content="http://my.csdn.net/uploads/201204/05/1333615859_9994.PNG">
+<meta property="og:image" content="http://i.imgur.com/SKqMNCe.png">
+<meta property="og:image" content="http://my.csdn.net/uploads/201204/05/1333615892_6074.PNG">
+<meta property="og:image" content="http://i.imgur.com/frdW3cT.png">
+<meta property="og:updated_time" content="2017-07-31T14:09:29.930Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="你的征程是星辰大海">
-<meta name="twitter:description" content="google-site-verification: googled3c3ef3b6534c064.html">
+<meta name="twitter:title" content="windows下的C++多线程编程学习（二）">
+<meta name="twitter:description" content="上一篇中讲到一个多线程报数功能。为了描述方便和代码简洁起见，我们可以只输出最后的报数结果来观察程序是否运行出错。这也非常类似于统计一个网站每天有多少用户登录，每个用户登录用一个线程模拟，线程运行时会将一个表示计数的变量递增。程序在最后输出计数的值表示有今天多少个用户登录，如果这个值不等于我们启动的线程个数，那显然说明这个程序是有问题的。整个程序代码如下：   #include &amp;lt;stdio.">
+<meta name="twitter:image" content="http://my.csdn.net/uploads/201204/05/1333615687_2140.PNG">
 
 
 
@@ -124,19 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://qisens.win/googled3c3ef3b6534c064.html"/>
+  <link rel="canonical" href="http://qisens.win/2017/thread2.html"/>
 
 
 
 
 
-  <title>
-  
-
-  
-     | 你的征程是星辰大海
-  
-</title>
+  <title> windows下的C++多线程编程学习（二） | 你的征程是星辰大海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -161,7 +162,7 @@
     
   
 
-  <div class="container sidebar-position-right  ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -300,18 +301,266 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline"></h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/thread2.html">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                windows下的C++多线程编程学习（二）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-27T21:12:52+08:00">
+                2017-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
-      google-site-verification: googled3c3ef3b6534c064.html
-    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>上一篇中讲到一个多线程报数功能。为了描述方便和代码简洁起见，我们可以只输出最后的报数结果来观察程序是否运行出错。这也非常类似于统计一个网站每天有多少用户登录，每个用户登录用一个线程模拟，线程运行时会将一个表示计数的变量递增。程序在最后输出计数的值表示有今天多少个用户登录，如果这个值不等于我们启动的线程个数，那显然说明这个程序是有问题的。整个程序代码如下：  </p>
+<pre><code>#include &lt;stdio.h&gt;  
+#include &lt;process.h&gt;  
+#include &lt;windows.h&gt;  
+volatile long g_nLoginCount; //登录次数  
+unsigned int __stdcall Fun(void *pPM); //线程函数  
+const int THREAD_NUM = 10; //启动线程数  
+unsigned int __stdcall ThreadFun(void *pPM)  
+{  
+    Sleep(100); //some work should to do  
+    g_nLoginCount++;  
+    Sleep(50);   
+    return 0;  
+}  
+int main()  
+{  
+    g_nLoginCount = 0;  
+
+    HANDLE  handle[THREAD_NUM];  
+    for (int i = 0; i &lt; THREAD_NUM; i++)  
+        handle[i] = (HANDLE)_beginthreadex(NULL, 0, ThreadFun, NULL, 0, NULL);  
+
+    WaitForMultipleObjects(THREAD_NUM, handle, TRUE, INFINITE);   
+    printf(&quot;有%d个用户登录后记录结果是%d\n&quot;, THREAD_NUM, g_nLoginCount);  
+    return 0;  
+}
+</code></pre><p>程序中模拟的是10个用户登录，程序将输出结果：<br><img src="http://my.csdn.net/uploads/201204/05/1333615687_2140.PNG" alt=""><br>和上一篇的线程报数程序一样，程序输出的结果好象并没什么问题。下面我们增加点用户来试试，现在模拟50个用户登录，为了便于观察结果，在程序中将50个用户登录过程重复20次，代码如下：</p>
+<a id="more"></a>
+<pre><code>#include &lt;stdio.h&gt;  
+#include &lt;windows.h&gt;  
+volatile long g_nLoginCount; //登录次数  
+unsigned int __stdcall Fun(void *pPM); //线程函数  
+const DWORD THREAD_NUM = 50;//启动线程数  
+DWORD WINAPI ThreadFun(void *pPM)  
+{  
+    Sleep(100); //some work should to do  
+    g_nLoginCount++;  
+    Sleep(50);  
+    return 0;  
+}  
+int main()  
+{  
+    printf(&quot;     原子操作 Interlocked系列函数的使用\n&quot;);  
+    printf(&quot; -- by MoreWindows( http://blog.csdn.net/MoreWindows ) --\n\n&quot;);  
+
+    //重复20次以便观察多线程访问同一资源时导致的冲突  
+    int num= 20;  
+    while (num--)  
+    {     
+        g_nLoginCount = 0;  
+        int i;  
+        HANDLE  handle[THREAD_NUM];  
+        for (i = 0; i &lt; THREAD_NUM; i++)  
+            handle[i] = CreateThread(NULL, 0, ThreadFun, NULL, 0, NULL);  
+        WaitForMultipleObjects(THREAD_NUM, handle, TRUE, INFINITE);  
+        printf(&quot;有%d个用户登录后记录结果是%d\n&quot;, THREAD_NUM, g_nLoginCount);  
+    }  
+    return 0;  
+}  
+</code></pre><p>运行结果如下图：<br><img src="http://my.csdn.net/uploads/201204/05/1333615859_9994.PNG" alt=""><br>现在结果水落石出，明明有50个线程执行了g_nLoginCount++;操作，但结果输出是不确定的，有可能为50，但也有可能小于50。</p>
+<p>要解决这个问题，我们就分析下g_nLoginCount++;操作。在VS2013编译器对g_nLoginCount++;这一语句打个断点，再按F5进入调试状态，然后按下Debug工具栏的反编汇按钮，这样就出现了汇编代码窗口。可以发现在C/C++语言中一条简单的自增语句其实是由三条汇编代码组成的，如下图所示。<br><img src="http://i.imgur.com/SKqMNCe.png" alt=""></p>
+<p>讲解下这三条汇编意思：</p>
+<p>第一条汇编将g_nLoginCount的值从内存中读取到寄存器eax中。</p>
+<p>第二条汇编将寄存器eax中的值与1相加，计算结果仍存入寄存器eax中。</p>
+<p>第三条汇编将寄存器eax中的值写回内存中。</p>
+<p>这样由于线程执行的并发性，很可能线程A执行到第二句时，线程B开始执行，线程B将原来的值又写入寄存器eax中，这样线程A所主要计算的值就被线程B修改了。这样执行下来，结果是不可预知的——可能会出现50，可能小于50。</p>
+<p>因此在多线程环境中对一个变量进行读写时，我们需要有一种方法能够保证对一个值的递增操作是原子操作——即不可打断性，一个线程在执行原子操作时，其它线程必须等待它完成之后才能开始执行该原子操作。这种涉及到硬件的操作会不会很复杂了，幸运的是，Windows系统为我们提供了一些以Interlocked开头的函数来完成这一任务（下文将这些函数称为Interlocked系列函数）。</p>
+<h2 id="1-增减操作"><a href="#1-增减操作" class="headerlink" title="1.增减操作"></a>1.增减操作</h2><p>LONG__cdecl InterlockedIncrement(LONG volatile* Addend);</p>
+<p>LONG__cdecl InterlockedDecrement(LONG volatile* Addend);</p>
+<p>返回变量执行增减操作之后的值。</p>
+<p>LONG__cdec InterlockedExchangeAdd(LONG volatile* Addend, LONGValue);</p>
+<p>返回运算后的值，注意！加个负数就是减。</p>
+<h2 id="2-赋值操作"><a href="#2-赋值操作" class="headerlink" title="2.赋值操作"></a>2.赋值操作</h2><p>LONG__cdecl InterlockedExchange(LONG volatile* Target, LONGValue);</p>
+<p>Value就是新值，函数会返回原先的值。</p>
+<p>在本例中只要使用InterlockedIncrement()函数就可以了。将线程函数代码改成：</p>
+<pre><code>DWORD WINAPI ThreadFun(void *pPM)  
+{  
+    Sleep(100);//some work should to do  
+    //g_nLoginCount++;  
+    InterlockedIncrement((LPLONG)&amp;g_nLoginCount);  
+    Sleep(50);  
+    return 0;  
+} 
+</code></pre><p><img src="http://my.csdn.net/uploads/201204/05/1333615892_6074.PNG" alt=""><br>程序中是用50个线程模拟用户登录，有兴趣的同学可以试下用100个线程来模拟一下（上机试试绝对会有意外发现^_^）。<br><img src="http://i.imgur.com/frdW3cT.png" alt=""></p>
+<p>改成100后，问题出在WaitForMultipleObjects函数，最大等待数为64<br>若需实现大于64的情况需要做一些改变。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/多线程编程/" rel="tag"># 多线程编程</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/thread1.html" rel="next" title="windows下的C++多线程编程学习（一）">
+                <i class="fa fa-chevron-left"></i> windows下的C++多线程编程学习（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/bianyiliucheng.html" rel="prev" title="C++中程序编译流程解析">
+                C++中程序编译流程解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -343,8 +592,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -426,6 +684,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-增减操作"><span class="nav-number">1.</span> <span class="nav-text">1.增减操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-赋值操作"><span class="nav-number">2.</span> <span class="nav-text">2.赋值操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -542,6 +816,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
