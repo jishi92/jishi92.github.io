@@ -94,14 +94,14 @@
 <meta property="og:url" content="http://qisens.win/2017/tcp3-4.html">
 <meta property="og:site_name" content="你的征程是星辰大海">
 <meta property="og:description" content="TCP的三次握手过程可能大家比较熟悉了，但经历的各种状态可能还不熟。 三次握手和四次挥手的状态转移图如下： 如图，由于第二次握手接收端发送SYN+ACK信号所以握手只用了三次，挥手由于接收端ACK和FIN分两次发的，所以挥手需要四次。 最后接收端需要一个TIME_WAIT状态，如果TCP client端最后一次发送的ACK丢失了，它将重新发送。TIME_WAIT状态中所需要的时间是依赖于实现方法的">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/735653/201608/735653-20160802153108872-1434533909.jpg">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/735653/201608/735653-20160802153448184-382609721.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/735653/201608/735653-20160802153542950-1646345693.png">
-<meta property="og:updated_time" content="2017-08-04T14:06:12.777Z">
+<meta property="og:image" content="http://i.imgur.com/5dGFqeC.jpg">
+<meta property="og:image" content="http://i.imgur.com/sEX7q4f.png">
+<meta property="og:image" content="http://i.imgur.com/JBkin2C.png">
+<meta property="og:updated_time" content="2017-08-16T02:17:42.602Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图解TCP建立与断开过程的状态">
 <meta name="twitter:description" content="TCP的三次握手过程可能大家比较熟悉了，但经历的各种状态可能还不熟。 三次握手和四次挥手的状态转移图如下： 如图，由于第二次握手接收端发送SYN+ACK信号所以握手只用了三次，挥手由于接收端ACK和FIN分两次发的，所以挥手需要四次。 最后接收端需要一个TIME_WAIT状态，如果TCP client端最后一次发送的ACK丢失了，它将重新发送。TIME_WAIT状态中所需要的时间是依赖于实现方法的">
-<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/735653/201608/735653-20160802153108872-1434533909.jpg">
+<meta name="twitter:image" content="http://i.imgur.com/5dGFqeC.jpg">
 
 
 
@@ -402,13 +402,13 @@
       
 
       
-        <p>TCP的三次握手过程可能大家比较熟悉了，但经历的各种状态可能还不熟。 三次握手和四次挥手的状态转移图如下：<br><img src="http://images2015.cnblogs.com/blog/735653/201608/735653-20160802153108872-1434533909.jpg" alt=""></p>
+        <p>TCP的三次握手过程可能大家比较熟悉了，但经历的各种状态可能还不熟。 三次握手和四次挥手的状态转移图如下：<br><img src="http://i.imgur.com/5dGFqeC.jpg" alt=""></p>
 <p>如图，由于第二次握手接收端发送SYN+ACK信号所以握手只用了三次，挥手由于接收端ACK和FIN分两次发的，所以挥手需要四次。</p>
 <p>最后接收端需要一个TIME_WAIT状态，如果TCP client端最后一次发送的ACK丢失了，它将重新发送。TIME_WAIT状态中所需要的时间是依赖于实现方法的。典型的值为30秒、1分钟和2分钟。等待之后连接正式关闭，并且所有的资源(包括端口号)都被释放。  </p>
 <a id="more"></a>
-<p>整个Client（发送端）状态图如下：<br><img src="http://images2015.cnblogs.com/blog/735653/201608/735653-20160802153448184-382609721.png" alt=""></p>
+<p>整个Client（发送端）状态图如下：<br><img src="http://i.imgur.com/sEX7q4f.png" alt=""></p>
 <p>整个Server（接收端）状态图如下：</p>
-<p><img src="http://images2015.cnblogs.com/blog/735653/201608/735653-20160802153542950-1646345693.png" alt=""></p>
+<p><img src="http://i.imgur.com/JBkin2C.png" alt=""></p>
 
       
     </div>

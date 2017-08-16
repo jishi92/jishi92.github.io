@@ -399,20 +399,18 @@
 
       
         
-          
-            <p>OSI(Open System interconnection)开放系统互连参考模型</p>
+          <p>OSI(Open System interconnection)开放系统互连参考模型</p>
 <p>ISO(International Standards Organization)国际标准化组织</p>
 <h1 id="第一层：物理层"><a href="#第一层：物理层" class="headerlink" title="第一层：物理层"></a>第一层：物理层</h1><p> <strong>机械性能：</strong>接口的型状，尺寸的大小，引脚的数目和排列方式等。<br> <strong>电气性能：</strong>接口规定信号的电压、电流、阻抗、波形、速率及平衡特性等。<br> <strong>工程规范：</strong>接口引脚的意义、特性、标准。<br> <strong>工作方式：</strong>确定数据位流的传输方式，如：单工、半双工或全双工。</p>
 <p> <strong>物理层协议有：</strong><br> 美国电子工业协会(EIA)的RS232，RS422，RS423，RS485等；<br> 国际电报电话咨询委员会(CCITT)的X.25、X.21等；<br> 物理层的数据单位是位(BIT)，典型设备是<strong>集线器HUB</strong>。<br>这层主要和硬件有关，与软件关系不大。  </p>
 <h1 id="第二层：链路层"><a href="#第二层：链路层" class="headerlink" title="第二层：链路层"></a>第二层：链路层</h1><p> 链路层屏蔽传输介质的物理特征，使数据可靠传送。<br> 内容包括介质访问控制、连接控制、顺序控制、流量控制、差错控制和仲裁协议等。<br> <strong>链路层协议有</strong>：<br> 协议有面向字符的通讯协议(PPP)和面向位的通讯协议(HDLC)。<br> 仲裁协议：802.3、802.4、802.5，即：<br> CSMA/CD(Carrier Sense Multiple Access with Collision Detection)、Token Bus、Token Ring<br> 链路层数据单位是<strong>帧</strong>，实现对MAC地址的访问，典型设备是<strong>交换机</strong>Switch。</p>
-<h1 id="第三层：网络层"><a href="#第三层：网络层" class="headerlink" title="第三层：网络层"></a>第三层：网络层</h1><p>网络层管理连接方式和路由选择。<br><strong>连接方式：</strong>虚电路(Virtual Circuits)和数据报(Datagram)服务。<br>虚电路是面向连接的(Connection-Oriented)，数据通讯一次路由，通过会话建立的一条通路。<br>数据报是非连接的(Connectionless-Oriented)，每个数据报都有路由能力。<br>网络层的数据单位是<strong>包</strong>，使用的是<strong>IP地址</strong>，典型设备是<strong>路由器</strong>Router。<br>这一层可以进行流量控制，但流量控制更多的是使用第二层或第四层。  </p>
-<h1 id="第四层：传输层"><a href="#第四层：传输层" class="headerlink" title="第四层：传输层"></a>第四层：传输层</h1><p> 提供端到端的服务。可以实现流量控制、负载均衡。<br> 传输层信息包含<strong>端口、控制字和校验和</strong>。<br> 传输层协议主要是<strong>TCP和UDP。</strong><br> 传输层位于OSI的第四层，这层使用的设备是主机本身。　  </p>
-<h1 id="第五层：会话层"><a href="#第五层：会话层" class="headerlink" title="第五层：会话层"></a>第五层：会话层</h1><p> 会话层主要内容是通过会话进行<strong>身份验证、会话管理和确定通讯方式。</strong><br> 一旦建立连接，会话层的任务就是<strong>管理会话。</strong>  </p>
-<h1 id="第六层：表示层"><a href="#第六层：表示层" class="headerlink" title="第六层：表示层"></a>第六层：表示层</h1><p> 表示层主要是<strong>解释通讯数据的意义</strong>，如代码转换、格式变换等，使不同的终端可以表示。<br> 还包括<strong>加密与解密、压缩与解压缩等</strong>。</p>
-<h1 id="第七层：应用层"><a href="#第七层：应用层" class="headerlink" title="第七层：应用层"></a>第七层：应用层</h1><p> 应用层应该是直接面向用户的程序或服务，包括系统程序和用户程序，<br> 例如<strong>www、FTP、DNS、POP3和SMTP</strong>等都是应用层服务。  </p>
-<p>数据在发送时是数据从应用层至物理层的一个打包的过程，接收时是数据从物理层至应用层的一个解包的过程，<br> 从功能角度可分为三组，1、2层解决网络信道问题，3、4层解决传输问题，5、6、7层处理对应用进程的访问。<br> 从控制角度可分为二组，第1、2、3层是通信子网层，第4、5、6、7层是主机控制层。  </p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/ISO-OSI.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -552,7 +550,7 @@
 
       
         
-          <p>TCP的三次握手过程可能大家比较熟悉了，但经历的各种状态可能还不熟。 三次握手和四次挥手的状态转移图如下：<br><img src="http://images2015.cnblogs.com/blog/735653/201608/735653-20160802153108872-1434533909.jpg" alt=""></p>
+          <p>TCP的三次握手过程可能大家比较熟悉了，但经历的各种状态可能还不熟。 三次握手和四次挥手的状态转移图如下：<br><img src="http://i.imgur.com/5dGFqeC.jpg" alt=""></p>
 <p>如图，由于第二次握手接收端发送SYN+ACK信号所以握手只用了三次，挥手由于接收端ACK和FIN分两次发的，所以挥手需要四次。</p>
 <p>最后接收端需要一个TIME_WAIT状态，如果TCP client端最后一次发送的ACK丢失了，它将重新发送。TIME_WAIT状态中所需要的时间是依赖于实现方法的。典型的值为30秒、1分钟和2分钟。等待之后连接正式关闭，并且所有的资源(包括端口号)都被释放。  </p>
           <!--noindex-->

@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://qisens.win/2017/ISO-OSI.html</loc>
-    <lastmod>2017-08-10T12:10:45.296Z</lastmod>
+    <lastmod>2017-08-16T14:08:38.669Z</lastmod>
     <data>
         <display>
         <title>OSI的七层协议经典架构</title>
@@ -17,6 +17,28 @@
            
              
               <breadCrumb title="TCPIP" url="http://qisens.win/categories/TCPIP/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/tcp3-4.html</loc>
+    <lastmod>2017-08-16T02:17:42.602Z</lastmod>
+    <data>
+        <display>
+        <title>图解TCP建立与断开过程的状态</title>
+        <pubTime>2017-08-02T13:55:34.000Z</pubTime>
+        
+        <tag>TCP</tag>
+         
+        <tag>三次握手</tag>
+         
+         
+           
+             
+              <breadCrumb title="others" url="http://qisens.win/categories/others/"/>
           
         </display>
     </data>
@@ -39,28 +61,6 @@
            
              
               <breadCrumb title="Linux" url="http://qisens.win/categories/Linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://qisens.win/2017/tcp3-4.html</loc>
-    <lastmod>2017-08-04T14:06:12.777Z</lastmod>
-    <data>
-        <display>
-        <title>图解TCP建立与断开过程的状态</title>
-        <pubTime>2017-08-02T13:55:34.000Z</pubTime>
-        
-        <tag>TCP</tag>
-         
-        <tag>三次握手</tag>
-         
-         
-           
-             
-              <breadCrumb title="others" url="http://qisens.win/categories/others/"/>
           
         </display>
     </data>
