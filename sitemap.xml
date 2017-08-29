@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://qisens.win/2017/extern-C.html</loc>
+    
+    <lastmod>2017-08-29T14:19:50.692Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://qisens.win/2017/volatile.html</loc>
+    
+    <lastmod>2017-08-29T12:29:30.346Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://qisens.win/2017/static-const.html</loc>
     
-    <lastmod>2017-08-29T09:03:18.376Z</lastmod>
+    <lastmod>2017-08-29T09:05:28.873Z</lastmod>
     
   </url>
   

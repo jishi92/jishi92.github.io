@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="你的征程是星辰大海">
 <meta property="og:description" content="C 语言的 static 关键字有三种（具体来说是两种）用途：静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。int foo(){       static int i = 1; // note:1       //int i = 1;  // note:2       i += 1;       return i;   }   要明白这个用法，我们首先要了解c/c++的内存分布">
 <meta property="og:image" content="http://img.blog.csdn.net/20150426182011925?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWFqaWFuZmVpMTAyMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-08-29T09:03:18.376Z">
+<meta property="og:updated_time" content="2017-08-29T09:05:28.873Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="static用法详解及其与const的区别">
 <meta name="twitter:description" content="C 语言的 static 关键字有三种（具体来说是两种）用途：静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。int foo(){       static int i = 1; // note:1       //int i = 1;  // note:2       i += 1;       return i;   }   要明白这个用法，我们首先要了解c/c++的内存分布">
@@ -411,6 +411,7 @@
 <p>所以上面note:1的static是在全局数据区分配的,那么它存在的意思是什么？又是什么时候初始化的呢？  </p>
 <p>首先回答第一个问题：它存在的意义就是随着第一次函数的调用而初始化，却不随着函数的调用结束而销毁(如果把以上的note:1换成note:2,那么i就是在栈区分配了，会随着foo的调用结束而释放)。  </p>
 <p>那么第二个问题也就浮出水面了，它是在第一次调用进入note:1的时候初始化（当初面试被坑过，我居然说是一开始就初始化了，汗！！）。且只初始化一次，也就是你第二次调用foo(),不会继续初始化，而会直接跳过。  </p>
+<a id="more"></a>
 <p>那么它跟定义一个全局变量有什么区别呢，同样是初始化一次，连续调用foo()的结果是一样的，但是，使用全局变量的话，变量就不属于函数本身了，不再仅受函数的控制，给程序的维护带来不便。  </p>
 <p>静态局部变量正好可以解决这个问题。静态局部变量保存在全局数据区，而不是保存在栈中，每次的值保持到下一次调用，直到下次赋新值。</p>
 <p>那么我们总结一下，静态局部变量的特点（括号内为note:2,也就是局部变量的对比）：<br>（1）该变量在全局数据区分配内存(局部变量在栈区分配内存);<br>（2）静态局部变量在程序执行到该对象的声明处时被首次初始化，即以后的函数调用不再进行初始化(局部变量每次函数调用都会被初始化);<br>（3）静态局部变量一般在声明处初始化，如果没有显式初始化，会被程序自动初始化为0(局部变量不会被初始化);<br>（4）它始终驻留在全局数据区，直到程序运行结束。但其作用域为局部作用域，也就是不能在函数体外面使用它(局部变量在栈区，在函数结束后立即释放内存);  </p>
@@ -668,8 +669,8 @@ const Test::mask2=0xffff;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/linux-IO.html" rel="next" title="Linux IO模式及 select、poll、epoll详解">
-                <i class="fa fa-chevron-left"></i> Linux IO模式及 select、poll、epoll详解
+              <a href="/2017/volatile.html" rel="next" title="浅析C/C++中的volatile关键字">
+                <i class="fa fa-chevron-left"></i> 浅析C/C++中的volatile关键字
               </a>
             
           </div>
@@ -677,6 +678,10 @@ const Test::mask2=0xffff;
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/extern-C.html" rel="prev" title="浅析extern C的作用">
+                浅析extern C的作用 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -748,7 +753,7 @@ const Test::mask2=0xffff;
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

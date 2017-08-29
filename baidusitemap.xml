@@ -4,8 +4,48 @@
 
     
   <url>
+    <loc>http://qisens.win/2017/extern-C.html</loc>
+    <lastmod>2017-08-29T14:19:50.692Z</lastmod>
+    <data>
+        <display>
+        <title>浅析extern C的作用</title>
+        <pubTime>2017-08-29T12:30:16.000Z</pubTime>
+        
+        <tag>C++</tag>
+         
+         
+           
+             
+              <breadCrumb title="C++" url="http://qisens.win/categories/C/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/volatile.html</loc>
+    <lastmod>2017-08-29T12:29:30.346Z</lastmod>
+    <data>
+        <display>
+        <title>浅析C/C++中的volatile关键字</title>
+        <pubTime>2017-08-22T12:00:09.000Z</pubTime>
+        
+        <tag>C++</tag>
+         
+         
+           
+             
+              <breadCrumb title="C++" url="http://qisens.win/categories/C/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://qisens.win/2017/static-const.html</loc>
-    <lastmod>2017-08-29T09:03:18.376Z</lastmod>
+    <lastmod>2017-08-29T09:05:28.873Z</lastmod>
     <data>
         <display>
         <title>static用法详解及其与const的区别</title>

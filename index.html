@@ -301,6 +301,342 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/extern-C.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/extern-C.html" itemprop="url">
+                  浅析extern C的作用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-29T20:30:16+08:00">
+                2017-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>extern “C”的主要作用就是为了能够正确实现C++代码调用其他C语言代码。加上extern “C”后，会指示编译器这部分代码按c语言的进行编译，而不是C++的。由于C++支持函数重载，因此编译器编译函数的过程中会将函数的参数类型也加到编译后的代码中，而不仅仅是函数名；而C语言并不支持函数重载，因此编译C语言代码的函数时不会带上函数的参数类型，一般之包括函数名。</p>
+<p>这个功能十分有用处，因为在C++出现以前，很多代码都是C语言写的，而且很底层的库也是C语言写的，为了更好的支持原来的C代码和已经写好的C语言库，需要在C++中尽可能的支持C，而extern “C”就是其中的一个策略。</p>
+<p>这个功能主要用在下面的情况：</p>
+<p>1、C++代码调用C语言代码</p>
+<p>2、在C++的头文件中使用</p>
+<p>3、在多个人协同开发时，可能有的人比较擅长C语言，而有的人擅长C++，这样的情况下也会有用到<br>给出一个我设计的例子：</p>
+<p>moduleA、moduleB两个模块，B调用A中的代码，其中A是用C语言实现的，而B是利用C++实现的，下面给出一种实现方法：</p>
+<p>//moduleA头文件</p>
+<pre><code>#ifndef __MODULE_A_H //对于模块A来说，这个宏是为了防止头文件的重复引用
+
+#define __MODULE_A_H
+
+int fun(int, int);
+
+#endif
+
+//moduleA实现文件moduleA.C //模块A的实现部分并没有改变
+
+#include&quot;moduleA&quot;
+
+int fun(int a, int b)
+
+{
+
+return a+b;
+
+}
+</code></pre><p>//moduleB头文件</p>
+<pre><code>#idndef __MODULE_B_H //很明显这一部分也是为了防止重复引用
+
+#define __MODULE_B_H
+
+#ifdef __cplusplus //而这一部分就是告诉编译器，如果定义了__cplusplus(即如果是cpp文件， extern &quot;C&quot;{ //因为cpp文件默认定义了该宏),则采用C语言方式进行编译
+
+#include&quot;moduleA.h&quot;
+
+#endif
+
+… //其他代码
+
+#ifdef __cplusplus
+
+}
+
+#endif
+
+#endif
+
+//moduleB实现文件 moduleB.cpp //B模块的实现也没有改变，只是头文件的设计变化了
+
+#include&quot;moduleB.h&quot;
+
+int main()
+
+{
+
+cout&lt;&lt;fun(2,3)&lt;&lt;endl;
+
+}
+</code></pre><p>由于C、C++编译器对函数的编译处理是不完全相同的，尤其对于C++来说，支持函数的重载，编译后的函数一般是以函数名和形参类型来命名的。</p>
+<p>例如函数void fun(int, int)，编译后的可能是（不同编译器结果不同）_fun_int_int(不同编译器可能不同，但都采用了类似的机制，用函数名和参数类型来命名编译后的函数名)；而C语言没有类似的重载机制，一般是利用函数名来指明编译后的函数名的，对应上面的函数可能会是_fun这样的名字。<br>看下面的一个面试题：为什么标准头文件都有类似的结构？</p>
+<pre><code>#ifndef __INCvxWorksh /*防止该头文件被重复引用*/
+
+#define __INCvxWorksh
+
+#ifdef __cplusplus             //告诉编译器，这部分代码按C语言的格式进行编译，而不是C++的
+
+extern &quot;C&quot;{
+
+#endif
+
+/*…*/
+
+#ifdef __cplusplus
+
+}
+
+#endif
+
+#endif /*end of __INCvxWorksh*/
+</code></pre><p>分析：  </p>
+<p>显然，头文件中编译宏</p>
+<pre><code>&quot;#ifndef __INCvxWorksh 、#define __INCvxWorksh、#endif&quot;
+</code></pre><p>的作用是为了防止该头文件被重复引用<br>那么</p>
+<pre><code>#ifdef __cplusplus (其中__cplusplus是cpp中自定义的一个宏！！！)
+
+extern &quot;C&quot;{
+
+#endif
+
+#ifdef __cplusplus
+
+}
+
+#endif
+</code></pre><p>的作用是什么呢？</p>
+<p>extern “C”包含双重含义，从字面上可以知道，<br><strong>首先，被它修饰的目标是”extern”的；其次，被它修饰的目标代码是”C”的。</strong>  </p>
+<p>被extern “C”限定的函数或变量是extern类型的extern是C/C++语言中表明函数和全局变量的作用范围的关键字，该关键字告诉编译器，其申明的函数和变量可以在本模块或其他模块中使用。  </p>
+<p>记住，下面的语句：  </p>
+<p>extern int a; 仅仅是一个变量的声明，其并不是在定义变量a，并未为a分配空间。变量a在所有模块中作为一种全局变量只能被定义一次，否则会出错。  </p>
+<p>通常来说，在模块的头文件中对本模块提供给其他模块引用的函数和全局变量以关键字extern生命。例如，如果模块B要引用模块A中定义的全局变量和函数时只需包含模块A的头文件即可。这样模块B中调用模块A中的函数时，在编译阶段，模块B虽然找不到该函数，但并不会报错；<strong>它会在链接阶**</strong>段从模块A编译生成的目标代码中找到该函数。**</p>
+<p>extern对应的关键字是static，static表明变量或者函数只能在本模块中使用，因此，<strong>被static修饰的变量或者函数不可能被extern C修饰。</strong>  </p>
+<p><strong>被extern “C”修饰的变量和函数是按照C语言方式进行编译和链接的：这点很重要！！！！</strong><br>上面也提到过，由于C++支持函数重载，而C语言不支持，因此函数被C++编译后在符号库中的名字是与C语言不同的；C++编译后的函数需要加上参数的类型才能唯一标定重载后的函数，<strong>而加上extern “C”后，是为了向编译器指明这段代码按照C语言的方式进行编译</strong><br>未加extern “C”声明时的链接方式：</p>
+<pre><code>//模块A头文件 moduleA.h
+
+#idndef _MODULE_A_H
+
+#define _MODULE_A_H
+
+int foo(int x, int y);
+
+#endif
+
+在模块B中调用该函数：
+
+//模块B实现文件 moduleB.cpp
+
+#include&quot;moduleA.h&quot;
+
+foo(2,3);
+</code></pre><p>实际上，在链接阶段，连接器会从模块A生成的目标文件moduleA.obj中找_foo_int_int这样的符号！！！，显然这是不可能找到的，因为foo()函数被编译成了_foo的符号，因此会出现链接错误。  </p>
+<p>常见的做法可以参考下面的一个实现： </p>
+<p>moduleA、moduleB两个模块，B调用A中的代码，其中A是用C语言实现的，而B是利用C++实现的，下面给出一种实现方法：<br>    //moduleA头文件</p>
+<pre><code>#ifndef __MODULE_A_H //对于模块A来说，这个宏是为了防止头文件的重复引用
+
+#define __MODULE_A_H
+
+int fun(int, int);
+
+#endif
+
+//moduleA实现文件moduleA.C //模块A的实现部分并没有改变
+
+#include&quot;moduleA&quot;
+
+int fun(int a, int b)
+
+{
+
+return a+b;
+
+}
+
+//moduleB头文件
+
+#idndef __MODULE_B_H //很明显这一部分也是为了防止重复引用
+
+#define __MODULE_B_H
+
+#ifdef __cplusplus //而这一部分就是告诉编译器，如果定义了__cplusplus(即如果是cpp文件， extern &quot;C&quot;{ //因为cpp文件默认定义了该宏),则采用C语言方式进行编译
+
+#include&quot;moduleA.h&quot;
+
+#endif
+
+… //其他代码
+
+#ifdef __cplusplus
+
+}
+
+#endif
+
+#endif
+
+//moduleB实现文件 moduleB.cpp //B模块的实现也没有改变，只是头文件的设计变化了
+
+#include&quot;moduleB.h&quot;
+
+int main()
+
+{
+
+cout&lt;&lt;fun(2,3)&lt;&lt;endl;
+
+}
+</code></pre><p><strong>extern “C”的使用要点</strong></p>
+<p>1.可以是单一语句  </p>
+<pre><code>extern &quot;C&quot; double sqrt(double);
+</code></pre><p>2.可以是复合语句, 相当于复合语句中的声明都加了extern “C”</p>
+<pre><code>extern &quot;C&quot;  
+{  
+  double sqrt(double);  
+  int min(int, int);  
+}  
+</code></pre><p>3.可以包含头文件，相当于头文件中的声明都加了extern “C”</p>
+<pre><code>   extern &quot;C&quot;
+
+   {
+
+＃include &lt;cmath&gt;
+</code></pre><p>4.不可以将extern “C” 添加在函数内部  </p>
+<p>5.如果函数有多个声明，可以都加extern “C”, 也可以只出现在第一次声明中，后面的声明会接受第一个链接指示符的规则。</p>
+<p>6.除extern “C”, 还有extern “FORTRAN” 等。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/static-const.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -399,8 +735,7 @@
 
       
         
-          
-            <h1 id="C-语言的-static-关键字有三种（具体来说是两种）用途："><a href="#C-语言的-static-关键字有三种（具体来说是两种）用途：" class="headerlink" title="C 语言的 static 关键字有三种（具体来说是两种）用途："></a>C 语言的 static 关键字有三种（具体来说是两种）用途：</h1><h2 id="静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。"><a href="#静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。" class="headerlink" title="静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。"></a>静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。</h2><pre><code>int foo(){  
+          <h1 id="C-语言的-static-关键字有三种（具体来说是两种）用途："><a href="#C-语言的-static-关键字有三种（具体来说是两种）用途：" class="headerlink" title="C 语言的 static 关键字有三种（具体来说是两种）用途："></a>C 语言的 static 关键字有三种（具体来说是两种）用途：</h1><h2 id="静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。"><a href="#静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。" class="headerlink" title="静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。"></a>静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。</h2><pre><code>int foo(){  
     static int i = 1; // note:1  
     //int i = 1;  // note:2  
     i += 1;  
@@ -411,223 +746,170 @@
 <p>所以上面note:1的static是在全局数据区分配的,那么它存在的意思是什么？又是什么时候初始化的呢？  </p>
 <p>首先回答第一个问题：它存在的意义就是随着第一次函数的调用而初始化，却不随着函数的调用结束而销毁(如果把以上的note:1换成note:2,那么i就是在栈区分配了，会随着foo的调用结束而释放)。  </p>
 <p>那么第二个问题也就浮出水面了，它是在第一次调用进入note:1的时候初始化（当初面试被坑过，我居然说是一开始就初始化了，汗！！）。且只初始化一次，也就是你第二次调用foo(),不会继续初始化，而会直接跳过。  </p>
-<p>那么它跟定义一个全局变量有什么区别呢，同样是初始化一次，连续调用foo()的结果是一样的，但是，使用全局变量的话，变量就不属于函数本身了，不再仅受函数的控制，给程序的维护带来不便。  </p>
-<p>静态局部变量正好可以解决这个问题。静态局部变量保存在全局数据区，而不是保存在栈中，每次的值保持到下一次调用，直到下次赋新值。</p>
-<p>那么我们总结一下，静态局部变量的特点（括号内为note:2,也就是局部变量的对比）：<br>（1）该变量在全局数据区分配内存(局部变量在栈区分配内存);<br>（2）静态局部变量在程序执行到该对象的声明处时被首次初始化，即以后的函数调用不再进行初始化(局部变量每次函数调用都会被初始化);<br>（3）静态局部变量一般在声明处初始化，如果没有显式初始化，会被程序自动初始化为0(局部变量不会被初始化);<br>（4）它始终驻留在全局数据区，直到程序运行结束。但其作用域为局部作用域，也就是不能在函数体外面使用它(局部变量在栈区，在函数结束后立即释放内存);  </p>
-<h2 id="静态全局变量：定义在函数体外，用于修饰全局变量，表示该变量只在本文件可见。"><a href="#静态全局变量：定义在函数体外，用于修饰全局变量，表示该变量只在本文件可见。" class="headerlink" title="静态全局变量：定义在函数体外，用于修饰全局变量，表示该变量只在本文件可见。"></a>静态全局变量：定义在函数体外，用于修饰全局变量，表示该变量只在本文件可见。</h2><pre><code>static int i = 1;  //note:3  
-//int i = 1;  //note:4  
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/static-const.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 
 
-int foo()  
-{  
-    i += 1;  
-    return i;  
-}
-</code></pre><p>note:3和note:4有什么差异呢？你调用foo(),无论调用几次，他们的结果都是一样的。也就是说在本文件内调用他们是完全相同的。那么他们的区别是什么呢？<br><strong>文件隔离！</strong>  </p>
-<p>假设我有一个文件a.c,我们再新建一个b.c,内容如下。<br>    //file a.c  </p>
-<pre><code>//static int n = 15;  //note:5  
-int n = 15;  //note:6  
+    
+      
 
-//file b.c  
-#include &lt;stdio.h&gt;  
+  
 
-extern int n;  
+  
+  
+  
 
-void fn()  
-{  
-    n++;  
-    printf(&quot;after: %d\n&quot;,n);  
-}  
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/volatile.html">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
 
-void main()  
-{  
-    printf(&quot;before: %d\n&quot;,n);  
-    fn();  
-} 
-</code></pre><p>我们先使用note:6,也就是非静态全局变量，发现输出为:<br>before: 15<br>after: 16  </p>
-<p>也就是我们的b.c通过extern使用了a.c定义的全局变量。<br>那么我们改成使用note:5,也就是使用静态全局变量呢？<br>gcc a.c b.c -o output.out<br>会出现类似undeference to “n”的报错，它是找不到n的，因为static进行了文件隔离，你是没办法访问a.c定义的静态全局变量的，当然你用 #include “a.c”,那就不一样了。  </p>
-<p>以上我们就可以得出静态全局变量的特点：<br>静态全局变量不能被其它文件所用(全局变量可以);<br>其它文件中可以定义相同名字的变量，不会发生冲突(自然了，因为static隔离了文件，其它文件使用相同的名字的变量，也跟它没关系了);  </p>
-<h2 id="静态函数：准确的说，静态函数跟静态全局变量的作用类似："><a href="#静态函数：准确的说，静态函数跟静态全局变量的作用类似：" class="headerlink" title="静态函数：准确的说，静态函数跟静态全局变量的作用类似："></a>静态函数：准确的说，静态函数跟静态全局变量的作用类似：</h2><pre><code>//file a.c  
-#include &lt;stdio.h&gt;  
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
 
+    
+      <header class="post-header">
 
-void fn()  
-{  
-    printf(&quot;this is non-static func in a&quot;);  
-}  
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/volatile.html" itemprop="url">
+                  浅析C/C++中的volatile关键字
+                </a>
+              
+            
+          </h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-22T20:00:09+08:00">
+                2017-08-22
+              </time>
+            
 
-//file b.c  
-#include &lt;stdio.h&gt;  
+            
 
+            
+          </span>
 
-extern void fn();  //我们用extern声明其他文件的fn(),供本文件使用。  
-
-
-void main()  
-{  
-    fn();  
-} 
-</code></pre><p>可以正常输出：this is non-static func in a。<br>当给void fn()加上static的关键字之后呢？ undefined reference to “fn”.</p>
-<p>所以，静态函数的好处跟静态全局变量的好处就类似了：<br>1.静态函数不能被其它文件所用;<br>2.其它文件中可以定义相同名字的函数，不会发生冲突;  </p>
-<p>上面一共说了三种用法，为什么说准确来说是两种呢？<br>1.一种是修饰变量，一种是修饰函数，所以说是两种（这种解释不多）。<br>2.静态全局变量和修饰静态函数的作用是一样的，一般合并为一种。（这是比较多的分法）。  </p>
-<h1 id="C-语言的-static-关键字有二种用途："><a href="#C-语言的-static-关键字有二种用途：" class="headerlink" title="C++ 语言的 static 关键字有二种用途："></a>C++ 语言的 static 关键字有二种用途：</h1><p>当然以上的几种，也可以用在c++中。还有额外的两种用法：</p>
-<h2 id="静态数据成员："><a href="#静态数据成员：" class="headerlink" title="静态数据成员："></a>静态数据成员：</h2><p>用于修饰 class 的数据成员，即所谓“静态成员”。这种数据成员的生存期大于 class 的对象（实体 instance）。静态数据成员是每个 class 有一份，普通数据成员是每个 instance 有一份，因此静态数据成员也叫做类变量，而普通数据成员也叫做实例变量</p>
-<pre><code>#include&lt;iostream&gt;  
-
-
-using namespace std;  
-
-
-class Rectangle  
-{  
-private:  
-    int m_w,m_h;  
-    static int s_sum;  
-
-public:  
-    Rectangle(int w,int h)  
-    {  
-        this-&gt;m_w = w;  
-        this-&gt;m_h = h;  
-        s_sum += (this-&gt;m_w * this-&gt;m_h);  
-    }  
-
-
-    void GetSum()  
-    {  
-        cout&lt;&lt;&quot;sum = &quot;&lt;&lt;s_sum&lt;&lt;endl;  
-    }  
-
-
-};  
-
-
-int Rectangle::s_sum = 0;  //初始化  
-
-
-
-
-int main()  
-{  
-    cout&lt;&lt;&quot;sizeof(Rectangle)=&quot;&lt;&lt;sizeof(Rectangle)&lt;&lt;endl;  
-    Rectangle *rect1 = new Rectangle(3,4);  
-    rect1-&gt;GetSum();  
-    cout&lt;&lt;&quot;sizeof(rect1)=&quot;&lt;&lt;sizeof(*rect1)&lt;&lt;endl;  
-    Rectangle rect2(2,3);  
-    rect2.GetSum();  
-    cout&lt;&lt;&quot;sizeof(rect2)=&quot;&lt;&lt;sizeof(rect2)&lt;&lt;endl;  
-
-    system(&quot;pause&quot;);  
-    return 0;  
-}  
-</code></pre><p><img src="http://img.blog.csdn.net/20150426182011925?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWFqaWFuZmVpMTAyMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>由图可知：sizeof(Rectangle)=8bytes=sizeof(m_w)+sizeof(m_h)。也就是说 static 并不占用Rectangle的内存空间。<br>那么static在哪里分配内存的呢？是的，全局数据区(静态区)。<br>再看看GetSum()，第一次12=3<em>4，第二次18=12+2</em>3。由此可得，static只会被初始化一次，于实例无关。  </p>
-<p>结论：<br>对于非静态数据成员，每个类对象(实例)都有自己的拷贝。而静态数据成员被当作是类的成员，由该类型的所有对象共享访问,对该类的多个对象来说，静态数据成员只分配一次内存。<br>静态数据成员存储在全局数据区。静态数据成员定义时要分配空间，所以不能在类声明中定义。  </p>
-<p>也就是说，你每new一个Rectangle，并不会为static int s_sum的构建一份内存拷贝，它是不管你new了多少Rectangle的实例，因为它只与类Rectangle挂钩，而跟你每一个Rectangle的对象没关系。  </p>
-<h2 id="静态成员函数：用于修饰-class-的成员函数。"><a href="#静态成员函数：用于修饰-class-的成员函数。" class="headerlink" title="静态成员函数：用于修饰 class 的成员函数。"></a>静态成员函数：用于修饰 class 的成员函数。</h2><p>我们对上面的例子稍加改动：  </p>
-<pre><code>#include&lt;iostream&gt;  
-
-
-using namespace std;  
-
-
-class Rectangle  
-{  
-private:  
-    int m_w,m_h;  
-    static int s_sum;  
-
-public:  
-    Rectangle(int w,int h)  
-    {  
-        this-&gt;m_w = w;  
-        this-&gt;m_h = h;  
-        s_sum += (this-&gt;m_w * this-&gt;m_h);  
-    }  
-
-
-    static void GetSum()  //这里加上static  
-    {  
-        cout&lt;&lt;&quot;sum = &quot;&lt;&lt;s_sum&lt;&lt;endl;  
-    }  
-
-
-};  
-
-
-int Rectangle::s_sum = 0;  //初始化  
-
-
-
-
-int main()  
-{  
-    cout&lt;&lt;&quot;sizeof(Rectangle)=&quot;&lt;&lt;sizeof(Rectangle)&lt;&lt;endl;  
-    Rectangle *rect1 = new Rectangle(3,4);  
-    rect1-&gt;GetSum();  
-    cout&lt;&lt;&quot;sizeof(rect1)=&quot;&lt;&lt;sizeof(*rect1)&lt;&lt;endl;  
-    Rectangle rect2(2,3);  
-    rect2.GetSum();  //可以用对象名.函数名访问  
-    cout&lt;&lt;&quot;sizeof(rect2)=&quot;&lt;&lt;sizeof(rect2)&lt;&lt;endl;  
-    Rectangle::GetSum();  //也可以可以用类名::函数名访问  
-
-
-    system(&quot;pause&quot;);  
-    return 0;  
-}  
-</code></pre><p>上面注释可见:对GetSum()加上static，使它变成一个静态成员函数，可以用类名::函数名进行访问。<br>那么静态成员函数有特点呢？<br>1.静态成员之间可以相互访问，包括静态成员函数访问静态数据成员和访问静态成员函数;<br>2.非静态成员函数可以任意地访问静态成员函数和静态数据成员;<br>3.静态成员函数不能访问非静态成员函数和非静态数据成员;<br>4.调用静态成员函数，可以用成员访问操作符(.)和(-&gt;)为一个类的对象或指向类对象的指针调用静态成员函数,也可以用类名::函数名调用(因为他本来就是属于类的，用类名调用很正常)  </p>
-<p>前三点其实是一点：静态成员函数不能访问非静态(包括成员函数和数据成员)，但是非静态可以访问静态，有点晕吗？没关系，我给你个解释，<br>因为静态是属于类的，它是不知道你创建了10个还是100个对象，所以它对你对象的函数或者数据是一无所知的，所以它没办法调用，而反过来，你创建的对象是对类一清二楚的(不然你怎么从它那里实例化呢)，所以你是可以调用类函数和类成员的，就像不管GetSum是不是static，都可以调用static的s_sum一样。  </p>
-<h1 id="static和const的联系和区别"><a href="#static和const的联系和区别" class="headerlink" title="static和const的联系和区别"></a>static和const的联系和区别</h1><p>const定义的常量在超出其作用域之后其空间会被释放，而static定义的静态常量在函数执行后不会释放其存储空间。</p>
-<p>static表示的是静态的。类的静态成员函数、静态成员变量是和类相关的，而不是和类的具体对象相关的。即使没有具体对象，也能调用类的静态成员函数和成员变量。一般类的静态函数几乎就是一个全局函数，只不过它的作用域限于包含它的文件中。</p>
-<p>在C++中，static静态成员变量不能在类的内部初始化。在类的内部只是声明，定义必须在类定义体的外部，通常在类的实现文件中初始化，如：double Account::Rate=2.25;static关键字只能用于类定义体内部的声明中，定义时不能标示为static</p>
-<p>在C++中，const成员变量也不能在类定义处初始化，只能通过构造函数初始化列表进行，并且必须有构造函数。</p>
-<p>const数据成员 只在某个对象生存期内是常量，而对于整个类而言却是可变的。因为类可以创建多个对象，不同的对象其const数据成员的值可以不同。所以不能在类的声明中初始化const数据成员，因为类的对象没被创建时，编译器不知道const数据成员的值是什么。</p>
-<p>const数据成员的初始化只能在类的构造函数的初始化列表中进行。要想建立在整个类中都恒定的常量，应该用类中的枚举常量来实现，或者static cosnt</p>
-<pre><code>class Test  
-{  
-public:  
-      Test():a(0){}  
-      enum {size1=100,size2=200};  
-private:  
-      const int a;//只能在构造函数初始化列表中初始化  
-       static int b;//在类的实现文件中定义并初始化  
-      const static int c;//与 static const int c;相同。  
-};  
-
-int Test::b=0;//static成员变量不能在构造函数初始化列表中初始化，因为它不属于某个对象。  
-cosnt int Test::c=0;//注意：给静态成员变量赋值时，不需要加static修饰符。但要加cosnt 
-</code></pre><p>cosnt成员函数主要目的是防止成员函数修改对象的内容。即const成员函数不能修改成员变量的值，但可以访问成员变量。当方法成员函数时，该函数只能是const成员函数。</p>
-<p>static成员函数主要目的是作为类作用域的全局函数。不能访问类的非静态数据成员。类的静态成员函数没有this指针，这导致：1、不能直接存取类的非静态成员变量，调用非静态成员函数2、不能被声明为virtual</p>
-<p>关于static、const、static cosnt、const static成员的初始化问题：</p>
-<h2 id="类里的const成员初始化："><a href="#类里的const成员初始化：" class="headerlink" title="类里的const成员初始化："></a>类里的const成员初始化：</h2><p>在一个类里建立一个const时，不能给他初值<br>    class foo<br>    {<br>    public:<br>          foo():i(100){}<br>    private:<br>          const int i=100;//error!!!<br>    };<br>    //或者通过这样的方式来进行初始化<br>    foo::foo():i(100)<br>    {} </p>
-<h2 id="类里的static成员初始化："><a href="#类里的static成员初始化：" class="headerlink" title="类里的static成员初始化："></a>类里的static成员初始化：</h2><p>类中的static变量是属于类的，不属于某个对象，它在整个程序的运行过程中只有一个副本，因此不能在定义对象时 对变量进行初始化，就是不能用构造函数进行初始化，其正确的初始化方法是：</p>
-<p>数据类型 类名::静态数据成员名=值；</p>
-<pre><code>class foo  
-{  
-public:  
-      foo();  
-private:  
-      static int i;  
-};  
-
-int foo::i=20;  
-这表明：  
-1、初始化在类体外进行，而前面不加static，以免与一般静态变量或对象相混淆  
-2、初始化时不加该成员的访问权限控制符private、public等  
-3、初始化时使用作用域运算符来表明它所属的类，因此，静态数据成员是类的成员而不是对象的成员。 
-</code></pre><h2 id="类里的static-cosnt-和-const-static成员初始化"><a href="#类里的static-cosnt-和-const-static成员初始化" class="headerlink" title="类里的static cosnt 和 const static成员初始化"></a>类里的static cosnt 和 const static成员初始化</h2><p>这两种写法的作用一样，为了便于记忆，在此值说明一种通用的初始化方法：</p>
-<pre><code>class Test  
-{  
-public:  
-      static const int mask1;  
-      const static int mask2;  
-};  
-const Test::mask1=0xffff;  
-const Test::mask2=0xffff;  
-//它们的初始化没有区别，虽然一个是静态常量一个是常量静态。静态都将存储在全局变量区域，其实最后结果都一样。可能在不同编译器内，不同处理，但最后结果都一样。 
-</code></pre>
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="为什么用volatile？"><a href="#为什么用volatile？" class="headerlink" title="为什么用volatile？"></a>为什么用volatile？</h1><p>C/C++ 中的 volatile 关键字和 const 对应，用来修饰变量，通常用于建立语言级别的 memory barrier。这是 BS 在 “The C++ Programming Language” 对 volatile 修饰词的说明：</p>
+<blockquote>
+<p>A volatile specifier is a hint to a compiler that an object may change its value in ways not specified by the language so that aggressive optimizations must be avoided.</p>
+</blockquote>
+<p>volatile 关键字是一种类型修饰符，用它声明的类型变量表示可以被某些编译器未知的因素更改，比如：操作系统、硬件或者其它线程等。<strong>遇到这个关键字声明的变量，编译器对访问该变量的代码就不再进行优化</strong>，从而可以提供对特殊地址的稳定访问。声明时语法：<strong>int volatile vInt</strong>; 当要求使用 volatile 声明的变量的值的时候，系统总是重新从它所在的内存读取数据，即使它前面的指令刚刚从该处读取过数据。而且读取的数据立刻被保存。例如：</p>
+<pre><code>volatile int i=10;
+int a = i;
+...
+// 其他代码，并未明确告诉编译器，对 i 进行过操作
+int b = i;
+</code></pre><p> volatile 指出 i 是随时可能发生变化的，每次使用它的时候必须从 i的地址中读取，因而编译器生成的汇编代码会重新从i的地址读取数据放在 b 中。而优化做法是，由于编译器发现两次从 i读数据的代码之间的代码没有对 i 进行过操作，它会自动把上次读的数据放在 b 中。而不是重新从 i 里面读。这样以来，如果 i是一个寄存器变量或者表示一个端口数据就容易出错，所以说 volatile 可以保证对特殊地址的稳定访问。注意，在 VC 6 中，一般调试模式没有进行代码优化，所以这个关键字的作用看不出来。下面通过插入汇编代码，测试有无 volatile 关键字，对程序最终代码的影响.<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/volatile.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1781,325 +2063,11 @@ int main()
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/linux-commu.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="羁士">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="你的征程是星辰大海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/linux-commu.html" itemprop="url">
-                  浅析Linux进程间通信的几种方式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-18T14:55:21+08:00">
-                2017-07-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/others/" itemprop="url" rel="index">
-                    <span itemprop="name">others</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="进程通信的目的"><a href="#进程通信的目的" class="headerlink" title="进程通信的目的"></a>进程通信的目的</h1><ul>
-<li>数据传输<br>一个进程需要将它的数据发送给另一个进程，发送的数据量在一个字节到几M字节之间</li>
-</ul>
-<ul>
-<li>共享数据<br>多个进程想要操作共享数据，一个进程对共享数据</li>
-</ul>
-<ul>
-<li>通知事<br>一个进程需要向另一个或一组进程发送消息，通知它（它们）发生了某种事件（如进程终止时要通知父进程）。</li>
-</ul>
-<ul>
-<li>资源共享<br>多个进程之间共享同样的资源。为了作到这一点，需要内核提供锁和同步机制。</li>
-</ul>
-<ul>
-<li>进程控制<br>有些进程希望完全控制另一个进程的执行（如Debug进程），此时控制进程希望能够拦截另一个进程的所有陷入和异常，并能够及时知道它的状态改变</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/linux-commu.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/socket2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="羁士">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="你的征程是星辰大海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/socket2.html" itemprop="url">
-                  C++ socket网络编程学习（二）TCP/UDP编程
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-17T10:43:38+08:00">
-                2017-07-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="原理部分"><a href="#原理部分" class="headerlink" title="原理部分"></a>原理部分</h1><p>   在网络编程中最常用的方案便是Client/Server (客户机/服务器)模型。在这种方案中客户应用程序向服务器程序请求服务。一个服务程序通常在一个众所周知的地址监听对服务的请求，也就是说，服务进程一 直处于休眠状态，直到一个客户向这个服务的地址提出了连接请求。在这个时刻，服务程序被”惊醒”并且为客户提供服务－对客户的请求作出适当的反应。  </p>
-<p>　 　为了方便这种Client/Server模型的网络编程，90年代初，由Microsoft联合了其他几家公司共同制定了一套WINDOWS下的网络编 程接口，即Windows Sockets规范，它不是一种网络协议,而是一套开放的、支持多种协议的Windows下的网络编程接口。现在的Winsock已经基本上实现了与协议 无关，你可以使用Winsock来调用多种协议的功能，但较常使用的是TCP/IP协议。Socket实际在计算机中提供了一个通信端口，可以通过这个端 口与任何一个具有Socket接口的计算机通信。应用程序在网络上传输，接收的信息都通过这个Socket接口来实现。</p>
-<p>　　微软为 Visual C++定义了Winsock类如CAsyncSocket类和派生于CAsyncSocket 的CSocket类，它们简单易用，读者朋友当然可以使用这些类来实现自己的网络程序，但是为了更好的了解Winsock API编程技术，我们这里探讨怎样使用底层的API函数实现简单的 Winsock 网络应用程式设计，分别说明如何在Server端和Client端操作Socket，实现基于TCP/IP的数据传送，最后给出相关的源代码。</p>
-<p>　　在VC中进行WINSOCK的API编程开发的时候，需要在项目中使用下面的三个文件，否则会出现编译错误。</p>
-<p>　　1．WINSOCK.H: 这是WINSOCK API的头文件，需要包含在项目中。</p>
-<p>　　2．WSOCK32.LIB: WINSOCK API连接库文件。在使用中，一定要把它作为项目的非缺省的连接库包含到项目文件中去。 </p>
-<p>　　3．WINSOCK.DLL: WINSOCK的动态连接库，位于WINDOWS的安装目录下。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/socket2.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2144,7 +2112,7 @@ int main()
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
