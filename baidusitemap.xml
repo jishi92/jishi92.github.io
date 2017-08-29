@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://qisens.win/2017/static-const.html</loc>
+    <lastmod>2017-08-29T09:03:18.376Z</lastmod>
+    <data>
+        <display>
+        <title>static用法详解及其与const的区别</title>
+        <pubTime>2017-08-25T08:24:02.000Z</pubTime>
+        
+        <tag>C++</tag>
+         
+         
+           
+             
+              <breadCrumb title="C++" url="http://qisens.win/categories/C/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://qisens.win/2017/linux-IO.html</loc>
     <lastmod>2017-08-24T09:02:45.309Z</lastmod>
     <data>

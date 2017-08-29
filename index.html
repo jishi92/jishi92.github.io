@@ -301,6 +301,374 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/static-const.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/static-const.html" itemprop="url">
+                  static用法详解及其与const的区别
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-25T16:24:02+08:00">
+                2017-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="C-语言的-static-关键字有三种（具体来说是两种）用途："><a href="#C-语言的-static-关键字有三种（具体来说是两种）用途：" class="headerlink" title="C 语言的 static 关键字有三种（具体来说是两种）用途："></a>C 语言的 static 关键字有三种（具体来说是两种）用途：</h1><h2 id="静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。"><a href="#静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。" class="headerlink" title="静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。"></a>静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。</h2><pre><code>int foo(){  
+    static int i = 1; // note:1  
+    //int i = 1;  // note:2  
+    i += 1;  
+    return i;  
+}  
+</code></pre><p>要明白这个用法，我们首先要了解c/c++的内存分布，以及static所在的区间。</p>
+<p>对于一个完整的程序，在内存中的分布情况如下：　<br>1.栈区： 由编译器自动分配释放，像局部变量，函数参数，都是在栈区。会随着作用于退出而释放空间。<br>3.堆区：程序员分配并释放的区域，像malloc(c),new(c++)<br>3.全局数据区(静态区)：全局变量和静态便令的存储是放在一块的，初始化的全局变量和静态变量在一块区域，未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。程序结束释放。<br>4.代码区  </p>
+<p>所以上面note:1的static是在全局数据区分配的,那么它存在的意思是什么？又是什么时候初始化的呢？  </p>
+<p>首先回答第一个问题：它存在的意义就是随着第一次函数的调用而初始化，却不随着函数的调用结束而销毁(如果把以上的note:1换成note:2,那么i就是在栈区分配了，会随着foo的调用结束而释放)。  </p>
+<p>那么第二个问题也就浮出水面了，它是在第一次调用进入note:1的时候初始化（当初面试被坑过，我居然说是一开始就初始化了，汗！！）。且只初始化一次，也就是你第二次调用foo(),不会继续初始化，而会直接跳过。  </p>
+<p>那么它跟定义一个全局变量有什么区别呢，同样是初始化一次，连续调用foo()的结果是一样的，但是，使用全局变量的话，变量就不属于函数本身了，不再仅受函数的控制，给程序的维护带来不便。  </p>
+<p>静态局部变量正好可以解决这个问题。静态局部变量保存在全局数据区，而不是保存在栈中，每次的值保持到下一次调用，直到下次赋新值。</p>
+<p>那么我们总结一下，静态局部变量的特点（括号内为note:2,也就是局部变量的对比）：<br>（1）该变量在全局数据区分配内存(局部变量在栈区分配内存);<br>（2）静态局部变量在程序执行到该对象的声明处时被首次初始化，即以后的函数调用不再进行初始化(局部变量每次函数调用都会被初始化);<br>（3）静态局部变量一般在声明处初始化，如果没有显式初始化，会被程序自动初始化为0(局部变量不会被初始化);<br>（4）它始终驻留在全局数据区，直到程序运行结束。但其作用域为局部作用域，也就是不能在函数体外面使用它(局部变量在栈区，在函数结束后立即释放内存);  </p>
+<h2 id="静态全局变量：定义在函数体外，用于修饰全局变量，表示该变量只在本文件可见。"><a href="#静态全局变量：定义在函数体外，用于修饰全局变量，表示该变量只在本文件可见。" class="headerlink" title="静态全局变量：定义在函数体外，用于修饰全局变量，表示该变量只在本文件可见。"></a>静态全局变量：定义在函数体外，用于修饰全局变量，表示该变量只在本文件可见。</h2><pre><code>static int i = 1;  //note:3  
+//int i = 1;  //note:4  
+
+
+int foo()  
+{  
+    i += 1;  
+    return i;  
+}
+</code></pre><p>note:3和note:4有什么差异呢？你调用foo(),无论调用几次，他们的结果都是一样的。也就是说在本文件内调用他们是完全相同的。那么他们的区别是什么呢？<br><strong>文件隔离！</strong>  </p>
+<p>假设我有一个文件a.c,我们再新建一个b.c,内容如下。<br>    //file a.c  </p>
+<pre><code>//static int n = 15;  //note:5  
+int n = 15;  //note:6  
+
+//file b.c  
+#include &lt;stdio.h&gt;  
+
+extern int n;  
+
+void fn()  
+{  
+    n++;  
+    printf(&quot;after: %d\n&quot;,n);  
+}  
+
+
+void main()  
+{  
+    printf(&quot;before: %d\n&quot;,n);  
+    fn();  
+} 
+</code></pre><p>我们先使用note:6,也就是非静态全局变量，发现输出为:<br>before: 15<br>after: 16  </p>
+<p>也就是我们的b.c通过extern使用了a.c定义的全局变量。<br>那么我们改成使用note:5,也就是使用静态全局变量呢？<br>gcc a.c b.c -o output.out<br>会出现类似undeference to “n”的报错，它是找不到n的，因为static进行了文件隔离，你是没办法访问a.c定义的静态全局变量的，当然你用 #include “a.c”,那就不一样了。  </p>
+<p>以上我们就可以得出静态全局变量的特点：<br>静态全局变量不能被其它文件所用(全局变量可以);<br>其它文件中可以定义相同名字的变量，不会发生冲突(自然了，因为static隔离了文件，其它文件使用相同的名字的变量，也跟它没关系了);  </p>
+<h2 id="静态函数：准确的说，静态函数跟静态全局变量的作用类似："><a href="#静态函数：准确的说，静态函数跟静态全局变量的作用类似：" class="headerlink" title="静态函数：准确的说，静态函数跟静态全局变量的作用类似："></a>静态函数：准确的说，静态函数跟静态全局变量的作用类似：</h2><pre><code>//file a.c  
+#include &lt;stdio.h&gt;  
+
+
+void fn()  
+{  
+    printf(&quot;this is non-static func in a&quot;);  
+}  
+
+
+//file b.c  
+#include &lt;stdio.h&gt;  
+
+
+extern void fn();  //我们用extern声明其他文件的fn(),供本文件使用。  
+
+
+void main()  
+{  
+    fn();  
+} 
+</code></pre><p>可以正常输出：this is non-static func in a。<br>当给void fn()加上static的关键字之后呢？ undefined reference to “fn”.</p>
+<p>所以，静态函数的好处跟静态全局变量的好处就类似了：<br>1.静态函数不能被其它文件所用;<br>2.其它文件中可以定义相同名字的函数，不会发生冲突;  </p>
+<p>上面一共说了三种用法，为什么说准确来说是两种呢？<br>1.一种是修饰变量，一种是修饰函数，所以说是两种（这种解释不多）。<br>2.静态全局变量和修饰静态函数的作用是一样的，一般合并为一种。（这是比较多的分法）。  </p>
+<h1 id="C-语言的-static-关键字有二种用途："><a href="#C-语言的-static-关键字有二种用途：" class="headerlink" title="C++ 语言的 static 关键字有二种用途："></a>C++ 语言的 static 关键字有二种用途：</h1><p>当然以上的几种，也可以用在c++中。还有额外的两种用法：</p>
+<h2 id="静态数据成员："><a href="#静态数据成员：" class="headerlink" title="静态数据成员："></a>静态数据成员：</h2><p>用于修饰 class 的数据成员，即所谓“静态成员”。这种数据成员的生存期大于 class 的对象（实体 instance）。静态数据成员是每个 class 有一份，普通数据成员是每个 instance 有一份，因此静态数据成员也叫做类变量，而普通数据成员也叫做实例变量</p>
+<pre><code>#include&lt;iostream&gt;  
+
+
+using namespace std;  
+
+
+class Rectangle  
+{  
+private:  
+    int m_w,m_h;  
+    static int s_sum;  
+
+public:  
+    Rectangle(int w,int h)  
+    {  
+        this-&gt;m_w = w;  
+        this-&gt;m_h = h;  
+        s_sum += (this-&gt;m_w * this-&gt;m_h);  
+    }  
+
+
+    void GetSum()  
+    {  
+        cout&lt;&lt;&quot;sum = &quot;&lt;&lt;s_sum&lt;&lt;endl;  
+    }  
+
+
+};  
+
+
+int Rectangle::s_sum = 0;  //初始化  
+
+
+
+
+int main()  
+{  
+    cout&lt;&lt;&quot;sizeof(Rectangle)=&quot;&lt;&lt;sizeof(Rectangle)&lt;&lt;endl;  
+    Rectangle *rect1 = new Rectangle(3,4);  
+    rect1-&gt;GetSum();  
+    cout&lt;&lt;&quot;sizeof(rect1)=&quot;&lt;&lt;sizeof(*rect1)&lt;&lt;endl;  
+    Rectangle rect2(2,3);  
+    rect2.GetSum();  
+    cout&lt;&lt;&quot;sizeof(rect2)=&quot;&lt;&lt;sizeof(rect2)&lt;&lt;endl;  
+
+    system(&quot;pause&quot;);  
+    return 0;  
+}  
+</code></pre><p><img src="http://img.blog.csdn.net/20150426182011925?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWFqaWFuZmVpMTAyMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>由图可知：sizeof(Rectangle)=8bytes=sizeof(m_w)+sizeof(m_h)。也就是说 static 并不占用Rectangle的内存空间。<br>那么static在哪里分配内存的呢？是的，全局数据区(静态区)。<br>再看看GetSum()，第一次12=3<em>4，第二次18=12+2</em>3。由此可得，static只会被初始化一次，于实例无关。  </p>
+<p>结论：<br>对于非静态数据成员，每个类对象(实例)都有自己的拷贝。而静态数据成员被当作是类的成员，由该类型的所有对象共享访问,对该类的多个对象来说，静态数据成员只分配一次内存。<br>静态数据成员存储在全局数据区。静态数据成员定义时要分配空间，所以不能在类声明中定义。  </p>
+<p>也就是说，你每new一个Rectangle，并不会为static int s_sum的构建一份内存拷贝，它是不管你new了多少Rectangle的实例，因为它只与类Rectangle挂钩，而跟你每一个Rectangle的对象没关系。  </p>
+<h2 id="静态成员函数：用于修饰-class-的成员函数。"><a href="#静态成员函数：用于修饰-class-的成员函数。" class="headerlink" title="静态成员函数：用于修饰 class 的成员函数。"></a>静态成员函数：用于修饰 class 的成员函数。</h2><p>我们对上面的例子稍加改动：  </p>
+<pre><code>#include&lt;iostream&gt;  
+
+
+using namespace std;  
+
+
+class Rectangle  
+{  
+private:  
+    int m_w,m_h;  
+    static int s_sum;  
+
+public:  
+    Rectangle(int w,int h)  
+    {  
+        this-&gt;m_w = w;  
+        this-&gt;m_h = h;  
+        s_sum += (this-&gt;m_w * this-&gt;m_h);  
+    }  
+
+
+    static void GetSum()  //这里加上static  
+    {  
+        cout&lt;&lt;&quot;sum = &quot;&lt;&lt;s_sum&lt;&lt;endl;  
+    }  
+
+
+};  
+
+
+int Rectangle::s_sum = 0;  //初始化  
+
+
+
+
+int main()  
+{  
+    cout&lt;&lt;&quot;sizeof(Rectangle)=&quot;&lt;&lt;sizeof(Rectangle)&lt;&lt;endl;  
+    Rectangle *rect1 = new Rectangle(3,4);  
+    rect1-&gt;GetSum();  
+    cout&lt;&lt;&quot;sizeof(rect1)=&quot;&lt;&lt;sizeof(*rect1)&lt;&lt;endl;  
+    Rectangle rect2(2,3);  
+    rect2.GetSum();  //可以用对象名.函数名访问  
+    cout&lt;&lt;&quot;sizeof(rect2)=&quot;&lt;&lt;sizeof(rect2)&lt;&lt;endl;  
+    Rectangle::GetSum();  //也可以可以用类名::函数名访问  
+
+
+    system(&quot;pause&quot;);  
+    return 0;  
+}  
+</code></pre><p>上面注释可见:对GetSum()加上static，使它变成一个静态成员函数，可以用类名::函数名进行访问。<br>那么静态成员函数有特点呢？<br>1.静态成员之间可以相互访问，包括静态成员函数访问静态数据成员和访问静态成员函数;<br>2.非静态成员函数可以任意地访问静态成员函数和静态数据成员;<br>3.静态成员函数不能访问非静态成员函数和非静态数据成员;<br>4.调用静态成员函数，可以用成员访问操作符(.)和(-&gt;)为一个类的对象或指向类对象的指针调用静态成员函数,也可以用类名::函数名调用(因为他本来就是属于类的，用类名调用很正常)  </p>
+<p>前三点其实是一点：静态成员函数不能访问非静态(包括成员函数和数据成员)，但是非静态可以访问静态，有点晕吗？没关系，我给你个解释，<br>因为静态是属于类的，它是不知道你创建了10个还是100个对象，所以它对你对象的函数或者数据是一无所知的，所以它没办法调用，而反过来，你创建的对象是对类一清二楚的(不然你怎么从它那里实例化呢)，所以你是可以调用类函数和类成员的，就像不管GetSum是不是static，都可以调用static的s_sum一样。  </p>
+<h1 id="static和const的联系和区别"><a href="#static和const的联系和区别" class="headerlink" title="static和const的联系和区别"></a>static和const的联系和区别</h1><p>const定义的常量在超出其作用域之后其空间会被释放，而static定义的静态常量在函数执行后不会释放其存储空间。</p>
+<p>static表示的是静态的。类的静态成员函数、静态成员变量是和类相关的，而不是和类的具体对象相关的。即使没有具体对象，也能调用类的静态成员函数和成员变量。一般类的静态函数几乎就是一个全局函数，只不过它的作用域限于包含它的文件中。</p>
+<p>在C++中，static静态成员变量不能在类的内部初始化。在类的内部只是声明，定义必须在类定义体的外部，通常在类的实现文件中初始化，如：double Account::Rate=2.25;static关键字只能用于类定义体内部的声明中，定义时不能标示为static</p>
+<p>在C++中，const成员变量也不能在类定义处初始化，只能通过构造函数初始化列表进行，并且必须有构造函数。</p>
+<p>const数据成员 只在某个对象生存期内是常量，而对于整个类而言却是可变的。因为类可以创建多个对象，不同的对象其const数据成员的值可以不同。所以不能在类的声明中初始化const数据成员，因为类的对象没被创建时，编译器不知道const数据成员的值是什么。</p>
+<p>const数据成员的初始化只能在类的构造函数的初始化列表中进行。要想建立在整个类中都恒定的常量，应该用类中的枚举常量来实现，或者static cosnt</p>
+<pre><code>class Test  
+{  
+public:  
+      Test():a(0){}  
+      enum {size1=100,size2=200};  
+private:  
+      const int a;//只能在构造函数初始化列表中初始化  
+       static int b;//在类的实现文件中定义并初始化  
+      const static int c;//与 static const int c;相同。  
+};  
+
+int Test::b=0;//static成员变量不能在构造函数初始化列表中初始化，因为它不属于某个对象。  
+cosnt int Test::c=0;//注意：给静态成员变量赋值时，不需要加static修饰符。但要加cosnt 
+</code></pre><p>cosnt成员函数主要目的是防止成员函数修改对象的内容。即const成员函数不能修改成员变量的值，但可以访问成员变量。当方法成员函数时，该函数只能是const成员函数。</p>
+<p>static成员函数主要目的是作为类作用域的全局函数。不能访问类的非静态数据成员。类的静态成员函数没有this指针，这导致：1、不能直接存取类的非静态成员变量，调用非静态成员函数2、不能被声明为virtual</p>
+<p>关于static、const、static cosnt、const static成员的初始化问题：</p>
+<h2 id="类里的const成员初始化："><a href="#类里的const成员初始化：" class="headerlink" title="类里的const成员初始化："></a>类里的const成员初始化：</h2><p>在一个类里建立一个const时，不能给他初值<br>    class foo<br>    {<br>    public:<br>          foo():i(100){}<br>    private:<br>          const int i=100;//error!!!<br>    };<br>    //或者通过这样的方式来进行初始化<br>    foo::foo():i(100)<br>    {} </p>
+<h2 id="类里的static成员初始化："><a href="#类里的static成员初始化：" class="headerlink" title="类里的static成员初始化："></a>类里的static成员初始化：</h2><p>类中的static变量是属于类的，不属于某个对象，它在整个程序的运行过程中只有一个副本，因此不能在定义对象时 对变量进行初始化，就是不能用构造函数进行初始化，其正确的初始化方法是：</p>
+<p>数据类型 类名::静态数据成员名=值；</p>
+<pre><code>class foo  
+{  
+public:  
+      foo();  
+private:  
+      static int i;  
+};  
+
+int foo::i=20;  
+这表明：  
+1、初始化在类体外进行，而前面不加static，以免与一般静态变量或对象相混淆  
+2、初始化时不加该成员的访问权限控制符private、public等  
+3、初始化时使用作用域运算符来表明它所属的类，因此，静态数据成员是类的成员而不是对象的成员。 
+</code></pre><h2 id="类里的static-cosnt-和-const-static成员初始化"><a href="#类里的static-cosnt-和-const-static成员初始化" class="headerlink" title="类里的static cosnt 和 const static成员初始化"></a>类里的static cosnt 和 const static成员初始化</h2><p>这两种写法的作用一样，为了便于记忆，在此值说明一种通用的初始化方法：</p>
+<pre><code>class Test  
+{  
+public:  
+      static const int mask1;  
+      const static int mask2;  
+};  
+const Test::mask1=0xffff;  
+const Test::mask2=0xffff;  
+//它们的初始化没有区别，虽然一个是静态常量一个是常量静态。静态都将存储在全局变量区域，其实最后结果都一样。可能在不同编译器内，不同处理，但最后结果都一样。 
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/linux-IO.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1727,153 +2095,6 @@ int main()
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/linux.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="羁士">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="你的征程是星辰大海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/linux.html" itemprop="url">
-                  linux基础知识总结
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-16T10:12:20+08:00">
-                2017-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/others/" itemprop="url" rel="index">
-                    <span itemprop="name">others</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Linux结构"><a href="#Linux结构" class="headerlink" title="Linux结构"></a>Linux结构</h1><p>可以把Linux系统看作由四部分构成：内核、用户界面、文件结构和实用工具。<br><img src="http://i.imgur.com/K7Gao8A.gif" alt=""></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/linux.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1923,7 +2144,7 @@ int main()
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
