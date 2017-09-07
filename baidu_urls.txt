@@ -1,5 +1,5 @@
+http://qisens.win/2017/STL常见容器实现原理——vector-list.html
+http://qisens.win/2017/静态库和动态库的区别.html
 http://qisens.win/2017/extern-C.html
 http://qisens.win/2017/static-const.html
 http://qisens.win/2017/volatile.html
-http://qisens.win/2017/linux-IO.html
-http://qisens.win/2017/ISO-OSI.html

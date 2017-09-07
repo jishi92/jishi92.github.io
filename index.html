@@ -301,6 +301,328 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/STL常见容器实现原理——vector-list.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/STL常见容器实现原理——vector-list.html" itemprop="url">
+                  STL常见容器实现原理——vector,list等
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-01T11:31:09+08:00">
+                2017-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h1><p>连续存储结构，每个元素在内存上是连续的</p>
+<p>array是一个固定大小的顺序容器，不能动态改变大小，它的大小在定义后就不能被改变。由于array具有固定的大小，它不支持添加和删除元素或改变容器大小等其他容器拥有的操作。在定义一个array容器的时候必须指定大小。</p>
+<pre><code>Defined in header :
+&lt;array&gt;
+template&lt;class T, std::size_t N&gt; struct array;
+</code></pre><h2 id="内存分配策略"><a href="#内存分配策略" class="headerlink" title="内存分配策略"></a>内存分配策略</h2><p>在内存分配策略上，array也与C-style数组类似。编译器在哪里为array分配内存，取决于array定义的位置和方式。</p>
+<ul>
+<li>若作为函数的局部对象，则将从栈上获得内存，与之对比是的vector，vector底层数据结构是动态数组，从自由存储区上分配内存：<ul>
+<li>若使用new操作符分配内存，则是在自由存储区上分配内存。</li>
+<li>若作为全局变量或局部静态变量，则是在全局/静态存储区上分配的内存。  <h2 id="Array使用优劣"><a href="#Array使用优劣" class="headerlink" title="Array使用优劣"></a>Array使用优劣</h2></li>
+</ul>
+</li>
+</ul>
+<p>(1)array比数组更安全。它提供了opeartor[]与at()成员函数，后者将进行数组越界检查。　  　</p>
+<p>(2)与其他容器相似，array也有自己的迭代器，因此array能够更好地与标准算法库结合起来。  </p>
+<p>(3)通过array::swap函数，可以实现线性时间内的两个数组内容的交换。</p>
+<p>另外，不像C-style数组，array容器类型的名称不会自动转换为指针。对于C++程序员来说，array要比C-style数组更好用。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/STL常见容器实现原理——vector-list.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/静态库和动态库的区别.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/静态库和动态库的区别.html" itemprop="url">
+                  静态库和动态库的区别
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-30T11:25:38+08:00">
+                2017-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="什么是库"><a href="#什么是库" class="headerlink" title="什么是库"></a>什么是库</h1><p>库是写好的现有的，成熟的，可以复用的代码。现实中每个程序都要依赖很多基础的底层库，不可能每个人的代码都从零开始，因此库的存在意义非同寻常。  </p>
+<p>本质上来说库是一种可执行代码的二进制形式，可以被操作系统载入内存执行。库有两种：静态库（.a、.lib）和动态库（.so、.dll）。  </p>
+<p>所谓静态、动态是指链接。回顾一下，将一个程序编译成可执行程序的步骤：<br><img src="http://images.cnitblog.com/blog/92071/201310/16201602-9c6047fe25ac46659d0a5ab2945552ce.png" alt=""></p>
+<h1 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h1><p>之所以成为【静态库】，是因为在链接阶段，会将汇编生成的目标文件.o与引用到的库一起链接打包到可执行文件中。因此对应的链接方式称为静态链接。  </p>
+<p>试想一下，静态库与汇编生成的目标文件一起链接为可执行文件，那么静态库必定跟.o文件格式相似。其实一个静态库可以简单看成是一组目标文件（.o/.obj文件）的集合，即很多目标文件经过压缩打包后形成的一个文件。静态库特点总结：  </p>
+<ol>
+<li>静态库对函数库的链接是放在编译时期完成的。 </li>
+</ol>
+<ol>
+<li>程序在运行时与函数库再无瓜葛，移植方便。  </li>
+</ol>
+<ol>
+<li>浪费空间和资源，因为所有相关的目标文件与牵涉到的函数库被链接合成一个可执行文件。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/静态库和动态库的区别.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/extern-C.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -324,7 +646,7 @@
               
                 
                 <a class="post-title-link" href="/2017/extern-C.html" itemprop="url">
-                  浅析extern C的作用
+                  浅析extern "C"的作用
                 </a>
               
             
@@ -399,203 +721,19 @@
 
       
         
-          
-            <p>extern “C”的主要作用就是为了能够正确实现C++代码调用其他C语言代码。加上extern “C”后，会指示编译器这部分代码按c语言的进行编译，而不是C++的。由于C++支持函数重载，因此编译器编译函数的过程中会将函数的参数类型也加到编译后的代码中，而不仅仅是函数名；而C语言并不支持函数重载，因此编译C语言代码的函数时不会带上函数的参数类型，一般之包括函数名。</p>
+          <p>extern “C”的主要作用就是为了能够正确实现C++代码调用其他C语言代码。加上extern “C”后，会指示编译器这部分代码按c语言的进行编译，而不是C++的。由于C++支持函数重载，因此编译器编译函数的过程中会将函数的参数类型也加到编译后的代码中，而不仅仅是函数名；而C语言并不支持函数重载，因此编译C语言代码的函数时不会带上函数的参数类型，一般之包括函数名。</p>
 <p>这个功能十分有用处，因为在C++出现以前，很多代码都是C语言写的，而且很底层的库也是C语言写的，为了更好的支持原来的C代码和已经写好的C语言库，需要在C++中尽可能的支持C，而extern “C”就是其中的一个策略。</p>
 <p>这个功能主要用在下面的情况：</p>
 <p>1、C++代码调用C语言代码</p>
 <p>2、在C++的头文件中使用</p>
-<p>3、在多个人协同开发时，可能有的人比较擅长C语言，而有的人擅长C++，这样的情况下也会有用到<br>给出一个我设计的例子：</p>
-<p>moduleA、moduleB两个模块，B调用A中的代码，其中A是用C语言实现的，而B是利用C++实现的，下面给出一种实现方法：</p>
-<p>//moduleA头文件</p>
-<pre><code>#ifndef __MODULE_A_H //对于模块A来说，这个宏是为了防止头文件的重复引用
-
-#define __MODULE_A_H
-
-int fun(int, int);
-
-#endif
-
-//moduleA实现文件moduleA.C //模块A的实现部分并没有改变
-
-#include&quot;moduleA&quot;
-
-int fun(int a, int b)
-
-{
-
-return a+b;
-
-}
-</code></pre><p>//moduleB头文件</p>
-<pre><code>#idndef __MODULE_B_H //很明显这一部分也是为了防止重复引用
-
-#define __MODULE_B_H
-
-#ifdef __cplusplus //而这一部分就是告诉编译器，如果定义了__cplusplus(即如果是cpp文件， extern &quot;C&quot;{ //因为cpp文件默认定义了该宏),则采用C语言方式进行编译
-
-#include&quot;moduleA.h&quot;
-
-#endif
-
-… //其他代码
-
-#ifdef __cplusplus
-
-}
-
-#endif
-
-#endif
-
-//moduleB实现文件 moduleB.cpp //B模块的实现也没有改变，只是头文件的设计变化了
-
-#include&quot;moduleB.h&quot;
-
-int main()
-
-{
-
-cout&lt;&lt;fun(2,3)&lt;&lt;endl;
-
-}
-</code></pre><p>由于C、C++编译器对函数的编译处理是不完全相同的，尤其对于C++来说，支持函数的重载，编译后的函数一般是以函数名和形参类型来命名的。</p>
-<p>例如函数void fun(int, int)，编译后的可能是（不同编译器结果不同）_fun_int_int(不同编译器可能不同，但都采用了类似的机制，用函数名和参数类型来命名编译后的函数名)；而C语言没有类似的重载机制，一般是利用函数名来指明编译后的函数名的，对应上面的函数可能会是_fun这样的名字。<br>看下面的一个面试题：为什么标准头文件都有类似的结构？</p>
-<pre><code>#ifndef __INCvxWorksh /*防止该头文件被重复引用*/
-
-#define __INCvxWorksh
-
-#ifdef __cplusplus             //告诉编译器，这部分代码按C语言的格式进行编译，而不是C++的
-
-extern &quot;C&quot;{
-
-#endif
-
-/*…*/
-
-#ifdef __cplusplus
-
-}
-
-#endif
-
-#endif /*end of __INCvxWorksh*/
-</code></pre><p>分析：  </p>
-<p>显然，头文件中编译宏</p>
-<pre><code>&quot;#ifndef __INCvxWorksh 、#define __INCvxWorksh、#endif&quot;
-</code></pre><p>的作用是为了防止该头文件被重复引用<br>那么</p>
-<pre><code>#ifdef __cplusplus (其中__cplusplus是cpp中自定义的一个宏！！！)
-
-extern &quot;C&quot;{
-
-#endif
-
-#ifdef __cplusplus
-
-}
-
-#endif
-</code></pre><p>的作用是什么呢？</p>
-<p>extern “C”包含双重含义，从字面上可以知道，<br><strong>首先，被它修饰的目标是”extern”的；其次，被它修饰的目标代码是”C”的。</strong>  </p>
-<p>被extern “C”限定的函数或变量是extern类型的extern是C/C++语言中表明函数和全局变量的作用范围的关键字，该关键字告诉编译器，其申明的函数和变量可以在本模块或其他模块中使用。  </p>
-<p>记住，下面的语句：  </p>
-<p>extern int a; 仅仅是一个变量的声明，其并不是在定义变量a，并未为a分配空间。变量a在所有模块中作为一种全局变量只能被定义一次，否则会出错。  </p>
-<p>通常来说，在模块的头文件中对本模块提供给其他模块引用的函数和全局变量以关键字extern生命。例如，如果模块B要引用模块A中定义的全局变量和函数时只需包含模块A的头文件即可。这样模块B中调用模块A中的函数时，在编译阶段，模块B虽然找不到该函数，但并不会报错；<strong>它会在链接阶**</strong>段从模块A编译生成的目标代码中找到该函数。**</p>
-<p>extern对应的关键字是static，static表明变量或者函数只能在本模块中使用，因此，<strong>被static修饰的变量或者函数不可能被extern C修饰。</strong>  </p>
-<p><strong>被extern “C”修饰的变量和函数是按照C语言方式进行编译和链接的：这点很重要！！！！</strong><br>上面也提到过，由于C++支持函数重载，而C语言不支持，因此函数被C++编译后在符号库中的名字是与C语言不同的；C++编译后的函数需要加上参数的类型才能唯一标定重载后的函数，<strong>而加上extern “C”后，是为了向编译器指明这段代码按照C语言的方式进行编译</strong><br>未加extern “C”声明时的链接方式：</p>
-<pre><code>//模块A头文件 moduleA.h
-
-#idndef _MODULE_A_H
-
-#define _MODULE_A_H
-
-int foo(int x, int y);
-
-#endif
-
-在模块B中调用该函数：
-
-//模块B实现文件 moduleB.cpp
-
-#include&quot;moduleA.h&quot;
-
-foo(2,3);
-</code></pre><p>实际上，在链接阶段，连接器会从模块A生成的目标文件moduleA.obj中找_foo_int_int这样的符号！！！，显然这是不可能找到的，因为foo()函数被编译成了_foo的符号，因此会出现链接错误。  </p>
-<p>常见的做法可以参考下面的一个实现： </p>
-<p>moduleA、moduleB两个模块，B调用A中的代码，其中A是用C语言实现的，而B是利用C++实现的，下面给出一种实现方法：<br>    //moduleA头文件</p>
-<pre><code>#ifndef __MODULE_A_H //对于模块A来说，这个宏是为了防止头文件的重复引用
-
-#define __MODULE_A_H
-
-int fun(int, int);
-
-#endif
-
-//moduleA实现文件moduleA.C //模块A的实现部分并没有改变
-
-#include&quot;moduleA&quot;
-
-int fun(int a, int b)
-
-{
-
-return a+b;
-
-}
-
-//moduleB头文件
-
-#idndef __MODULE_B_H //很明显这一部分也是为了防止重复引用
-
-#define __MODULE_B_H
-
-#ifdef __cplusplus //而这一部分就是告诉编译器，如果定义了__cplusplus(即如果是cpp文件， extern &quot;C&quot;{ //因为cpp文件默认定义了该宏),则采用C语言方式进行编译
-
-#include&quot;moduleA.h&quot;
-
-#endif
-
-… //其他代码
-
-#ifdef __cplusplus
-
-}
-
-#endif
-
-#endif
-
-//moduleB实现文件 moduleB.cpp //B模块的实现也没有改变，只是头文件的设计变化了
-
-#include&quot;moduleB.h&quot;
-
-int main()
-
-{
-
-cout&lt;&lt;fun(2,3)&lt;&lt;endl;
-
-}
-</code></pre><p><strong>extern “C”的使用要点</strong></p>
-<p>1.可以是单一语句  </p>
-<pre><code>extern &quot;C&quot; double sqrt(double);
-</code></pre><p>2.可以是复合语句, 相当于复合语句中的声明都加了extern “C”</p>
-<pre><code>extern &quot;C&quot;  
-{  
-  double sqrt(double);  
-  int min(int, int);  
-}  
-</code></pre><p>3.可以包含头文件，相当于头文件中的声明都加了extern “C”</p>
-<pre><code>   extern &quot;C&quot;
-
-   {
-
-＃include &lt;cmath&gt;
-</code></pre><p>4.不可以将extern “C” 添加在函数内部  </p>
-<p>5.如果函数有多个声明，可以都加extern “C”, 也可以只出现在第一次声明中，后面的声明会接受第一个链接指示符的规则。</p>
-<p>6.除extern “C”, 还有extern “FORTRAN” 等。</p>
-
-          
+<p>3、在多个人协同开发时，可能有的人比较擅长C语言，而有的人擅长C++，这样的情况下也会有用到<br>给出一个我设计的例子：<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/extern-C.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1722,347 +1860,6 @@ g++ -v
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/thread2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="羁士">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="你的征程是星辰大海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/thread2.html" itemprop="url">
-                  windows下的C++多线程编程学习（二）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-27T21:12:52+08:00">
-                2017-07-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>上一篇中讲到一个多线程报数功能。为了描述方便和代码简洁起见，我们可以只输出最后的报数结果来观察程序是否运行出错。这也非常类似于统计一个网站每天有多少用户登录，每个用户登录用一个线程模拟，线程运行时会将一个表示计数的变量递增。程序在最后输出计数的值表示有今天多少个用户登录，如果这个值不等于我们启动的线程个数，那显然说明这个程序是有问题的。整个程序代码如下：  </p>
-<pre><code>#include &lt;stdio.h&gt;  
-#include &lt;process.h&gt;  
-#include &lt;windows.h&gt;  
-volatile long g_nLoginCount; //登录次数  
-unsigned int __stdcall Fun(void *pPM); //线程函数  
-const int THREAD_NUM = 10; //启动线程数  
-unsigned int __stdcall ThreadFun(void *pPM)  
-{  
-    Sleep(100); //some work should to do  
-    g_nLoginCount++;  
-    Sleep(50);   
-    return 0;  
-}  
-int main()  
-{  
-    g_nLoginCount = 0;  
-
-    HANDLE  handle[THREAD_NUM];  
-    for (int i = 0; i &lt; THREAD_NUM; i++)  
-        handle[i] = (HANDLE)_beginthreadex(NULL, 0, ThreadFun, NULL, 0, NULL);  
-
-    WaitForMultipleObjects(THREAD_NUM, handle, TRUE, INFINITE);   
-    printf(&quot;有%d个用户登录后记录结果是%d\n&quot;, THREAD_NUM, g_nLoginCount);  
-    return 0;  
-}
-</code></pre><p>程序中模拟的是10个用户登录，程序将输出结果：<br><img src="http://my.csdn.net/uploads/201204/05/1333615687_2140.PNG" alt=""><br>和上一篇的线程报数程序一样，程序输出的结果好象并没什么问题。下面我们增加点用户来试试，现在模拟50个用户登录，为了便于观察结果，在程序中将50个用户登录过程重复20次，代码如下：</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/thread2.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/thread1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="羁士">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="你的征程是星辰大海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/thread1.html" itemprop="url">
-                  windows下的C++多线程编程学习（一）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T21:11:34+08:00">
-                2017-07-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>学习C++很久了却一直没有学到多线程编程的知识，现在就来学习一下并做个整理。<br>我们可以用CreateThread和_beginthreadex来创建多线程程序，那么他们之间有什么样的区别呢？<br>先看一个实例，下面这个程序的主线程会创建了一个子线程并等待其运行完毕，子线程就输出它的线程ID号然后输出一句经典名言——Hello World。整个程序的代码非常简短，只有区区几行。</p>
-<pre><code>//最简单的创建多线程实例  
-#include &lt;stdio.h&gt;  
-#include &lt;windows.h&gt;  
-//子线程函数  
-DWORD WINAPI ThreadFun(LPVOID pM)  
-{  
-    printf(&quot;子线程的线程ID号为：%d\n子线程输出Hello World\n&quot;, GetCurrentThreadId());  
-    return 0;  
-}  
-//主函数，所谓主函数其实就是主线程执行的函数。  
-int main()  
-{  
-    printf(&quot;     最简单的创建多线程实例\n&quot;);  
-    printf(&quot; -- by MoreWindows( http://blog.csdn.net/MoreWindows ) --\n\n&quot;);  
-
-    HANDLE handle = CreateThread(NULL, 0, ThreadFun, NULL, 0, NULL);  
-    WaitForSingleObject(handle, INFINITE);  
-    return 0;  
-} 
-</code></pre><p><img src="http://i.imgur.com/oNYZIqz.png" alt=""></p>
-<p>下面来细讲下代码中的一些函数<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/thread1.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2112,7 +1909,7 @@ int main()
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2134,7 +1931,7 @@ int main()
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

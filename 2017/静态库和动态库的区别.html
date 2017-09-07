@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="C++,编译,Linux," />
 
 
 
@@ -87,12 +87,22 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="你的征程是星辰大海">
-<meta property="og:url" content="http://qisens.win/archives/page/3/index.html">
+<meta name="description" content="什么是库库是写好的现有的，成熟的，可以复用的代码。现实中每个程序都要依赖很多基础的底层库，不可能每个人的代码都从零开始，因此库的存在意义非同寻常。   本质上来说库是一种可执行代码的二进制形式，可以被操作系统载入内存执行。库有两种：静态库（.a、.lib）和动态库（.so、.dll）。   所谓静态、动态是指链接。回顾一下，将一个程序编译成可执行程序的步骤： 静态库之所以成为【静态库】，是因为在链">
+<meta name="keywords" content="C++,编译,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="静态库和动态库的区别">
+<meta property="og:url" content="http://qisens.win/2017/静态库和动态库的区别.html">
 <meta property="og:site_name" content="你的征程是星辰大海">
+<meta property="og:description" content="什么是库库是写好的现有的，成熟的，可以复用的代码。现实中每个程序都要依赖很多基础的底层库，不可能每个人的代码都从零开始，因此库的存在意义非同寻常。   本质上来说库是一种可执行代码的二进制形式，可以被操作系统载入内存执行。库有两种：静态库（.a、.lib）和动态库（.so、.dll）。   所谓静态、动态是指链接。回顾一下，将一个程序编译成可执行程序的步骤： 静态库之所以成为【静态库】，是因为在链">
+<meta property="og:image" content="http://images.cnitblog.com/blog/92071/201310/16201602-9c6047fe25ac46659d0a5ab2945552ce.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog/92071/201310/16201603-f1bb74f9fd10480e83cbf530cdabad68.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog/92071/201310/16201613-5877f674048f45d58fe9bb40224d3b4d.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog/92071/201310/16201614-70e43d2c17d749a5ab0b83fced1b4f73.png">
+<meta property="og:updated_time" content="2017-08-30T03:35:54.787Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="你的征程是星辰大海">
+<meta name="twitter:title" content="静态库和动态库的区别">
+<meta name="twitter:description" content="什么是库库是写好的现有的，成熟的，可以复用的代码。现实中每个程序都要依赖很多基础的底层库，不可能每个人的代码都从零开始，因此库的存在意义非同寻常。   本质上来说库是一种可执行代码的二进制形式，可以被操作系统载入内存执行。库有两种：静态库（.a、.lib）和动态库（.so、.dll）。   所谓静态、动态是指链接。回顾一下，将一个程序编译成可执行程序的步骤： 静态库之所以成为【静态库】，是因为在链">
+<meta name="twitter:image" content="http://images.cnitblog.com/blog/92071/201310/16201602-9c6047fe25ac46659d0a5ab2945552ce.png">
 
 
 
@@ -120,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://qisens.win/archives/page/3/"/>
+  <link rel="canonical" href="http://qisens.win/2017/静态库和动态库的区别.html"/>
 
 
 
 
 
-  <title> 归档 | 你的征程是星辰大海 </title>
+  <title> 静态库和动态库的区别 | 你的征程是星辰大海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -151,7 +161,7 @@
     
   
 
-  <div class="container sidebar-position-right  page-archive  ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -289,402 +299,229 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 目前共计 33 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/静态库和动态库的区别.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                静态库和动态库的区别
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-30T11:25:38+08:00">
+                2017-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <h1 id="什么是库"><a href="#什么是库" class="headerlink" title="什么是库"></a>什么是库</h1><p>库是写好的现有的，成熟的，可以复用的代码。现实中每个程序都要依赖很多基础的底层库，不可能每个人的代码都从零开始，因此库的存在意义非同寻常。  </p>
+<p>本质上来说库是一种可执行代码的二进制形式，可以被操作系统载入内存执行。库有两种：静态库（.a、.lib）和动态库（.so、.dll）。  </p>
+<p>所谓静态、动态是指链接。回顾一下，将一个程序编译成可执行程序的步骤：<br><img src="http://images.cnitblog.com/blog/92071/201310/16201602-9c6047fe25ac46659d0a5ab2945552ce.png" alt=""></p>
+<h1 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h1><p>之所以成为【静态库】，是因为在链接阶段，会将汇编生成的目标文件.o与引用到的库一起链接打包到可执行文件中。因此对应的链接方式称为静态链接。  </p>
+<p>试想一下，静态库与汇编生成的目标文件一起链接为可执行文件，那么静态库必定跟.o文件格式相似。其实一个静态库可以简单看成是一组目标文件（.o/.obj文件）的集合，即很多目标文件经过压缩打包后形成的一个文件。静态库特点总结：  </p>
+<ol>
+<li>静态库对函数库的链接是放在编译时期完成的。 </li>
+</ol>
+<ol>
+<li>程序在运行时与函数库再无瓜葛，移植方便。  </li>
+</ol>
+<ol>
+<li>浪费空间和资源，因为所有相关的目标文件与牵涉到的函数库被链接合成一个可执行文件。  <a id="more"></a>
+Linux下使用ar工具、Windows下vs使用lib.exe，将目标文件压缩到一起，并且对其进行编号和索引，以便于查找和检索。一般创建静态库的步骤如图所示：<br><img src="http://images.cnitblog.com/blog/92071/201310/16201603-f1bb74f9fd10480e83cbf530cdabad68.png" alt=""><h1 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h1>为什么需要动态库，其实也是静态库的特点导致。  </li>
+</ol>
+<ul>
+<li>空间浪费是静态库的一个问题。</li>
+</ul>
+<p><img src="http://images.cnitblog.com/blog/92071/201310/16201613-5877f674048f45d58fe9bb40224d3b4d.png" alt=""></p>
+<ul>
+<li>另一个问题是静态库对程序的更新、部署和发布页会带来麻烦。如果静态库liba.lib更新了，所以使用它的应用程序都需要重新编译、发布给用户（对于玩家来说，可能是一个很小的改动，却导致整个程序重新下载，全量更新）。</li>
+</ul>
+<p>动态库在程序编译时并不会被连接到目标代码中，而是在程序运行是才被载入。不同的应用程序如果调用相同的库，那么在内存里只需要有一份该共享库的实例，规避了空间浪费问题。动态库在程序运行是才被载入，也解决了静态库对程序的更新、部署和发布页会带来麻烦。用户只需要更新动态库即可，增量更新。<br><img src="http://images.cnitblog.com/blog/92071/201310/16201614-70e43d2c17d749a5ab0b83fced1b4f73.png" alt=""><br>动态库特点总结：  </p>
+<ol>
+<li>动态库把对一些库函数的链接载入推迟到程序运行的时期。</li>
+</ol>
+<ol>
+<li>可以实现进程之间的资源共享。（因此动态库也称为共享库）</li>
+</ol>
+<ol>
+<li>将一些程序升级变得简单。</li>
+</ol>
+<ol>
+<li>甚至可以真正做到链接载入完全由程序员在程序代码中控制（显示调用）。</li>
+</ol>
+<p>Window与Linux执行文件格式不同，在创建动态库的时候有一些差异。</p>
+<ul>
+<li>在Windows系统下的执行文件格式是PE格式，动态库需要一个DllMain函数做出初始化的入口，通常在导出函数的声明时需要有_declspec(dllexport)关键字。</li>
+</ul>
+<ul>
+<li>Linux下gcc编译的执行文件默认是ELF格式，不需要初始化入口，亦不需要函数做特别的声明，编写比较方便。</li>
+</ul>
+<p>与创建静态库不同的是，不需要打包工具（ar、lib.exe），直接使用编译器即可创建动态库。</p>
+<h1 id="区别与联系"><a href="#区别与联系" class="headerlink" title="区别与联系"></a>区别与联系</h1><p>二者的不同点在于代码被载入的时刻不同。<br>静态库的代码在编译过程中已经被载入可执行程序,因此体积比较大。<br>动态库(共享库)的代码在可执行程序运行时才载入内存，在编译过程中仅简单的引用，因此代码体积比较小。<br>不同的应用程序如果调用相同的库,那么在内存中只需要有一份该动态库(共享库)的实例。<br>静态库和动态库的最大区别,静态情况下,把库直接加载到程序中,而动态库链接的时候,它只是保留接口,将动态库与程序代码独立,这样就可以提高代码的可复用度，和降低程序的耦合度。<br>静态库在程序<strong>编译</strong>时会被连接到目标代码中，程序运行时将不再需要该静态库。<br>动态库在程序编译时并不会被连接到目标代码中，而是在程序<strong>运行</strong>是才被载入，因此在程序运行时还需要动态库存在  </p>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/编译/" rel="tag"># 编译</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
         </div>
       
+
+      
+        
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/extern-C.html" rel="next" title="浅析extern "C"的作用">
+                <i class="fa fa-chevron-left"></i> 浅析extern "C"的作用
+              </a>
+            
+          </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          <span class="post-nav-divider"></span>
 
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/object.html" itemprop="url">
-              
-                <span itemprop="name">浅析面向对象编程思想</span>
-              
-            </a>
-        
-      </h1>
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/STL常见容器实现原理——vector-list.html" rel="prev" title="STL常见容器实现原理——vector,list等">
+                STL常见容器实现原理——vector,list等 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-28T21:26:08+08:00"
-              content="2017-06-28" >
-          06-28
-        </time>
-      </div>
-
-    </header>
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
+    <div class="post-spread">
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/iterator.html" itemprop="url">
-              
-                <span itemprop="name">浅析C++之STL迭代器</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-27T20:57:28+08:00"
-              content="2017-06-27" >
-          06-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/structclass.html" itemprop="url">
-              
-                <span itemprop="name">C++中struct和class的区别</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-25T13:28:55+08:00"
-              content="2017-06-25" >
-          06-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/BST.html" itemprop="url">
-              
-                <span itemprop="name">浅析B树，B+/-树，AVL树，红黑树</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-25T13:22:16+08:00"
-              content="2017-06-25" >
-          06-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/inline.html" itemprop="url">
-              
-                <span itemprop="name">C++之inline内联函数浅析</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-25T13:16:59+08:00"
-              content="2017-06-25" >
-          06-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/hadoop-mapreduce.html" itemprop="url">
-              
-                <span itemprop="name">Hadoop分布式计算框架MapReduce浅析</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-23T22:03:45+08:00"
-              content="2017-06-23" >
-          06-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/Cppmemory2.html" itemprop="url">
-              
-                <span itemprop="name">C/C++内存管理详解（二）</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-20T15:48:07+08:00"
-              content="2017-06-20" >
-          06-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/Cppmemory.html" itemprop="url">
-              
-                <span itemprop="name">C/C++内存管理详解（一）</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-20T15:47:45+08:00"
-              content="2017-06-20" >
-          06-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/ML2.html" itemprop="url">
-              
-                <span itemprop="name">十大机器学习算法介绍（二）</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-16T20:50:39+08:00"
-              content="2017-06-16" >
-          06-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/ML.html" itemprop="url">
-              
-                <span itemprop="name">十大机器学习算法介绍（一）</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-15T13:25:46+08:00"
-              content="2017-06-15" >
-          06-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/4/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
+    </div>
+  </div>
 
 
           </div>
@@ -692,6 +529,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -711,8 +552,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -794,6 +644,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是库"><span class="nav-number">1.</span> <span class="nav-text">什么是库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#静态库"><span class="nav-number">2.</span> <span class="nav-text">静态库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态库"><span class="nav-number">3.</span> <span class="nav-text">动态库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#区别与联系"><span class="nav-number">4.</span> <span class="nav-text">区别与联系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -910,11 +776,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
 
 
   
