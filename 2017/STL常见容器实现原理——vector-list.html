@@ -98,7 +98,7 @@
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/610439/201601/610439-20160123110211093-834986810.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/610439/201601/610439-20160123110222672-785259089.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/610439/201601/610439-20160123110235343-1123187508.png">
-<meta property="og:updated_time" content="2017-09-07T08:55:13.250Z">
+<meta property="og:updated_time" content="2017-09-07T09:10:45.190Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="STL常见容器实现原理——vector,list等">
 <meta name="twitter:description" content="Array连续存储结构，每个元素在内存上是连续的 array是一个固定大小的顺序容器，不能动态改变大小，它的大小在定义后就不能被改变。由于array具有固定的大小，它不支持添加和删除元素或改变容器大小等其他容器拥有的操作。在定义一个array容器的时候必须指定大小。 Defined in header : &amp;lt;array&amp;gt; template&amp;lt;class T, std::size_t">
@@ -410,13 +410,11 @@
 template&lt;class T, std::size_t N&gt; struct array;
 </code></pre><h2 id="内存分配策略"><a href="#内存分配策略" class="headerlink" title="内存分配策略"></a>内存分配策略</h2><p>在内存分配策略上，array也与C-style数组类似。编译器在哪里为array分配内存，取决于array定义的位置和方式。</p>
 <ul>
-<li>若作为函数的局部对象，则将从栈上获得内存，与之对比是的vector，vector底层数据结构是动态数组，从自由存储区上分配内存：<ul>
+<li>若作为函数的局部对象，则将从栈上获得内存，与之对比是的vector，vector底层数据结构是动态数组，从自由存储区上分配内存：</li>
 <li>若使用new操作符分配内存，则是在自由存储区上分配内存。</li>
-<li>若作为全局变量或局部静态变量，则是在全局/静态存储区上分配的内存。  <h2 id="Array使用优劣"><a href="#Array使用优劣" class="headerlink" title="Array使用优劣"></a>Array使用优劣</h2></li>
+<li>若作为全局变量或局部静态变量，则是在全局/静态存储区上分配的内存。    </li>
 </ul>
-</li>
-</ul>
-<p>(1)array比数组更安全。它提供了opeartor[]与at()成员函数，后者将进行数组越界检查。　  　</p>
+<h2 id="Array使用优劣"><a href="#Array使用优劣" class="headerlink" title="Array使用优劣"></a>Array使用优劣</h2><p>(1)array比数组更安全。它提供了opeartor[]与at()成员函数，后者将进行数组越界检查。　  　</p>
 <p>(2)与其他容器相似，array也有自己的迭代器，因此array能够更好地与标准算法库结合起来。  </p>
 <p>(3)通过array::swap函数，可以实现线性时间内的两个数组内容的交换。</p>
 <p>另外，不像C-style数组，array容器类型的名称不会自动转换为指针。对于C++程序员来说，array要比C-style数组更好用。</p>
@@ -489,7 +487,8 @@ for(rit=s.rbegin();rit!=s.rend();rit++)
 if(it==s.end()) 
 cout&lt;&lt;&quot;not find&quot;&lt;&lt;endl;
 else cout&lt;&lt;*it&lt;&lt;endl;
-</code></pre>
+</code></pre><p>参考：<a href="http://www.cnblogs.com/DswCnblog/p/5676017.html" target="_blank" rel="external">http://www.cnblogs.com/DswCnblog/p/5676017.html</a></p>
+
       
     </div>
 
@@ -542,6 +541,10 @@ else cout&lt;&lt;*it&lt;&lt;endl;
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/int-to-str.html" rel="prev" title="C++字符串转数字,数字转字符串">
+                C++字符串转数字,数字转字符串 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -613,7 +616,7 @@ else cout&lt;&lt;*it&lt;&lt;endl;
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -624,7 +627,7 @@ else cout&lt;&lt;*it&lt;&lt;endl;
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -635,7 +638,7 @@ else cout&lt;&lt;*it&lt;&lt;endl;
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

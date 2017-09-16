@@ -301,6 +301,422 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/SQL-view.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/SQL-view.html" itemprop="url">
+                  SQL中表和视图的区别与联系
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T22:27:16+08:00">
+                2017-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.视图是数据库数据的特定子集。可以禁止所有用户访问数据库表，而要求用户只能通过视图操作数据，这种方法可以保护用户和应用程序不受某些数据库修改的影响。<br>2.视图是抽象的，他在使用时，从表里提取出数据，形成虚的表。不过对他的操作有很多的限制。    </p>
+<ol>
+<li>而且视图是永远不会自己消失的除非你删除它。<br>视图有时会对提高效率有帮助。临时表几乎是不会对性能有帮助，是资源消耗者。<br>视图一般随该数据库存放在一起，临时表永远都是在tempdb里的。<br>4.视图适合于多表连接浏览时使用!不适合增、删、改.，存储过程适合于使用较频繁的SQL语句，这样可以提高执行效率!    </li>
+</ol>
+<h1 id="视图和表的区别和联系"><a href="#视图和表的区别和联系" class="headerlink" title="视图和表的区别和联系"></a>视图和表的区别和联系</h1><p>区别：<br>1、视图是已经编译好的sql语句。而表不是<br>2、视图没有实际的物理记录。而表有。<br>3、表是内容，视图是窗口<br>4、表只用物理空间而视图不占用物理空间，视图只是逻辑概念的存在，表可以及时对它进行修改，但视图只能有创建的语句来修改<br>5、表是内模式，视图是外模式<br>6、视图是查看数据表的一种方法，可以查询数据表中某些字段构成的数据，只是一些SQL语句的集合。从安全的角度说，视图可以不给用户接触数据表，从而不知道表结构。<br>7、表属于全局模式中的表，是实表；视图属于局部模式的表，是虚表。<br>8、视图的建立和删除只影响视图本身，不影响对应的基本表。  </p>
+<p>联系：视图（view）是在基本表之上建立的表，它的结构（即所定义的列）和内容（即所有数据行）都来自基本表，它依据基本表存在而存在。一个视图可以对应一个基本表，也可以对应多个基本表。视图是基本表的抽象和在逻辑意义上建立的新关系。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/int-to-str.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/int-to-str.html" itemprop="url">
+                  C++字符串转数字,数字转字符串
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T22:31:01+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="字符串转数字"><a href="#字符串转数字" class="headerlink" title="字符串转数字"></a>字符串转数字</h1><p>如将“32”转为32，将“3.1415”转为3.1415，将“567283”转为567283。使用：</p>
+<p>//Convert string to integer, more  </p>
+<pre><code>int atoi ( const char * str );
+</code></pre><p>//Convert string to double, more  </p>
+<pre><code>double atof ( const char * str ); 
+</code></pre><p>// Convert string to long integer  </p>
+<pre><code>long int atol ( const char * str );  
+</code></pre><p>//Read formatted data from string  </p>
+<pre><code>int sscanf ( const char * str, const char * format, ...);
+</code></pre><p>　　</p>
+<h2 id="Example1"><a href="#Example1" class="headerlink" title="Example1:"></a>Example1:</h2><p>/<em> atoi,atof,atol example </em>/  </p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+int main ()
+{
+  int a;float b;long c;
+  a=atoi(&quot;32&quot;);
+  b=atof(&quot;3.1415&quot;);
+  c=atol(&quot;567283&quot;);
+  printf (&quot;%d,%f,%d&quot;,a,b,c); 
+  return 0;
+}
+</code></pre><p>Output:   </p>
+<pre><code>32,3.141500,567283
+</code></pre><h2 id="Example2"><a href="#Example2" class="headerlink" title="Example2:"></a>Example2:</h2><p>/<em> sscanf example </em>/  </p>
+<p>#include <stdio.h><br>    int main ()<br>    {<br>      int a;float b;long c;<br>      sscanf (“32,3.1415,567283”,”%d,%f,%d”,&amp;a,&amp;b,&amp;c);<br>      printf (“%d,%f,%d”,a,b,c);<br>      return 0;<br>    }</stdio.h></p>
+<p>Output:  </p>
+<pre><code>32,3.141500,567283
+</code></pre><h1 id="数字转字符串"><a href="#数字转字符串" class="headerlink" title="数字转字符串"></a>数字转字符串</h1><p>如将32转为“32”，将3.1415转为“3.1415”，将567283转为“567283”。使用：</p>
+<p>//Write formatted data to string  </p>
+<pre><code>int sprintf ( char * str, const char * format, ... );//C++中为了安全性使用sprintf_s
+</code></pre><p>//Convert integer to string (non-standard function)<br>//This function is not defined in ANSI-C and is not part of C++, but is supported by some compilers.<br>//A standard-compliant alternative for some cases may be sprintf.  </p>
+<pre><code>char *  itoa ( int value, char * str, int base );
+</code></pre><h2 id="Example3"><a href="#Example3" class="headerlink" title="Example3:"></a>Example3:</h2><p>/<em> sprintf example </em>/  </p>
+<pre><code>#include &lt;stdio.h&gt;
+int main ()
+{
+  char a[10],b[10],c[10];
+  sprintf(a, &quot;%d&quot;, 32);
+  sprintf(b, &quot;%f&quot;, 3.1415);
+  sprintf(c, &quot;%d&quot;, 567283);
+  printf(&quot;%s,%s,%s&quot;,a,b,c);
+  return 0;
+}
+</code></pre><p>Output:  </p>
+<pre><code>32,3.141500,567283
+</code></pre><h1 id="使用stringstream进行字符串与数字的转换"><a href="#使用stringstream进行字符串与数字的转换" class="headerlink" title="使用stringstream进行字符串与数字的转换"></a>使用stringstream进行字符串与数字的转换</h1><pre><code>// using stringstream constructors.
+#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+using namespace std;
+int main () 
+{
+  int a;float b;long c;
+  char d[10],e[10],f[10];
+
+  /* string to number */
+  stringstream ss;
+  ss &lt;&lt; &quot;32&quot;;
+  ss &gt;&gt; a;
+  ss.clear();
+
+  ss &lt;&lt; &quot;3.1415&quot;;
+  ss &gt;&gt; b;
+  ss.clear();
+
+  ss &lt;&lt; &quot;567283&quot;;
+  ss &gt;&gt; c;
+  ss.clear();
+
+  cout&lt;&lt;a&lt;&lt;&quot;,&quot;&lt;&lt;b&lt;&lt;&quot;,&quot;&lt;&lt;c&lt;&lt;endl;
+
+  /* number to string */
+  ss &lt;&lt; a;
+  ss &gt;&gt; d;
+  ss.clear();
+
+  ss &lt;&lt; b;
+  ss &gt;&gt; e;
+  ss.clear();
+
+  ss &lt;&lt; c;
+  ss &gt;&gt; f;
+  ss.clear();
+
+  cout&lt;&lt;d&lt;&lt;&quot;,&quot;&lt;&lt;e&lt;&lt;&quot;,&quot;&lt;&lt;f&lt;&lt;endl;
+
+  return 0;
+}
+</code></pre><p>Output:  </p>
+<pre><code>32,3.141500,567283  
+32,3.141500,567283  
+</code></pre><p>一个笔试题，输入一个数n，把1到n按字符顺序排序</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;string&gt;
+#include&lt;algorithm&gt;
+#include&lt;vector&gt;
+#include&lt;sstream&gt;
+using namespace std;
+int main()
+{
+    int n;
+    string j;
+    cin &gt;&gt; n;
+    char a[100];
+    vector&lt;string&gt;d;
+    for (int i = 0; i &lt; n; i++){
+
+
+        //stringstream ss;
+        //ss &lt;&lt; i;
+        //string   s = ss.str();
+        //d.push_back(s);
+
+        sprintf_s(a, &quot;%d&quot;, i);    
+        d.push_back(a);
+
+
+    }
+    sort(d.begin(), d.end());
+    for (int i = 0; i &lt; n; i++){
+        cout &lt;&lt; d[i]&lt;&lt;&quot; &quot; ;
+    }
+    return 0;
+
+}
+</code></pre><p>　输入12，输出,0 1 10 11 2 3 4 5 6 7 8 9<br>　<br>小结：C++标准库中的<sstream>提供了比ANSI C的<stdio.h>更高级的一些功能，即单纯性、类型安全和可扩展性，可以使用这些库来实现安全和自动的类型转换。言下之意就是，使用stringstream进行字符串与数字的转换是更好的选择。</stdio.h></sstream></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/STL常见容器实现原理——vector-list.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -406,13 +822,11 @@
 template&lt;class T, std::size_t N&gt; struct array;
 </code></pre><h2 id="内存分配策略"><a href="#内存分配策略" class="headerlink" title="内存分配策略"></a>内存分配策略</h2><p>在内存分配策略上，array也与C-style数组类似。编译器在哪里为array分配内存，取决于array定义的位置和方式。</p>
 <ul>
-<li>若作为函数的局部对象，则将从栈上获得内存，与之对比是的vector，vector底层数据结构是动态数组，从自由存储区上分配内存：<ul>
+<li>若作为函数的局部对象，则将从栈上获得内存，与之对比是的vector，vector底层数据结构是动态数组，从自由存储区上分配内存：</li>
 <li>若使用new操作符分配内存，则是在自由存储区上分配内存。</li>
-<li>若作为全局变量或局部静态变量，则是在全局/静态存储区上分配的内存。  <h2 id="Array使用优劣"><a href="#Array使用优劣" class="headerlink" title="Array使用优劣"></a>Array使用优劣</h2></li>
+<li>若作为全局变量或局部静态变量，则是在全局/静态存储区上分配的内存。    </li>
 </ul>
-</li>
-</ul>
-<p>(1)array比数组更安全。它提供了opeartor[]与at()成员函数，后者将进行数组越界检查。　  　</p>
+<h2 id="Array使用优劣"><a href="#Array使用优劣" class="headerlink" title="Array使用优劣"></a>Array使用优劣</h2><p>(1)array比数组更安全。它提供了opeartor[]与at()成员函数，后者将进行数组越界检查。　  　</p>
 <p>(2)与其他容器相似，array也有自己的迭代器，因此array能够更好地与标准算法库结合起来。  </p>
 <p>(3)通过array::swap函数，可以实现线性时间内的两个数组内容的交换。</p>
 <p>另外，不像C-style数组，array容器类型的名称不会自动转换为指针。对于C++程序员来说，array要比C-style数组更好用。</p>
@@ -1548,318 +1962,6 @@ int b = i;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/linux-Cpp.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="羁士">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="你的征程是星辰大海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/linux-Cpp.html" itemprop="url">
-                  Linux下C++开发入门学习
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-30T15:32:19+08:00">
-                2017-07-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h1><p>CentOS Linux 7<br>Kernel 3.10.0-327.e17.x86_64</p>
-<p>一般linux安装完之后默认就已经安装了GCC(GNU Compiler Collection)，你可以查看一下gcc和g++的版本号检查gcc和g++是否已经安装。  </p>
-<pre><code>gcc -v
-g++ -v
-</code></pre><h2 id="g-和gcc的区别"><a href="#g-和gcc的区别" class="headerlink" title="g++和gcc的区别"></a>g++和gcc的区别</h2><p>简单的说gcc是C的编译器，g++是C++的编译器。那是不是说gcc只能编译编译C语言，而g++只能编译C++呢？其实不是，gcc也可以编译C++程序，而C++是C的基础上发展而来的，所以g++也不可能编译不了c语言。它们之间的区别有如下几点：   </p>
-<ol>
-<li>后缀为.c的，gcc把它当作是C程序，而g++当作是c++程序；后缀为.cpp的，两者都会认为是c++程序。注意，虽然c++是c的超集，但是两者对语法的要求是有区别的，C++的语法规则更加严谨一些。   </li>
-<li>编译阶段，g++会调用gcc，对于c++代码，两者是等价的，但是因为gcc命令不能自动和C＋＋程序使用的库联接，所以通常用g++来完成链接，为了统一起见，干脆编译/链接统统用g++了，这就给人一种错觉，好像cpp程序只能用g++似的。用gcc进行编译，在选项中加上要链接的库，也可以编译c++。</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/linux-Cpp.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/bianyiliucheng.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="羁士">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="你的征程是星辰大海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/bianyiliucheng.html" itemprop="url">
-                  C++中程序编译流程解析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-29T10:49:51+08:00">
-                2017-07-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>程序处理的基本流程如图：<br><img src="http://s1.51cto.com/wyfs02/M02/7E/89/wKioL1cDsP_goUwlAAAlcbFkNbs906.png?_=5377024" alt=""></p>
-<h1 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h1><p>预处理相当于根据预处理指令组装新的C/C++程序。经过预处理，会产生一个没有宏定义，没有条件编译指令，没有特殊符号的输出文件，这个文件的含义同原本的文件无异，只是内容上有所不同。 </p>
-<p><strong>读取C/C++源程序，对其中的伪指令（以#开头的指令）进行处理</strong></p>
-<p>①将所有的“#define”删除，并且展开所有的宏定义</p>
-<p>②处理所有的条件编译指令，如：“#if”、“#ifdef”、“#elif”、“#else”、“endif”等。这些伪指令的引入使得程序员可以通过定义不同的宏来决定编译程序对哪些代码进行处理。预编译程序将根据有关的文件，将那些不必要的代码过滤掉。 </p>
-<p>③处理“#include”预编译指令，将被包含的文件插入到该预编译指令的位置。</p>
-<p>（注意：这个过程可能是递归进行的，也就是说被包含的文件可能还包含其他文件）</p>
-<p> <strong>删除所有的注释</strong></p>
-<p> <strong>添加行号和文件名标识。</strong></p>
-<p>以便于编译时编译器产生调试用的行号信息及用于编译时产生的编译错误或警告时能够显示行号</p>
-<p><strong>保留所有的#pragma编译器指令</strong></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/bianyiliucheng.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1909,7 +2011,7 @@ g++ -v
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1920,7 +2022,7 @@ g++ -v
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1931,7 +2033,7 @@ g++ -v
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
