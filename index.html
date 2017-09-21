@@ -399,8 +399,7 @@
 
       
         
-          
-            <pre><code>#define RADIUS 100;  
+          <pre><code>#define RADIUS 100;  
 const  float   RADIUS = 100;  
 </code></pre><h1 id="1-编译器处理方式不同"><a href="#1-编译器处理方式不同" class="headerlink" title="(1) 编译器处理方式不同"></a>(1) 编译器处理方式不同</h1><p>　　define宏是在预处理阶段展开。<br>　　const常量是编译运行阶段使用。  </p>
 <h1 id="2-类型和安全检查不同"><a href="#2-类型和安全检查不同" class="headerlink" title="(2) 类型和安全检查不同"></a>(2) 类型和安全检查不同</h1><p>　　define宏没有类型，不做任何类型检查，仅仅是展开。<br>　　const常量有具体的类型，在编译阶段会执行类型检查。  </p>
@@ -412,44 +411,14 @@ double I=PI; //编译期间进行宏替换，分配内存
 double j=Pi; //没有内存分配  
 double J=PI; //再进行宏替换，又一次分配内存！  
 const定义常量从汇编的角度来看，只是给出了对应的内存地址，而不是象#define一样给出的是立即数，所以，const定义的常量在程序运行过程中只有一份拷贝（因为是全局的只读变量，存在静态区），而 #define定义的常量在内存中有若干个拷贝。 
-</code></pre><h1 id="5-提高了效率。-编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。"><a href="#5-提高了效率。-编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。" class="headerlink" title="(5) 提高了效率。 编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。"></a>(5) 提高了效率。 编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。</h1><h1 id="6-宏替换只作替换，不做计算，不做表达式求解-宏预编译时就替换了，程序运行时，并不分配内存。"><a href="#6-宏替换只作替换，不做计算，不做表达式求解-宏预编译时就替换了，程序运行时，并不分配内存。" class="headerlink" title="(6) 宏替换只作替换，不做计算，不做表达式求解;宏预编译时就替换了，程序运行时，并不分配内存。"></a>(6) 宏替换只作替换，不做计算，不做表达式求解;宏预编译时就替换了，程序运行时，并不分配内存。</h1><h2 id="const-与-define的比较"><a href="#const-与-define的比较" class="headerlink" title="const 与 #define的比较"></a>const 与 #define的比较</h2><p> C++ 语言可以用const来定义常量，也可以用 #define来定义常量。但是前者比后者有更多的优点：</p>
-<p>（1）   const常量有数据类型，而宏常量没有数据类型。编译器可以对前者进行类型安全检查。而对后者只进行字符替换，没有类型安全检查，并且在字符替换可能会产生意料不到的错误（边际效应）。  </p>
-<p>（2）   有些集成化的调试工具可以对const常量进行调试，但是不能对宏常量进行调试。  </p>
-<p>###【规则5-2-1】在C++ 程序中只使用const常量而不使用宏常量，即const常量完全取代宏常量。</p>
-<p>###【规则5-3-1】需要对外公开的常量放在头文件中，不需要对外公开的常量放在定义文件的头部。为便于管理，可以把不同模块的常量集中存放在一个公共的头文件中。</p>
-<p>###【规则5-3-2】如果某一常量与其它常量密切相关，应在定义中包含这种关系，而不应给出一些孤立的值。</p>
-<p>例如：</p>
-<pre><code>const  float   RADIUS = 100;
-const  float   DIAMETER = RADIUS * 2;
-</code></pre><h3 id="类中的常量"><a href="#类中的常量" class="headerlink" title="类中的常量"></a>类中的常量</h3><p>有时我们希望某些常量只在类中有效。由于#define定义的宏常量是全局的，不能达到目的，于是想当然地觉得应该用const修饰数据成员来实现。const数据成员的确是存在的，但其含义却不是我们所期望的。const数据成员只在某个对象生存期内是常量，而对于整个类而言却是可变的，因为类可以创建多个对象，不同的对象其const数据成员的值可以不同。<br>不能在类声明中初始化const数据成员。以下用法是错误的，因为类的对象未被创建时，编译器不知道SIZE的值是什么。  </p>
-<pre><code>class A
-{…
-    const int SIZE = 100; // 错误，企图在类声明中初始化const数据成员
-    int array[SIZE];       // 错误，未知的SIZE
-};
-</code></pre><p>const数据成员的初始化只能在类构造函数的初始化表中进行，例如  </p>
-<pre><code>class A
-{…
-    A(int size);       // 构造函数
-    const int SIZE ;  
-};
-A::A(int size) : SIZE(size) // 构造函数的初始化表
-{
-  …
-}
-A  a(100);  // 对象 a 的SIZE值为100
-A  b(200);  // 对象 b 的SIZE值为200
-</code></pre><p>怎样才能建立在整个类中都恒定的常量呢？别指望const数据成员了，应该用类中的枚举常量来实现。例如</p>
-<pre><code>class A
-{…
-    enum { SIZE1 = 100, SIZE2 = 200}; //枚举常量
-    int array1[SIZE1];
-    int array2[SIZE2];
-};
-</code></pre><p>枚举常量不会占用对象的存储空间，它们在编译时被全部求值。枚举常量的缺点是：它的隐含数据类型是整数，其最大值有限，且不能表示浮点数（如PI=3.14159）。sizeof(A) = 1200;其中枚举部长空间。</p>
-<pre><code>enum   EM { SIZE1 = 100, SIZE2 = 200}; //枚举常量   sizeof（EM） = 4；
-</code></pre>
-          
+</code></pre><h1 id="5-提高了效率。-编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。"><a href="#5-提高了效率。-编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。" class="headerlink" title="(5) 提高了效率。 编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。"></a>(5) 提高了效率。 编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。</h1><h1 id="6-宏替换只作替换，不做计算，不做表达式求解-宏预编译时就替换了，程序运行时，并不分配内存。"><a href="#6-宏替换只作替换，不做计算，不做表达式求解-宏预编译时就替换了，程序运行时，并不分配内存。" class="headerlink" title="(6) 宏替换只作替换，不做计算，不做表达式求解;宏预编译时就替换了，程序运行时，并不分配内存。"></a>(6) 宏替换只作替换，不做计算，不做表达式求解;宏预编译时就替换了，程序运行时，并不分配内存。</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/const-define.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -589,8 +558,7 @@ A  b(200);  // 对象 b 的SIZE值为200
 
       
         
-          
-            <h1 id="申请的内存所在位置"><a href="#申请的内存所在位置" class="headerlink" title="申请的内存所在位置"></a>申请的内存所在位置</h1><p><strong>new操作符从自由存储区</strong>（free store）上为对象动态分配内存空间，而<strong>malloc函数从堆上动态分配</strong>内存。自由存储区是C++基于new操作符的一个抽象概念，凡是通过new操作符进行内存申请，该内存即为自由存储区。而堆是操作系统中的术语，是操作系统所维护的一块特殊内存，用于程序的内存动态分配，C语言使用malloc从堆上分配内存，使用free释放已分配的对应内存。</p>
+          <h1 id="申请的内存所在位置"><a href="#申请的内存所在位置" class="headerlink" title="申请的内存所在位置"></a>申请的内存所在位置</h1><p><strong>new操作符从自由存储区</strong>（free store）上为对象动态分配内存空间，而<strong>malloc函数从堆上动态分配</strong>内存。自由存储区是C++基于new操作符的一个抽象概念，凡是通过new操作符进行内存申请，该内存即为自由存储区。而堆是操作系统中的术语，是操作系统所维护的一块特殊内存，用于程序的内存动态分配，C语言使用malloc从堆上分配内存，使用free释放已分配的对应内存。</p>
 <p>那么自由存储区是否能够是堆（问题等价于new是否能在堆上动态分配内存），这取决于operator new 的实现细节。自由存储区不仅可以是堆，还可以是静态存储区，这都看operator new在哪里为对象分配内存。</p>
 <p>特别的，new甚至可以不为对象分配内存！定位new的功能可以办到这一点：</p>
 <pre><code>new (place_address) type
@@ -599,116 +567,13 @@ A  b(200);  // 对象 b 的SIZE值为200
 </code></pre><p>这个operator new不分配任何的内存，它只是简单地返回指针实参，然后右new表达式负责在place_address指定的地址进行对象的初始化工作。</p>
 <h1 id="2-返回类型安全性"><a href="#2-返回类型安全性" class="headerlink" title="2.返回类型安全性"></a>2.返回类型安全性</h1><p>new操作符内存分配成功时，<strong>返回的是对象类型的指针</strong>，类型严格与对象匹配，无须进行类型转换，故new是符合类型安全性的操作符。而<strong>malloc内存分配成功则是返回void *</strong> ，需要通过强制类型转换将void*指针转换成我们需要的类型。</p>
 <p>类型安全很大程度上可以等价于内存安全，类型安全的代码不会试图方法自己没被授权的内存区域。关于C++的类型安全性可说的又有很多了。</p>
-<h1 id="3-内存分配失败时的返回值"><a href="#3-内存分配失败时的返回值" class="headerlink" title="3.内存分配失败时的返回值"></a>3.内存分配失败时的返回值</h1><p><strong>new内存分配失败时，会抛出bac_alloc异常，它不会返回NULL；malloc分配内存失败时返回NULL。</strong><br>在使用C语言时，我们习惯在malloc分配内存后判断分配是否成功：</p>
-<pre><code>int *a  = (int *)malloc ( sizeof (int ));
-if(NULL == a)
-{
-    ...
-}
-else 
-{
-    ...
-}
-</code></pre><p>从C语言走入C++阵营的新手可能会把这个习惯带入C++：</p>
-<pre><code>int * a = new int();
-if(NULL == a)
-{
-    ...
-}
-else
-{   
-    ...
-}
-</code></pre><p>实际上这样做一点意义也没有，<strong>因为new根本不会返回NULL，而且程序能够执行到if语句已经说明内存分配成功了，如果失败早就抛异常了</strong>。正确的做法应该是使用异常机制：</p>
-<pre><code>try
-{
-    int *a = new int();
-}
-catch (bad_alloc)
-{
-    ...
-}
-</code></pre><p>如果你想顺便了解下异常基础，可以看<a href="http://www.cnblogs.com/QG-whz/p/5136883.htmlC++" target="_blank" rel="external">http://www.cnblogs.com/QG-whz/p/5136883.htmlC++</a> 异常机制分析。</p>
-<h1 id="4-是否需要指定内存大小"><a href="#4-是否需要指定内存大小" class="headerlink" title="4.是否需要指定内存大小"></a>4.是否需要指定内存大小</h1><p>使用<strong>new操作符申请内存分配时无须指定内存块的大小</strong>，编译器会根据类型信息自行计算，而malloc则需要显式地指出所需内存的尺寸。</p>
-<pre><code>class A{...}
-A * ptr = new A;
-A * ptr = (A *)malloc(sizeof(A)); //需要显式指定所需内存大小sizeof(A);
-</code></pre><p>当然了，我这里使用malloc来为我们自定义类型分配内存是不怎么合适的，请看下一条。</p>
-<h1 id="5-是否调用构造函数-析构函数"><a href="#5-是否调用构造函数-析构函数" class="headerlink" title="5.是否调用构造函数/析构函数"></a>5.是否调用构造函数/析构函数</h1><h2 id="使用new操作符来分配对象内存时会经历三个步骤："><a href="#使用new操作符来分配对象内存时会经历三个步骤：" class="headerlink" title="使用new操作符来分配对象内存时会经历三个步骤："></a>使用new操作符来分配对象内存时会经历三个步骤：</h2><p>第一步：调用operator new 函数（对于数组是operator new[]）分配一块足够大的，原始的，未命名的内存空间以便存储特定类型的对象。<br>第二步：编译器运行相应的构造函数以构造对象，并为其传入初值。<br>第三部：对象构造完成后，返回一个指向该对象的指针。   </p>
-<h2 id="使用delete操作符来释放对象内存时会经历两个步骤："><a href="#使用delete操作符来释放对象内存时会经历两个步骤：" class="headerlink" title="使用delete操作符来释放对象内存时会经历两个步骤："></a>使用delete操作符来释放对象内存时会经历两个步骤：</h2><p>第一步：调用对象的析构函数。<br>第二步：编译器调用operator delete(或operator delete[])函数释放内存空间。<br>总之来说，new/delete会调用对象的构造函数/析构函数以完成对象的构造/析构。而malloc则不会。如果你不嫌啰嗦可以看下我的例子：</p>
-<pre><code>class A
-{
-public:
-    A() :a(1), b(1.11){}
-private:
-    int a;
-    double b;
-};
-int main()
-{
-    A * ptr = (A*)malloc(sizeof(A));
-    return 0;
-}
-</code></pre><p>在return处设置断点，观看ptr所指内存的内容：<br><img src="http://jbcdn2.b0.upaiyun.com/2016/06/e39e62d8d1727e07d67865f509408ea2.png" alt=""></p>
-<p>可以看出A的默认构造函数并没有被调用，因为数据成员a,b的值并没有得到初始化，这也是上面我为什么说使用malloc/free来处理C++的自定义类型不合适，其实不止自定义类型，标准库中凡是需要构造/析构的类型通通不合适。</p>
-<p>而使用new来分配对象时：</p>
-<pre><code>int main()
-{
-    A * ptr = new A;
-}
-</code></pre><p>查看程序生成的汇编代码可以发现，A的默认构造函数被调用了：<br><img src="http://jbcdn2.b0.upaiyun.com/2016/06/89374b8eea82168227fe14cb27bd3deb.png" alt=""></p>
-<h1 id="6-对数组的处理"><a href="#6-对数组的处理" class="headerlink" title="6.对数组的处理"></a>6.对数组的处理</h1><p>C++提供了new[]与delete[]来专门处理数组类型:</p>
-<pre><code>A * ptr = new A[10];//分配10个A对象
-</code></pre><p>使用new[]分配的内存必须使用delete[]进行释放：</p>
-<pre><code>delete [] ptr;
-</code></pre><p>new对数组的支持体现在它会分别调用构造函数函数初始化每一个数组元素，释放对象时为每个对象调用析构函数。注意delete[]要与new[]配套使用，不然会找出数组对象部分释放的现象，造成内存泄漏。</p>
-<p>至于malloc，它并知道你在这块内存上要放的数组还是啥别的东西，反正它就给你一块原始的内存，在给你个内存的地址就完事。所以如果要动态分配一个数组的内存，还需要我们手动自定数组的大小：</p>
-<pre><code>int * ptr = (int *) malloc( sizeof(int)* 10 );//分配一个10个int元素的数组
-</code></pre><h1 id="7-new与malloc是否可以相互调用"><a href="#7-new与malloc是否可以相互调用" class="headerlink" title="7.new与malloc是否可以相互调用"></a>7.new与malloc是否可以相互调用</h1><p>operator new /operator delete的实现可以基于malloc，而malloc的实现不可以去调用new。下面是编写operator new /operator delete 的一种简单方式，其他版本也与之类似：</p>
-<pre><code>void * operator new (sieze_t size)
-{
-    if(void * mem = malloc(size)
-        return mem;
-    else
-        throw bad_alloc();
-}
-void operator delete(void *mem) noexcept
-{
-    free(mem);
-}
-</code></pre><h1 id="8-是否可以被重载"><a href="#8-是否可以被重载" class="headerlink" title="8.是否可以被重载"></a>8.是否可以被重载</h1><p>opeartor new /operator delete可以被重载。标准库是定义了operator new函数和operator delete函数的8个重载版本：</p>
-<pre><code>//这些版本可能抛出异常
-void * operator new(size_t);
-void * operator new[](size_t);
-void * operator delete (void * )noexcept;
-void * operator delete[](void *0）noexcept;
-//这些版本承诺不抛出异常
-void * operator new(size_t ,nothrow_t&amp;) noexcept;
-void * operator new[](size_t, nothrow_t&amp; );
-void * operator delete (void *,nothrow_t&amp; )noexcept;
-void * operator delete[](void *0,nothrow_t&amp; ）noexcept;
-</code></pre><p>我们可以自定义上面函数版本中的任意一个，前提是自定义版本必须位于全局作用域或者类作用域中。太细节的东西不在这里讲述，总之，我们知道我们有足够的自由去重载operator new /operator delete ,以决定我们的new与delete如何为对象分配内存，如何回收对象。</p>
-<p>而malloc/free并不允许重载。</p>
-<h1 id="9-能够直观地重新分配内存"><a href="#9-能够直观地重新分配内存" class="headerlink" title="9. 能够直观地重新分配内存"></a>9. 能够直观地重新分配内存</h1><p>使用malloc分配的内存后，如果在使用过程中发现内存不足，可以使用<strong>realloc函数进行内存重新分配</strong>实现内存的扩充。realloc先判断当前的指针所指内存是否有足够的连续空间，如果有，原地扩大可分配的内存地址，并且返回原来的地址指针；如果空间不够，先按照新指定的大小分配空间，将原有数据从头到尾拷贝到新分配的内存区域，而后释放原来的内存区域。</p>
-<p>new没有这样直观的配套设施来扩充内存。</p>
-<h1 id="10-客户处理内存分配不足"><a href="#10-客户处理内存分配不足" class="headerlink" title="10. 客户处理内存分配不足"></a>10. 客户处理内存分配不足</h1><p>在operator new抛出异常以反映一个未获得满足的需求之前，它会先调用一个用户指定的错误处理函数，这就是new-handler。new_handler是一个指针类型：</p>
-<pre><code>namespace std
-{
-    typedef void (*new_handler)();
-}
-</code></pre><p>指向了一个没有参数没有返回值的函数,即为错误处理函数。为了指定错误处理函数，客户需要调用set_new_handler，这是一个声明于的一个标准库函数:</p>
-<pre><code>namespace std
-{
-    new_handler set_new_handler(new_handler p ) throw();
-}
-</code></pre><p>set_new_handler的参数为new_handler指针，指向了operator new 无法分配足够内存时该调用的函数。其返回值也是个指针，指向set_new_handler被调用前正在执行（但马上就要发生替换）的那个new_handler函数。</p>
-<p>对于malloc，客户并不能够去编程决定内存不足以分配时要干什么事，只能看着malloc返回NULL。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><img src="https://i.imgur.com/fhuQrCm.png" alt=""></p>
-<p>malloc给你的就好像一块原始的土地，你要种什么需要自己在土地上来播种</p>
-<p>而new帮你划好了田地的分块（数组），帮你播了种（构造函数），还提供其他的设施给你使用:</p>
-<p>当然，malloc并不是说比不上new，它们各自有适用的地方。在C++这种偏重OOP的语言，使用new/delete自然是更合适的。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/new-malloc.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

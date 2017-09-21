@@ -94,14 +94,12 @@
 <meta property="og:url" content="http://qisens.win/2017/new-malloc.html">
 <meta property="og:site_name" content="你的征程是星辰大海">
 <meta property="og:description" content="申请的内存所在位置new操作符从自由存储区（free store）上为对象动态分配内存空间，而malloc函数从堆上动态分配内存。自由存储区是C++基于new操作符的一个抽象概念，凡是通过new操作符进行内存申请，该内存即为自由存储区。而堆是操作系统中的术语，是操作系统所维护的一块特殊内存，用于程序的内存动态分配，C语言使用malloc从堆上分配内存，使用free释放已分配的对应内存。 那么自由存">
-<meta property="og:image" content="http://jbcdn2.b0.upaiyun.com/2016/06/e39e62d8d1727e07d67865f509408ea2.png">
-<meta property="og:image" content="http://jbcdn2.b0.upaiyun.com/2016/06/89374b8eea82168227fe14cb27bd3deb.png">
 <meta property="og:image" content="https://i.imgur.com/fhuQrCm.png">
-<meta property="og:updated_time" content="2017-09-21T03:14:51.584Z">
+<meta property="og:updated_time" content="2017-09-21T12:52:51.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="new与malloc的区别详解">
 <meta name="twitter:description" content="申请的内存所在位置new操作符从自由存储区（free store）上为对象动态分配内存空间，而malloc函数从堆上动态分配内存。自由存储区是C++基于new操作符的一个抽象概念，凡是通过new操作符进行内存申请，该内存即为自由存储区。而堆是操作系统中的术语，是操作系统所维护的一块特殊内存，用于程序的内存动态分配，C语言使用malloc从堆上分配内存，使用free释放已分配的对应内存。 那么自由存">
-<meta name="twitter:image" content="http://jbcdn2.b0.upaiyun.com/2016/06/e39e62d8d1727e07d67865f509408ea2.png">
+<meta name="twitter:image" content="https://i.imgur.com/fhuQrCm.png">
 
 
 
@@ -411,6 +409,7 @@
 </code></pre><p>这个operator new不分配任何的内存，它只是简单地返回指针实参，然后右new表达式负责在place_address指定的地址进行对象的初始化工作。</p>
 <h1 id="2-返回类型安全性"><a href="#2-返回类型安全性" class="headerlink" title="2.返回类型安全性"></a>2.返回类型安全性</h1><p>new操作符内存分配成功时，<strong>返回的是对象类型的指针</strong>，类型严格与对象匹配，无须进行类型转换，故new是符合类型安全性的操作符。而<strong>malloc内存分配成功则是返回void *</strong> ，需要通过强制类型转换将void*指针转换成我们需要的类型。</p>
 <p>类型安全很大程度上可以等价于内存安全，类型安全的代码不会试图方法自己没被授权的内存区域。关于C++的类型安全性可说的又有很多了。</p>
+<a id="more"></a>
 <h1 id="3-内存分配失败时的返回值"><a href="#3-内存分配失败时的返回值" class="headerlink" title="3.内存分配失败时的返回值"></a>3.内存分配失败时的返回值</h1><p><strong>new内存分配失败时，会抛出bac_alloc异常，它不会返回NULL；malloc分配内存失败时返回NULL。</strong><br>在使用C语言时，我们习惯在malloc分配内存后判断分配是否成功：</p>
 <pre><code>int *a  = (int *)malloc ( sizeof (int ));
 if(NULL == a)
@@ -461,15 +460,13 @@ int main()
     A * ptr = (A*)malloc(sizeof(A));
     return 0;
 }
-</code></pre><p>在return处设置断点，观看ptr所指内存的内容：<br><img src="http://jbcdn2.b0.upaiyun.com/2016/06/e39e62d8d1727e07d67865f509408ea2.png" alt=""></p>
-<p>可以看出A的默认构造函数并没有被调用，因为数据成员a,b的值并没有得到初始化，这也是上面我为什么说使用malloc/free来处理C++的自定义类型不合适，其实不止自定义类型，标准库中凡是需要构造/析构的类型通通不合适。</p>
+</code></pre><p>可以看出A的默认构造函数并没有被调用，因为数据成员a,b的值并没有得到初始化，这也是上面我为什么说使用malloc/free来处理C++的自定义类型不合适，其实不止自定义类型，标准库中凡是需要构造/析构的类型通通不合适。</p>
 <p>而使用new来分配对象时：</p>
 <pre><code>int main()
 {
     A * ptr = new A;
 }
-</code></pre><p>查看程序生成的汇编代码可以发现，A的默认构造函数被调用了：<br><img src="http://jbcdn2.b0.upaiyun.com/2016/06/89374b8eea82168227fe14cb27bd3deb.png" alt=""></p>
-<h1 id="6-对数组的处理"><a href="#6-对数组的处理" class="headerlink" title="6.对数组的处理"></a>6.对数组的处理</h1><p>C++提供了new[]与delete[]来专门处理数组类型:</p>
+</code></pre><h1 id="6-对数组的处理"><a href="#6-对数组的处理" class="headerlink" title="6.对数组的处理"></a>6.对数组的处理</h1><p>C++提供了new[]与delete[]来专门处理数组类型:</p>
 <pre><code>A * ptr = new A[10];//分配10个A对象
 </code></pre><p>使用new[]分配的内存必须使用delete[]进行释放：</p>
 <pre><code>delete [] ptr;
