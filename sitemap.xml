@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://qisens.win/2017/const-define.html</loc>
+    
+    <lastmod>2017-09-21T10:54:55.339Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://qisens.win/2017/new-malloc.html</loc>
+    
+    <lastmod>2017-09-21T03:14:51.584Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://qisens.win/about/index.html</loc>
+    
+    <lastmod>2017-09-16T14:48:00.400Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://qisens.win/2017/int-to-str.html</loc>
     
-    <lastmod>2017-09-16T14:44:53.269Z</lastmod>
+    <lastmod>2017-09-16T14:47:09.492Z</lastmod>
     
   </url>
   
@@ -250,13 +271,6 @@
     <loc>http://qisens.win/2017/BST.html</loc>
     
     <lastmod>2017-06-25T06:02:41.200Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://qisens.win/about/index.html</loc>
-    
-    <lastmod>2017-06-16T14:22:42.832Z</lastmod>
     
   </url>
   

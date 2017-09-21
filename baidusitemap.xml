@@ -4,8 +4,49 @@
 
     
   <url>
+    <loc>http://qisens.win/2017/const-define.html</loc>
+    <lastmod>2017-09-21T10:54:55.339Z</lastmod>
+    <data>
+        <display>
+        <title>const常量与define宏定义的区别</title>
+        <pubTime>2017-09-21T10:50:29.000Z</pubTime>
+        
+        <tag>C++</tag>
+         
+         
+           
+             
+              <breadCrumb title="C++" url="http://qisens.win/categories/C/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://qisens.win/2017/new-malloc.html</loc>
+    <lastmod>2017-09-21T03:14:51.584Z</lastmod>
+    <data>
+        <display>
+        <title>new与malloc的区别详解</title>
+        <pubTime>2017-09-20T02:32:40.000Z</pubTime>
+        
+        <tag>C++</tag>
+         
+         
+           
+             
+              <breadCrumb title="C++" url="http://qisens.win/categories/C/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
     <loc>http://qisens.win/2017/int-to-str.html</loc>
-    <lastmod>2017-09-16T14:44:53.269Z</lastmod>
+    <lastmod>2017-09-16T14:47:09.492Z</lastmod>
     <data>
         <display>
         <title>C++字符串转数字,数字转字符串</title>
@@ -759,7 +800,6 @@
     </data>
     </url>
 
-    
     
     
     

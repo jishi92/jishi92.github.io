@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="C++," />
 
 
 
@@ -87,12 +87,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="你的征程是星辰大海">
-<meta property="og:url" content="http://qisens.win/tags/STL/index.html">
+<meta name="description" content="#define RADIUS 100;   const  float   RADIUS = 100;   (1) 编译器处理方式不同　　define宏是在预处理阶段展开。　　const常量是编译运行阶段使用。   (2) 类型和安全检查不同　　define宏没有类型，不做任何类型检查，仅仅是展开。　　const常量有具体的类型，在编译阶段会执行类型检查。   (3) 存储方式不同　　define宏">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="const常量与define宏定义的区别">
+<meta property="og:url" content="http://qisens.win/2017/const-define.html">
 <meta property="og:site_name" content="你的征程是星辰大海">
+<meta property="og:description" content="#define RADIUS 100;   const  float   RADIUS = 100;   (1) 编译器处理方式不同　　define宏是在预处理阶段展开。　　const常量是编译运行阶段使用。   (2) 类型和安全检查不同　　define宏没有类型，不做任何类型检查，仅仅是展开。　　const常量有具体的类型，在编译阶段会执行类型检查。   (3) 存储方式不同　　define宏">
+<meta property="og:updated_time" content="2017-09-21T10:54:55.339Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="你的征程是星辰大海">
+<meta name="twitter:title" content="const常量与define宏定义的区别">
+<meta name="twitter:description" content="#define RADIUS 100;   const  float   RADIUS = 100;   (1) 编译器处理方式不同　　define宏是在预处理阶段展开。　　const常量是编译运行阶段使用。   (2) 类型和安全检查不同　　define宏没有类型，不做任何类型检查，仅仅是展开。　　const常量有具体的类型，在编译阶段会执行类型检查。   (3) 存储方式不同　　define宏">
 
 
 
@@ -120,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://qisens.win/tags/STL/"/>
+  <link rel="canonical" href="http://qisens.win/2017/const-define.html"/>
 
 
 
 
 
-  <title> 标签: STL | 你的征程是星辰大海 </title>
+  <title> const常量与define宏定义的区别 | 你的征程是星辰大海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -151,7 +156,7 @@
     
   
 
-  <div class="container sidebar-position-right  ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -289,46 +294,225 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        STL
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://qisens.win/2017/const-define.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="羁士">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的征程是星辰大海">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                const常量与define宏定义的区别
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-21T18:50:29+08:00">
+                2017-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <pre><code>#define RADIUS 100;  
+const  float   RADIUS = 100;  
+</code></pre><h1 id="1-编译器处理方式不同"><a href="#1-编译器处理方式不同" class="headerlink" title="(1) 编译器处理方式不同"></a>(1) 编译器处理方式不同</h1><p>　　define宏是在预处理阶段展开。<br>　　const常量是编译运行阶段使用。  </p>
+<h1 id="2-类型和安全检查不同"><a href="#2-类型和安全检查不同" class="headerlink" title="(2) 类型和安全检查不同"></a>(2) 类型和安全检查不同</h1><p>　　define宏没有类型，不做任何类型检查，仅仅是展开。<br>　　const常量有具体的类型，在编译阶段会执行类型检查。  </p>
+<h1 id="3-存储方式不同"><a href="#3-存储方式不同" class="headerlink" title="(3) 存储方式不同"></a>(3) 存储方式不同</h1><p>　　define宏仅仅是展开，有多少地方使用，就展开多少次，不会分配内存。（宏定义不分配内存，变量定义分配内存。）<br>　　const常量会在内存中分配(可以是堆中也可以是栈中)。  </p>
+<h1 id="4-const-可以节省空间，避免不必要的内存分配。-例如："><a href="#4-const-可以节省空间，避免不必要的内存分配。-例如：" class="headerlink" title="(4)const  可以节省空间，避免不必要的内存分配。 例如："></a>(4)const  可以节省空间，避免不必要的内存分配。 例如：</h1><pre><code>#define PI 3.14159 //常量宏  
+const doulbe Pi=3.14159; //此时并未将Pi放入ROM中 ......  
+double i=Pi; //此时为Pi分配内存，以后不再分配！  
+double I=PI; //编译期间进行宏替换，分配内存  
+double j=Pi; //没有内存分配  
+double J=PI; //再进行宏替换，又一次分配内存！  
+const定义常量从汇编的角度来看，只是给出了对应的内存地址，而不是象#define一样给出的是立即数，所以，const定义的常量在程序运行过程中只有一份拷贝（因为是全局的只读变量，存在静态区），而 #define定义的常量在内存中有若干个拷贝。 
+</code></pre><h1 id="5-提高了效率。-编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。"><a href="#5-提高了效率。-编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。" class="headerlink" title="(5) 提高了效率。 编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。"></a>(5) 提高了效率。 编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。</h1><h1 id="6-宏替换只作替换，不做计算，不做表达式求解-宏预编译时就替换了，程序运行时，并不分配内存。"><a href="#6-宏替换只作替换，不做计算，不做表达式求解-宏预编译时就替换了，程序运行时，并不分配内存。" class="headerlink" title="(6) 宏替换只作替换，不做计算，不做表达式求解;宏预编译时就替换了，程序运行时，并不分配内存。"></a>(6) 宏替换只作替换，不做计算，不做表达式求解;宏预编译时就替换了，程序运行时，并不分配内存。</h1><h2 id="const-与-define的比较"><a href="#const-与-define的比较" class="headerlink" title="const 与 #define的比较"></a>const 与 #define的比较</h2><p> C++ 语言可以用const来定义常量，也可以用 #define来定义常量。但是前者比后者有更多的优点：</p>
+<p>（1）   const常量有数据类型，而宏常量没有数据类型。编译器可以对前者进行类型安全检查。而对后者只进行字符替换，没有类型安全检查，并且在字符替换可能会产生意料不到的错误（边际效应）。  </p>
+<p>（2）   有些集成化的调试工具可以对const常量进行调试，但是不能对宏常量进行调试。  </p>
+<p>###【规则5-2-1】在C++ 程序中只使用const常量而不使用宏常量，即const常量完全取代宏常量。</p>
+<p>###【规则5-3-1】需要对外公开的常量放在头文件中，不需要对外公开的常量放在定义文件的头部。为便于管理，可以把不同模块的常量集中存放在一个公共的头文件中。</p>
+<p>###【规则5-3-2】如果某一常量与其它常量密切相关，应在定义中包含这种关系，而不应给出一些孤立的值。</p>
+<p>例如：</p>
+<pre><code>const  float   RADIUS = 100;
+const  float   DIAMETER = RADIUS * 2;
+</code></pre><h3 id="类中的常量"><a href="#类中的常量" class="headerlink" title="类中的常量"></a>类中的常量</h3><p>有时我们希望某些常量只在类中有效。由于#define定义的宏常量是全局的，不能达到目的，于是想当然地觉得应该用const修饰数据成员来实现。const数据成员的确是存在的，但其含义却不是我们所期望的。const数据成员只在某个对象生存期内是常量，而对于整个类而言却是可变的，因为类可以创建多个对象，不同的对象其const数据成员的值可以不同。<br>不能在类声明中初始化const数据成员。以下用法是错误的，因为类的对象未被创建时，编译器不知道SIZE的值是什么。  </p>
+<pre><code>class A
+{…
+    const int SIZE = 100; // 错误，企图在类声明中初始化const数据成员
+    int array[SIZE];       // 错误，未知的SIZE
+};
+</code></pre><p>const数据成员的初始化只能在类构造函数的初始化表中进行，例如  </p>
+<pre><code>class A
+{…
+    A(int size);       // 构造函数
+    const int SIZE ;  
+};
+A::A(int size) : SIZE(size) // 构造函数的初始化表
+{
+  …
+}
+A  a(100);  // 对象 a 的SIZE值为100
+A  b(200);  // 对象 b 的SIZE值为200
+</code></pre><p>怎样才能建立在整个类中都恒定的常量呢？别指望const数据成员了，应该用类中的枚举常量来实现。例如</p>
+<pre><code>class A
+{…
+    enum { SIZE1 = 100, SIZE2 = 200}; //枚举常量
+    int array1[SIZE1];
+    int array2[SIZE2];
+};
+</code></pre><p>枚举常量不会占用对象的存储空间，它们在编译时被全部求值。枚举常量的缺点是：它的隐含数据类型是整数，其最大值有限，且不能表示浮点数（如PI=3.14159）。sizeof(A) = 1200;其中枚举部长空间。</p>
+<pre><code>enum   EM { SIZE1 = 100, SIZE2 = 200}; //枚举常量   sizeof（EM） = 4；
+</code></pre>
+      
+    </div>
 
-      <h1 class="post-title">
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/STL常见容器实现原理——vector-list.html" itemprop="url">
-              
-                <span itemprop="name">STL常见容器实现原理——vector,list等</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-01T11:31:09+08:00"
-              content="2017-09-01" >
-          09-01
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/new-malloc.html" rel="next" title="new与malloc的区别详解">
+                <i class="fa fa-chevron-left"></i> new与malloc的区别详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -336,6 +520,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -355,8 +543,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -438,6 +635,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-编译器处理方式不同"><span class="nav-number">1.</span> <span class="nav-text">(1) 编译器处理方式不同</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-类型和安全检查不同"><span class="nav-number">2.</span> <span class="nav-text">(2) 类型和安全检查不同</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-存储方式不同"><span class="nav-number">3.</span> <span class="nav-text">(3) 存储方式不同</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-const-可以节省空间，避免不必要的内存分配。-例如："><span class="nav-number">4.</span> <span class="nav-text">(4)const  可以节省空间，避免不必要的内存分配。 例如：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-提高了效率。-编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。"><span class="nav-number">5.</span> <span class="nav-text">(5) 提高了效率。 编译器通常不为普通const常量分配存储空间，而是将它们保存在符号表中，这使得它成为一个编译期间的常量，没有了存储与读内存的操作，使得它的效率也很高。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-宏替换只作替换，不做计算，不做表达式求解-宏预编译时就替换了，程序运行时，并不分配内存。"><span class="nav-number">6.</span> <span class="nav-text">(6) 宏替换只作替换，不做计算，不做表达式求解;宏预编译时就替换了，程序运行时，并不分配内存。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#const-与-define的比较"><span class="nav-number">6.1.</span> <span class="nav-text">const 与 #define的比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类中的常量"><span class="nav-number">6.1.1.</span> <span class="nav-text">类中的常量</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -554,6 +767,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 

@@ -1,5 +1,5 @@
+http://qisens.win/2017/const-define.html
+http://qisens.win/2017/new-malloc.html
 http://qisens.win/2017/SQL-view.html
 http://qisens.win/2017/int-to-str.html
 http://qisens.win/2017/STL常见容器实现原理——vector-list.html
-http://qisens.win/2017/静态库和动态库的区别.html
-http://qisens.win/2017/extern-C.html
